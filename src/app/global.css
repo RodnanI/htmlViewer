@@ -3,18 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb: 31, 41, 55;
   --background-rgb: 246, 248, 250;
+  --card-bg: 255, 255, 255;
+  --border-color: 229, 231, 235;
+}
+
+.dark {
+  --foreground-rgb: 249, 250, 251;
+  --background-rgb: 17, 24, 39;
+  --card-bg: 31, 41, 55;
+  --border-color: 55, 65, 81;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm transition-all duration-200 hover:shadow-md;
+    @apply bg-white dark:bg-dark-card rounded-lg border transition-all duration-200 hover:shadow-md;
+    @apply border-light-border dark:border-dark-border;
   }
   
   .btn {
@@ -22,10 +33,15 @@ body {
   }
   
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700;
+    @apply bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800;
   }
   
   .btn-ghost {
-    @apply text-gray-700 hover:bg-gray-100;
+    @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
   }
+}
+
+/* Additional dark mode styles */
+.dark code {
+  @apply bg-gray-800 text-gray-300;
 }

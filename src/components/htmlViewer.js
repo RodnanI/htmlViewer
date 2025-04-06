@@ -1,11 +1,18 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '../context/ThemeProvider';
 
 const HtmlViewer = ({ htmlContent }) => {
   const iframeRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { theme } = useTheme();
+
+  // We're not injecting theme styles to keep original HTML content appearance
+  const preserveOriginalStyles = () => {
+    // This is intentionally empty as we want to preserve the original HTML content styling
+  };
 
   useEffect(() => {
     if (!iframeRef.current || !htmlContent) return;
@@ -21,6 +28,8 @@ const HtmlViewer = ({ htmlContent }) => {
       iframeDoc.open();
       iframeDoc.write(htmlContent);
       iframeDoc.close();
+      
+      // Not injecting theme styles to preserve original content
       
       // Adjust iframe height based on content
       const resizeIframe = () => {
@@ -56,10 +65,13 @@ const HtmlViewer = ({ htmlContent }) => {
       setLoading(false);
     }
   }, [htmlContent]);
+  
+  // We're not updating theme in iframe when it changes to preserve original content
+  // This effect has been removed intentionally
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 text-red-800 rounded-md">
+      <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-md">
         <p className="font-medium">Error</p>
         <p className="text-sm mt-1">{error}</p>
       </div>
@@ -70,19 +82,20 @@ const HtmlViewer = ({ htmlContent }) => {
     <div className="html-viewer-container" style={{ width: '100%' }}>
       {loading && (
         <div className="flex justify-center items-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 dark:border-blue-400"></div>
         </div>
       )}
       <iframe 
         ref={iframeRef}
-        className="html-content-iframe"
+        className="html-content-iframe rounded-lg border border-light-border dark:border-dark-border"
         style={{
           width: '100%',
           minHeight: '80vh',
           border: 'none',
           overflow: 'auto',
           opacity: loading ? 0 : 1,
-          transition: 'opacity 0.3s ease'
+          transition: 'opacity 0.3s ease',
+          backgroundColor: 'white' // Always keep iframe background white regardless of theme
         }}
         title="HTML Content"
         sandbox="allow-same-origin allow-scripts allow-forms"

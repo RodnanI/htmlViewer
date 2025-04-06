@@ -1,5 +1,7 @@
 import './global.css';
 import { Inter } from 'next/font/google';
+import { ThemeProvider } from '../context/ThemeProvider';
+import ThemeToggle from '../components/ThemeToggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,22 +13,28 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#f6f8fa" />
+      </head>
       <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50">
-          <header className="bg-white border-b border-gray-200">
-            <div className="container mx-auto px-4 py-4">
-              <h1 className="text-xl font-semibold text-gray-800">HTML Viewer</h1>
-            </div>
-          </header>
-          <main className="w-full px-4 py-6">
-            {children}
-          </main>
-          <footer className="border-t border-gray-200 bg-white py-4">
-            <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-              HTML File Viewer &copy; {new Date().getFullYear()}
-            </div>
-          </footer>
-        </div>
+        <ThemeProvider>
+          <div className="min-h-screen bg-light-bg dark:bg-dark-bg">
+            <header className="bg-white dark:bg-dark-card border-b border-light-border dark:border-dark-border sticky top-0 z-10">
+              <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">HTML Viewer</h1>
+                <ThemeToggle />
+              </div>
+            </header>
+            <main className="w-full px-4 py-6">
+              {children}
+            </main>
+            <footer className="border-t border-light-border dark:border-dark-border bg-white dark:bg-dark-card py-4">
+              <div className="container mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                HTML File Viewer &copy; {new Date().getFullYear()}
+              </div>
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

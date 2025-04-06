@@ -20,7 +20,7 @@ export default function HtmlViewPage({ params }) {
       
       <div className="mb-4">
         <div className="flex items-center">
-          <h1 className="text-xl font-semibold text-gray-800">{`${slug}.html`}</h1>
+          <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">{`${slug}.html`}</h1>
         </div>
       </div>
       
