@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Flow - Yoga Sequence Generator</title>
+    <style>
+        :root {
+            --primary: #7E846B;
+            --secondary: #B7C4CF;
+            --accent: #D7A86E;
+            --light: #F5F2EB;
+            --dark: #2C3639;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background-color: #2C3639;
+            color: var(--light);
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,.075)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.2;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .subheading {
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .control-group {
+            background-color: #3A4750;
+        }
+
+        .control-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px var(--shadow);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        body.dark-mode h2 {
+            color: var(--accent);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode select, 
+        body.dark-mode input {
+            background-color: #2C3639;
+            color: var(--light);
+            border-color: #555;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(215, 168, 110, 0.2);
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #C99B5F;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background-color: var(--secondary);
+        }
+
+        button.secondary:hover {
+            background-color: #A6B3BE;
+        }
+
+        .button-group {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .sequence-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-top: 2rem;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        body.dark-mode .sequence-container {
+            background-color: #3A4750;
+        }
+
+        .sequence-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sequence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .sequence-header {
+            border-bottom-color: #555;
+        }
+
+        .sequence-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-pill {
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        body.dark-mode .info-pill {
+            background-color: #556270;
+            color: var(--light);
+        }
+
+        .info-pill:before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .pose-list {
+            list-style: none;
+        }
+
+        .pose-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .pose-item {
+            background-color: #2C3639;
+        }
+
+        .pose-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .pose-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .pose-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .pose-name {
+            color: var(--accent);
+        }
+
+        .pose-duration {
+            font-size: 0.9rem;
+            background-color: var(--light);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        body.dark-mode .pose-duration {
+            background-color: #3A4750;
+        }
+
+        .pose-description {
+            margin-bottom: 0.5rem;
+        }
+
+        .pose-benefits {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        body.dark-mode .pose-benefits {
+            color: #bbb;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .timer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            box-shadow: 0 4px 8px var(--shadow);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: var(--transition);
+        }
+
+        .timer.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 0.2rem;
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .breath-guide {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            height: 2rem;
+            opacity: 0;
+        }
+
+        .breath-guide.inhale {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        body.dark-mode .breath-guide.inhale {
+            color: var(--secondary);
+        }
+
+        .breath-guide.exhale {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .toggle-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+
+        .toggle-theme {
+            background-color: var(--secondary);
+            color: var(--dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+
+        .toggle-theme:hover {
+            transform: rotate(30deg);
+        }
+
+        body.dark-mode .toggle-theme {
+            background-color: var(--accent);
+            color: var(--light);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .music-button {
+            background-color: transparent;
+            color: var(--primary);
+            padding: 0.5rem;
+            margin: 0 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .music-button {
+            color: var(--light);
+        }
+
+        .music-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: scale(1.1);
+        }
+
+        body.dark-mode .music-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .music-volume {
+            width: 100px;
+            margin: 0 0.5rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .sequence-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sequence-header h2 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulseBreath {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.5s ease forwards;
+        }
+
+        .breathing-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin: 0 auto;
+            transition: transform 4s ease;
+        }
+
+        .breathing-circle.inhale {
+            transform: scale(1.5);
+            background-color: var(--primary);
+        }
+
+        .breathing-circle.exhale {
+            transform: scale(1);
+            background-color: var(--accent);
+        }
+
+        /* Added features */
+        .favorites {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .favorites.show {
+            max-height: 500px;
+            margin-top: 1.5rem;
+        }
+
+        .favorite-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .favorite-item {
+            background-color: #2C3639;
+        }
+
+        .favorite-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(3px);
+        }
+
+        body.dark-mode .favorite-item:hover {
+            background-color: #3A4750;
+        }
+
+        .pose-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .pose-viewer.show {
+            display: flex;
+        }
+
+        .pose-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        body.dark-mode .pose-card {
+            background-color: #3A4750;
+        }
+
+        .close-viewer {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        body.dark-mode .close-viewer {
+            color: var(--light);
+        }
+
+        .pose-image {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .pose-image {
+            background-color: #2C3639;
+        }
+
+        .stick-figure {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sequence-progress {
+            height: 5px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        body.dark-mode .sequence-progress {
+            background-color: #2C3639;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quotes-container {
+            text-align: center;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .quotes-container {
+            color: #bbb;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calendar-view {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .calendar-view.show {
+            max-height: 500px;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            padding: 0.5rem;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .calendar-day {
+            background-color: #2C3639;
+        }
+
+        .calendar-day:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .calendar-day.has-practice {
+            position: relative;
+        }
+
+        .calendar-day.has-practice:after {
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+
+        .exclusion-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .exclusion-container.show {
+            max-height: 300px;
+            margin-top: 1rem;
+        }
+
+        .exclusion-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .exclusion-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .exclusion-item input {
+            margin: 0;
+            margin-right: 0.5rem;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-container">
+        <div class="toggle-theme" id="toggle-theme">
+            ☀️
+        </div>
+    </div>
+
+    <header>
+        <h1 class="logo">Mindful Flow</h1>
+        <p class="subheading">Your personal yoga sequence generator</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <h2>Style</h2>
+                <label for="yoga-style">Choose Yoga Style:</label>
+                <select id="yoga-style">
+                    <option value="ashtanga">Ashtanga Flow</option>
+                    <option value="hatha">Hatha Yoga</option>
+                    <option value="vinyasa">Vinyasa Flow</option>
+                    <option value="yin">Yin Yoga</option>
+                    <option value="power">Power Yoga</option>
+                    <option value="restorative">Restorative Yoga</option>
+                </select>
+
+                <div class="style-description">
+                    <p>Ashtanga Flow: A dynamic, flowing practice with a set sequence of poses.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h2>Duration</h2>
+                <label for="duration">Session Length:</label>
+                <select id="duration">
+                    <option value="5">5 minutes</option>
+                    <option value="10">10 minutes</option>
+                    <option value="15">15 minutes</option>
+                    <option value="20" selected>20 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">60 minutes</option>
+                </select>
+
+                <label for="breath-count">Breaths per Pose:</label>
+                <select id="breath-count">
+                    <option value="3">3 breaths</option>
+                    <option value="5" selected>5 breaths</option>
+                    <option value="8">8 breaths</option>
+                    <option value="10">10 breaths</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <h2>Focus Area</h2>
+                <label for="focus-area">Target Area:</label>
+                <select id="focus-area">
+                    <option value="all">Full Body</option>
+                    <option value="core">Core Strength</option>
+                    <option value="upper">Upper Body</option>
+                    <option value="lower">Lower Body</option>
+                    <option value="flexibility">Flexibility</option>
+                    <option value="balance">Balance</option>
+                    <option value="relaxation">Relaxation</option>
+                </select>
+                
+                <div class="toggle-container-small">
+                    <label for="toggle-exclusions">Exclude Poses:</label>
+                    <button id="toggle-exclusions" class="secondary" type="button">Show Options</button>
+                </div>
+                
+                <div class="exclusion-container" id="exclusion-container">
+                    <div class="exclusion-group">
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-inversions" name="exclude-inversions">
+                            <label for="exclude-inversions">Inversions</label>
+                        </div>
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-backbends" name="exclude-backbends">
+                            <label for="exclude-backbends">Backbends</label>
+                        </div>
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-arm-balances" name="exclude-arm-balances">
+                            <label for="exclude-arm-balances">Arm Balances</label>
+                        </div>
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-twists" name="exclude-twists">
+                            <label for="exclude-twists">Twists</label>
+                        </div>
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-standing" name="exclude-standing">
+                            <label for="exclude-standing">Standing Poses</label>
+                        </div>
+                        <div class="exclusion-item">
+                            <input type="checkbox" id="exclude-seated" name="exclude-seated">
+                            <label for="exclude-seated">Seated Poses</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Experience Level</h2>
+                <label for="experience">Your Level:</label>
+                <select id="experience">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate" selected>Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+                
+                <div class="toggle-container-small">
+                    <label for="toggle-favorites">Saved Sequences:</label>
+                    <button id="toggle-favorites" class="secondary" type="button">Show Favorites</button>
+                </div>
+                
+                <div class="favorites" id="favorites-container">
+                    <div class="favorites-list" id="favorites-list">
+                        <p>No saved sequences yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="generate-btn">Generate Sequence</button>
+            <button id="save-btn" class="secondary">Save Sequence</button>
+            <button id="print-btn" class="secondary">Print Sequence</button>
+            <button id="toggle-calendar" class="secondary">Practice Calendar</button>
+        </div>
+        
+        <div class="calendar-view" id="calendar-view">
+            <h2>Your Practice Calendar</h2>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- JS will fill this with days -->
+            </div>
+        </div>
+
+        <div class="quotes-container" id="quotes-container">
+            <p id="random-quote">"Yoga is the journey of the self, through the self, to the self."</p>
+            <p class="quote-author">- The Bhagavad Gita</p>
+        </div>
+
+        <div class="sequence-container" id="sequence-container">
+            <div class="sequence-header">
+                <h2 id="sequence-title">Your Yoga Sequence</h2>
+                <div class="sequence-actions">
+                    <button id="start-practice" class="secondary">Start Practice</button>
+                </div>
+            </div>
+
+            <div class="sequence-info" id="sequence-info">
+                <div class="info-pill">Ashtanga Flow</div>
+                <div class="info-pill">20 minutes</div>
+                <div class="info-pill">Full Body</div>
+                <div class="info-pill">Intermediate</div>
+            </div>
+
+            <div class="sequence-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <div class="timer-container">
+                <div class="timer" id="timer">
+                    <div class="timer-display" id="timer-display">00:00</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+            </div>
+
+            <div class="breath-guide" id="breath-guide">Inhale...</div>
+            <div class="breathing-circle" id="breathing-circle"></div>
+
+            <div class="music-controls">
+                <button class="music-button" id="play-music">🎵</button>
+                <input type="range" min="0" max="100" value="50" class="music-volume" id="music-volume">
+                <button class="music-button" id="next-track">⏭️</button>
+            </div>
+
+            <ul class="pose-list" id="pose-list">
+                <!-- Poses will be added here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="pose-viewer" id="pose-viewer">
+        <div class="pose-card">
+            <button class="close-viewer" id="close-viewer">×</button>
+            <h2 id="viewer-pose-name">Pose Name</h2>
+            <div class="pose-image">
+                <svg id="stick-figure" width="100" height="150" viewBox="0 0 100 150" class="stick-figure">
+                    <!-- Stick figure will be dynamically updated -->
+                </svg>
+            </div>
+            <div id="viewer-pose-description">Pose description will appear here.</div>
+            <div id="viewer-pose-benefits" class="pose-benefits">Benefits will appear here.</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Mindful Flow &copy; 2025 - Find your inner balance</p>
+    </footer>
+
+    <script>
+        // Yoga Pose Database
+        const yogaPoses = {
+            ashtanga: [
+                {
+                    name: "Surya Namaskar A",
+                    sanskrit: "Surya Namaskar A",
+                    description: "A flowing sequence of 9 poses linked with breath.",
+                    benefits: "Warms up the body, increases circulation, and creates energy for practice.",
+                    duration: "1-2 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "standing"],
+                    type: "sequence",
+                    figure: "mountain",
+                    repetitions: 3
+                },
+                {
+                    name: "Surya Namaskar B",
+                    sanskrit: "Surya Namaskar B",
+                    description: "A more advanced sun salutation with chair pose and warrior I.",
+                    benefits: "Builds heat and strength, prepares for standing postures.",
+                    duration: "2-3 minutes",
+                    difficulty: "intermediate",
+                    category: ["all", "standing"],
+                    type: "sequence",
+                    figure: "chair",
+                    repetitions: 3
+                },
+                {
+                    name: "Padangusthasana",
+                    sanskrit: "Padangusthasana",
+                    description: "Standing forward fold with toes grip. Keep legs straight and fold from the hips.",
+                    benefits: "Stretches hamstrings and calves, calms the mind.",
+                    duration: "5 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "forward_bend", "flexibility"],
+                    type: "pose",
+                    figure: "forward_bend",
+                    repetitions: 1
+                },
+                {
+                    name: "Trikonasana",
+                    sanskrit: "Utthita Trikonasana",
+                    description: "Extended triangle pose with feet wide apart, one arm reaching up.",
+                    benefits: "Stretches the sides, improves balance and posture.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "balance", "side_bend"],
+                    type: "pose",
+                    figure: "triangle",
+                    repetitions: 2
+                },
+                {
+                    name: "Prasarita Padottanasana",
+                    sanskrit: "Prasarita Padottanasana",
+                    description: "Wide-legged forward fold, hands to the floor.",
+                    benefits: "Opens the hamstrings and inner thighs, calms the nervous system.",
+                    duration: "5 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "forward_bend", "flexibility"],
+                    type: "pose",
+                    figure: "wide_forward_bend",
+                    repetitions: 1
+                },
+                {
+                    name: "Parsvottanasana",
+                    sanskrit: "Parsvottanasana",
+                    description: "Intense side stretch pose, forward fold with hands in prayer behind back.",
+                    benefits: "Stretches the spine and shoulders, improves balance.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "forward_bend", "flexibility"],
+                    type: "pose",
+                    figure: "side_forward_bend",
+                    repetitions: 2
+                },
+                {
+                    name: "Utthita Hasta Padangusthasana",
+                    sanskrit: "Utthita Hasta Padangusthasana",
+                    description: "Extended hand-to-big-toe pose, standing balance with leg extended.",
+                    benefits: "Improves focus and balance, stretches hamstrings.",
+                    duration: "5 breaths per side",
+                    difficulty: "advanced",
+                    category: ["all", "standing", "balance", "flexibility"],
+                    type: "pose",
+                    figure: "hand_to_toe",
+                    repetitions: 2
+                },
+                {
+                    name: "Dandasana",
+                    sanskrit: "Dandasana",
+                    description: "Staff pose, seated with legs extended and spine straight.",
+                    benefits: "Improves posture and strengthens back muscles.",
+                    duration: "5 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "core"],
+                    type: "pose",
+                    figure: "staff",
+                    repetitions: 1
+                },
+                {
+                    name: "Paschimottanasana",
+                    sanskrit: "Paschimottanasana",
+                    description: "Seated forward bend, reaching for toes with straight legs.",
+                    benefits: "Stretches entire back body, calms the mind and nervous system.",
+                    duration: "5-10 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "forward_bend", "flexibility"],
+                    type: "pose",
+                    figure: "seated_forward_bend",
+                    repetitions: 1
+                },
+                {
+                    name: "Marichyasana A",
+                    sanskrit: "Marichyasana A",
+                    description: "Seated twist with one knee bent, binding arm around knee.",
+                    benefits: "Massages digestive organs, improves spinal mobility.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "seated", "twist"],
+                    type: "pose",
+                    figure: "seated_twist",
+                    repetitions: 2
+                },
+                {
+                    name: "Navasana",
+                    sanskrit: "Navasana",
+                    description: "Boat pose, balancing on sitting bones with legs lifted.",
+                    benefits: "Strengthens core and hip flexors, improves balance.",
+                    duration: "5 breaths, 3 sets",
+                    difficulty: "intermediate",
+                    category: ["all", "seated", "core", "balance"],
+                    type: "pose",
+                    figure: "boat",
+                    repetitions: 3
+                },
+                {
+                    name: "Urdhva Dhanurasana",
+                    sanskrit: "Urdhva Dhanurasana",
+                    description: "Upward bow pose (wheel), backbend from floor with hands and feet.",
+                    benefits: "Opens chest and shoulders, strengthens back and arms.",
+                    duration: "3-5 breaths, 3 sets",
+                    difficulty: "advanced",
+                    category: ["all", "backbend", "upper"],
+                    type: "pose",
+                    figure: "wheel",
+                    repetitions: 3
+                },
+                {
+                    name: "Sirsasana",
+                    sanskrit: "Sirsasana",
+                    description: "Headstand, supported with forearms on the ground.",
+                    benefits: "Improves focus, strengthens upper body, stimulates circulation.",
+                    duration: "10-25 breaths",
+                    difficulty: "advanced",
+                    category: ["all", "inversion", "balance", "upper"],
+                    type: "pose",
+                    figure: "headstand",
+                    repetitions: 1
+                },
+                {
+                    name: "Sarvangasana",
+                    sanskrit: "Sarvangasana",
+                    description: "Shoulder stand, entire body supported on shoulders.",
+                    benefits: "Calms the mind, regulates thyroid, improves circulation.",
+                    duration: "10-25 breaths",
+                    difficulty: "intermediate",
+                    category: ["all", "inversion", "balance"],
+                    type: "pose",
+                    figure: "shoulder_stand",
+                    repetitions: 1
+                },
+                {
+                    name: "Savasana",
+                    sanskrit: "Savasana",
+                    description: "Corpse pose, lying flat on back completely relaxed.",
+                    benefits: "Deep relaxation, integration of practice, reduces stress.",
+                    duration: "3-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ],
+            hatha: [
+                {
+                    name: "Mountain Pose",
+                    sanskrit: "Tadasana",
+                    description: "Standing tall with feet together, arms at sides or overhead.",
+                    benefits: "Improves posture, strengthens thighs, aligns the body.",
+                    duration: "5 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "standing"],
+                    type: "pose",
+                    figure: "mountain",
+                    repetitions: 1
+                },
+                {
+                    name: "Tree Pose",
+                    sanskrit: "Vrksasana",
+                    description: "Standing on one leg with the other foot placed on inner thigh.",
+                    benefits: "Improves balance, strengthens ankles and calves.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "balance"],
+                    type: "pose",
+                    figure: "tree",
+                    repetitions: 2
+                },
+                {
+                    name: "Warrior I",
+                    sanskrit: "Virabhadrasana I",
+                    description: "Lunge with back foot angled, arms raised overhead.",
+                    benefits: "Strengthens legs, opens hips and chest.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "strength"],
+                    type: "pose",
+                    figure: "warrior1",
+                    repetitions: 2
+                },
+                {
+                    name: "Warrior II",
+                    sanskrit: "Virabhadrasana II",
+                    description: "Legs wide, front knee bent, arms extended to sides.",
+                    benefits: "Builds leg strength, opens hips, improves concentration.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "strength"],
+                    type: "pose",
+                    figure: "warrior2",
+                    repetitions: 2
+                },
+                {
+                    name: "Triangle Pose",
+                    sanskrit: "Trikonasana",
+                    description: "Legs wide, torso extended to side with bottom hand to floor.",
+                    benefits: "Stretches legs, spine, and sides, improves digestion.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "side_bend"],
+                    type: "pose",
+                    figure: "triangle",
+                    repetitions: 2
+                },
+                {
+                    name: "Child's Pose",
+                    sanskrit: "Balasana",
+                    description: "Resting pose, knees wide, torso folded forward, arms extended.",
+                    benefits: "Gentle stretch for back, hips; calms mind.",
+                    duration: "5-10 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "relaxation", "forward_bend"],
+                    type: "pose",
+                    figure: "child",
+                    repetitions: 1
+                },
+                {
+                    name: "Cat-Cow Stretch",
+                    sanskrit: "Marjaryasana-Bitilasana",
+                    description: "On hands and knees, alternating between arching and rounding spine.",
+                    benefits: "Warms up spine, improves posture and breath awareness.",
+                    duration: "5-10 rounds",
+                    difficulty: "beginner",
+                    category: ["all", "core", "flexibility"],
+                    type: "sequence",
+                    figure: "cat",
+                    repetitions: 8
+                },
+                {
+                    name: "Downward Facing Dog",
+                    sanskrit: "Adho Mukha Svanasana",
+                    description: "Inverted V shape with hands and feet on floor, hips high.",
+                    benefits: "Full body stretch, strengthens arms and legs, energizes.",
+                    duration: "5-10 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "inversion", "upper", "flexibility"],
+                    type: "pose",
+                    figure: "downdog",
+                    repetitions: 1
+                },
+                {
+                    name: "Cobra Pose",
+                    sanskrit: "Bhujangasana",
+                    description: "Lying on stomach, lifting chest with hands under shoulders.",
+                    benefits: "Strengthens spine, opens chest, stimulates organs.",
+                    duration: "5 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "upper"],
+                    type: "pose",
+                    figure: "cobra",
+                    repetitions: 1
+                },
+                {
+                    name: "Bridge Pose",
+                    sanskrit: "Setu Bandha Sarvangasana",
+                    description: "Lying on back, lifting hips with feet flat on floor.",
+                    benefits: "Strengthens back, glutes and legs; opens chest.",
+                    duration: "5 breaths, 2-3 sets",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "lower"],
+                    type: "pose",
+                    figure: "bridge",
+                    repetitions: 2
+                },
+                {
+                    name: "Seated Forward Bend",
+                    sanskrit: "Paschimottanasana",
+                    description: "Sitting with legs extended, folding forward from hips.",
+                    benefits: "Stretches entire back body, calms nervous system.",
+                    duration: "5-10 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "forward_bend", "flexibility"],
+                    type: "pose",
+                    figure: "seated_forward_bend",
+                    repetitions: 1
+                },
+                {
+                    name: "Seated Twist",
+                    sanskrit: "Ardha Matsyendrasana",
+                    description: "Seated with one leg crossed, twisting toward bent knee.",
+                    benefits: "Improves digestion, spinal mobility; detoxifying.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "twist"],
+                    type: "pose",
+                    figure: "seated_twist",
+                    repetitions: 2
+                },
+                {
+                    name: "Happy Baby",
+                    sanskrit: "Ananda Balasana",
+                    description: "Lying on back, holding feet with knees toward armpits.",
+                    benefits: "Opens hips and inner thighs, relieves lower back tension.",
+                    duration: "5-8 breaths",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation", "flexibility"],
+                    type: "pose",
+                    figure: "happy_baby",
+                    repetitions: 1
+                },
+                {
+                    name: "Legs Up The Wall",
+                    sanskrit: "Viparita Karani",
+                    description: "Lying on back with legs extended up against wall.",
+                    benefits: "Gentle inversion, relieves leg fatigue, calming.",
+                    duration: "1-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "inversion", "relaxation"],
+                    type: "pose",
+                    figure: "legs_wall",
+                    repetitions: 1
+                },
+                {
+                    name: "Corpse Pose",
+                    sanskrit: "Savasana",
+                    description: "Lying flat on back, arms and legs relaxed outward.",
+                    benefits: "Deep relaxation, stress reduction, practice integration.",
+                    duration: "3-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ],
+            vinyasa: [
+                {
+                    name: "Sun Salutation",
+                    sanskrit: "Surya Namaskar",
+                    description: "Flowing sequence linking breath to movement through various poses.",
+                    benefits: "Warms the body, increases circulation, builds heat.",
+                    duration: "2-3 minutes per round",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "sequence"],
+                    type: "sequence",
+                    figure: "sun_salutation",
+                    repetitions: 3
+                },
+                {
+                    name: "Crescent Lunge",
+                    sanskrit: "Anjaneyasana",
+                    description: "Low lunge with back knee down, arms reaching overhead.",
+                    benefits: "Opens hip flexors, stretches quads, builds leg strength.",
+                    duration: "5 breaths per side",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "strength", "flexibility"],
+                    type: "pose",
+                    figure: "crescent",
+                    repetitions: 2
+                },
+                {
+                    name: "Warrior III",
+                    sanskrit: "Virabhadrasana III",
+                    description: "Balancing on one leg with body parallel to floor, arms extended.",
+                    benefits: "Improves balance and focus, strengthens legs and core.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "balance", "strength"],
+                    type: "pose",
+                    figure: "warrior3",
+                    repetitions: 2
+                },
+                {
+                    name: "Side Plank",
+                    sanskrit: "Vasisthasana",
+                    description: "Balancing on one hand and foot with body in straight line.",
+                    benefits: "Strengthens arms, wrists, and core; improves balance.",
+                    duration: "3-5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "arm_balance", "core", "balance"],
+                    type: "pose",
+                    figure: "side_plank",
+                    repetitions: 2
+                },
+                {
+                    name: "Revolved Chair",
+                    sanskrit: "Parivrtta Utkatasana",
+                    description: "Chair pose with a twist, prayer hands to opposite knee.",
+                    benefits: "Strengthens legs, detoxifies organs, improves digestion.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "twist", "strength"],
+                    type: "pose",
+                    figure: "revolved_chair",
+                    repetitions: 2
+                },
+                {
+                    name: "Half Moon",
+                    sanskrit: "Ardha Chandrasana",
+                    description: "Balancing on one leg with body parallel to floor, hand to floor.",
+                    benefits: "Strengthens legs and ankles, improves coordination.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "balance"],
+                    type: "pose",
+                    figure: "half_moon",
+                    repetitions: 2
+                },
+                {
+                    name: "Plank to Chaturanga Flow",
+                    sanskrit: "Phalakasana to Chaturanga",
+                    description: "Flowing between plank and low push-up position.",
+                    benefits: "Builds upper body and core strength.",
+                    duration: "5-10 repetitions",
+                    difficulty: "intermediate",
+                    category: ["all", "core", "upper", "strength"],
+                    type: "sequence",
+                    figure: "plank",
+                    repetitions: 8
+                },
+                {
+                    name: "Upward Facing Dog",
+                    sanskrit: "Urdhva Mukha Svanasana",
+                    description: "Prone backbend with straightened arms, thighs off floor.",
+                    benefits: "Strengthens spine, opens chest, energizes body.",
+                    duration: "3-5 breaths",
+                    difficulty: "intermediate",
+                    category: ["all", "backbend", "upper"],
+                    type: "pose",
+                    figure: "updog",
+                    repetitions: 1
+                },
+                {
+                    name: "Eagle Pose",
+                    sanskrit: "Garudasana",
+                    description: "Standing with legs and arms wrapped, one foot balanced.",
+                    benefits: "Improves concentration, strengthens legs, stretches shoulders.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "balance", "flexibility"],
+                    type: "pose",
+                    figure: "eagle",
+                    repetitions: 2
+                },
+                {
+                    name: "Pigeon Pose",
+                    sanskrit: "Eka Pada Rajakapotasana",
+                    description: "Hip opener with one leg forward bent, one extended back.",
+                    benefits: "Deep hip opener, relieves sciatic pain, calms mind.",
+                    duration: "5-10 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "seated", "flexibility"],
+                    type: "pose",
+                    figure: "pigeon",
+                    repetitions: 2
+                },
+                {
+                    name: "Camel Pose",
+                    sanskrit: "Ustrasana",
+                    description: "Kneeling backbend, reaching back for heels.",
+                    benefits: "Opens chest and shoulders, strengthens back, stimulates organs.",
+                    duration: "3-5 breaths",
+                    difficulty: "intermediate",
+                    category: ["all", "backbend", "flexibility"],
+                    type: "pose",
+                    figure: "camel",
+                    repetitions: 1
+                },
+                {
+                    name: "Crow Pose",
+                    sanskrit: "Bakasana",
+                    description: "Arm balance with knees on elbows, feet lifted.",
+                    benefits: "Builds arm and core strength, improves balance and focus.",
+                    duration: "3-5 breaths",
+                    difficulty: "advanced",
+                    category: ["all", "arm_balance", "core", "balance"],
+                    type: "pose",
+                    figure: "crow",
+                    repetitions: 1
+                },
+                {
+                    name: "Revolved Triangle",
+                    sanskrit: "Parivrtta Trikonasana",
+                    description: "Triangle pose with a twist, rotating torso toward front leg.",
+                    benefits: "Detoxifies organs, improves spinal mobility, stretches hamstrings.",
+                    duration: "5 breaths per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "twist", "flexibility"],
+                    type: "pose",
+                    figure: "revolved_triangle",
+                    repetitions: 2
+                },
+                {
+                    name: "Fish Pose",
+                    sanskrit: "Matsyasana",
+                    description: "Backbend while lying down, chest lifted, crown of head to floor.",
+                    benefits: "Opens chest and throat, improves posture.",
+                    duration: "5 breaths",
+                    difficulty: "intermediate",
+                    category: ["all", "backbend", "flexibility"],
+                    type: "pose",
+                    figure: "fish",
+                    repetitions: 1
+                },
+                {
+                    name: "Savasana",
+                    sanskrit: "Savasana",
+                    description: "Corpse pose, lying flat with complete relaxation.",
+                    benefits: "Deep relaxation, stress reduction, practice integration.",
+                    duration: "3-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ],
+            yin: [
+                {
+                    name: "Butterfly Pose",
+                    sanskrit: "Baddha Konasana",
+                    description: "Seated with soles of feet together, forward fold.",
+                    benefits: "Opens hips and groin, stretches inner thighs and low back.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "butterfly",
+                    repetitions: 1
+                },
+                {
+                    name: "Dragon Pose",
+                    sanskrit: "Utthan Pristhasana",
+                    description: "Low lunge variation with front knee bent, back leg extended.",
+                    benefits: "Opens hip flexors deeply, brings awareness to breath.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "dragon",
+                    repetitions: 2
+                },
+                {
+                    name: "Saddle Pose",
+                    sanskrit: "Supta Virasana",
+                    description: "Kneeling with legs wide, lying back between feet.",
+                    benefits: "Opens quads, improves circulation to legs, stimulates organs.",
+                    duration: "3-5 minutes",
+                    difficulty: "intermediate",
+                    category: ["all", "flexibility", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "saddle",
+                    repetitions: 1
+                },
+                {
+                    name: "Caterpillar Pose",
+                    sanskrit: "Paschimottanasana",
+                    description: "Seated forward fold with rounded back.",
+                    benefits: "Stretches entire back body, stimulates kidneys, calms mind.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "forward_bend", "relaxation"],
+                    type: "pose",
+                    figure: "caterpillar",
+                    repetitions: 1
+                },
+                {
+                    name: "Sphinx Pose",
+                    sanskrit: "Salamba Bhujangasana",
+                    description: "Gentle backbend on forearms with legs extended.",
+                    benefits: "Stimulates spine, aids digestion, opens chest.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "sphinx",
+                    repetitions: 1
+                },
+                {
+                    name: "Seal Pose",
+                    sanskrit: "Yin Bhujangasana",
+                    description: "Deeper backbend variation of Sphinx, on hands.",
+                    benefits: "Opens chest more deeply, stimulates organs.",
+                    duration: "2-3 minutes",
+                    difficulty: "intermediate",
+                    category: ["all", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "seal",
+                    repetitions: 1
+                },
+                {
+                    name: "Sleeping Swan",
+                    sanskrit: "Yin Eka Pada Rajakapotasana",
+                    description: "Pigeon pose variation, folding forward over front leg.",
+                    benefits: "Deep release in hip joint, calms nervous system.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "intermediate",
+                    category: ["all", "seated", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "sleeping_swan",
+                    repetitions: 2
+                },
+                {
+                    name: "Banana Pose",
+                    sanskrit: "Tiryaka Tadasana variation",
+                    description: "Side bend while lying on back, body curved like a banana.",
+                    benefits: "Stretches entire side body, including intercostal muscles.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "side_bend", "relaxation"],
+                    type: "pose",
+                    figure: "banana",
+                    repetitions: 2
+                },
+                {
+                    name: "Deer Pose",
+                    sanskrit: "Mrga Asana",
+                    description: "Seated with one leg forward, one back in wide angle.",
+                    benefits: "Opens hips in different direction, releases sacrum.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "deer",
+                    repetitions: 2
+                },
+                {
+                    name: "Shoelace Pose",
+                    sanskrit: "Gomukhasana variation",
+                    description: "Seated with legs crossed tightly, one knee on top of other.",
+                    benefits: "Opens hips and IT bands, creates balance in pelvis.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "intermediate",
+                    category: ["all", "seated", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "shoelace",
+                    repetitions: 2
+                },
+                {
+                    name: "Melting Heart",
+                    sanskrit: "Anahatasana",
+                    description: "Heart-opening pose on hands and knees, sinking chest to floor.",
+                    benefits: "Opens heart and shoulders, stimulates heart meridian.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "forward_bend", "relaxation"],
+                    type: "pose",
+                    figure: "melting_heart",
+                    repetitions: 1
+                },
+                {
+                    name: "Snail Pose",
+                    sanskrit: "Halasana variation",
+                    description: "Gentle plow pose with knees bent beside ears.",
+                    benefits: "Calms nervous system, stretches back, relieves tension.",
+                    duration: "2-3 minutes",
+                    difficulty: "intermediate",
+                    category: ["all", "inversion", "relaxation"],
+                    type: "pose",
+                    figure: "snail",
+                    repetitions: 1
+                },
+                {
+                    name: "Half Butterfly",
+                    sanskrit: "Janu Sirsasana variation",
+                    description: "One leg extended, other foot to inner thigh, side bend.",
+                    benefits: "Releases side body, inner thigh, and hip.",
+                    duration: "2-3 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "seated", "side_bend", "relaxation"],
+                    type: "pose",
+                    figure: "half_butterfly",
+                    repetitions: 2
+                },
+                {
+                    name: "Reclined Twist",
+                    sanskrit: "Supta Jathara Parivartanasana",
+                    description: "Lying on back, knees to one side, arms extended.",
+                    benefits: "Releases tension in spine and digestive organs.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "twist", "relaxation"],
+                    type: "pose",
+                    figure: "reclined_twist",
+                    repetitions: 2
+                },
+                {
+                    name: "Savasana",
+                    sanskrit: "Savasana",
+                    description: "Corpse pose with complete relaxation of body and mind.",
+                    benefits: "Deep relaxation, integration of practice effects.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ],
+            power: [
+                {
+                    name: "Sun Salutation A",
+                    sanskrit: "Surya Namaskar A",
+                    description: "Classic sun salutation with emphasis on muscle engagement.",
+                    benefits: "Warms up body, builds heat, increases heart rate.",
+                    duration: "5 full rounds",
+                    difficulty: "beginner",
+                    category: ["all", "standing", "sequence"],
+                    type: "sequence",
+                    figure: "sun_salutation",
+                    repetitions: 5
+                },
+                {
+                    name: "Sun Salutation B",
+                    sanskrit: "Surya Namaskar B",
+                    description: "Advanced sun salutation including chair and warrior poses.",
+                    benefits: "Builds strength and heat, prepares for more challenging poses.",
+                    duration: "5 full rounds",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "sequence"],
+                    type: "sequence",
+                    figure: "sun_salutation_b",
+                    repetitions: 5
+                },
+                {
+                    name: "Warrior I Flow",
+                    sanskrit: "Virabhadrasana I Vinyasa",
+                    description: "Dynamic flow into and out of Warrior I with strong movements.",
+                    benefits: "Builds leg strength, opens hips and chest.",
+                    duration: "10 repetitions per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "strength"],
+                    type: "sequence",
+                    figure: "warrior1",
+                    repetitions: 10
+                },
+                {
+                    name: "Warrior II Pulse",
+                    sanskrit: "Virabhadrasana II Pulse",
+                    description: "Warrior II with pulsing movement in the bent knee.",
+                    benefits: "Builds quad strength, endurance, and mental focus.",
+                    duration: "10 pulses, 3 sets per side",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "strength"],
+                    type: "sequence",
+                    figure: "warrior2",
+                    repetitions: 3
+                },
+                {
+                    name: "High Lunge Twist",
+                    sanskrit: "Parivrtta Anjaneyasana",
+                    description: "High lunge with torso twist toward front leg.",
+                    benefits: "Builds leg strength, opens shoulders, improves balance.",
+                    duration: "5 breaths per side, 3 sets",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "twist", "strength"],
+                    type: "pose",
+                    figure: "lunge_twist",
+                    repetitions: 6
+                },
+                {
+                    name: "Chatururanga Push-Ups",
+                    sanskrit: "Chaturanga Dandasana",
+                    description: "Flowing between plank and low push-up position with control.",
+                    benefits: "Builds arm, shoulder, and core strength.",
+                    duration: "10-15 repetitions, 3 sets",
+                    difficulty: "intermediate",
+                    category: ["all", "upper", "core", "strength"],
+                    type: "sequence",
+                    figure: "chataranga",
+                    repetitions: 3
+                },
+                {
+                    name: "Power Plank Series",
+                    sanskrit: "Phalakasana Series",
+                    description: "Series of plank variations including knee to elbow touches.",
+                    benefits: "Comprehensive core strengthening, improves stability.",
+                    duration: "1-2 minutes continuous",
+                    difficulty: "intermediate",
+                    category: ["all", "core", "upper", "strength"],
+                    type: "sequence",
+                    figure: "plank",
+                    repetitions: 1
+                },
+                {
+                    name: "Chair Pose Series",
+                    sanskrit: "Utkatasana Series",
+                    description: "Chair pose with dynamic arm movements and pulses.",
+                    benefits: "Builds leg and core strength, improves heat and endurance.",
+                    duration: "1 minute continuous",
+                    difficulty: "intermediate",
+                    category: ["all", "standing", "strength"],
+                    type: "sequence",
+                    figure: "chair",
+                    repetitions: 1
+                },
+                {
+                    name: "Boat Pose Variations",
+                    sanskrit: "Navasana Variations",
+                    description: "Boat pose with leg extensions and v-sit variations.",
+                    benefits: "Intensely strengthens core and hip flexors.",
+                    duration: "10 repetitions, 3 sets",
+                    difficulty: "advanced",
+                    category: ["all", "core", "strength"],
+                    type: "sequence",
+                    figure: "boat",
+                    repetitions: 3
+                },
+                {
+                    name: "Side Plank Lifts",
+                    sanskrit: "Vasisthasana with Lifts",
+                    description: "Side plank with top leg lifting up and down.",
+                    benefits: "Strengthens obliques, shoulders, and outer thighs.",
+                    duration: "10 lifts per side, 2 sets",
+                    difficulty: "advanced",
+                    category: ["all", "core", "balance", "strength"],
+                    type: "sequence",
+                    figure: "side_plank",
+                    repetitions: 4
+                },
+                {
+                    name: "Crow Pose Holds",
+                    sanskrit: "Bakasana Holds",
+                    description: "Crow pose with focused hold and small movements.",
+                    benefits: "Builds arm and core strength, improves balance.",
+                    duration: "30-second holds, 3 sets",
+                    difficulty: "advanced",
+                    category: ["all", "arm_balance", "core", "strength"],
+                    type: "pose",
+                    figure: "crow",
+                    repetitions: 3
+                },
+                {
+                    name: "Power Lunges",
+                    sanskrit: "Ashta Chandrasana variations",
+                    description: "Dynamic high lunge variations with jumps and switches.",
+                    benefits: "Builds explosive strength, improves coordination and balance.",
+                    duration: "10 repetitions per side",
+                    difficulty: "advanced",
+                    category: ["all", "standing", "strength"],
+                    type: "sequence",
+                    figure: "high_lunge",
+                    repetitions: 2
+                },
+                {
+                    name: "Forearm Plank Core Series",
+                    sanskrit: "Makara Adho Mukha Svanasana Series",
+                    description: "Forearm plank with hip dips and variations.",
+                    benefits: "Deep core strengthening, improves shoulder stability.",
+                    duration: "1 minute continuous",
+                    difficulty: "intermediate",
+                    category: ["all", "core", "upper", "strength"],
+                    type: "sequence",
+                    figure: "dolphin_plank",
+                    repetitions: 1
+                },
+                {
+                    name: "Warrior III Airplane",
+                    sanskrit: "Virabhadrasana III to Dekasana",
+                    description: "Flow between Warrior III and Airplane pose variations.",
+                    benefits: "Improves balance, core strength, and hamstring flexibility.",
+                    duration: "30 seconds per side, 2 sets",
+                    difficulty: "advanced",
+                    category: ["all", "standing", "balance", "strength"],
+                    type: "sequence",
+                    figure: "warrior3",
+                    repetitions: 4
+                },
+                {
+                    name: "Savasana",
+                    sanskrit: "Savasana",
+                    description: "Final relaxation after intense practice.",
+                    benefits: "Allows muscles to recover, integrates practice benefits.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ],
+            restorative: [
+                {
+                    name: "Supported Child's Pose",
+                    sanskrit: "Salamba Balasana",
+                    description: "Child's pose with bolster or pillows under torso for support.",
+                    benefits: "Gently stretches back, hips; deeply relaxing for nervous system.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "forward_bend", "relaxation"],
+                    type: "pose",
+                    figure: "child",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Bridge Pose",
+                    sanskrit: "Salamba Setu Bandha Sarvangasana",
+                    description: "Bridge pose with block or bolster under sacrum for support.",
+                    benefits: "Gentle chest opener, reduces anxiety, calms nervous system.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "bridge",
+                    repetitions: 1
+                },
+                {
+                    name: "Reclining Bound Angle",
+                    sanskrit: "Supta Baddha Konasana",
+                    description: "Lying on back with soles of feet together, knees wide.",
+                    benefits: "Opens hips and groin, stimulates abdominal organs.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "reclined_butterfly",
+                    repetitions: 1
+                },
+                {
+                    name: "Legs Up The Wall",
+                    sanskrit: "Viparita Karani",
+                    description: "Lying on back with legs extended up wall, pelvis supported.",
+                    benefits: "Relieves tired legs, calms mind, gentle inversion benefits.",
+                    duration: "5-15 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "inversion", "relaxation"],
+                    type: "pose",
+                    figure: "legs_wall",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Reclining Twist",
+                    sanskrit: "Salamba Jathara Parivartanasana",
+                    description: "Gentle supine twist with bolster or pillow support.",
+                    benefits: "Releases spinal tension, aids digestion, deeply relaxing.",
+                    duration: "3-5 minutes per side",
+                    difficulty: "beginner",
+                    category: ["all", "twist", "relaxation"],
+                    type: "pose",
+                    figure: "reclined_twist",
+                    repetitions: 2
+                },
+                {
+                    name: "Supported Heart Opener",
+                    sanskrit: "Salamba Matsyasana",
+                    description: "Reclined backbend over bolster placed along spine.",
+                    benefits: "Opens chest, counters computer posture, uplifts mood.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "heart_opener",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Forward Fold",
+                    sanskrit: "Salamba Paschimottanasana",
+                    description: "Seated forward fold with head and torso supported on bolster.",
+                    benefits: "Calms nervous system, stretches back body gently.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "forward_bend", "relaxation"],
+                    type: "pose",
+                    figure: "supported_forward",
+                    repetitions: 1
+                },
+                {
+                    name: "Side-Lying Relaxation",
+                    sanskrit: "Parsva Savasana",
+                    description: "Resting in fetal position with pillow support.",
+                    benefits: "Deeply relaxing, good alternative to savasana.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "side_lying",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Prone Relaxation",
+                    sanskrit: "Salamba Makarasana",
+                    description: "Lying on stomach with head turned to side, supported by bolster.",
+                    benefits: "Relaxes back, opens shoulders gently.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "crocodile",
+                    repetitions: 1
+                },
+                {
+                    name: "Extended Puppy Pose",
+                    sanskrit: "Uttana Shishosana",
+                    description: "Heart-melting pose with chest lowered, hips up.",
+                    benefits: "Gently opens shoulders and upper back, calming.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "forward_bend", "relaxation"],
+                    type: "pose",
+                    figure: "puppy",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Wide-Angle Forward Bend",
+                    sanskrit: "Salamba Upavistha Konasana",
+                    description: "Seated wide-legged forward fold with bolster support.",
+                    benefits: "Opens inner thighs, relaxes back, calming effect.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "forward_bend", "flexibility", "relaxation"],
+                    type: "pose",
+                    figure: "wide_angle",
+                    repetitions: 1
+                },
+                {
+                    name: "Supported Fish Pose",
+                    sanskrit: "Salamba Matsyasana",
+                    description: "Gentle backbend over bolster or block under upper back.",
+                    benefits: "Opens chest without effort, aids breathing.",
+                    duration: "3-5 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "backbend", "relaxation"],
+                    type: "pose",
+                    figure: "fish",
+                    repetitions: 1
+                },
+                {
+                    name: "Constructive Rest Pose",
+                    sanskrit: "Constructive Rest",
+                    description: "Lying on back with knees bent, feet flat on floor hip-width apart.",
+                    benefits: "Relaxes psoas muscle, relieves lower back tension.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "constructive_rest",
+                    repetitions: 1
+                },
+                {
+                    name: "Waterfall Pose",
+                    sanskrit: "Viparita Karani variation",
+                    description: "Legs up wall variation with distance from wall, bent knees.",
+                    benefits: "Gentle inversion, deeply calming, aids circulation.",
+                    duration: "5-10 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "inversion", "relaxation"],
+                    type: "pose",
+                    figure: "waterfall",
+                    repetitions: 1
+                },
+                {
+                    name: "Savasana with Support",
+                    sanskrit: "Salamba Savasana",
+                    description: "Corpse pose with bolster under knees, small pillow under head.",
+                    benefits: "Complete relaxation, stress relief, practice integration.",
+                    duration: "10-20 minutes",
+                    difficulty: "beginner",
+                    category: ["all", "relaxation"],
+                    type: "pose",
+                    figure: "corpse",
+                    repetitions: 1
+                }
+            ]
+        };
+
+        // Yoga Quotes Database
+        const yogaQuotes = [
+            {
+                quote: "Yoga is the journey of the self, through the self, to the self.",
+                author: "The Bhagavad Gita"
+            },
+            {
+                quote: "The nature of yoga is to shine the light of awareness into the darkest corners of the body.",
+                author: "Jason Crandell"
+            },
+            {
+                quote: "Yoga is not about touching your toes, it's about what you learn on the way down.",
+                author: "Judith Hanson Lasater"
+            },
+            {
+                quote: "Yoga teaches us to cure what need not be endured and endure what cannot be cured.",
+                author: "B.K.S. Iyengar"
+            },
+            {
+                quote: "Yoga is the perfect opportunity to be curious about who you are.",
+                author: "Jason Crandell"
+            },
+            {
+                quote: "The body benefits from movement, and the mind benefits from stillness.",
+                author: "Sakyong Mipham"
+            },
+            {
+                quote: "Yoga begins with listening. When we listen, we are giving space to what is.",
+                author: "Richard Freeman"
+            },
+            {
+                quote: "Inhale the future, exhale the past.",
+                author: "Unknown"
+            },
+            {
+                quote: "The pose begins when you want to leave it.",
+                author: "Baron Baptiste"
+            },
+            {
+                quote: "Yoga is not a work-out, it is a work-in.",
+                author: "Rolf Gates"
+            },
+            {
+                quote: "Move your joints every day. You have to find your own tricks. Bury your mind deep in your heart, and watch the body move by itself.",
+                author: "Sri K. Pattabhi Jois"
+            },
+            {
+                quote: "Yoga adds years to your life, and life to your years.",
+                author: "Alan Finger"
+            }
+        ];
+
+        // DOM Elements
+        const generateBtn = document.getElementById('generate-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const printBtn = document.getElementById('print-btn');
+        const startPracticeBtn = document.getElementById('start-practice');
+        const toggleThemeBtn = document.getElementById('toggle-theme');
+        const sequenceContainer = document.getElementById('sequence-container');
+        const poseList = document.getElementById('pose-list');
+        const sequenceInfo = document.getElementById('sequence-info');
+        const sequenceTitle = document.getElementById('sequence-title');
+        const toggleFavoritesBtn = document.getElementById('toggle-favorites');
+        const favoritesContainer = document.getElementById('favorites-container');
+        const favoritesListEl = document.getElementById('favorites-list');
+        const yogaStyleSelect = document.getElementById('yoga-style');
+        const durationSelect = document.getElementById('duration');
+        const focusAreaSelect = document.getElementById('focus-area');
+        const experienceSelect = document.getElementById('experience');
+        const breathCountSelect = document.getElementById('breath-count');
+        const timer = document.getElementById('timer');
+        const timerDisplay = document.getElementById('timer-display');
+        const breathGuide = document.getElementById('breath-guide');
+        const breathingCircle = document.getElementById('breathing-circle');
+        const progressBar = document.getElementById('progress-bar');
+        const toggleCalendarBtn = document.getElementById('toggle-calendar');
+        const calendarView = document.getElementById('calendar-view');
+        const calendarGrid = document.getElementById('calendar-grid');
+        const quoteContainer = document.getElementById('quotes-container');
+        const randomQuote = document.getElementById('random-quote');
+        const toggleExclusionsBtn = document.getElementById('toggle-exclusions');
+        const exclusionContainer = document.getElementById('exclusion-container');
+        const poseViewer = document.getElementById('pose-viewer');
+        const closeViewer = document.getElementById('close-viewer');
+        const viewerPoseName = document.getElementById('viewer-pose-name');
+        const viewerPoseDescription = document.getElementById('viewer-pose-description');
+        const viewerPoseBenefits = document.getElementById('viewer-pose-benefits');
+        const stickFigure = document.getElementById('stick-figure');
+        const playMusicBtn = document.getElementById('play-music');
+        const nextTrackBtn = document.getElementById('next-track');
+        const musicVolume = document.getElementById('music-volume');
+        
+        // Style descriptions
+        const styleDescriptions = {
+            ashtanga: "Ashtanga Flow: A dynamic, flowing practice with a set sequence of poses.",
+            hatha: "Hatha Yoga: A gentle, traditional practice focusing on basic postures and alignment.",
+            vinyasa: "Vinyasa Flow: A creative sequence where movement is synchronized with breath.",
+            yin: "Yin Yoga: A slow-paced practice with long-held passive poses targeting deep tissues.",
+            power: "Power Yoga: An intense, fitness-based approach derived from Ashtanga.",
+            restorative: "Restorative Yoga: A relaxing practice using props to support the body in gentle poses."
+        };
+
+        // Global Variables
+        let currentSequence = [];
+        let favorites = JSON.parse(localStorage.getItem('yogaFavorites')) || [];
+        let practiceCalendar = JSON.parse(localStorage.getItem('yogaPracticeCalendar')) || {};
+        let currentPoseIndex = 0;
+        let practiceActive = false;
+        let timerInterval;
+        let breathInterval;
+        let totalTime = 0;
+        let elapsedTime = 0;
+        let isPlaying = false;
+        
+        // Initialize
+        function init() {
+            updateStyleDescription();
+            sequenceContainer.style.display = 'none';
+            updateFavoritesList();
+            updateCalendarView();
+            displayRandomQuote();
+            renderExclusionOptions();
+            
+            // Event listeners
+            generateBtn.addEventListener('click', generateSequence);
+            saveBtn.addEventListener('click', saveSequence);
+            printBtn.addEventListener('click', printSequence);
+            startPracticeBtn.addEventListener('click', togglePractice);
+            toggleThemeBtn.addEventListener('click', toggleTheme);
+            toggleFavoritesBtn.addEventListener('click', toggleFavorites);
+            toggleCalendarBtn.addEventListener('click', toggleCalendar);
+            toggleExclusionsBtn.addEventListener('click', toggleExclusions);
+            closeViewer.addEventListener('click', () => poseViewer.classList.remove('show'));
+            playMusicBtn.addEventListener('click', toggleAmbientSound);
+            nextTrackBtn.addEventListener('click', () => {
+                // Would change track if implemented
+                alert('This would play the next track if audio was implemented.');
+            });
+            yogaStyleSelect.addEventListener('change', updateStyleDescription);
+        }
+
+        // Update style description when style changes
+        function updateStyleDescription() {
+            const styleValue = yogaStyleSelect.value;
+            const descriptionEl = document.querySelector('.style-description p');
+            descriptionEl.textContent = styleDescriptions[styleValue];
+        }
+
+        // Generate random sequence
+        function generateSequence() {
+            const style = yogaStyleSelect.value;
+            const duration = parseInt(durationSelect.value);
+            const focusArea = focusAreaSelect.value;
+            const experience = experienceSelect.value;
+            const breathCount = parseInt(breathCountSelect.value);
+            
+            // Get exclusions
+            const exclusions = [];
+            document.querySelectorAll('.exclusion-item input:checked').forEach(checkbox => {
+                exclusions.push(checkbox.name.replace('exclude-', ''));
+            });
+            
+            // Filter poses by category and difficulty
+            let availablePoses = yogaPoses[style].filter(pose => {
+                // Check if pose is in excluded categories
+                const isExcluded = exclusions.some(exclusion => 
+                    pose.category.includes(exclusion.toLowerCase())
+                );
+                
+                if (isExcluded) return false;
+                
+                // Check difficulty level
+                if (experience === 'beginner' && pose.difficulty === 'advanced') return false;
+                if (experience === 'intermediate' && pose.difficulty === 'advanced' && Math.random() < 0.7) return false;
+                
+                // Check focus area
+                if (focusArea !== 'all' && !pose.category.includes(focusArea)) return false;
+                
+                return true;
+            });
+
+            // Always include a warm-up sequence at the beginning
+            const warmUpPoses = availablePoses.filter(pose => 
+                pose.type === 'sequence' && 
+                (pose.name.includes('Sun') || pose.name.includes('Cat') || pose.name.includes('Warm'))
+            );
+            
+            // Always include Savasana at the end
+            const savasana = availablePoses.find(pose => pose.name === 'Savasana' || pose.name === 'Corpse Pose');
+            
+            // Remove warm-up poses and savasana from available poses
+            availablePoses = availablePoses.filter(pose => 
+                !warmUpPoses.includes(pose) && pose !== savasana
+            );
+            
+            // Shuffle remaining poses
+            availablePoses = shuffleArray(availablePoses);
+            
+            // Start building sequence
+            let sequence = [];
+            let timeEstimate = 0;
+            
+            // Add warm-up (about 20% of total time)
+            const warmUpPose = warmUpPoses[Math.floor(Math.random() * warmUpPoses.length)];
+            if (warmUpPose) {
+                sequence.push(warmUpPose);
+                timeEstimate += estimatePoseTime(warmUpPose, breathCount);
+            }
+            
+            // Add main poses until we reach about 80% of the desired duration
+            const targetMainTime = duration * 0.8 * 60; // 80% of total time in seconds
+            while (timeEstimate < targetMainTime && availablePoses.length > 0) {
+                const pose = availablePoses.shift();
+                sequence.push(pose);
+                timeEstimate += estimatePoseTime(pose, breathCount);
+            }
+            
+            // Add savasana (about 20% of total time)
+            if (savasana) {
+                sequence.push(savasana);
+                timeEstimate += estimatePoseTime(savasana, breathCount);
+            }
+            
+            // Save current sequence
+            currentSequence = sequence.map(pose => {
+                return {
+                    ...pose,
+                    breathCount: breathCount
+                };
+            });
+            
+            // Display sequence
+            displaySequence();
+        }
+
+        // Estimate time for a pose based on breath count
+        function estimatePoseTime(pose, breathCount) {
+            if (pose.type === 'sequence') {
+                // For sequences, use the repetitions
+                return pose.repetitions * 10; // Rough estimate of 10 seconds per repetition
+            } else {
+                // For poses, use breath count
+                // Average breath is about 5 seconds
+                const totalBreaths = pose.repetitions * (breathCount || 5);
+                return totalBreaths * 5; 
+            }
+        }
+
+        // Display the generated sequence
+        function displaySequence() {
+            if (currentSequence.length === 0) return;
+            
+            // Clear pose list
+            poseList.innerHTML = '';
+            
+            // Calculate total time
+            totalTime = 0;
+            currentSequence.forEach(pose => {
+                totalTime += estimatePoseTime(pose, pose.breathCount);
+            });
+            
+            // Update sequence info
+            const style = yogaStyleSelect.value;
+            const duration = durationSelect.value;
+            const focusArea = focusAreaSelect.value;
+            const experience = experienceSelect.value;
+            
+            const minutes = Math.floor(totalTime / 60);
+            
+            sequenceInfo.innerHTML = `
+                <div class="info-pill">${style.charAt(0).toUpperCase() + style.slice(1)} Yoga</div>
+                <div class="info-pill">${minutes} minutes</div>
+                <div class="info-pill">${focusArea.charAt(0).toUpperCase() + focusArea.slice(1)}</div>
+                <div class="info-pill">${experience.charAt(0).toUpperCase() + experience.slice(1)}</div>
+            `;
+            
+            // Update sequence title
+            sequenceTitle.textContent = `${minutes}-Minute ${style.charAt(0).toUpperCase() + style.slice(1)} Yoga Sequence`;
+            
+            // Add poses to the list
+            currentSequence.forEach((pose, index) => {
+                const poseItem = document.createElement('li');
+                poseItem.className = 'pose-item';
+                poseItem.dataset.index = index;
+                
+                let duration;
+                if (pose.type === 'sequence') {
+                    duration = `${pose.repetitions} repetitions`;
+                } else {
+                    duration = `${pose.breathCount} breaths${pose.repetitions > 1 ? ` × ${pose.repetitions}` : ''}`;
+                }
+                
+                poseItem.innerHTML = `
+                    <div class="pose-header">
+                        <div class="pose-name">${pose.name} <span class="pose-sanskrit">(${pose.sanskrit})</span></div>
+                        <div class="pose-duration">${duration}</div>
+                    </div>
+                    <div class="pose-description">${pose.description}</div>
+                    <div class="pose-benefits">${pose.benefits}</div>
+                `;
+                
+                poseItem.addEventListener('click', () => showPoseDetails(index));
+                poseList.appendChild(poseItem);
+            });
+            
+            // Show sequence container with animation
+            sequenceContainer.style.display = 'block';
+            setTimeout(() => {
+                sequenceContainer.classList.add('show');
+            }, 10);
+        }
+
+        // Show pose details in viewer
+        function showPoseDetails(index) {
+            const pose = currentSequence[index];
+            if (!pose) return;
+            
+            viewerPoseName.textContent = `${pose.name} (${pose.sanskrit})`;
+            viewerPoseDescription.textContent = pose.description;
+            viewerPoseBenefits.textContent = pose.benefits;
+            
+            // Generate stick figure based on pose type
+            generateStickFigure(pose.figure);
+            
+            poseViewer.classList.add('show');
+        }
+
+        // Generate stick figure based on pose type
+        function generateStickFigure(poseType) {
+            // Simple stick figure SVG paths for different poses
+            const figures = {
+                mountain: '<circle cx="50" cy="25" r="10"/><line x1="50" y1="35" x2="50" y2="100" stroke-width="2" stroke="currentColor"/><line x1="50" y1="100" x2="30" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="100" x2="70" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="30" y2="80" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="70" y2="80" stroke-width="2" stroke="currentColor"/>',
+                
+                forward_bend: '<circle cx="50" cy="100" r="10"/><path d="M 50,110 C 50,80 50,60 30,40" stroke-width="2" stroke="currentColor" fill="none"/><line x1="50" y1="110" x2="30" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="110" x2="70" y2="140" stroke-width="2" stroke="currentColor"/><line x1="30" y1="40" x2="10" y2="50" stroke-width="2" stroke="currentColor"/>',
+                
+                warrior1: '<circle cx="30" cy="40" r="10"/><line x1="30" y1="50" x2="30" y2="90" stroke-width="2" stroke="currentColor"/><line x1="30" y1="90" x2="10" y2="140" stroke-width="2" stroke="currentColor"/><line x1="30" y1="90" x2="60" y2="140" stroke-width="2" stroke="currentColor"/><line x1="30" y1="60" x2="10" y2="70" stroke-width="2" stroke="currentColor"/><line x1="30" y1="60" x2="50" y2="30" stroke-width="2" stroke="currentColor"/>',
+                
+                warrior2: '<circle cx="50" cy="40" r="10"/><line x1="50" y1="50" x2="50" y2="90" stroke-width="2" stroke="currentColor"/><line x1="50" y1="90" x2="20" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="90" x2="80" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="10" y2="60" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="90" y2="60" stroke-width="2" stroke="currentColor"/>',
+                
+                triangle: '<circle cx="30" cy="50" r="10"/><line x1="30" y1="60" x2="30" y2="90" stroke-width="2" stroke="currentColor"/><line x1="30" y1="90" x2="10" y2="140" stroke-width="2" stroke="currentColor"/><line x1="30" y1="90" x2="80" y2="140" stroke-width="2" stroke="currentColor"/><line x1="30" y1="60" x2="10" y2="20" stroke-width="2" stroke="currentColor"/><line x1="10" y1="20" x2="70" y2="90" stroke-width="2" stroke="currentColor"/>',
+                
+                chair: '<circle cx="50" cy="70" r="10"/><line x1="50" y1="80" x2="50" y2="110" stroke-width="2" stroke="currentColor"/><line x1="50" y1="110" x2="30" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="110" x2="70" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="90" x2="30" y2="50" stroke-width="2" stroke="currentColor"/><line x1="50" y1="90" x2="70" y2="50" stroke-width="2" stroke="currentColor"/>',
+                
+                downdog: '<circle cx="30" cy="90" r="8"/><path d="M 30,98 C 40,80 60,60 80,70" stroke-width="2" stroke="currentColor" fill="none"/><line x1="30" y1="98" x2="10" y2="130" stroke-width="2" stroke="currentColor"/><line x1="30" y1="98" x2="40" y2="130" stroke-width="2" stroke="currentColor"/><line x1="80" y1="70" x2="90" y2="130" stroke-width="2" stroke="currentColor"/><line x1="80" y1="70" x2="70" y2="130" stroke-width="2" stroke="currentColor"/>',
+                
+                cobra: '<circle cx="30" cy="40" r="8"/><path d="M 30,48 C 40,60 60,70 80,60" stroke-width="2" stroke="currentColor" fill="none"/><line x1="30" y1="48" x2="20" y2="70" stroke-width="2" stroke="currentColor"/><line x1="20" y1="70" x2="10" y2="70" stroke-width="2" stroke="currentColor"/><line x1="30" y1="48" x2="40" y2="70" stroke-width="2" stroke="currentColor"/><line x1="40" y1="70" x2="50" y2="70" stroke-width="2" stroke="currentColor"/>',
+                
+                boat: '<circle cx="50" cy="70" r="10"/><line x1="50" y1="80" x2="30" y2="110" stroke-width="2" stroke="currentColor"/><line x1="50" y1="80" x2="70" y2="110" stroke-width="2" stroke="currentColor"/><line x1="50" y1="80" x2="30" y2="40" stroke-width="2" stroke="currentColor"/><line x1="50" y1="80" x2="70" y2="40" stroke-width="2" stroke="currentColor"/>',
+                
+                child: '<circle cx="50" cy="130" r="8"/><path d="M 50,122 C 50,100 40,80 30,70" stroke-width="2" stroke="currentColor" fill="none"/><path d="M 50,122 C 50,100 60,80 70,70" stroke-width="2" stroke="currentColor" fill="none"/><line x1="30" y1="70" x2="10" y2="75" stroke-width="2" stroke="currentColor"/><line x1="70" y1="70" x2="90" y2="75" stroke-width="2" stroke="currentColor"/>',
+                
+                corpse: '<circle cx="50" cy="30" r="10"/><line x1="50" y1="40" x2="50" y2="110" stroke-width="2" stroke="currentColor"/><line x1="50" y1="110" x2="30" y2="130" stroke-width="2" stroke="currentColor"/><line x1="50" y1="110" x2="70" y2="130" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="20" y2="80" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="80" y2="80" stroke-width="2" stroke="currentColor"/>',
+
+                // Default to mountain pose if not found
+                default: '<circle cx="50" cy="25" r="10"/><line x1="50" y1="35" x2="50" y2="100" stroke-width="2" stroke="currentColor"/><line x1="50" y1="100" x2="30" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="100" x2="70" y2="140" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="30" y2="80" stroke-width="2" stroke="currentColor"/><line x1="50" y1="60" x2="70" y2="80" stroke-width="2" stroke="currentColor"/>'
+            };
+            
+            stickFigure.innerHTML = figures[poseType] || figures.default;
+        }
+
+        // Toggle practice mode
+        function togglePractice() {
+            if (practiceActive) {
+                stopPractice();
+                startPracticeBtn.textContent = 'Start Practice';
+            } else {
+                startPractice();
+                startPracticeBtn.textContent = 'Stop Practice';
+            }
+        }
+
+        // Start practice mode
+        function startPractice() {
+            if (currentSequence.length === 0) return;
+            
+            practiceActive = true;
+            currentPoseIndex = 0;
+            elapsedTime = 0;
+            
+            // Show timer
+            timer.classList.add('show');
+            
+            // Start timer
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Start breath guide
+            startBreathGuide();
+            
+            // Highlight first pose
+            highlightCurrentPose();
+        }
+
+        // Stop practice mode
+        function stopPractice() {
+            practiceActive = false;
+            
+            // Clear intervals
+            clearInterval(timerInterval);
+            clearInterval(breathInterval);
+            
+            // Hide timer
+            timer.classList.remove('show');
+            
+            // Reset breath guide
+            breathGuide.textContent = '';
+            breathGuide.className = 'breath-guide';
+            breathingCircle.className = 'breathing-circle';
+            
+            // Remove highlight from poses
+            document.querySelectorAll('.pose-item.active').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Reset progress bar
+            progressBar.style.width = '0%';
+        }
+
+        // Update timer display
+        function updateTimer() {
+            elapsedTime++;
+            
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            // Update progress bar
+            const progress = (elapsedTime / totalTime) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+            
+            // Check if we need to move to the next pose
+            const currentPose = currentSequence[currentPoseIndex];
+            if (currentPose) {
+                const poseTime = estimatePoseTime(currentPose, currentPose.breathCount);
+                const poseDuration = currentPoseIndex === 0 ? poseTime : poseTime * 1.5; // Give extra time for the first pose
+                
+                if (elapsedTime % poseDuration === 0 && currentPoseIndex < currentSequence.length - 1) {
+                    currentPoseIndex++;
+                    highlightCurrentPose();
+                }
+            }
+            
+            // Check if practice is complete
+            if (elapsedTime >= totalTime) {
+                stopPractice();
+                startPracticeBtn.textContent = 'Start Practice';
+                
+                // Record practice in calendar
+                recordPracticeSession();
+            }
+        }
+
+        // Start breath guide
+        function startBreathGuide() {
+            let inhaling = true;
+            
+            updateBreathGuide(inhaling);
+            
+            breathInterval = setInterval(() => {
+                inhaling = !inhaling;
+                updateBreathGuide(inhaling);
+            }, 4000); // Toggle between inhale and exhale every 4 seconds
+        }
+
+        // Update breath guide display
+        function updateBreathGuide(inhaling) {
+            if (inhaling) {
+                breathGuide.textContent = 'Inhale...';
+                breathGuide.className = 'breath-guide inhale';
+                breathingCircle.className = 'breathing-circle inhale';
+            } else {
+                breathGuide.textContent = 'Exhale...';
+                breathGuide.className = 'breath-guide exhale';
+                breathingCircle.className = 'breathing-circle exhale';
+            }
+        }
+
+        // Highlight current pose in sequence
+        function highlightCurrentPose() {
+            document.querySelectorAll('.pose-item').forEach((item, index) => {
+                if (index === currentPoseIndex) {
+                    item.classList.add('active');
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Save current sequence to favorites
+        function saveSequence() {
+            if (currentSequence.length === 0) return;
+            
+            const style = yogaStyleSelect.value;
+            const duration = parseInt(durationSelect.value);
+            const focusArea = focusAreaSelect.value;
+            const experience = experienceSelect.value;
+            
+            const sequenceName = `${style.charAt(0).toUpperCase() + style.slice(1)} - ${duration} min - ${focusArea}`;
+            
+            const favorite = {
+                name: sequenceName,
+                style: style,
+                duration: duration,
+                focusArea: focusArea,
+                experience: experience,
+                date: new Date().toISOString(),
+                sequence: currentSequence
+            };
+            
+            favorites.push(favorite);
+            localStorage.setItem('yogaFavorites', JSON.stringify(favorites));
+            
+            updateFavoritesList();
+            alert('Sequence saved to favorites!');
+        }
+
+        // Update favorites list display
+        function updateFavoritesList() {
+            if (favorites.length === 0) {
+                favoritesListEl.innerHTML = '<p>No saved sequences yet.</p>';
+                return;
+            }
+            
+            favoritesListEl.innerHTML = '';
+            
+            favorites.forEach((favorite, index) => {
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'favorite-item';
+                
+                favoriteItem.innerHTML = `
+                    <div>${favorite.name}</div>
+                    <button class="secondary load-favorite" data-index="${index}">Load</button>
+                `;
+                
+                favoritesListEl.appendChild(favoriteItem);
+            });
+            
+            // Add event listeners to load buttons
+            document.querySelectorAll('.load-favorite').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    loadFavorite(index);
+                });
+            });
+        }
+
+        // Load a favorite sequence
+        function loadFavorite(index) {
+            const favorite = favorites[index];
+            if (!favorite) return;
+            
+            currentSequence = favorite.sequence;
+            
+            // Update form controls to match favorite
+            yogaStyleSelect.value = favorite.style;
+            durationSelect.value = favorite.duration;
+            focusAreaSelect.value = favorite.focusArea;
+            experienceSelect.value = favorite.experience;
+            
+            updateStyleDescription();
+            displaySequence();
+            
+            // Close favorites panel
+            favoritesContainer.classList.remove('show');
+            toggleFavoritesBtn.textContent = 'Show Favorites';
+        }
+
+        // Toggle favorites panel
+        function toggleFavorites() {
+            const isVisible = favoritesContainer.classList.contains('show');
+            
+            if (isVisible) {
+                favoritesContainer.classList.remove('show');
+                toggleFavoritesBtn.textContent = 'Show Favorites';
+            } else {
+                favoritesContainer.classList.add('show');
+                toggleFavoritesBtn.textContent = 'Hide Favorites';
+                
+                // Update favorites list
+                updateFavoritesList();
+            }
+        }
+
+        // Toggle calendar view
+        function toggleCalendar() {
+            const isVisible = calendarView.classList.contains('show');
+            
+            if (isVisible) {
+                calendarView.classList.remove('show');
+                toggleCalendarBtn.textContent = 'Practice Calendar';
+            } else {
+                calendarView.classList.add('show');
+                toggleCalendarBtn.textContent = 'Hide Calendar';
+                
+                // Update calendar
+                updateCalendarView();
+            }
+        }
+
+        // Toggle exclusions panel
+        function toggleExclusions() {
+            const isVisible = exclusionContainer.classList.contains('show');
+            
+            if (isVisible) {
+                exclusionContainer.classList.remove('show');
+                toggleExclusionsBtn.textContent = 'Show Options';
+            } else {
+                exclusionContainer.classList.add('show');
+                toggleExclusionsBtn.textContent = 'Hide Options';
+            }
+        }
+
+        // Print current sequence
+        function printSequence() {
+            if (currentSequence.length === 0) return;
+            
+            const style = yogaStyleSelect.value;
+            const duration = parseInt(durationSelect.value);
+            
+            const printWindow = window.open('', '_blank');
+            
+            let printContent = `
+                <html>
+                <head>
+                    <title>${style.charAt(0).toUpperCase() + style.slice(1)} Yoga - ${duration} min</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 2rem; }
+                        h1 { color: #7E846B; }
+                        .pose { margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
+                        .pose-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+                        .pose-name { font-weight: bold; font-size: 1.1rem; }
+                        .pose-duration { color: #666; }
+                        .pose-sanskrit { font-style: italic; color: #666; }
+                        .pose-benefits { font-style: italic; margin-top: 0.5rem; color: #666; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${style.charAt(0).toUpperCase() + style.slice(1)} Yoga Sequence - ${duration} min</h1>
+                    <div class="sequence">
+            `;
+            
+            currentSequence.forEach(pose => {
+                let duration;
+                if (pose.type === 'sequence') {
+                    duration = `${pose.repetitions} repetitions`;
+                } else {
+                    duration = `${pose.breathCount} breaths${pose.repetitions > 1 ? ` × ${pose.repetitions}` : ''}`;
+                }
+                
+                printContent += `
+                    <div class="pose">
+                        <div class="pose-header">
+                            <div class="pose-name">${pose.name} <span class="pose-sanskrit">(${pose.sanskrit})</span></div>
+                            <div class="pose-duration">${duration}</div>
+                        </div>
+                        <div class="pose-description">${pose.description}</div>
+                        <div class="pose-benefits">${pose.benefits}</div>
+                    </div>
+                `;
+            });
+            
+            printContent += `
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.open();
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+
+        // Record practice session in calendar
+        function recordPracticeSession() {
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            
+            const style = yogaStyleSelect.value;
+            const duration = parseInt(durationSelect.value);
+            
+            if (!practiceCalendar[today]) {
+                practiceCalendar[today] = [];
+            }
+            
+            practiceCalendar[today].push({
+                style: style,
+                duration: duration,
+                timestamp: new Date().toISOString()
+            });
+            
+            localStorage.setItem('yogaPracticeCalendar', JSON.stringify(practiceCalendar));
+            
+            // Update calendar if visible
+            if (calendarView.classList.contains('show')) {
+                updateCalendarView();
+            }
+        }
+
+        // Update calendar view
+        function updateCalendarView() {
+            calendarGrid.innerHTML = '';
+            
+            // Generate last 28 days (4 weeks)
+            const days = [];
+            const today = new Date();
+            
+            for (let i = 27; i >= 0; i--) {
+                const day = new Date();
+                day.setDate(today.getDate() - i);
+                days.push(day);
+            }
+            
+            // Create day labels (Sun - Sat)
+            const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayLabels.forEach(label => {
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'calendar-day day-label';
+                dayLabel.textContent = label;
+                calendarGrid.appendChild(dayLabel);
+            });
+            
+            // Fill in empty spaces to align days correctly
+            const firstDay = days[0].getDay();
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Add days to calendar
+            days.forEach(day => {
+                const dateStr = day.toISOString().split('T')[0];
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day.getDate();
+                
+                // Check if there's a practice on this day
+                if (practiceCalendar[dateStr] && practiceCalendar[dateStr].length > 0) {
+                    dayEl.classList.add('has-practice');
+                    
+                    // Add tooltip with practice info
+                    const practices = practiceCalendar[dateStr];
+                    let tooltipText = '';
+                    
+                    practices.forEach(practice => {
+                        tooltipText += `${practice.style} - ${practice.duration} min\n`;
+                    });
+                    
+                    dayEl.title = tooltipText;
+                }
+                
+                calendarGrid.appendChild(dayEl);
+            });
+        }
+
+        // Display random quote
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * yogaQuotes.length);
+            const quote = yogaQuotes[randomIndex];
+            
+            randomQuote.textContent = `"${quote.quote}"`;
+            document.querySelector('.quote-author').textContent = `- ${quote.author}`;
+        }
+
+        // Toggle dark/light theme
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                toggleThemeBtn.textContent = '🌙';
+            } else {
+                toggleThemeBtn.textContent = '☀️';
+            }
+        }
+
+        // Render exclusion options
+        function renderExclusionOptions() {
+            const exclusionCategories = [
+                { id: 'inversions', label: 'Inversions' },
+                { id: 'backbends', label: 'Backbends' },
+                { id: 'arm-balances', label: 'Arm Balances' },
+                { id: 'twists', label: 'Twists' },
+                { id: 'standing', label: 'Standing Poses' },
+                { id: 'seated', label: 'Seated Poses' }
+            ];
+            
+            const exclusionGroup = document.querySelector('.exclusion-group');
+            exclusionGroup.innerHTML = '';
+            
+            exclusionCategories.forEach(category => {
+                const item = document.createElement('div');
+                item.className = 'exclusion-item';
+                
+                item.innerHTML = `
+                    <input type="checkbox" id="exclude-${category.id}" name="${category.id}">
+                    <label for="exclude-${category.id}">${category.label}</label>
+                `;
+                
+                exclusionGroup.appendChild(item);
+            });
+        }
+
+        // Toggle ambient sound
+        function toggleAmbientSound() {
+            isPlaying = !isPlaying;
+            
+            if (isPlaying) {
+                playMusicBtn.textContent = '🔊';
+                // Would play sound if implemented
+                alert('This would play ambient sound if audio was implemented.');
+            } else {
+                playMusicBtn.textContent = '🎵';
+                // Would pause sound if implemented
+            }
+        }
+
+        // Utility function to shuffle array
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geschichte: Weimarer Republik, NS-Diktatur und Völkermord</title>
+    <style>
+        /* Global und Basisstil */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2, h3, h4 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            font-size: 1.7em;
+            margin-top: 40px;
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #555;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+            border-bottom: 1px solid #ccc;
+            color: #444;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+            margin-top: 25px;
+            font-weight: bold;
+            border-bottom: none;
+            color: #555;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .info-table th, .info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .info-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* Spezielle Formatierungen */
+        .ursachen-verlauf {
+            background-color: #f0f7ff;
+            border-left: 4px solid #3498db;
+        }
+        
+        .strukturelle-schwachen {
+            background-color: #fff0f0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .verfassungs-vorteile {
+            background-color: #f0fff0;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .timeline {
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .timeline-item {
+            padding: 10px 15px;
+            border-left: 2px solid #555;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #555;
+            border-radius: 50%;
+            left: -9px;
+            top: 15px;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #555;
+            min-width: 60px;
+            display: inline-block;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            max-height: 500px;
+            overflow: hidden;
+        }
+        
+        .nav-container.collapsed {
+            max-height: 50px;
+        }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #555;
+            cursor: pointer;
+        }
+        
+        .nav-title {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        .nav-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-container.collapsed .nav-links {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .nav-link {
+            background-color: #444;
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .nav-link:hover {
+            background-color: #666;
+        }
+        
+        .periode {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 4px double #999;
+        }
+        
+        .zusammenfassung {
+            background-color: #fffbea;
+            border: 1px solid #ffd34e;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .wichtig {
+            background-color: #ffe6e6;
+            border-left: 4px solid #ff5252;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .two-col {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .col {
+            flex: 1;
+        }
+        
+        /* Responsives Design */
+        @media (max-width: 768px) {
+            .two-col {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navContainer = document.querySelector('.nav-container');
+            const navHeader = document.querySelector('.nav-header');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navHeader.addEventListener('click', function() {
+                navContainer.classList.toggle('collapsed');
+                if (navContainer.classList.contains('collapsed')) {
+                    navToggle.textContent = '≡';
+                } else {
+                    navToggle.textContent = '×';
+                }
+            });
+            
+            // Schließen des Menüs, wenn man auf einen Link klickt
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navContainer.classList.add('collapsed');
+                    navToggle.textContent = '≡';
+                });
+            });
+        });
+    </script>
+    <div class="container">
+        <h1>Modernisierung im Kaiserreich und in der Weimarer Republik</h1>
+        
+        <div class="nav-container collapsed">
+            <div class="nav-header">
+                <div class="nav-title">Inhaltsverzeichnis</div>
+                <button class="nav-toggle">≡</button>
+            </div>
+            <div class="nav-links">
+                <a href="#nov-revolution" class="nav-link">Novemberrevolution</a>
+                <a href="#arbeiterbewegung" class="nav-link">Arbeiterbewegung</a>
+                <a href="#parlamentarisch" class="nav-link">Parlamentarisches System</a>
+                <a href="#pol-system" class="nav-link">Politisches System</a>
+                <a href="#frauen" class="nav-link">Frauenbewegung</a>
+                <a href="#medien" class="nav-link">Medien</a>
+                <a href="#judisches-leben" class="nav-link">Jüdisches Leben</a>
+                <a href="#scheitern" class="nav-link">Scheitern der Republik</a>
+                <a href="#ns-diktatur" class="nav-link">NS-Diktatur</a>
+                <a href="#weltkrieg" class="nav-link">Zweiter Weltkrieg</a>
+                <a href="#holocaust" class="nav-link">Holocaust</a>
+            </div>
+        </div>
+
+        <section id="nov-revolution">
+            <h2>4 Die Novemberrevolution 1918/19</h2>
+            
+            <section id="ursachen-verlauf">
+                <h3>4.1 Ursachen und Verlauf der Revolution</h3>
+                
+                <div class="box ursachen-verlauf">
+                    <h4>Ursachen</h4>
+                    <ul>
+                        <li>Aussichtslose militärische Lage und schlechte Versorgungslage</li>
+                        <li>Auflösung der „Burgfriedens" der Parteien, wachsende Kritik an der Monarchie</li>
+                        <li>Wunsch nach Frieden, Massenproteste und Streiks, Zusammenwirken von unzufriedenen Soldaten und organisierten Industriearbeitern</li>
+                    </ul>
+                    
+                    <h4>Verlauf</h4>
+                    <ul>
+                        <li>Übergreifen eines Matrosenaufstands auf andere Städte des Reichs, Bildung von Arbeiter- und Soldatenräten</li>
+                        <li>Erzwungene Abdankung des Kaisers und Übertragung der Regierungsgewalt an Friedrich Ebert (MSPD)</li>
+                        <li>Provisorische Regierung aus gemäßigten und linken Sozialisten (MSPD/USPD)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="arbeiterbewegung">
+                <h3>4.2 Die gespaltene Arbeiterbewegung</h3>
+                
+                <p>Schon während des Krieges spaltete sich die Arbeiterbewegung in einen gemäßigten und einen radikalen Teil. Dies erwies sich während der gesamten Weimarer Zeit als Belastung.</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>geordneter Übergang zur parlamentarischen Demokratie</th>
+                        <th>revolutionäre Umgestaltung/Rätedemokratie</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Vertreter</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Gemäßigte Sozialdemokraten um Ebert (MSPD)</td>
+                        <td>Radikale Sozialisten (USPD, Spartakusbund, ab 1919 KPD)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Entscheidungen</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Gewählte Abgeordnete im Parlament (freies Mandat)</td>
+                        <td>Alle Bürger, Delegierte in Räten (imperatives Mandat)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interessensausgleich</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Interessengruppen und Parteien, Willensbildung im Parlament</li>
+                                <li>Mehrheitsentscheidung und Minderheitenschutz</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Permanente öffentliche Diskussion, Abstimmung</li>
+                                <li>Übermittlung der Mehrheitsmeinung in den nächsthöheren Rat</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Machtkontrolle</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Gewaltenteilung, Opposition, freie Medien</td>
+                        <td>Selbstkontrolle</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section id="parlamentarisch">
+                <h3>4.3 Entscheidung für das parlamentarische System</h3>
+                
+                <p>Auf dem Reichskongress der Arbeiter- und Soldatenräte entschied sich die <strong>Mehrheit für eine parlamentarische Demokratie</strong>, was schließlich zu den Wahlen zur Nationalversammlung im Januar 1919 führte.</p>
+                
+                <p>Allerdings wurde der demokratische Neuanfang durch das Bündnis mit den alten Eliten des Kaiserreichs belastet. Um einen Bürgerkrieg zu verhindern, arbeitete die Regierung unter Friedrich Ebert schon seit Beginn der Revolution mit dem Militär zusammen (<strong>Ebert-Groener-Pakt</strong>). So wurde u.a. der „Spartakusaufstand" im Januar 1919 von demokratiefeindlichen paramilitärischen Kräften, den Freikorps, niedergeschlagen.</p>
+            </section>
+        </section>
+
+        <section id="pol-system">
+            <h2>5 Das politische System der Weimarer Republik</h2>
+            
+            <section>
+                <h3>5.1 Die Weimarer Verfassung (1919)</h3>
+                
+                <!-- Schaubild der Weimarer Verfassung entfernt -->
+            </section>
+            
+            <section>
+                <h3>5.2 Demokratische Errungenschaften</h3>
+                
+                <div class="box verfassungs-vorteile">
+                    <ul>
+                        <li><strong>Volkssouveränität</strong> statt monarchischem Prinzip</li>
+                        <li>Allgemeines <strong>Verhältniswahlrecht</strong> nun auch für <strong>Frauen</strong></li>
+                        <li>Wahl des Reichspräsidenten <strong>direkt</strong> durch das Volk</li>
+                        <li>Volksbegehren und Volksentscheid als <strong>plebiszitäre Elemente</strong></li>
+                        <li>Parlamentarische <strong>Verantwortlichkeit der Regierung</strong></li>
+                        <li>Katalog liberaler und sozialer <strong>Grundrechte</strong></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h3>5.3 Strukturelle Schwächen der Verfassung</h3>
+                
+                <div class="box strukturelle-schwachen">
+                    <table class="info-table">
+                        <tr>
+                            <th>Schwächen</th>
+                            <th>Folgen</th>
+                        </tr>
+                        <tr>
+                            <td>Fehlen einer Sperrklausel (Prozent-hürde) für Kleinparteien im Wahlrecht</td>
+                            <td>→ Zersplitterung des Reichstags, Koalitionen und Regierungen instabil</td>
+                        </tr>
+                        <tr>
+                            <td>Kein verfassungsrechtlicher Schutz gegen antidemokratische Parteien</td>
+                            <td>→ Zerstörung der demokratischen Kultur durch antidemokratische Parteien</td>
+                        </tr>
+                        <tr>
+                            <td>Zu starkes plebiszitäres Element</td>
+                            <td>→ Schwächung des Reichstags</td>
+                        </tr>
+                        <tr>
+                            <td>Starke Stellung des Reichspräsidenten als „Ersatzkaiser"</td>
+                            <td>→ Diktatorische Regierung durch Art. 48 (Notverordnungsrecht) und 25 (Parlamentsauflösung) möglich</td>
+                        </tr>
+                        <tr>
+                            <td>Schwache Position der Reichsregierung</td>
+                            <td>→ Abhängig vom Vertrauen des Reichspräsidenten und des Reichstags</td>
+                        </tr>
+                        <tr>
+                            <td>Fehlende Einklagbarkeit der Grundrechte</td>
+                            <td>→ Fehlender Schutz der Bürgerinnen und Bürger vor staatlicher Willkür</td>
+                        </tr>
+                        <tr>
+                            <td>Reichsrat nur mit aufschiebendem Vetorecht bei Gesetzgebung, „Reichsrecht bricht Landesrecht"</td>
+                            <td>→ Schwächung des föderalen Elements bzw. des ausgleichenden Einflusses der Einzelstaaten</td>
+                        </tr>
+                        <tr>
+                            <td>Keine positive Erwähnung der Parteien</td>
+                            <td>→ Negatives Image der Parteien</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            
+            <section>
+                <h3>5.4 Das Parteienspektrum der Weimarer Republik</h3>
+                
+                <p>Ein ausgeprägtes <strong>Klassenbewusstsein</strong> mit gemeinsamen Wertvorstellungen und politischen Überzeugungen führte zur <strong>Fragmentierung der Parteienlandschaft</strong>. Politikern fehlte es oft an Gestaltungswillen, Kompromissfähigkeit und Verantwortungsbewusstsein. Viele standen dem politischen System distanziert oder ablehnend gegenüber.</p>
+                
+                <div class="box">
+                    <div class="two-col">
+                        <div class="col">
+                            <h4>KPD</h4>
+                            <ul>
+                                <li>Sozialismus</li>
+                                <li>Diktatur des Proletariats</li>
+                                <li>antikapitalistisch</li>
+                                <li>antiparlamentarisch</li>
+                                <li><em>Weitertreiben der Revolution</em></li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>DNVP</h4>
+                            <ul>
+                                <li>Monarchie</li>
+                                <li>antidemokratisch</li>
+                                <li>antirepublikanisch</li>
+                                <li>(rechtskonservativ)</li>
+                                <li><em>Rücknahme der Revolution</em></li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>NSDAP</h4>
+                            <ul>
+                                <li>"Volksgemeinschaft"</li>
+                                <li>"Führerstaat"</li>
+                                <li>antiparlamentarisch</li>
+                                <li>antidemokratisch</li>
+                                <li><em>Zerstörung des "Weimarer Systems"</em></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="box" style="background-color: #444; color: white; margin-top: 20px;">
+                        <h4 style="color: white; border-bottom: 1px solid #666;">Weimarer Koalition</h4>
+                        <div class="two-col">
+                            <div class="col">
+                                <h5>SPD</h5>
+                                <p>Demokratie<br>Republik<br>("reform-sozialistisch")</p>
+                            </div>
+                            <div class="col">
+                                <h5>DDP</h5>
+                                <p>Demokratie<br>Republik<br>Rechtsstaat<br>Volksstaat<br>(linksliberal)</p>
+                            </div>
+                            <div class="col">
+                                <h5>Zentrum</h5>
+                                <p>Demokratie<br>Republik<br>Volksstaat<br>(christlich / katholisch)</p>
+                            </div>
+                            <div class="col">
+                                <h5>DVP</h5>
+                                <p>Parlamentarismus<br>Monarchie<br>(national-wirtschaftsliberal)<br>zeitweilige Mitarbeit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h3>5.5 Belastungen und Herausforderungen der Demokratie</h3>
+                
+                <h4>Der Versailler Vertrag und seine Rezeption</h4>
+                
+                <div class="box">
+                    <h5>Wichtige Regelungen</h5>
+                    <ul>
+                        <li>Feststellung der alleinigen Kriegsschuld Deutschlands in Artikel 231</li>
+                        <li>Gebietsabtretungen: z. B. Verlust Elsass-Lothringens</li>
+                        <li>Entmilitarisierung: z. B. Verkleinerung der Reichswehr auf 100.000 Mann</li>
+                        <li>Reparationen: Zahlung von Entschädigungen an die Siegermächte</li>
+                    </ul>
+                    
+                    <h5>Reaktion der deutschen Öffentlichkeit</h5>
+                    <p>Kollektives Gefühl ungerechter Behandlung („Diktatfrieden"): Angriffspunkt der antidemokratischen Rechten gegen die demokratischen Regierungen, indem diese für die Vertragsbedingungen verantwortlich gemacht wurden („Erfüllungspolitiker")</p>
+                </div>
+                
+                <h4>Propaganda der antidemokratischen Rechten</h4>
+                
+                <p>Die deutsche Schuld am Kriegsausbruch wurde faktenfeindig geleugnet (<strong>Kriegsunschuldlegende</strong>). Zudem wurde die Dolchstoßlegende verbreitet, nach der die tapfer kämpfenden deutschen Soldaten durch die Revolution in der Heimat um den Sieg gebracht worden seien.</p>
+                
+                <h4>Andauernder Einfluss der „alten Eliten"</h4>
+                
+                <p>Die <strong>Funktionseliten</strong> des Kaiserreichs blieben oft in ihren Positionen und blockierten die weitere Demokratisierung. So mangelte es der Reichswehr an Einsatz gegen Angriffe auf die Republik von rechts (z.B. Kapp-Putsch 1920). Die Justiz war „auf dem rechten Auge blind", was den <strong>rechtsradikalen Terrorismus</strong> förderte (u.a. Ermordung des jüdischen Außenministers Walther Rathenau 1922). An Schulen, Universitäten und in der rechten Presse wurde der rechtsradikale Terror oft verklärt und verharmlost.</p>
+                
+                <h4>Das Krisenjahr 1923</h4>
+                
+                <div class="box">
+                    <table class="info-table">
+                        <tr>
+                            <th>Ruhrkrise</th>
+                            <td>
+                                <ul>
+                                    <li>Einmarsch von Truppen der Siegermächte ins Ruhrgebiet als Reaktion auf ausstehende Reparationsleistungen</li>
+                                    <li>Aufruf der Regierung zu passivem Widerstand: hohe Kosten (Streiks und Produktionsausfälle) ruinieren Staatshaushalt</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Hyperinflation</th>
+                            <td>
+                                <ul>
+                                    <li>Drastische Zunahme der Inflation als Folge der Ruhrkrise: Verarmung großer Teile der Bevölkerung, Abstiegsängste, immenser Vertrauensverlust in den Staat</li>
+                                    <li>Ende durch Währungsreform</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Hitler-Putsch</th>
+                            <td>Gescheiterter Versuch Hitlers, eine nationale Revolution zu initiieren → Prozess gegen Hitler mit mildem Urteil</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </section>
+
+        <section id="frauen">
+            <h2>6 Aspekte der gesellschaftlichen Modernisierung</h2>
+            
+            <section>
+                <h3>6.1 Veränderte Geschlechterrollen und Frauenbewegung</h3>
+                
+                <h4>Die bürgerliche Familie als gesellschaftliches Ideal</h4>
+                
+                <p>Mit dem Aufstieg des Bürgertums setzte sich die patriarchalisch strukturierte bürgerliche Familie mit dem Mann als Ernährer und Familienoberhaupt durch. Die Frau war für den häuslichen Bereich zuständig und vom Mann materiell sowie rechtlich abhängig.</p>
+                
+                <h4>Die Frauenbewegung und ihre Ziele</h4>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Bürgerlich</th>
+                        <th>Sozialistisch</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>z. B. Louise Otto-Peters, Auguste Schmidt: Allgemeiner Deutscher Frauenverein</li>
+                                <li>Hilfe für Arbeiterinnen und andere Frauen aus der Unterschicht</li>
+                                <li>Ruf nach besserer Bildung und der Öffnung weiterer Berufe für Frauen</li>
+                                <li>Teilweise politische Forderungen (Frauenwahlrecht)</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>z. B. Clara Zetkin, Rosa Luxemburg</li>
+                                <li>Verbesserung der Arbeitsbedingungen für Frauen, Mutterschutz, rechtliche und finanzielle Gleichstellung</li>
+                                <li>Frauenwahlrecht</li>
+                                <li>Revolutionäre Umgestaltung der Gesellschaft</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <h4>Erfolge und Grenzen der Frauenbewegung</h4>
+                
+                <ul>
+                    <li>In der Weimarer Verfassung erhielten Frauen das aktive und passive Wahlrecht sowie die staatsbürgerliche Gleichstellung. Laut Verfassung sollten die Partner in der Ehe gleichberechtigt sein, in der Realität waren die Aufgaben aber weiterhin meist traditionell verteilt.</li>
+                    <li>Im Ersten Weltkrieg übernahmen Frauen neue Tätigkeiten, wurden aber danach in typische Frauenberufe zurückgedrängt. Erwerbstätige Frauen – in der Regel Arbeiterinnen und weibliche Angestellte – blieben eine Minderheit. Diese orientierten sich oft an den großstädtischen Eliten (z.B. Akademikerinnen, Künstlerinnen), die die „neue Frau" populär machten.</li>
+                </ul>
+            </section>
+            
+            <section id="medien">
+                <h3>6.2 Medien und Massenkultur</h3>
+                
+                <h4>Die „Goldenen Zwanziger"</h4>
+                
+                <p>Die Zeit der „Goldenen Zwanziger" wird oft als Blütezeit von Kunst und Kultur angesehen (Expressionismus, Neue Sachlichkeit, Bauhaus), doch darf der Glanz des Aufschwungs und die Etablierung einer Massenkultur nicht über die sozialen Missstände und politischen Probleme hinwegtäuschen.</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Film</th>
+                        <td>Kino wird wichtiges Massenmedium: Freizeitvergnügen breiter Schichten; führende Rolle der deutschen Filmindustrie, Stars</td>
+                    </tr>
+                    <tr>
+                        <th>Rundfunk</th>
+                        <td>Wachsende Popularität: Orientierung am Massengeschmack, Verbreitung immer neuer Schlager und Tänze</td>
+                    </tr>
+                    <tr>
+                        <th>Presse</th>
+                        <td>Vielfältiges Angebot: seriöse Tageszeitungen, Boulevardblätter, illustrierte Zeitschriften</td>
+                    </tr>
+                    <tr>
+                        <th>Weitere Freizeitvergnügungen</th>
+                        <td>
+                            <ul>
+                                <li>Sportveranstaltungen (z. B. Fußball, Boxen, Radrennen)</li>
+                                <li>Revuen, Konzerte und Tanzlokale (u. a. Jazz, Charleston)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </section>
+
+        <section id="judisches-leben" class="periode">
+            <h2>Jüdisches Leben zwischen Emanzipation und Ausgrenzung</h2>
+            
+            <section>
+                <h3>1 Jüdisches Leben in Altbayern, Franken und Schwaben im 18. und 19. Jahrhundert</h3>
+                
+                <h4>1.1 Das Landjudentum in Franken und Schwaben</h4>
+                
+                <p>Im 15. Jahrhundert ordneten die Wittelsbacher die Vertreibung der Juden aus Altbayern an. Eine Ausnahme bildete die Residenzstadt München, wo im 18. Jahrhundert ein Hofjudentum entstand. „Hoffaktoren" stellten u.a. die Finanzierung der absolutistischen Hofhaltung sicher. Darüber hinaus etablierte sich in der Frühen Neuzeit in vielen kleineren, damals noch eigenständigen Herrschaften das Landjudentum. In einigen Orten Frankens und Schwabens betrug der Anteil der Bevölkerung jüdischen Glaubens 30 bis 40 Prozent. Teilweise besaßen Juden Nutzungsrechte am Gemeindeeigentum oder hatten Posten in der kommunalen Verwaltung inne. Auf dem Land waren zahlreiche Juden als Hausierer oder Kleinhändler tätig, viele lebten in einfachen Verhältnissen. Die religiösen Gesetze und Bräuche nahmen eine wichtige Rolle ein, im Alltag sprach man oft Jiddisch.</p>
+                
+                <h4>1.2 Die jüdische Aufklärung und ihre Folgen</h4>
+                
+                <p>Die Ideen der Aufklärung sorgten ab dem ausgehenden 18. Jahrhundert für mehr Toleranz der jüdischen Gemeinschaft gegenüber. Darüber hinaus entwickelte sich im Judentum selbst eine eigene Form der Aufklärung (Haskala). Ihr wichtigster Vertreter war der Philosoph Moses Mendelssohn (1729-1786).</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Ziele</th>
+                        <th>Auswirkungen</th>
+                    </tr>
+                    <tr>
+                        <td>Gleichberechtigte gesellschaftliche Teilhabe der jüdischen Bevölkerung, Integration als Staatsbürger auf Grundlage von Moral und Vernunft</td>
+                        <td>Mehr politische und soziale Teilhabe: Voraussetzung für sozialen und kulturellen Aufstieg</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Öffnung gegenüber weltlicher Bildung und zunehmende Verwendung der deutschen Sprache, Kritik an jüdischen Traditionen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Widerstand durch Traditionalismus der Rabbiner</li>
+                                <li>Festhalten der Landjuden an Religionsgesetzen und Bräuchen</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <h4>1.3 Das bayerische Judenedikt und seine Folgen</h4>
+                
+                <p>Durch Säkularisation und Mediatisierung vergrößerte sich das bayerische Staatsgebiet enorm. Inklusive der neugewonnenen Territorien Franken und Schwaben lebten Anfang des 19. Jahrhunderts über 50.000 Juden im Königreich Bayern. 1813 erließ König Max I. Joseph das „Edikt über die Verhältnisse der jüdischen Glaubensgenossen im Königreiche Baiern". Das Edikt wurde 1818 in die bayerische Verfassung übernommen.</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Verbesserungen</th>
+                        <th>Einschränkungen</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Rechtssicherheit und freie Religionsausübung</li>
+                                <li>Gewährung von Bürgerrechten</li>
+                                <li>Erwerb von Grundbesitz und bayerischer Staatsangehörigkeit</li>
+                                <li>Aufhebung von Berufsbeschränkungen: Zulassung zu Handwerk, Landwirtschaft, Unternehmertum</li>
+                                <li>Aufnahme jüdischer Kinder an öffentlichen Schulen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Keine Aufnahme in den Staatsdienst</li>
+                                <li>Genaue Erfassung der an einem Ort lebenden Juden und Festlegung einer Höchstzahl</li>
+                                <li>Verbot des Hausierens</li>
+                                <li>Folgen: Bewegungsfreiheit und Erwerbsmöglichkeiten eingeschränkt, Auswanderungswelle</li>
+                                <li>Eingriffe in die Autonomie der jüdischen Gemeinden</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <p><strong>Ergebnis:</strong> Aufhebung der starken Ausgrenzung, Beginn der jüdischen Emanzipation, aber noch keine rechtliche Gleichstellung</p>
+                
+                <p>Bedingung für die Gewährung von Rechten sollte die Annahme der deutschen Sprache und Mehrheitskultur sein. Dem Judentum wurde dabei der Charakter einer Konfession zugeschrieben. Infolge des Edikts kam es mit den „Hep-Hep-Unruhen" 1819 zu pogromartigen Aufständen gegen Juden. Die Krawalle bewirkten, dass weitere Reformvorhaben zugunsten der jüdischen Bevölkerung zunächst nicht umgesetzt wurden.</p>
+            </section>
+            
+            <section>
+                <h3>2 Stellung der Juden in verschiedenen europäischen Ländern</h3>
+                
+                <h4>2.1 Frankreich</h4>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Französische Revolution</th>
+                        <td>
+                            <ul>
+                                <li>Erstmals in Europa umfassende Gleichstellung der Juden</li>
+                                <li>1791 volles Bürgerrecht nach Leistung des Bürgereids</li>
+                                <li>Judentum wird Konfession, Verlust der Rechtsautonomie</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Unter Napoleon</th>
+                        <td>
+                            <ul>
+                                <li>Vorübergehende Begrenzung der Gleichberechtigung durch Beschränkung der Freizügigkeit und Berufswahl der Juden</li>
+                                <li>Zugleich aber auch Vorantreiben der Emanzipation und Integration: Organisation der jüdischen Religionsgemeinschaft analog zu der der Christen</li>
+                                <li>Ziele: Kontrolle der jüdischen Gemeinschaften, Erziehung zu Staatsbürgern</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assimilation und Dreyfus-Affäre</th>
+                        <td>Anpassung langfristig erfolgreich, aber weiterhin Antisemitismus: Dreyfus-Affäre ab 1894, bei der ein jüdischer Offizier fälschlicherweise des Verrats angeklagt wurde</td>
+                    </tr>
+                </table>
+                
+                <h4>2.2 Österreich-Ungarn</h4>
+                
+                <p>Die Toleranzpatente Josephs II. ab 1781 verbesserten die Situation der jüdischen Bevölkerung. Man wollte die Juden im Sinne des Utilitarismus für den Staat „nützlich machen", indem Rechte gegen Zahlung von Steuern vergeben wurden.</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Rechte</th>
+                        <th>Einschränkungen</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Herrschaftlicher Schutz</li>
+                                <li>Ansiedlung überall in den Städten</li>
+                                <li>Ausübung verschiedener Berufe, Zulassung an Universitäten</li>
+                                <li>Keine Kennzeichnungspflicht mehr</li>
+                                <li>Besuch staatlicher Schulen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Keine Bildung von Gemeinden, kein öffentlicher Gottesdienst</li>
+                                <li>Aufhebung der autonomen Gerichtsbarkeit</li>
+                                <li>Deutsch als Unterrichtssprache</li>
+                                <li>Weltliche Fächer verpflichtend</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <p>Die jüdische Bevölkerung Österreich-Ungarns war ungleich verteilt, es fehlten eine gemeinsame Identität und ein einheitlicher Status. Teilweise bestanden Niederlassungsverbote, steuerliche Sonderregelungen und beschränkte Erwerbsmöglichkeiten. In den 1860er-Jahren erfolgte eine regional unterschiedliche Durchsetzung der gesetzlichen Gleichstellung. Vielfach kam es – bei gleichzeitig zunehmendem Antisemitismus – zur Assimilation und Integration in das Bürgertum.</p>
+            </section>
+            
+            <section>
+                <h3>3 Stellung der Juden im Kaiserreich und in der Weimarer Republik</h3>
+                
+                <h4>3.1 Kaiserreich</h4>
+                
+                <p><strong>Rechtliche Gleichstellung</strong></p>
+                <p>Mit der Reichsgründung 1871 war die Emanzipation der jüdischen Bevölkerung formal abgeschlossen. Die mehr als 500.000 im Kaiserreich lebenden Jüdinnen und Juden wurden den anderen Staatsbürgern rechtlich gleichgestellt.</p>
+                
+                <p><strong>Sozialer Aufstieg und Assimilation</strong></p>
+                <p>Industrialisierung und sozialer Wandel boten vielen Juden Aufstiegsmöglichkeiten, u.a. als Ladenbesitzer oder Unternehmer (z. B. Hermann Tietz, Gründer der Kaufhauskette Hertie). Da Bildung für die meisten Juden einen hohen Stellenwert besaß, wurden viele in freien Berufen (z. B. Arzt, Anwalt) oder in der Wissenschaft tätig – prominente Beispiele sind der Mediziner und Nobelpreisträger Paul Ehrlich oder der Jurist, Bankier und liberale Politiker Ludwig Bamberger.</p>
+                <p>Die deutschen Juden verstanden sich überwiegend als Angehörige einer Religionsgemeinschaft und loyale Staatsbürger. Viele Vereine wurden gegründet, z.B. der „Centralverein deutscher Staatsbürger jüdischen Glaubens" (CV, 1893), der die Mehrheit der liberalen Juden vertrat und gegen antisemitische Hetze vorging. Die „Zionistische Vereinigung für Deutschland" (ZVfD, 1897) warb dagegen für die Auswanderung und die Gründung eines jüdischen Staats. Als Ausdruck des jüdischen Selbstbewusstseins entstanden jüdische Bibliotheken, Lesehallen oder Turnvereine. Der Assimilationsprozess führte dazu, dass sich 1914 viele Juden freiwillig zum Kriegsdienst meldeten.</p>
+                
+                <p><strong>Einwanderung von Juden aus Osteuropa</strong></p>
+                <p>Im Kaiserreich wuchs die jüdische Bevölkerung, was u.a. auf die Einwanderung von osteuropäischen Juden zurückzuführen war, die vor Diskriminierung, Pogromen und Armut flohen. Mit ihrer oft traditionellen Lebensweise unterschieden sich diese meist orthodoxen Juden von den assimilierten Juden.</p>
+                
+                <p><strong>Antisemitismus als Massenphänomen</strong></p>
+                <p>Der christliche Antijudaismus bestand im Kaiserreich fort, wurde aber zunehmend um den rassisch motivierten Antisemitismus auf Basis eines pseudowissenschaftlichen Sozialdarwinismus und Rassismus ergänzt. Daraus resultierte der politische Antisemitismus, der mit der Gründung explizit antisemitischer Parteien und Verbände einherging. Motive für den wachsenden Antisemitismus waren u.a.:</p>
+                <ul>
+                    <li>der sozioökonomische Modernisierungsprozess und seine Krisen (z.B. „Gründerkrise" 1873) und</li>
+                    <li>Neidreaktionen auf den zunehmenden wirtschaftlichen Erfolg der jüdischen Bevölkerung, verbunden mit einer Ablehnung der Gleichstellung.</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h3>3.2 Weimarer Republik</h3>
+                
+                <p><strong>Völlige Gleichstellung durch die Weimarer Verfassung</strong></p>
+                <p>Die Weimarer Verfassung verbot die Diskriminierung der Juden im öffentlichen Dienst, sodass ihnen alle Staatsämter offenstanden, und bestätigte die Unabhängigkeit bürgerlicher Rechte von der Religion. Im Hinblick auf die sozioökonomische Lage setzten sich viele Entwicklungen aus dem Kaierreich fort:</p>
+                <ul>
+                    <li>Minderheit von ca. einem Prozent der Bevölkerung, Konzentration auf Großstädte</li>
+                    <li>Besonders vertreten im Handel und in akademischen Berufen sowie als Selbstständige; assimiliertes städtisches Judentum, weniger assimilierte Juden aus Osteuropa</li>
+                    <li>Zunehmender Bedeutungsverlust der Religion, Rückgang der Zahl der Gemeinden, Ausweitung des jüdischen Vereinswesens, Fortbestand von Vereinen wie dem CA und der ZVfD</li>
+                </ul>
+                
+                <p><strong>Beispiele für die zentrale Rolle der jüdischen Bevölkerung in Wissenschaft, Wirtschaft und Kultur</strong></p>
+                <ul>
+                    <li>Walther Rathenau (1867-1922): im Kaiserreich Industrieller und Befürworter der jüdischen Assimilation, nach 1918 Politiker</li>
+                    <li>Albert Einstein (1879-1955): Physiker, Nobelpreisträger 1921</li>
+                    <li>Emmy Noether (1882-1935): Mathematikerin, Begründerin der modernen Algebra</li>
+                    <li>Lion Feuchtwanger (1884-1958): Schriftsteller</li>
+                    <li>Therese Giehse (1898-1975): Schauspielerin und Kabarettistin</li>
+                    <li>Kurt Landauer (1884-1961): Inhaber eines Textilgeschäfts, Präsident des FC Bayern München</li>
+                </ul>
+                
+                <p><strong>Antisemitismus in der frühen Weimarer Zeit</strong></p>
+                <p>Nach dem Ersten Weltkrieg wurden Juden häufig als Sündenböcke für die vielfältigen Krisen der Zeit herangezogen. In diesem Klima entstanden neue völkische und antisemitische Gruppierungen, darunter ab 1920 die NSDAP. Diese Gruppierungen betrieben eine effektive antijüdische Propaganda, in der Juden diffamiert wurden, indem man sie als „Drückeberger" und „Kriegsgewinnler" verunglimpfte. Sie wurden fälschlicherweise als Hauptakteure der Novemberrevolution dargestellt, was zur Hetze gegen die Weimarer Republik als sogenannte „Judenrepublik" beitrug. Zusätzlich richtete sich die Hetze auch gegen Ostjuden, denen mangelnde Anpassungsfähigkeit vorgeworfen wurde. Um dem Vorwurf der „Drückebergerei" zu begegnen, wurde 1919 der Reichsbund jüdischer Frontsoldaten (RjF) gegründet, der über den Einsatz jüdischer Soldaten im Ersten Weltkrieg aufklärte. Trotz dieser Bemühungen kam es zu Gewalt gegen Juden, wie etwa die Ermordung des Außenministers Walther Rathenau im Jahr 1922 durch die rechtsextreme „Organisation Consul", ein drastisches Beispiel für den Antisemitismus und die politische Gewalt, die zu dieser Zeit in Deutschland herrschten.</p>
+            </section>
+        </section>
+
+        <section id="scheitern" class="periode">
+            <h2>Scheitern der Weimarer Republik, NS-Diktatur und Völkermord</h2>
+            
+            <section>
+                <h3>1 Krise und Zerstörung der Weimarer Demokratie</h3>
+                
+                <h4>1.1 Die Weltwirtschaftskrise und ihre Folgen</h4>
+                
+                <h5>Der Börsenkrach in den USA</h5>
+                <p>Am 24.10.1929 platzte an der New Yorker Börse eine gewaltige Spekulationsblase. Die US-Banken zogen daraufhin ihre kurzfristigen Kredite aus dem Ausland zurück und etablierten eine Schutzzollpolitik, die Importe in die USA erschwerte. Damit wurde die Krise zur Weltwirtschaftskrise. Deutschland war besonders schwer betroffen, da aufgrund des Kapitalmangels (u.a. verursacht durch die hohen Reparationen) die Abhängigkeit von ausländischen Krediten groß war. Zudem war die Industrie wegen geringer Binnennachfrage exportabhängig.</p>
+                
+                <h5>Folgen der Weltwirtschaftskrise für Deutschland</h5>
+                
+                <div class="box">
+                    <h6>Wirtschaftliche und soziale Folgen</h6>
+                    <ul>
+                        <li>Bankenzusammenbrüche, Geldverknappung</li>
+                        <li>Rückgang der Exporte, sinkende Binnennachfrage wegen hoher Arbeitslosigkeit</li>
+                        <li>Sinkende Industrieproduktion, Sparmaßnahmen und Entlassungen: Rekordarbeitslosigkeit, Überlastung der Sozialsysteme, Massenelend</li>
+                        <li>→ Steigende Anfälligkeit in der Bevölkerung für radikale Lösungen</li>
+                    </ul>
+                    
+                    <h6>Politische Folgen</h6>
+                    <ul>
+                        <li>1930: Auseinanderbrechen der Großen Koalition an Streit um Arbeitslosenversicherung</li>
+                        <li>Aufstieg der NSDAP zur stärksten Partei, wachsende Popularität des Demagogen Hitler, „negative Mehrheit" der antidemokratischen Parteien NSDAP und KPD</li>
+                        <li>Marginalisierung der liberal-bürgerlichen Parteien, Lähmung des Reichstags</li>
+                        <li>Minderheitsregierungen („Präsidialkabinette")</li>
+                        <li>Ergebnis: Destabilisierung der Weimarer Republik</li>
+                    </ul>
+                </div>
+                
+                <h5>Die Präsidialkabinette</h5>
+                <p>In dieser Lage wurde Reichspräsident Hindenburg aufgrund seiner starken verfassungsmäßigen Stellung zum entscheidenden Faktor, indem er von seinem Vertrauen abhängige Minderheitsregierungen einsetzte. Wenn deren Gesetzentwürfe im Reichstag abgelehnt wurden, konnte Hindenburg diese mithilfe von Artikel 48 als Notverordnungen erlassen und bei Widerspruch den Reichstag auflösen. Dies führte zu einem Bedeutungsverlust des Parlaments und ebnete den Weg zur autoritären Herrschaft.</p>
+            </section>
+            
+            <section>
+                <h3>1.2 Ursachen für das Scheitern der Weimarer Republik</h3>
+                
+                <p>Dem Scheitern der Weimarer Republik lag nicht eine einzige Ursache zugrunde, sondern eine Kombination verschiedener Faktoren:</p>
+                
+                <div class="box">
+                    <ul>
+                        <li>Strukturschwächen der Verfassung: starke Stellung des Reichspräsidenten (Notstandsrecht Artikel 48), fehlender Schutz der Demokratie bei Missbrauch</li>
+                        <li>Versailler Vertrag: Ansehensverlust der Demokratie wegen „Schandfrieden" und wirtschaftlicher Belastungen, Wirkung der Dolchstoßlegende</li>
+                        <li>Ablehnende Haltung der „alten Eliten": konservativ und republikfeindlich; Verklärung des Kaiserreichs und seiner obrigkeitsstaatlichen Traditionen; Nationalismus, Antisemitismus</li>
+                        <li>Wertekontinuität: Verklärung des Kaiserreichs und seiner obrigkeitsstaatlichen Traditionen; Nationalismus, Antisemitismus</li>
+                        <li>Mangelnde Kompromissfähigkeit der Parteien aufgrund fehlender demokratischer Übung</li>
+                        <li>Spaltung der Arbeiterbewegung: KPD als radikale und republikfeindliche Kraft</li>
+                        <li>Aufstieg der NSDAP: Legalitätskurs statt Putsch; Propaganda, SA-Terror; Ausbau zu einer Massenpartei, die verschiedene Bevölkerungsschichten ansprach</li>
+                        <li>Weltwirtschaftskrise: Radikalisierung der Bevölkerung infolge der Verelendung</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h3>1.3 Die Errichtung der NS-Diktatur</h3>
+                
+                <h4>Machtübertragung am 30.1.1933</h4>
+                <p>Am 30. Januar 1933 wurde Adolf Hitler als Kanzler einer Regierung aus NSDAP, DNVP und parteilosen Konservativen vereidigt. Der Reichspräsident sah darin eine Fortsetzung seiner Politik der Präsidialkabinette und erhoffte sich die „Zähmung" Hitlers. Hitler war anfangs nur Kanzler einer Minderheitsregierung, seine Partei hatte jedoch u.a. das Innenministerium inne und damit die Kontrolle über die Polizei. Es gelang der NSDAP in kurzer Zeit, die demokratischen Strukturen zu zerschlagen und eine totalitäre Diktatur zu errichten.</p>
+                
+                <h4>Wichtige Schritte auf dem Weg zur Diktatur</h4>
+                
+                <div class="box">
+                    <ul>
+                        <li><strong>Instrumentalisierung des Reichstagsbrands vom 27.2.1933:</strong> faktenfeinige Darstellung als kommunistischer Umsturzversuch; Erlass einer Notverordnung zur Außerkraftsetzung der Grundrechte → permanenter Ausnahmezustand</li>
+                        <li><strong>Terrormaßnahmen</strong> zur Einschüchterung politischer Gegner (v. a. KPD), später Einrichtung erster Konzentrationslager in Dachau und Oranienburg</li>
+                        <li><strong>Keine absolute Mehrheit bei Reichstagswahlen vom 5.3.1933</strong> für NSDAP, Koalition mit der antidemokratischen „Kampffront Schwarz-Weiß-Rot"</li>
+                        <li><strong>Massive Propaganda</strong>, z.B. „Tag von Potsdam" (21.3.1933) zur Demonstration der Verbindung von NSDAP und „alten Eliten"</li>
+                        <li><strong>Verabschiedung des „Ermächtigungsgesetzes" am 23.3.1933:</strong> Recht der Regierung, Gesetze ohne Parlament zu erlassen, damit Aufhebung der Gewaltenteilung = Grundlage für die NS-Diktatur</li>
+                        <li><strong>Verbot der SPD (22.6.1933)</strong>, die als einzige Partei gegen das Gesetz gestimmt hatte, und Selbstauflösung der bürgerlichen Parteien; Gesetz gegen die Neubildung von Parteien (14.7.1933) → Deutschland wird Einparteienstaat</li>
+                        <li><strong>„Gleichschaltung":</strong> Vereinheitlichung des gesamten gesellschaftlich-politischen Lebens im Sinne der NS-Ideologie, z.B. Zerschlagung der Gewerkschaften, Beseitigung des Föderalismus, politische Säuberung der Verwaltung, Kontrolle der Massenmedien = Ende des Pluralismus</li>
+                        <li><strong>Röhm-Aktion (Juni 1934):</strong> Ermordung der SA-Führung und politischer Gegner, Rechtfertigung als „Staatsnotwehr"; Aufstieg der SS</li>
+                        <li><strong>2.8.1934:</strong> Tod von Reichspräsident Hindenburg, Übernahme des Amtes durch Hitler, Vereidigung der Reichswehr auf Hitler als „Führer und Reichskanzler"</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="ns-diktatur">
+                <h3>2 NS-Ideologie: Wurzeln, Elemente, Umsetzung</h3>
+                
+                <h4>2.1 Die Entstehung des Faschismus</h4>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Der Begriff</th>
+                        <td>
+                            <ul>
+                                <li>Ursprünglich Eigenbezeichnung einer rechtsextremen Bewegung im Italien der 1920er- bis 1940er-Jahre unter dem „Duce" Benito Mussolini</li>
+                                <li>Später Oberbegriff für nationalistische und antiliberale Regime, die nach dem Ersten Weltkrieg als Antwort auf die Krisen der Moderne europaweit entstanden</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Faschismus in Italien</th>
+                        <td>
+                            <ul>
+                                <li>Aufbau einer Einparteiendiktatur mit autoritärem Führer</li>
+                                <li>Propaganda und Terror</li>
+                                <li>Kampf gegen Sozialismus und Kommunismus</li>
+                                <li>Aggressive und expansive Außenpolitik</li>
+                                <li>Korporatistisches Gesellschaftsmodell: Zwangseinbindung gesellschaftlicher Interessengruppen in staatliches Handeln</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Faschismus und Nationalsozialismus</th>
+                        <td>
+                            <ul>
+                                <li>Faschismus als Vorbild für den Nationalsozialismus</li>
+                                <li>Nationalsozialismus als radikalere Form (völkischer Nationalismus, extremer Antisemitismus, totalitäre Diktatur)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <h4>2.2 Die Ideologie der „Volksgemeinschaft"</h4>
+                
+                <h5>Der Begriff „Volksgemeinschaft"</h5>
+                <p>Im Ersten Weltkrieg verstand man angesichts der äußeren Bedrohung unter „Volksgemeinschaft" den Zusammenhalt der Deutschen ungeachtet politischer und sozialer Unterschiede. Die Nationalsozialisten deuteten den Begriff zum rassistischen Propagandamittel um.</p>
+                
+                <h5>Mitglieder und Ausgestoßene</h5>
+                
+                <div class="two-col">
+                    <div class="col box" style="background-color: #f0f0f0;">
+                        <h6>Mitglieder („Wir")</h6>
+                        <ul>
+                            <li>„Bluts- und Schicksalsgemeinschaft" der „Arier"</li>
+                            <li>„Gesinnungsgemeinschaft" der Nationalsozialisten</li>
+                        </ul>
+                        <p><strong>Integration</strong></p>
+                    </div>
+                    <div class="col box" style="background-color: #ddd;">
+                        <h6>Ausgestoßene („Die Anderen")</h6>
+                        <ul>
+                            <li>„Minderwertige", „Fremdrasisige", „Gemeinschaftsfremde"</li>
+                            <li>Juden, Slawen, Sinti und Roma, Homosexuelle, Oppositionelle</li>
+                        </ul>
+                        <p><strong>Ausgrenzung</strong></p>
+                    </div>
+                </div>
+                
+                <h5>Aufhebung der Standes- und Klassengegensätze?</h5>
+                <p>In der Propaganda stand die „Volksgemeinschaft" für die Überwindung politischer und sozialer Gegensätze. In der Realität lag den Nationalsozialisten jedoch nichts an Gleichheit. Gemäß Führerprinzip musste der Einzelne seine Interessen denen der Gemeinschaft, des Staats und der Partei unterordnen, unbedingter Gehorsam war Pflicht.</p>
+                
+                <h4>2.3 Inszenierte Lebenswirklichkeiten und Propaganda</h4>
+                
+                <p>Die Nationalsozialisten entwickelten zahlreiche Identifikationsangebote, um die Ideologie der „Volksgemeinschaft" mit Leben zu füllen.</p>
+                
+                <h5>Führermythos und Führerkult</h5>
+                <p>Der Mythos des unfehlbaren Führers traf die Sehnsüchte vieler Deutscher, die nach Jahren der Krise auf einen Retter aus der persönlichen wie nationalen Not hofften. Der Rückgang der Arbeitslosigkeit und seine Revision des Versailler Vertrags steigerten Hitlers Ansehen ebenso wie seine anfänglichen militärischen Siege, die propagandistisch überhöht wurden. Im Rahmen des Führerkults wurde er auf Massenveranstaltungen wie den Reichsparteitagen als quasireligiöse Führungsgestalt inszeniert. Gleichzeitig wurde er als einfach und bedürfnislos dargestellt und sich im Dienst des Volkes aufopfernd.</p>
+                
+                <h4>Die Durchdringung der Gesellschaft</h4>
+                
+                <p>Die Nationalsozialisten errichteten eine totalitäre Diktatur. Sie beschränkten sich nicht auf die Kontrolle der politischen Machtpositionen, sondern strebten nach einer totalen Erfassung der gesamten Bevölkerung mithilfe von NS-Organisationen, Propaganda und Terror, um sie für das Regime verfügbar zu machen.</p>
+                
+                <h5>Beispiele für NS-Organisationen</h5>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Hitlerjugend (DJ, JM, HJ, BDM)</th>
+                        <td>NS-Organisationen für Kinder und Jugendliche: Vereinnahmung für den Staat, Indoktrination</td>
+                    </tr>
+                    <tr>
+                        <th>Reichsarbeitsdienst (RAD)</th>
+                        <td>Verpflichtung arbeitsfähiger Männer, später auch Frauen, zu sechsmonatigen Hilfsdiensten</td>
+                    </tr>
+                    <tr>
+                        <th>Deutsche Arbeitsfront (DAF)</th>
+                        <td>Zwangsvereinigung aller Arbeitnehmerverbände unter Verlust der Mitbestimmungsrechte</td>
+                    </tr>
+                    <tr>
+                        <th>Kraft durch Freude (KdF)</th>
+                        <td>NS-Freizeitorganisation: u.a. Reisen, Theater- und Kinoabende</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <section>
+                <h3>4 Diskriminierung, Entrechtung und Verfolgung der jüdischen Bevölkerung und weiterer Opfergruppen</h3>
+                
+                <h4>4.1 Anfänge der Judenverfolgung im NS-Staat</h4>
+                
+                <p>Bereits wenige Wochen nach der nationalsozialistischen Machtübernahme wurden von staatlicher Seite die ersten antijüdischen Gesetze erlassen, die bis zur völligen Entrechtung der jüdischen Bevölkerung führten.</p>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>Boykott vom 1.4.1933</th>
+                        <td>Ausrufung eines reichsweiten Boykotts gegen jüdische Kaufleute, Ärzte und Rechtsanwälte</td>
+                    </tr>
+                    <tr>
+                        <th>7.4.1933</th>
+                        <td>„Gesetz zur Wiederherstellung des Berufsbeamtentums" mit „Arierparagraf": Entlassung jüdischer Beamter (z. B. Lehrer, Richter) aus dem Staatsdienst; Berufsverbote für jüdische Rechtsanwälte, Ärzte und Künstler</td>
+                    </tr>
+                    <tr>
+                        <th>Juni 1933</th>
+                        <td>Anordnung Görings, Gewaltakte und Morde an Juden nicht mehr zu bestrafen → Juden nunmehr ohne Rechtsschutz</td>
+                    </tr>
+                    <tr>
+                        <th>Nürnberger Gesetze (1935)</th>
+                        <td>
+                            <p>„Reichsbürgergesetz":<br>
+                            Ausschluss der Juden aus der Rechtsgemeinschaft des „deutschen Volks": Juden als bloße „Staatsangehörige" ohne die politischen Rechte der „Reichsbürger"</p>
+                            <p>„Gesetz zum Schutze des deutschen Blutes und der deutschen Ehre":<br>
+                            Verbot von „rassischen Mischehen" und außerehelichem Verkehr zwischen Juden und Nichtjuden als „Rassenschande"</p>
+                            <p><strong>Auswirkungen:</strong></p>
+                            <ul>
+                                <li>Erleichterung der Judenverfolgung</li>
+                                <li>Größere Akzeptanz der Judenverfolgung durch pseudolegitime Rechtsgrundlage</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Weitere Maßnahmen</th>
+                        <td>Ausgangsverbote und Besuchsverbote für öffentliche Einrichtungen, um Juden aus dem öffentlichen Leben zu verdrängen</td>
+                    </tr>
+                </table>
+                
+                <h4>4.2 Ausweitung der Judenverfolgung</h4>
+                
+                <h5>Die Novemberpogrome (9.11.1938)</h5>
+                <p>Unter einem Pogrom versteht man eine gewaltsame Ausschreitung gegen eine Minderheit. Mit den Pogromen gegen die deutschen Juden am 9./10.11.1938 trat die Judenverfolgung in eine neue Phase ein: Bei den von der NS-Führung reichsweit inszenierten Ausschreitungen wurden Synagogen in Brand gesetzt, Geschäfte beschädigt, Juden verhaftet und in Konzentrationslager verschleppt. Etliche wurden ermordet, starben an den Haftfolgen oder begingen Selbstmord.</p>
+                
+                <h5>Enteignung der Juden („Arisierung")</h5>
+                <p>Mit den Novemberpogromen kam es zur entschädigungslosen, zwangsweisen Enteignung aller noch existierenden jüdischen Geschäfte und Unternehmen, aller Wertpapierbestände und allen Grundbesitzes, was den wirtschaftlichen Ruin der jüdischen Besitzer bedeutete. Die Juden waren nun vollständig aus dem Geschäftsleben verdrängt.</p>
+                
+                <h4>4.3 Verfolgung anderer Opfergruppen</h4>
+                
+                <ul>
+                    <li><strong>Sinti und Roma</strong> zählten wie die Juden zu den „Reichsfeinden". Sie wurden auf Basis rasseideologischer Kriterien ausgegrenzt, entrechtet und verfolgt. Maßnahmen gegen die Juden wie die Nürnberger Gesetze wurden auf sie übertragen. Bereits im Juni 1938 wurde eine größere Anzahl von Sinti und Roma in Konzentrationslager verschleppt.</li>
+                    <li>Im Rahmen des <strong>„Euthanasie"-Programms</strong> (ab 1939) wurden Menschen mit geistiger oder körperlicher Behinderung sowie psychisch Kranke, deren Leben gemäß NS-Rassenideologie als „nicht lebenswert" eingestuft wurde, verfolgt, zwangssterilisiert und massenweise getötet („Aktion T 4"). Eventuell aufgrund von Protesten einiger kirchlicher Würdenträger und Angehöriger wurde das Programm 1941 öffentlich eingestellt, lief aber im Geheimen weiter. Insgesamt wurden in Europa ca. 200.000 Menschen im Rahmen des „Euthanasie"-Programms ermordet.</li>
+                </ul>
+            </section>
+            
+            <section id="weltkrieg">
+                <h3>5 Der Zweite Weltkrieg</h3>
+                
+                <h4>5.1 Überblick über den Kriegsverlauf</h4>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>1939</th>
+                        <td>Deutscher Überfall auf Polen, Sieg der Wehrmacht nach drei Wochen</td>
+                    </tr>
+                    <tr>
+                        <th>1940</th>
+                        <td>
+                            <ul>
+                                <li>Besetzung Dänemarks und Norwegens, der Benelux-Staaten und Nordfrankreichs</li>
+                                <li>Versuch einer Invasion der britischen Inseln</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>1941</th>
+                        <td>
+                            <ul>
+                                <li>Scheitern der Invasion Großbritanniens</li>
+                                <li>Feldzüge auf dem Balkan und in Nordafrika</li>
+                                <li>Beginn des Russlandfeldzugs</li>
+                                <li>Entstehen der Anti-Hitler-Koalition nach dem Angriff auf Pearl Harbor</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>1942</th>
+                        <td>
+                            <ul>
+                                <li>Größte Ausdehnung des deutschen Herrschaftsgebiets in Europa</li>
+                                <li>Vormarsch Deutschlands und Italiens in Ostafrika gestoppt</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>1943</th>
+                        <td>
+                            <ul>
+                                <li>Niederlage in Stalingrad als Wendepunkt des Krieges</li>
+                                <li>Eroberung von Süditalien und Nordafrika durch die Alliierten</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>1944</th>
+                        <td>Landung der Alliierten in der Normandie, Befreiung Frankreichs, Mittelitaliens, Finnlands und großer Teile Ostmitteleuropas</td>
+                    </tr>
+                    <tr>
+                        <th>1945</th>
+                        <td>
+                            <ul>
+                                <li>Eroberung Deutschlands durch die Alliierten</li>
+                                <li>8./9. Mai: bedingungslose Kapitulation des Deutschen Reichs</li>
+                                <li>2. September: Japan kapituliert nach den Atombombenabwürfen auf Hiroshima (6. August) und Nagasaki (9. August)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+                <h4>5.2 Weltanschauungs- und Vernichtungskrieg</h4>
+                
+                <h5>Das Besatzungsregime in Polen</h5>
+                <p>Der Überfall auf Polen hatte die Gewinnung von „Lebensraum im Osten" zum Ziel. Nach dem Sieg im ersten „Blitzkrieg" wurde in Polen ein rigides Besatzungsregime eingeführt und die polnischen Juden wurden in Ghettos zusammengepfercht. Bis Kriegsende ermordeten die Nationalsozialisten bis zu sechs Millionen Polen, darunter über drei Millionen polnische Juden. Über eine Million Polen wurden als Zwangsarbeiter nach Deutschland deportiert.</p>
+                
+                <h5>Das Besatzungsregime in der Sowjetunion</h5>
+                <p>Der Krieg gegen die Sowjetunion ab Juni 1941 sollte weiteren „Lebensraum im Osten" bringen und gleichzeitig den „jüdischen Bolschewismus" vernichten. Ziel war die Plünderung der eroberten Gebiete und die Ausbeutung der Menschen als Zwangsarbeiter. Es kam zu einer Radikalisierung des Krieges. Hinter der schnell vorrückenden Wehrmacht operierten Einsatzgruppen der SS, die zusammen mit Helfern systematisch die jüdische Bevölkerung, kommunistische Funktionäre und Sinti und Roma umbrachten. Zudem wurden drei Millionen Rotarmisten dem Hungertod preisgegeben. Auch gegen Partisanen und Zivilisten gingen die Deutschen mit großer Brutalität vor. Die Menschen in den besetzten Gebieten wurden zur Arbeit gezwungen und millionenfach als Zwangsarbeiter nach Deutschland verschleppt.</p>
+                
+                <h4>5.3 „Totaler Krieg"</h4>
+                
+                <ul>
+                    <li>Propagandaformel als Reaktion auf die Niederlage von Stalingrad (1943); Ziel: Stärkung des Durchhaltewillens der Bevölkerung</li>
+                    <li>Totale Mobilisierung aller personellen und materiellen Ressourcen im Deutschen Reich und in den besetzten Gebieten für den angestrebten „Endsieg"; Freisetzung zusätzlicher Kräfte für den Kriegsdienst durch Ausweitung der Wehrpflicht und Verstärkung der Rüstungsanstrengungen (Erhöhung der Arbeitszeit, Drosselung der Produktion in nicht kriegswichtigen Branchen, systematischer Einsatz von Zwangsarbeitern); intensivierte „Gleichschaltung" der Bevölkerung durch Verstärkung von Propaganda und Repression, z. B. Hinrichtungen wegen „Wehrkraftzersetzung"</li>
+                </ul>
+            </section>
+            
+            <section id="holocaust">
+                <h3>6 Holocaust und Völkermord</h3>
+                
+                <h4>6.1 Die Begriffe Holocaust, Shoah, Völkermord</h4>
+                
+                <p>Der Begriff „Holocaust" lehnt sich an ein griechisches Wort mit der Bedeutung „Brandopfer" an und wird als Bezeichnung für den Massenmord an den Juden verwendet. Aus dem Hebräischen stammt der Begriff „Shoah" („großes Unheil", „Katastrophe"). Die vorsätzliche Vernichtung von religiös, ethnisch oder „rassisch" bestimmten Bevölkerungsgruppen bezeichnet man als Völkermord oder Genozid.</p>
+                
+                <h4>6.2 Der Völkermord an den europäischen Juden</h4>
+                
+                <h5>Chronologie</h5>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>bis Ende 1939</th>
+                        <td>Antijüdischer Terror in Polen durch die deutschen Besatzer, Ermordung Tausender polnischer Juden, Isolierung polnischer Juden in Ghettos im „Generalgouvernement"</td>
+                    </tr>
+                    <tr>
+                        <th>1940</th>
+                        <td>Nach dem Sieg über Frankreich Plan einer „territorialen Endlösung" (Deportation der europäischen Juden auf die Insel Madagaskar), aber Aufgabe des Plans nach Überfall auf die UdSSR</td>
+                    </tr>
+                    <tr>
+                        <th>1941</th>
+                        <td>Massenerschießungen von Juden in der Sowjetunion durch deutsche „Einsatzgruppen"</td>
+                    </tr>
+                    <tr>
+                        <th>ab Herbst 1941</th>
+                        <td>Massenhafte Deportationen von Juden aus deutschem Reichsgebiet und besetzten Gebieten nach Polen; Auswanderungsverbot</td>
+                    </tr>
+                    <tr>
+                        <th>20.01.1942</th>
+                        <td>Wannsee-Konferenz: Beschluss zur systematischen Vernichtung der europäischen Juden durch Zwangsarbeit und industrielles Morden („Endlösung"); beteiligte Organisationen: SS, andere NS-Organe, Wehrmacht, Industriebetriebe</td>
+                    </tr>
+                    <tr>
+                        <th>1942/1943</th>
+                        <td>Deportation der Juden aus fast ganz Europa in Vernichtungslager im Osten (u.a. Auschwitz): industriell betriebener Massenmord durch Vergasung nach Selektion sowie „Vernichtung durch Arbeit", menschenverachtende medizinische Versuche</td>
+                    </tr>
+                    <tr>
+                        <th>1944/1945</th>
+                        <td>Angesichts des Vorrückens der Roten Armee Zerstörung der noch bestehenden Vernichtungslager auf Anordnung Himmlers; „Todesmärsche" der letzten Insassen nach Westen</td>
+                    </tr>
+                </table>
+                
+                <h5>Der Holocaust als singuläres Verbrechen</h5>
+                
+                <p>Der Holocaust wird als Zivilisationsbruch bzw. als singuläres Verbrechen der Menschheitsgeschichte bewertet:</p>
+                <ul>
+                    <li>Ca. sechs Millionen Opfer</li>
+                    <li>Antisemitismus und Rassenideologie als Staatsdoktrin</li>
+                    <li>Umsetzung des Völkermords mit allen staatlichen Machtmitteln</li>
+                    <li>Systematischer Charakter der Verfolgung und Ermordung (z.B. in „Tötungsfabriken" wie Auschwitz)</li>
+                    <li>Absicht der Ausrottung der jüdischen Minderheit in Europa</li>
+                    <li>Erschütterung bzw. Verneinung der humanistischen Fundamente unserer Zivilisation (z.B. Vernunft, Menschlichkeit, Mitleid)</li>
+                </ul>
+                
+                <h4>Erklärungsansätze für den Holocaust</h4>
+                
+                <ul>
+                    <li>Radikaler Antisemitismus Hitlers und seiner engen Gefolgschaft</li>
+                    <li>Brutalität und Amoralität der NS-Funktionäre in den besetzten Gebieten bei Umsetzung der „Lebenstraumpolitik"; zunehmende Radikalisierung und Konkurrenzdenken, Umwertung von Werten</li>
+                    <li>Bürokratischer Ablauf des Holocaust mit großer Zahl von Schreibtischtätern (Behauptung, nur Befehle befolgt zu haben)</li>
+                    <li>Völkermord als „Raubmord": Mitfinanzierung des Krieges und Sicherung der Versorgung der deutschen Bevölkerung durch Ausbeutung der besetzten Länder, Enteignung und Ermordung der Juden</li>
+                </ul>
+                
+                <h4>Der „Davon haben wir nichts gewusst"-Mythos</h4>
+                
+                <p>Viele Deutsche gaben nach dem Krieg an, nichts von Judenverfolgung und Holocaust gewusst zu haben. Gegen diesen Mythos spricht:</p>
+                <ul>
+                    <li>Ausgrenzung, Entrechtung, Pogrome sowie Vertreibung und Deportation der Juden fanden in aller Öffentlichkeit statt, die NS-Propaganda warb für die Verfolgung der Juden.</li>
+                    <li>Soldaten auf Heimaturlaub berichteten von den Mordaktionen.</li>
+                    <li>Über Beteiligte sowie alliierte Flugblätter und den ausländischen Rundfunk sickerten Meldungen über die Vernichtungslager durch.</li>
+                    <li>Die NS-Propaganda tat diese Meldungen zwar als Lügen ab, erklärte aber die Judenvernichtung offiziell zum Kriegsziel.</li>
+                </ul>
+                
+                <h4>Motive für die Passivität der Deutschen</h4>
+                
+                <div class="box">
+                    <h5>Motive für die Passivität der Deutschen:</h5>
+                    <ul>
+                        <li>„Antijüdischer Konsens" in der Bevölkerung</li>
+                        <li>Karrierechancen aufgrund der Berufsverbote für Juden</li>
+                        <li>Wirtschaftliche Vorteile infolge der „Arisierung"</li>
+                        <li>Neid auf den Erfolg von Juden</li>
+                        <li>Angst vor Denunziationen</li>
+                        <li>Angst vor Sanktionen wegen sozialer Kontakte mit Juden</li>
+                    </ul>
+                </div>
+                
+                <h4>Der Holocaust als „offenes Geheimnis"</h4>
+                
+                <p>Die deutsche Bevölkerung wusste also mehr oder minder genau über den Holocaust Bescheid. Historiker sprechen von einem „offenen Geheimnis", das im kollektiven Bewusstsein der Deutschen gegenwärtig war. Seine Verdrängung lässt sich als Abwehrreaktion deuten, um sich der Verantwortung zu entziehen. Die sich verschlechternde militärische Situation sorgte dafür, dass die Angst vor Rache und Strafe wuchs. Darauf baute die NS-Führung, die versuchte, Regierung und Bevölkerung in einer „Schuldgemeinschaft" zu vereinen, um so den Durchhaltewillen der Deutschen zu stärken. Nach Kriegsende fehlte den meisten Deutschen folglich ein Bewusstsein für die an den Juden und anderen Bevölkerungsgruppen begangenen Verbrechen.</p>
+                
+                <h4>6.3 Der Völkermord an den Sinti und Roma</h4>
+                
+                <table class="info-table">
+                    <tr>
+                        <th>1939</th>
+                        <td>Einschränkung der Bewegungsfreiheit und Internierung gleich nach Kriegsbeginn, Zwangsarbeit</td>
+                    </tr>
+                    <tr>
+                        <th>ab 1940</th>
+                        <td>Massenhafte Deportation in das „Generalgouvernement"; Unterbringung in Lagern, Dörfern und Ghettos; Zwangsarbeit, Tod durch Krankheiten und Ermordung</td>
+                    </tr>
+                    <tr>
+                        <th>ab 1941</th>
+                        <td>Systematische Ermordung von Roma in Ost- und Südosteuropa durch „Einsatzgruppen" und Kollaborateure</td>
+                    </tr>
+                    <tr>
+                        <th>1942</th>
+                        <td>Anordnung Himmlers, alle noch lebenden Sinti und Roma in Konzentrationslagern zu internieren</td>
+                    </tr>
+                    <tr>
+                        <th>1943</th>
+                        <td>Deportationen nach Auschwitz-Birkenau: Tod durch Hunger, Krankheiten, Misshandlungen, medizinische Experimente und Vergasung der letzten Überlebenden</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Ermordung von bis zu 500.000 europäischen Sinti und Roma</strong></p>
+            </section>
+        </section>
+    </div>
+</body>
+</html>
