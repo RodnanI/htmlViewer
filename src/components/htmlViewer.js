@@ -300,17 +300,21 @@ const HtmlViewer = ({ htmlContent, slug }) => {
         fileName={fileName}
       />
       
-      {/* Advanced loading overlay - only rendered client-side */}
-      {loading && isClient && (
+      {/* Loading overlay */}
+      {loading && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white dark:bg-gray-900 bg-opacity-95 dark:bg-opacity-95 backdrop-blur-sm transition-all duration-700 ease-out">
-          {/* Canvas for the dot grid animation */}
-          <canvas 
-            ref={canvasRef} 
-            className="absolute inset-0 w-full h-full"
-            style={{ opacity: 0.9 }}
-          />
+          {/* Static loading design for initial render + Canvas animation once client-side */}
+          {isClient ? (
+            <canvas 
+              ref={canvasRef} 
+              className="absolute inset-0 w-full h-full"
+              style={{ opacity: 0.9 }}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 animate-pulse" />
+          )}
           
-          {/* Floating progress indicator */}
+          {/* Immediate visual representation of progress */}
           <div className="relative z-10">
             <div 
               className="text-3xl font-bold tracking-tight text-center mb-2"
@@ -354,13 +358,6 @@ const HtmlViewer = ({ htmlContent, slug }) => {
         </div>
       )}
       
-      {/* Simple loading placeholder for server-side rendering */}
-      {loading && !isClient && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white dark:bg-gray-900">
-          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
-        </div>
-      )}
-      
       {/* Content iframe with refined transitions */}
       <div className="relative rounded-lg overflow-hidden border border-light-border dark:border-dark-border">
         <iframe 
@@ -380,20 +377,18 @@ const HtmlViewer = ({ htmlContent, slug }) => {
           sandbox="allow-same-origin allow-scripts allow-forms"
         />
         
-        {/* High-tech top line progress bar - only rendered client-side */}
-        {isClient && (
-          <div className="absolute top-0 left-0 right-0 flex h-1">
-            <div 
-              className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
-              style={{ 
-                width: `${progress}%`,
-                opacity: loading ? 1 : 0,
-                transition: 'width 0.3s ease-out, opacity 0.6s ease-out',
-                boxShadow: '0 0 8px rgba(59, 130, 246, 0.5)'
-              }}
-            />
-          </div>
-        )}
+        {/* Progress bar - visible for both server and client rendering */}
+        <div className="absolute top-0 left-0 right-0 flex h-1">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+            style={{ 
+              width: `${progress}%`,
+              opacity: loading ? 1 : 0,
+              transition: 'width 0.3s ease-out, opacity 0.6s ease-out',
+              boxShadow: '0 0 8px rgba(59, 130, 246, 0.5)'
+            }}
+          />
+        </div>
       </div>
     </div>
   );
