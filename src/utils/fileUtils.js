@@ -17,12 +17,18 @@ export function getHtmlFiles() {
   // Filter for HTML files only
   return fileNames
     .filter(file => file.endsWith('.html'))
-    .map(fileName => ({
-      fileName,
-      slug: fileName.replace(/\.html$/, ''),
-      path: `/html-files/${fileName}`,
-      createdAt: fs.statSync(path.join(htmlDirectory, fileName)).ctime,
-    }))
+    .map(fileName => {
+      const filePath = path.join(htmlDirectory, fileName);
+      const stats = fs.statSync(filePath);
+      
+      return {
+        fileName,
+        slug: fileName.replace(/\.html$/, ''),
+        path: `/html-files/${fileName}`,
+        createdAt: stats.ctime,
+        size: stats.size // Add file size in bytes
+      };
+    })
     .sort((a, b) => b.createdAt - a.createdAt); // Sort by creation date (newest first)
 }
 
