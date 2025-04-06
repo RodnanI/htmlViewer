@@ -13,6 +13,7 @@ const HtmlViewer = ({ htmlContent, slug }) => {
   const [isClient, setIsClient] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [processedKB, setProcessedKB] = useState(0);
+  const [totalFileSize, setTotalFileSize] = useState(0);
   const { theme } = useTheme();
   
   // Download related states
@@ -30,12 +31,13 @@ const HtmlViewer = ({ htmlContent, slug }) => {
     const timer = setInterval(() => {
       if (loading) {
         setElapsedTime(prev => prev + 0.1);
-        setProcessedKB(Math.round(progress * 10.24));
+        // Update processed KB based on actual file size and current progress
+        setProcessedKB(Math.round((progress / 100) * totalFileSize));
       }
     }, 100);
     
     return () => clearInterval(timer);
-  }, [loading, progress]);
+  }, [loading, progress, totalFileSize]);
 
   // Canvas animation for the loading screen
   useEffect(() => {
@@ -149,6 +151,11 @@ const HtmlViewer = ({ htmlContent, slug }) => {
       setLoading(true);
       setProgress(0);
       setElapsedTime(0);
+      
+      // Calculate actual file size in KB
+      const fileSizeInBytes = new Blob([htmlContent]).size;
+      const fileSizeInKB = Math.round(fileSizeInBytes / 1024);
+      setTotalFileSize(fileSizeInKB);
       setProcessedKB(0);
       
       // Simulate progress with slight acceleration
