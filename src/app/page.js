@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">HTML File Viewer</h2>
-        <p className="text-gray-600 dark:text-gray-400">Easily view and manage your HTML files.</p>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">Nándor's HTML Viewer</h2>
+        <p className="text-gray-600 dark:text-gray-400">Easily view and download HTML files.</p>
       </div>
       
       {htmlFiles.length === 0 ? (

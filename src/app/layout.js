@@ -6,8 +6,8 @@ import ThemeToggle from '../components/ThemeToggle';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'HTML File Viewer',
-  description: 'View your HTML files easily',
+  title: "Nándor's HTML Viewer",
+  description: "View your HTML files easily",
 };
 
 export default function RootLayout({ children }) {
