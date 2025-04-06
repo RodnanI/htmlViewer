@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernübersicht Jura: Normenanalyse & Subsumtion (§ 823 BGB)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #005f73; /* Dunkles Türkisblau */
+            --secondary-color: #0a9396; /* Helles Türkisblau */
+            --accent-color: #ee9b00; /* Orange/Gold */
+            --background-color: #f8f9fa; /* Sehr helles Grau */
+            --card-background: #ffffff; /* Weiß */
+            --text-color: #343a40; /* Dunkelgrau */
+            --heading-color: var(--primary-color);
+            --success-color: #2a9d8f; /* Grünton */
+            --fail-color: #e76f51; /* Rötliches Orange */
+            --border-color: #dee2e6; /* Heller Rand */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            background: transparent; /* Container selbst transparent, Karten haben Hintergrund */
+            padding: 0; /* Padding in den Karten */
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: var(--heading-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            font-weight: 700;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 1em;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: var(--secondary-color);
+            border-bottom: none;
+            margin-top: 1.8em;
+        }
+
+        h4 {
+             font-size: 1.2em;
+             color: var(--accent-color);
+             font-weight: 700;
+             margin-top: 1.5em;
+        }
+
+        h5 {
+            font-size: 1.1em;
+            color: var(--primary-color);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5em;
+        }
+
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            overflow: hidden; /* Für innere Elemente mit Rändern */
+        }
+
+        .konzept {
+            background-color: #e0f7fa; /* Sehr helles Cyan */
+            border-left: 6px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0; /* Abrundung nur rechts */
+        }
+
+        .paragraph-text {
+            background-color: #e9ecef; /* Hellgrau */
+            border: 1px solid #ced4da;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+         .paragraph-text strong {
+            font-weight: bold;
+            color: var(--primary-color);
+         }
+
+        .tbm-liste, .schema-liste {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tbm-liste li, .schema-liste li {
+            background: var(--background-color);
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            padding-left: 40px; /* Platz für Icon */
+        }
+
+        .tbm-liste li::before, .schema-liste li::before {
+            font-family: 'Arial', sans-serif; /* Oder ein Icon-Font */
+            font-weight: bold;
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            font-size: 1.2em;
+        }
+
+        .tbm-liste li::before {
+            content: "✓";
+            color: var(--success-color);
+        }
+        /* Spezifische Anpassung für TBM-Details */
+        .tbm-liste li ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        .tbm-liste li ul li {
+            background: none;
+            border: none;
+            padding: 2px 0;
+            margin-bottom: 2px;
+            font-size: 0.95em;
+        }
+         .tbm-liste li ul li::before{
+            content: ""; /* Kein eigenes Icon für Unterpunkte */
+         }
+
+         .schema-liste li::before {
+            content: "→";
+            color: var(--secondary-color);
+         }
+
+        .rechtsfolge {
+            background-color: #d1fae5; /* Helles Mintgrün */
+            border-left: 6px solid var(--success-color);
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+            font-weight: 700;
+            color: #065f46; /* Dunkelgrün */
+        }
+
+        .fallbeispiel {
+            background-color: #fffbeb; /* Sehr helles Gelb */
+            border: 1px solid #fde68a; /* Heller Goldton */
+            border-left: 6px solid var(--accent-color);
+            padding: 20px 25px;
+            margin-top: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+        .fall-fakten {
+            font-style: italic;
+            color: #57534e; /* Dunkleres Grau-Braun */
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #d6d3d1; /* Heller Trennstrich */
+        }
+        .obersatz {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .ergebnis {
+            font-weight: bold;
+            margin-top: 8px;
+            display: inline-block; /* Damit es nicht die ganze Breite einnimmt */
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .ergebnis.positiv { color: var(--success-color); background-color: #ecfdf5; border: 1px solid #a7f3d0; }
+        .ergebnis.negativ { color: var(--fail-color); background-color: #fff1ee; border: 1px solid #fed7aa; }
+
+        code {
+            background-color: #e9ecef;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .hinweis {
+            font-style: italic;
+            color: #555;
+            margin: 15px 0;
+            padding: 12px 18px;
+            background-color: #f8f9fa;
+            border: 1px dashed #ced4da;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 40px 0;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #6c757d; /* Mittelgrau */
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lernübersicht: Normenanalyse & Subsumtion (§ 823 BGB)</h1>
+        <div class="card">
+            <p class="hinweis">Diese Übersicht fasst die Kernpunkte der letzten Stunde zusammen und fokussiert sich auf das für die Ex relevante Wissen, insbesondere die Analyse und Anwendung von § 823 BGB. Ergänzt um weitere Beispiele.</p>
+        </div>
+
+        <!-- Abschnitt 1: Normenanalyse -->
+        <div class="card">
+            <section>
+                <h2>1. Normenanalyse: Paragraphen zerlegen</h2>
+                <div class="konzept">
+                    <p>Die Grundidee ist, einen Paragraphen in eine <strong>Wenn-Dann-Struktur</strong> zu zerlegen:</p>
+                    <ul>
+                        <li><strong>WENN</strong> bestimmte Voraussetzungen erfüllt sind = <strong>Tatbestandsmerkmale (TBM)</strong></li>
+                        <li><strong>DANN</strong> tritt eine bestimmte Folge ein = <strong>Rechtsfolge (RF)</strong></li>
+                    </ul>
+                    <p>Alle TBM müssen erfüllt sein, damit die RF eintritt. Versuche, die TBM so <strong>kleinschrittig</strong> wie möglich zu finden.</p>
+                    <p><strong>Beispiel-Struktur:</strong></p>
+                    <code>WENN (TBM 1 + TBM 2 + TBM 3 + ...) DANN (Rechtsfolge)</code>
+                </div>
+            </section>
+        </div>
+
+        <!-- Abschnitt 2: Subsumtion -->
+        <div class="card">
+            <section>
+                <h2>2. Subsumtion: Den Fall unter die Norm bringen</h2>
+                <div class="konzept">
+                    <p>Subsumtion bedeutet, zu prüfen, ob die <strong>konkreten Fakten eines Falles</strong> die <strong>abstrakten Tatbestandsmerkmale</strong> eines Paragraphen erfüllen.</p>
+                    <p><strong>Schematisches Vorgehen:</strong></p>
+                    <ol class="schema-liste">
+                        <li><strong>Obersatz formulieren:</strong> Wer will was von wem woraus? (z.B. Könnte A von B Schadensersatz aus § 823 Abs. 1 BGB verlangen?)</li>
+                        <li><strong>Tatbestandsmerkmal (TBM) nennen:</strong> Das erste TBM des Paragraphen.</li>
+                        <li><strong>(Definition):</strong> Kurz erklären, was das TBM bedeutet (optional, aber gut!).</li>
+                        <li><strong>Subsumtion (Kern):</strong> Fallfakten mit dem TBM vergleichen. Passt es? Begründen!</li>
+                        <li><strong>Ergebnis (zum TBM):</strong> Feststellen: TBM erfüllt (+) oder nicht erfüllt (-).</li>
+                        <li><strong>Wiederholen:</strong> Schritte 2-5 für ALLE TBM des Paragraphen.</li>
+                        <li><strong>Gesamtergebnis:</strong> Sind ALLE TBM erfüllt? Dann tritt die Rechtsfolge ein. Wenn nur EIN TBM fehlt, tritt die Rechtsfolge NICHT ein.</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- Abschnitt 3: § 823 Abs. 1 BGB -->
+        <div class="card">
+            <section>
+                <h2>3. Fokus-Paragraph: § 823 Abs. 1 BGB (Schadensersatzpflicht)</h2>
+                <p>Dieser Paragraph ist sehr wichtig und war zentrales Thema!</p>
+                <div class="paragraph-text">
+                    <strong>§ 823 Schadensersatzpflicht</strong><br>
+                    (1) Wer <strong>vorsätzlich</strong> oder <strong>fahrlässig</strong> das <strong>Leben</strong>, den <strong>Körper</strong>, die <strong>Gesundheit</strong>, die <strong>Freiheit</strong>, das <strong>Eigentum</strong> oder ein <strong>sonstiges Recht</strong> eines anderen <strong>widerrechtlich</strong> verletzt, ist dem anderen zum <strong>Ersatz</strong> des daraus entstehenden <strong>Schadens</strong> verpflichtet.
+                </div>
+
+                <h3>Tatbestandsmerkmale (TBM) von § 823 Abs. 1 BGB im Detail:</h3>
+                <ul class="tbm-liste">
+                    <li>
+                        <strong>1. Handlung:</strong> Ein menschliches Verhalten (Tun oder Unterlassen). Meist unproblematisch.
+                    </li>
+                     <li>
+                        <strong>2. Rechtsgutsverletzung:</strong> Verletzung eines der absolut geschützten Rechtsgüter:
+                        <ul>
+                            <li>Leben (Tötung)</li>
+                            <li>Körper (äußere Substanzverletzung, z.B. Wunde)</li>
+                            <li>Gesundheit (innere Funktionsstörung, z.B. Krankheit, Schock)</li>
+                            <li>Freiheit (körperliche Bewegungsfreiheit)</li>
+                            <li>Eigentum (Substanzverletzung, Entziehung, Nutzungsbeeinträchtigung)</li>
+                            <li>Sonstiges Recht (z.B. allgemeines Persönlichkeitsrecht, Recht am eingerichteten und ausgeübten Gewerbebetrieb)</li>
+                        </ul>
+                     </li>
+                     <li>
+                        <strong>3. Haftungsbegründende Kausalität:</strong> Die Handlung (1) muss ursächlich (kausal) für die Rechtsgutsverletzung (2) sein. (Conditio-sine-qua-non-Formel: Handlung kann nicht hinweggedacht werden, ohne dass die Verletzung entfiele.)
+                     </li>
+                    <li>
+                        <strong>4. Widerrechtlichkeit:</strong> Die Handlung muss im Widerspruch zur Rechtsordnung stehen.
+                        <div class="hinweis">Indiziert (liegt i.d.R. vor) durch die Rechtsgutsverletzung. Prüfung: Gibt es <strong>Rechtfertigungsgründe</strong>? (z.B. Notwehr § 227 BGB, Verteidigungsnotstand § 228 BGB, Aggressivnotstand § 904 BGB, Einwilligung, gesetzliche Erlaubnis). Nur wenn ein Rechtfertigungsgrund vorliegt, entfällt die Widerrechtlichkeit.</div>
+                    </li>
+                     <li>
+                        <strong>5. Verschulden:</strong> Der Handelnde muss schuldhaft, d.h. <strong>vorsätzlich</strong> oder <strong>fahrlässig</strong> gehandelt haben (§ 276 BGB).
+                        <ul>
+                            <li><strong>Vorsatz:</strong> Wissen und Wollen der Verwirklichung des Tatbestands.</li>
+                            <li><strong>Fahrlässigkeit (§ 276 Abs. 2 BGB):</strong> Außerachtlassen der im Verkehr erforderlichen Sorgfalt. (Hätte eine durchschnittlich sorgfältige Person in der Situation die Rechtsgutsverletzung vorhersehen und vermeiden können?)</li>
+                        </ul>
+                         <div class="hinweis">Prüfung: Gibt es <strong>Schuldausschließungsgründe</strong>? (z.B. § 827 BGB - Bewusstlosigkeit, krankhafte Störung; § 828 BGB - Alter des Kindes). Wenn ja, entfällt das Verschulden.</div>
+                     </li>
+                     <li>
+                        <strong>6. Schaden:</strong> Ein unfreiwilliger Vermögensnachteil muss entstanden sein (Differenzhypothese: Vergleich Vermögenslage mit und ohne schädigendes Ereignis).
+                     </li>
+                     <li>
+                        <strong>7. Haftungsausfüllende Kausalität:</strong> Die Rechtsgutsverletzung (2) muss ursächlich (kausal) für den konkreten Schaden (6) sein. (Ist der Schaden gerade wegen der Körperverletzung/Eigentumsverletzung etc. entstanden?)
+                     </li>
+                </ul>
+
+                <h3>Rechtsfolge (RF):</h3>
+                <div class="rechtsfolge">
+                    Wenn ALLE TBM (1-7) erfüllt sind: Pflicht zum <strong>Ersatz des daraus entstandenen Schadens</strong> (gem. §§ 249 ff. BGB, meist Geldersatz).
+                </div>
+            </section>
+        </div>
+
+        <!-- Abschnitt 4: Beispielaufgaben -->
+        <div class="card">
+            <section>
+                <h2>4. Beispielaufgaben mit Lösungswegen</h2>
+
+                <!-- Beispiel 1: Graffiti (Wiederholung) -->
+                <div class="fallbeispiel">
+                    <h3>Fall 1: Das Graffiti (Vorsätzliche Sachbeschädigung)</h3>
+                    <p class="fall-fakten">Der 19-jährige T sprüht nachts mit einer Spraydose ein großes Graffiti auf die frisch gestrichene Hauswand des E. Die Reinigung kostet E 500 Euro. E verlangt Schadensersatz von T.</p>
+                    <p class="obersatz">Fraglich ist, ob E gegen T einen Anspruch auf Zahlung von 500 Euro Schadensersatz gemäß § 823 Abs. 1 BGB hat.</p>
+
+                    <h5>1. Handlung</h5>
+                    <p>T hat aktiv gehandelt, indem er die Wand besprühte.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>2. Rechtsgutsverletzung (Eigentum)</h5>
+                    <p>Durch das Aufbringen der Farbe wurde die Substanz und das Erscheinungsbild der Wand, die im Eigentum des E steht, verändert. Eine Eigentumsverletzung liegt vor.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>3. Haftungsbegründende Kausalität</h5>
+                    <p>Das Sprühen (Handlung) war ursächlich für die Farbveränderung an der Wand (Eigentumsverletzung).</p>
+                     <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>4. Widerrechtlichkeit</h5>
+                    <p>Die Eigentumsverletzung indiziert die Widerrechtlichkeit. Rechtfertigungsgründe wie Notwehr, Notstand oder Einwilligung des E sind nicht ersichtlich. Die Handlung war somit widerrechtlich.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>5. Verschulden (Vorsatz)</h5>
+                    <p>T sprühte bewusst und gewollt die fremde Wand an. Er handelte somit vorsätzlich. Anhaltspunkte für Schuldausschließungsgründe (§§ 827, 828 BGB) bestehen nicht (T ist 19 und war offenbar bei Sinnen).</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>6. Schaden</h5>
+                    <p>E sind Kosten für die Reinigung in Höhe von 500 Euro entstanden. Dies stellt einen Vermögensnachteil dar.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>7. Haftungsausfüllende Kausalität</h5>
+                    <p>Die Reinigungskosten (Schaden) sind eine direkte Folge der Eigentumsverletzung (besprühte Wand). Ohne die Wandbesprühung wären die Kosten nicht angefallen.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h4>Gesamtergebnis Fall 1:</h4>
+                    <div class="rechtsfolge">
+                        Alle Tatbestandsmerkmale des § 823 Abs. 1 BGB sind erfüllt. E hat gegen T einen Anspruch auf Ersatz des Schadens in Höhe von 500 Euro gemäß § 823 Abs. 1 BGB.
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Beispiel 2: Fahrradunfall -->
+                 <div class="fallbeispiel">
+                    <h3>Fall 2: Der unachtsame Radfahrer (Fahrlässige Körperverletzung)</h3>
+                    <p class="fall-fakten">Radfahrer R fährt zügig auf einem kombinierten Geh- und Radweg. Er schaut kurz auf sein Handy, um eine Nachricht zu lesen. Dabei übersieht er den Fußgänger F, der ihm entgegenkommt. Es kommt zum Zusammenstoß. F stürzt und bricht sich den Arm. Die Heilbehandlungskosten betragen 1.200 Euro, die F von R ersetzt haben möchte.</p>
+                    <p class="obersatz">Fraglich ist, ob F gegen R einen Anspruch auf Zahlung von 1.200 Euro Schadensersatz gemäß § 823 Abs. 1 BGB hat.</p>
+
+                    <h5>1. Handlung</h5>
+                    <p>R ist Fahrrad gefahren und hat dabei auf sein Handy geschaut.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>2. Rechtsgutsverletzung (Körper, Gesundheit)</h5>
+                    <p>F hat sich den Arm gebrochen (Verletzung der körperlichen Substanz = Körperverletzung) und musste ärztlich behandelt werden (Beeinträchtigung des Wohlbefindens = Gesundheitsverletzung).</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>3. Haftungsbegründende Kausalität</h5>
+                    <p>Das unachtsame Fahren des R (Handlung) war ursächlich für den Zusammenstoß und den daraus resultierenden Armbruch (Rechtsgutsverletzung).</p>
+                     <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>4. Widerrechtlichkeit</h5>
+                    <p>Die Körper-/Gesundheitsverletzung indiziert die Widerrechtlichkeit. Rechtfertigungsgründe sind nicht ersichtlich (keine Notwehr, keine Einwilligung des F etc.). Die Handlung war somit widerrechtlich.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>5. Verschulden (Fahrlässigkeit)</h5>
+                    <p>R hat nicht vorsätzlich gehandelt, da er F nicht absichtlich verletzen wollte. Fraglich ist, ob er fahrlässig handelte. Fahrlässig handelt gemäß § 276 Abs. 2 BGB, wer die im Verkehr erforderliche Sorgfalt außer Acht lässt. Ein Radfahrer auf einem kombinierten Weg muss seine Aufmerksamkeit dem Verkehr widmen und darf nicht durch Handynutzung abgelenkt sein. Ein sorgfältiger Radfahrer hätte die Gefahr erkannt und vermieden. R hat die erforderliche Sorgfalt außer Acht gelassen und handelte somit fahrlässig. Schuldausschließungsgründe sind nicht ersichtlich.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>6. Schaden</h5>
+                    <p>F sind Heilbehandlungskosten in Höhe von 1.200 Euro entstanden. Dies ist ein Vermögensnachteil.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>7. Haftungsausfüllende Kausalität</h5>
+                    <p>Die Heilbehandlungskosten (Schaden) sind eine direkte Folge der Körper-/Gesundheitsverletzung (Armbruch) aus dem Unfall.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h4>Gesamtergebnis Fall 2:</h4>
+                    <div class="rechtsfolge">
+                        Alle Tatbestandsmerkmale des § 823 Abs. 1 BGB sind erfüllt. F hat gegen R einen Anspruch auf Ersatz der Heilbehandlungskosten in Höhe von 1.200 Euro gemäß § 823 Abs. 1 BGB.
+                    </div>
+                </div>
+
+                <hr>
+
+                 <!-- Beispiel 3: Der Feuerlöscher -->
+                 <div class="fallbeispiel">
+                    <h3>Fall 3: Der Feuerlöscher (Keine Widerrechtlichkeit wegen Notstand)</h3>
+                    <p class="fall-fakten">Im Bürogebäude des U bricht ein Feuer aus. A ist im 3. Stock eingeschlossen, der Fluchtweg ist durch Rauch versperrt. Um sich zu retten, schlägt A mit einem Feuerlöscher die Fensterscheibe des Büros von B ein, das sich im Nachbargebäude befindet und über einen sicheren Balkon verfügt. A klettert hinüber und entkommt. B verlangt von A Ersatz für die zerstörte Scheibe (Wert: 300 Euro).</p>
+                    <p class="obersatz">Fraglich ist, ob B gegen A einen Anspruch auf Zahlung von 300 Euro Schadensersatz gemäß § 823 Abs. 1 BGB hat.</p>
+
+                    <h5>1. Handlung</h5>
+                    <p>A hat mit dem Feuerlöscher die Scheibe eingeschlagen.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>2. Rechtsgutsverletzung (Eigentum)</h5>
+                    <p>Die Fensterscheibe stand im Eigentum des B und wurde durch A zerstört. Eine Eigentumsverletzung liegt vor.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>3. Haftungsbegründende Kausalität</h5>
+                    <p>Das Einschlagen der Scheibe (Handlung) war ursächlich für deren Zerstörung (Eigentumsverletzung).</p>
+                     <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>4. Widerrechtlichkeit</h5>
+                    <p>Die Eigentumsverletzung indiziert die Widerrechtlichkeit. Fraglich ist aber, ob ein Rechtfertigungsgrund vorliegt. In Betracht kommt der sog. Aggressivnotstand gemäß § 904 BGB. Danach darf der Eigentümer einer Sache deren Einwirkung durch einen anderen nicht verbieten, wenn die Einwirkung zur Abwendung einer gegenwärtigen Gefahr notwendig ist und der drohende Schaden gegenüber dem Schaden, der dem Eigentümer durch die Einwirkung entsteht, unverhältnismäßig groß ist.<br>
+                    Hier drohte A eine gegenwärtige Gefahr für Leib und Leben durch das Feuer. Das Einschlagen der Scheibe war notwendig, um sich über den Balkon zu retten (kein milderes Mittel ersichtlich). Die Gefahr für Leib und Leben des A ist unverhältnismäßig größer als der Schaden an der Scheibe (300 Euro). Die Voraussetzungen des § 904 BGB liegen somit vor. Die Handlung des A war gerechtfertigt und damit <strong>nicht widerrechtlich</strong>.</p>
+                    <p class="ergebnis negativ">(-) TBM nicht erfüllt.</p>
+
+                    <h5>5. Verschulden (Entfällt wegen fehlender Widerrechtlichkeit)</h5>
+                    <p>Da die Handlung nicht widerrechtlich war, kommt es auf ein Verschulden nicht mehr an. (Zur Vollständigkeit: A handelte vorsätzlich bezüglich der Sachbeschädigung, aber eben gerechtfertigt).</p>
+                     <p class="ergebnis">Prüfung entfällt.</p>
+
+                    <h5>6. Schaden (Entfällt)</h5>
+                    <p>Obwohl ein Schaden vorliegt, ist die Prüfung hier irrelevant, da die Widerrechtlichkeit fehlt.</p>
+                     <p class="ergebnis">Prüfung entfällt.</p>
+
+                    <h5>7. Haftungsausfüllende Kausalität (Entfällt)</h5>
+                     <p class="ergebnis">Prüfung entfällt.</p>
+
+                    <h4>Gesamtergebnis Fall 3:</h4>
+                    <div class="rechtsfolge" style="background-color: #ffedd5; border-left-color: var(--fail-color); color: #9a3412;">
+                        Da das Tatbestandsmerkmal der Widerrechtlichkeit nicht erfüllt ist (Rechtfertigungsgrund § 904 BGB), scheitert der Anspruch aus § 823 Abs. 1 BGB. B hat gegen A keinen Anspruch auf Schadensersatz gemäß § 823 Abs. 1 BGB.
+                        <p class="hinweis">Hinweis: B könnte aber eventuell einen Anspruch auf angemessenen Ausgleich nach § 904 Satz 2 BGB haben, dies ist jedoch kein Schadensersatzanspruch i.S.d. § 823 BGB.</p>
+                    </div>
+                </div>
+
+                 <hr>
+
+                 <!-- Beispiel 4: Drogen im Getränk -->
+                 <div class="fallbeispiel">
+                    <h3>Fall 4: Drogen im Getränk (Kein Verschulden wegen § 827 BGB)</h3>
+                    <p class="fall-fakten">Auf einer Party mischt der X dem T heimlich K.O.-Tropfen ins Getränk. T wird daraufhin willenlos und randaliert im Garten des Gastgebers G. Dabei zerstört T eine wertvolle antike Vase (Wert: 1.000 Euro). G verlangt von T Schadensersatz.</p>
+                    <p class="obersatz">Fraglich ist, ob G gegen T einen Anspruch auf Zahlung von 1.000 Euro Schadensersatz gemäß § 823 Abs. 1 BGB hat.</p>
+
+                    <h5>1. Handlung</h5>
+                    <p>T hat randaliert und die Vase zerstört.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>2. Rechtsgutsverletzung (Eigentum)</h5>
+                    <p>Die Vase stand im Eigentum des G und wurde durch T zerstört.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>3. Haftungsbegründende Kausalität</h5>
+                    <p>Das Randalieren (Handlung) war ursächlich für die Zerstörung der Vase (Eigentumsverletzung).</p>
+                     <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>4. Widerrechtlichkeit</h5>
+                    <p>Die Eigentumsverletzung indiziert die Widerrechtlichkeit. Rechtfertigungsgründe sind nicht ersichtlich.</p>
+                    <p class="ergebnis positiv">(+) TBM erfüllt.</p>
+
+                    <h5>5. Verschulden</h5>
+                    <p>Fraglich ist, ob T schuldhaft gehandelt hat. Vorsatz oder Fahrlässigkeit bezüglich der Vasenzerstörung scheiden aus, da T die Handlung nicht bewusst steuern konnte. Es könnte ein Schuldausschließungsgrund gemäß § 827 Satz 1 BGB vorliegen. Danach ist, wer im Zustand der Bewusstlosigkeit oder in einem die freie Willensbestimmung ausschließenden Zustand krankhafter Störung der Geistestätigkeit einem anderen Schaden zufügt, für den Schaden nicht verantwortlich.<br>
+                    T befand sich aufgrund der heimlich verabreichten K.O.-Tropfen in einem Zustand, der die freie Willensbestimmung ausschloss. Dieser Zustand wurde ihm ohne sein Verschulden beigebracht (heimliches Untermischen). Daher ist § 827 S. 1 BGB anwendbar. T handelte <strong>ohne Verschulden</strong>.</p>
+                    <p class="ergebnis negativ">(-) TBM nicht erfüllt.</p>
+
+                    <h5>6. Schaden (Entfällt wegen fehlenden Verschuldens)</h5>
+                    <p>Ein Schaden liegt zwar vor, die Prüfung ist aber irrelevant.</p>
+                     <p class="ergebnis">Prüfung entfällt.</p>
+
+                     <h5>7. Haftungsausfüllende Kausalität (Entfällt)</h5>
+                     <p class="ergebnis">Prüfung entfällt.</p>
+
+                    <h4>Gesamtergebnis Fall 4:</h4>
+                     <div class="rechtsfolge" style="background-color: #ffedd5; border-left-color: var(--fail-color); color: #9a3412;">
+                        Da das Tatbestandsmerkmal des Verschuldens nicht erfüllt ist (Schuldausschließungsgrund § 827 S. 1 BGB), scheitert der Anspruch aus § 823 Abs. 1 BGB. G hat gegen T keinen Anspruch auf Schadensersatz gemäß § 823 Abs. 1 BGB.
+                        <p class="hinweis">Hinweis: G könnte aber eventuell Ansprüche gegen X haben, der die Tropfen verabreicht hat (z.B. aus § 823 Abs. 1 BGB wegen Eigentumsverletzung durch T als "Werkzeug" des X, oder § 826 BGB).</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- Abschnitt 5: Hinweis zur Aufgabenstellung -->
+        <div class="card">
+            <section>
+                <h2>5. Wichtiger Hinweis zur Aufgabenstellung (Prüfen vs. Gutachten)</h2>
+                 <div class="konzept">
+                     <p>Je nach Fragestellung ("Prüfen Sie, ob...") oder ("Erstellen Sie ein Gutachten...") kann der Detailgrad variieren:</p>
+                     <ul>
+                        <li><strong>"Prüfen Sie, ob Anspruch besteht":</strong> Wenn ein TBM offensichtlich <strong>nicht</strong> erfüllt ist, kann man die Prüfung oft an diesem Punkt abbrechen und den Anspruch verneinen (wie in Fall 3 und 4 gezeigt).</li>
+                        <li><strong>"Gutachtenstil" / "Prüfen Sie umfassend":</strong> Hier müssen in der Regel <strong>alle</strong> TBM (zumindest kurz) angesprochen werden, auch wenn eines früh scheitert. Der Obersatz ("Wer will was von wem woraus?") ist hier besonders wichtig und die Prüfung erfolgt ausführlicher Schritt für Schritt.</li>
+                     </ul>
+                     <p class="hinweis">Achte genau auf die Formulierung in der Ex! Im Zweifel ist es oft sicherer, im Gutachtenstil alle Punkte zumindest kurz anzusprechen, es sei denn, die Aufgabenstellung erlaubt explizit ein Abbrechen.</p>
+                </div>
+            </section>
+        </div>
+
+        <hr>
+        <p class="footer">Ende der Lernübersicht. Viel Erfolg bei der Ex!</p>
+
+    </div> <!-- Ende .container -->
+
+</body>
+</html>

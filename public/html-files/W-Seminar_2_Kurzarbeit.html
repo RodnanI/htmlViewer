@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forschungsmethoden: Interview, Umfrage und Zitation</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2980b9;
+            --accent: #3498db;
+            --light: #ebf5fb;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --text: #333;
+            --border: #ddd;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        main {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h4 {
+            color: var(--dark);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card-header {
+            background-color: var(--light);
+            color: var(--primary);
+            padding: 0.8rem;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .alert-info {
+            background-color: var(--light);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .alert-warning {
+            background-color: #fef9e7;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .alert-danger {
+            background-color: #fadbd8;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .alert-success {
+            background-color: #e9f7ef;
+            border-left: 4px solid var(--success);
+        }
+        
+        .img-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: var(--light);
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        .meme {
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .quote {
+            border-left: 4px solid var(--secondary);
+            padding: 0.5rem 0 0.5rem 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--light);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .toc {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .toc-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .toc ol {
+            counter-reset: item;
+            list-style-type: none;
+        }
+        
+        .toc li {
+            counter-increment: item;
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc li:before {
+            content: counters(item, ".") ". ";
+            color: var(--primary);
+        }
+        
+        .toc li ol {
+            margin-top: 0.5rem;
+            margin-left: 2rem;
+        }
+        
+        /* New styles for interactive TOC */
+        .toc a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        
+        .toc a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+            /* Ensure no size change on hover */
+            transform: none;
+            font-size: inherit;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 20px;
+            }
+            
+            .left::after, .right::after {
+                left: 20px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+        
+        /* Specific styling for research elements */
+        .research-process {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .process-step h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--light);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .rating-scale span {
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        .rating-option {
+            display: inline-block;
+            width: 18%;
+            text-align: center;
+            padding: 0.5rem 0;
+            border: 1px solid var(--border);
+            background-color: white;
+            margin: 0 1%;
+            border-radius: 4px;
+        }
+
+        .rating-bipolar {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--light);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .rating-bipolar .option {
+            width: 14%;
+            text-align: center;
+            padding: 0.5rem 0;
+            border: 1px solid var(--border);
+            background-color: white;
+            margin: 0 0.5%;
+            border-radius: 4px;
+        }
+        
+        .interview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .interview-table th {
+            width: 33.33%;
+        }
+        
+        code {
+            background-color: var(--light);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .code-block {
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .highlight {
+            background-color: #ffffcc;
+            padding: 0.2rem;
+            border-radius: 2px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary);
+        }
+
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .example-table th, .example-table td {
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+        }
+
+        .example-table th {
+            background-color: var(--light);
+            font-weight: bold;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .checkbox-option {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>W-Seminar 2. Kurzarbeit</h1>
+            <p>Nandor Koch // 2025</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <div class="meme">
+                <h3>Ich habe keine Lust, diese ganzen PDFs durchzugehen, also habe ich das hier erstellt.</h3>
+                <p>Ihr dürft das gerne weiterleiten</p>
+            </div>
+            
+            <div class="toc">
+                <div class="toc-title">Inhaltsverzeichnis</div>
+                <ol>
+                    <li><a href="#section1">Der Forschungsprozess im Überblick</a>
+                        <ol>
+                            <li><a href="#section1-1">Empirischer Forschungsprozess</a></li>
+                            <li><a href="#section1-2">Zeitplanung</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section2">Qualitative Forschung: Das Interview</a>
+                        <ol>
+                            <li><a href="#section2-1">Leitfadenerstellung</a></li>
+                            <li><a href="#section2-2">Interviewtechniken</a></li>
+                            <li><a href="#section2-3">Transkription von Interviews</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section3">Quantitative Forschung: Umfragen und Fragebögen</a>
+                        <ol>
+                            <li><a href="#section3-1">Grundbegriffe der Datenanalyse</a></li>
+                            <li><a href="#section3-2">Operationalisierung</a></li>
+                            <li><a href="#section3-3">Ratingskalen</a></li>
+                            <li><a href="#section3-4">Konstruierter Fragebogen vs. offenes Interview</a></li>
+                            <li><a href="#section3-5">Vorteile und Probleme bei Ratingskalen</a></li>
+                            <li><a href="#section3-6">Kategorienbildung</a></li>
+                            <li><a href="#section3-7">Gütekriterien</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section4">Zitieren in wissenschaftlichen Arbeiten</a>
+                        <ol>
+                            <li><a href="#section4-1">Direkte Zitate</a></li>
+                            <li><a href="#section4-2">Indirekte Zitate</a></li>
+                            <li><a href="#section4-3">Umgang mit KI-Quellen</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#section5">Zusammenfassung und Tipps für die Praxis</a></li>
+                </ol>
+            </div>
+            
+            <h2 id="section1">1. Der Forschungsprozess im Überblick</h2>
+            
+            <h3 id="section1-1">1.1 Empirischer Forschungsprozess</h3>
+            
+            <p>Der empirische Forschungsprozess folgt in der Regel einem strukturierten Ablauf, der auch als "PPDAC-Cycle" (Wild & Pfannkuch) bezeichnet wird:</p>
+            
+            <div class="research-process">
+                <div class="process-step">
+                    <h4>Problem</h4>
+                    <p>Problemstellung bzw. Forschungsfrage definieren</p>
+                </div>
+                <div class="process-step">
+                    <h4>Plan</h4>
+                    <p>Planung der Erhebung (Design, Operationalisierung)</p>
+                </div>
+                <div class="process-step">
+                    <h4>Data</h4>
+                    <p>Datenerhebung (Messen, Befragen, Beobachten)</p>
+                </div>
+                <div class="process-step">
+                    <h4>Analysis</h4>
+                    <p>Datenaufbereitung und -analyse</p>
+                </div>
+                <div class="process-step">
+                    <h4>Conclusion</h4>
+                    <p>Interpretation und Schlussfolgerungen</p>
+                </div>
+            </div>
+            
+            <div class="alert alert-info">
+                <p>Der wissenschaftliche Forschungsprozess beginnt mit einer <strong>Problemstellung bzw. Forschungsfrage</strong>. Anschließend wird die <strong>Planung der Erhebung</strong> durchgeführt, wobei festgelegt wird, wie die in Frage stehenden Merkmale gemessen werden sollen und wer, wann, wie und von wem untersucht wird ("Design"). In der Phase der <strong>Datenerhebung</strong> werden durch Messen, Befragen oder Beobachten Daten gesammelt. Diese werden in der <strong>Auswertungsphase</strong> aufbereitet und dargestellt. Schließlich folgen <strong>Interpretation</strong> und einfache Schlussfolgerungen sowie ggf. ein Ergebnisbericht.</p>
+            </div>
+            
+            <h3 id="section1-2">1.2 Zeitplanung</h3>
+            
+            <div class="card">
+                <div class="card-header">Wichtige Tipps zur Zeitplanung</div>
+                <ul>
+                    <li><strong>Forschungsfrage zentral:</strong> zeitnah so konkret wie möglich festlegen (darauf basiert alles Weitere)</li>
+                    <li><strong>Ausreichend Zeit für Transkription:</strong> ca. 5-mal so lange wie das Interview selbst</li>
+                    <li><strong>Zeit für Auswertung einplanen:</strong> Kategorienbildung und -zuordnung der Interviews</li>
+                    <li><strong>Realistische Zeitpläne erstellen:</strong> Pufferzeiten für unvorhergesehene Probleme einbauen</li>
+                    <li><strong>Projektmanagement-Techniken nutzen:</strong> Meilensteine und Deadlines setzen</li>
+                </ul>
+            </div>
+            
+            <h2 id="section2">2. Qualitative Forschung: Das Interview</h2>
+            
+            <h3 id="section2-1">2.1 Leitfadenerstellung</h3>
+            
+            <p>Der Interviewleitfaden ist ein zentrales Instrument für die Durchführung qualitativer Interviews. Er dient als Orientierungshilfe und stellt sicher, dass alle relevanten Themen behandelt werden.</p>
+            
+            <div class="card">
+                <div class="card-header">Struktur eines Interviewleitfadens</div>
+                <table class="interview-table">
+                    <thead>
+                        <tr>
+                            <th>Leitfrage, Erzählimpuls</th>
+                            <th>Memospalte</th>
+                            <th>Fragen zur Aufrechterhaltung des Gesprächsflusses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wie kam es dazu, dass du dich für den Studiengang Soziale Arbeit entschieden hast?</td>
+                            <td>
+                                <ul>
+                                    <li>Motivation und Erwartungen</li>
+                                    <li>Pers. Eigenschaften/Vorkenntnisse</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Zum Beispiel?</li>
+                                    <li>Kannst Du das genauer beschreiben?</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Was hat sich durch das Studium in deinem Leben verändert?</td>
+                            <td>
+                                <ul>
+                                    <li>Wohnsituation</li>
+                                    <li>Finanzielle Situation</li>
+                                    <li>Identifikation mit der Hochschule</li>
+                                    <li>Studentenleben</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Kannst Du ein Beispiel nennen?</li>
+                                    <li>Gibt es eine konkrete Situation, die Dir dazu einfällt?</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 id="section2-2">2.2 Interviewtechniken</h3>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4>Dos</h4>
+                    <ul>
+                        <li>Offene Fragen formulieren, die zum Erzählen anregen</li>
+                        <li>Verständliche Sprache verwenden</li>
+                        <li>Flexibilität im Interview ermöglichen</li>
+                        <li>Auf den Gesprächsfluss achten</li>
+                        <li>Fragen zum Forschungsinteresse passend gestalten</li>
+                        <li>Einfach formulieren und eindeutig interpretierbar</li>
+                        <li>Konkrete Sachverhalte ansprechen</li>
+                        <li>Angemessene Antwortmöglichkeiten anbieten</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Don'ts</h4>
+                    <ul>
+                        <li>Keine geschlossenen Ja/Nein-Fragen</li>
+                        <li>Keine suggestiven Fragen stellen</li>
+                        <li>Keine Mehrfachfragen (mehrere Fragen in einer)</li>
+                        <li>Keine Fachbegriffe für Laien verwenden</li>
+                        <li>Keine starren Abläufe erzwingen</li>
+                        <li>Nicht zu allgemein formulieren</li>
+                        <li>Nicht suggestiv oder potenziell verletzend</li>
+                        <li>Befragte nicht in Verlegenheit bringen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="alert alert-info">
+                <p>Bei der Erstellung eines Leitfadens solltest du in 3er-Gruppen verschiedene Textabschnitte lesen und das Wichtigste zur Leitfadenerstellung und Interviewführung zusammenfassen (stichpunktartig, "Dos & Don'ts"). Anschließend solltest du 1-2 Leitfragen/Erzählimpulse für deine eigene Forschungsfrage erstellen, inklusive zugehöriger Memos und Fragen zur Aufrechterhaltung.</p>
+            </div>
+            
+            <h3 id="section2-3">2.3 Transkription von Interviews</h3>
+            
+            <p>Die Transkription ist der Prozess der schriftlichen Fixierung des Interviewmaterials und ein wichtiger Schritt zur Aufbereitung für die Analyse.</p>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4>Transkription nach Kuckartz et al. (2008)</h4>
+                    <ul>
+                        <li>Es wird wörtlich transkribiert, also nicht lautsprachlich oder zusammenfassend. Vorhandene Dialekte werden nicht mit transkribiert.</li>
+                        <li>Die Sprache und Interpunktion wird leicht geglättet, d.h. an das Schriftdeutsch angenähert.</li>
+                        <li>Alle Angaben, die einen Rückschluss auf eine befragte Person erlauben, werden anonymisiert.</li>
+                        <li>Deutliche, längere Pausen werden durch Auslassungspunkte (...) markiert.</li>
+                        <li>Besonders betonte Begriffe werden durch Unterstreichungen gekennzeichnet.</li>
+                        <li>Zustimmende bzw. bestätigende Lautäußerungen der Interviewer werden nicht mit transkribiert, sofern sie den Redefluss nicht unterbrechen.</li>
+                        <li>Einwürfe werden in Klammern gesetzt.</li>
+                        <li>Lautäußerungen, die die Aussage unterstützen, werden in Klammern notiert.</li>
+                        <li>Die interviewende Person wird durch ein "I", die befragte Person durch ein "B" gekennzeichnet.</li>
+                        <li>Jeder Sprecherwechsel wird durch zweimaliges Drücken der Enter-Taste deutlich gemacht.</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Transkription nach Dresing & Pehl (2018)</h4>
+                    <ul>
+                        <li>Es wird wörtlich transkribiert, also nicht lautsprachlich oder zusammenfassend.</li>
+                        <li>Wortverschleifungen werden an das Schriftdeutsch angenähert. "So 'n Buch" wird zu "so ein Buch".</li>
+                        <li>Dialekte werden möglichst wortgenau ins Hochdeutsche übersetzt.</li>
+                        <li>Umgangssprachliche Partikel wie "gell, gelle, ne" werden transkribiert.</li>
+                        <li>Stottern wird geglättet bzw. ausgelassen.</li>
+                        <li>Halbsätze, denen die Vollendung fehlt, werden mit dem Abbruchzeichen "/" gekennzeichnet.</li>
+                        <li>Interpunktion wird zugunsten der Lesbarkeit geglättet.</li>
+                        <li>Rezeptionssignale wie "hmm, aha, ja" werden nur transkribiert, wenn sie als direkte Antwort auf eine Frage genannt werden.</li>
+                        <li>Pausen ab ca. 3 Sekunden werden durch (...) markiert.</li>
+                        <li>Besonders betonte Wörter oder Äußerungen werden durch VERSALIEN gekennzeichnet.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Beispiel: Unterschiedliche Transkriptionstiefe</div>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Einfache Transkription</h4>
+                        <div class="code-block">S2: Ein besonders gutes Beispiel, 
+das waren mal unsere Nachbarn.
+(...), dreißig Jahre verheiratet, (...)
+das letzte Kind endlich aus dem
+Haus, zum Studieren, (...) wegge-
+gangen, ne, nach Berlin.</div>
+                    </div>
+                    <div class="column">
+                        <h4>Detaillierte Transkription</h4>
+                        <div class="code-block">S2: n besonders ↑`Gutes beispiel das warn mal
+unsere ↑`NACHbarn.
+(- - -)
+ähm (- - -)
+↑`DREIßig jahre ver´hEiratet, °hh
+das letzte kind (.) `Endlich aus_m ´HAUS,
+zum stu´DIERN, (-)
+´WEGgegangen, =´ne, °h
+nach ber´LIN, °h</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>Wichtig zu beachten:</strong> Die Wahl der Transkriptionsmethode sollte sich am Forschungsziel und der Analysetiefe orientieren. Für inhaltsanalytische Auswertungen ist oft eine einfachere Transkription ausreichend, während konversations- oder diskursanalytische Untersuchungen detailliertere Transkriptionen erfordern.
+            </div>
+
+            <h2 id="section3">3. Quantitative Forschung: Umfragen und Fragebögen</h2>
+            
+            <h3 id="section3-1">3.1 Grundbegriffe der Datenanalyse</h3>
+            
+            <p><strong>Daten</strong> sind systematisch gesammelte Informationen (z.B. erhalten durch Beobachten, Befragen, Testen), die (idealerweise) in numerischer Form vorliegen und die als Grundlage zur Beantwortung bestimmter Fragestellungen dienen können.</p>
+            
+            <p>Bevor Fragestellungen beantwortet werden können, müssen die Daten aber zuerst noch dargestellt und ggfs. interpretiert werden.</p>
+            
+            <h4>Merkmal = Konstrukt = (abhängige) Variable</h4>
+            <p>Was wird (z.B. von einer Person) "gemessen"? In der Literatur findet man die Begriffe "Konstrukt", "Merkmal" oder auch "(abhängige) Variable". Damit ist (prinzipiell) dasselbe gemeint!</p>
+            
+            <div class="alert alert-info">
+                <ul>
+                    <li>Durch den Begriff "Variable" soll deutlich werden, dass für verschiedene Personen unterschiedliche Ausprägungen resultieren können.</li>
+                    <li>"Konstrukt" verwendet man oft, wenn das Merkmal erst noch operationalisiert werden muss. Wie man z.B. das Konstrukt "Angst" eines Schülers messen soll, muss erst erläutert werden, beim Merkmal "Alter" genügt ein Blick in den Ausweis.</li>
+                    <li>Auch Lehrkräfte müssen sich genau überlegen, durch welche Aufgaben das Konstrukt "Schülerleistung" erfasst werden soll.</li>
+                </ul>
+            </div>
+            
+            <h3 id="section3-2">3.2 Operationalisierung</h3>
+            
+            <p>Die Operationalisierung eines komplexeren "Konstrukts" (z.B. Motivation oder Angst) gibt an, was genau jemand tun muss (z.B. eine bestimmte Antwort auf eine bestimmte Frage geben), um (in dieser Untersuchung) als "motiviert" oder "ängstlich" zu gelten.</p>
+            
+            <p>Den Begriff "Operationalisierung" verwendet man v.a., wenn ein "Instrument" (z.B. Fragebogen oder Test) zur Erhebung entwickelt wird.</p>
+            
+            <div class="card">
+                <div class="card-header">Operationalisierung bzw. "Messdefinition"</div>
+                <p>Bei Konstrukten wie "Verkehrstoter" oder "Arbeitsloser" muss eine genaue Definition bzw. Berechnungsvorschrift angegeben werden ("Messdefinition"). Bei manchen Konstrukten ist dies auf vielen verschiedenen Wegen möglich, bei anderen Konstrukten wiederum bereitet die Messdefinition keinerlei Schwierigkeiten (z.B. bei Alter, Geschlecht, Matrikelnummer, Abiturnote etc.).</p>
+                
+                <h4>Problematik von Messdefinitionen</h4>
+                <p>Schüler sollen durch einfache Beispiele auf die mögliche Problematik von "Messdefinitionen" aufmerksam gemacht werden, da diese Erkenntnis zum kompetenten Umgang mit Statistiken im Alltag gehört.</p>
+                
+                <h5>Beispiele:</h5>
+                <ul>
+                    <li>Wer hat das "größte" Möbelhaus? (Heißt das "die meisten Kunden", "die größte Ausstellungsfläche" oder "der höchste Gewinn"?)</li>
+                    <li>"Verkehrstoter": Unterschiedliche Definition in Frankreich und Deutschland (sind die Zahlen dann noch vergleichbar?)</li>
+                    <li>Plansoll in der ehemaligen DDR: Melonen wurden je nach Bedarf zu Obst oder zu Gemüse gezählt!</li>
+                    <li>Zahl der "Familienmitglieder": Wer zählt dazu?</li>
+                </ul>
+                
+                <h5>Aktuelle Beispiele:</h5>
+                <ol>
+                    <li>
+                        <p><strong>Wer ist Deutschlands größte Partnervermittlung?</strong></p>
+                        <p>Rechtsstreit zwischen Parship und LoveScout24, der 2018 entschieden wurde. Parship darf sich nun nicht mehr "Deutschland größte Partnervermittlung" nennen!</p>
+                        <p><strong>Argumente vor Gericht:</strong></p>
+                        <ul>
+                            <li>Wer hat die meisten Kunden?</li>
+                            <li>Wer hat die meisten aktiv genutzten Profile?</li>
+                            <li>Wer hat die meisten zahlenden Premium-Mitglieder?</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Wer zählt als "Corona-Toter"?</strong></p>
+                        <ul>
+                            <li>Personen, die aufgrund einer Covid-19-Erkrankung gestorben sind ("gestorben an")?</li>
+                            <li>Personen, die gestorben sind und positiv getestet wurden ("gestorben mit")?</li>
+                        </ul>
+                        <p>Diese Definition beeinflusst die Sterblichkeitsrate, auf der viele Argumente in der aktuellen Diskussion fußen!</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="alert alert-info">
+                <strong>Messtheorie:</strong> Unter dem allgemeinen Begriff der "Messung" versteht man die Zuordnung von empirischen Strukturen auf numerische Strukturen, z.B.
+                <ul>
+                    <li>"Wärme" → Temperaturskala</li>
+                    <li>"Körpergröße" → Längenskala</li>
+                    <li>"Geschlecht" → z.B. "1" für "männlich", "2" für "weiblich"</li>
+                    <li>"Produktzufriedenheit" → z.B. (niedrig =) 1, 2, 3, 4 (= hoch)</li>
+                    <li>"Leistung im Schulfach" → z.B. 1 – 6 (Zeugnisskala)</li>
+                </ul>
+            </div>
+            
+            <h3 id="section3-3">3.3 Ratingskalen</h3>
+            
+            <p>Ratingskalen sind ein wichtiges Instrument bei der Erstellung von Fragebögen. Sie ermöglichen eine standardisierte Erfassung von Einstellungen, Meinungen oder Bewertungen.</p>
+            
+            <h4>Skalenverankerung</h4>
+            
+            <div class="card">
+                <div class="card-header">Typen von Skalenverankerungen</div>
+                <div class="two-column">
+                    <div class="column">
+                        <h5>A: numerisch</h5>
+                        <div class="rating-scale">
+                            <span>unfreundlich</span>
+                            <div class="rating-option">1</div>
+                            <div class="rating-option">2</div>
+                            <div class="rating-option">3</div>
+                            <div class="rating-option">4</div>
+                            <div class="rating-option">5</div>
+                            <div class="rating-option">6</div>
+                            <div class="rating-option">7</div>
+                            <span>freundlich</span>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h5>B: verbal</h5>
+                        <p>Das Gespräch empfand ich als freundlich.</p>
+                        <div class="rating-scale">
+                            <div class="rating-option">stimmt gar nicht</div>
+                            <div class="rating-option">wenig</div>
+                            <div class="rating-option">teils-teils</div>
+                            <div class="rating-option">ziemlich</div>
+                            <div class="rating-option">völlig</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5>C: symbolisch</h5>
+                    <p>Wie zufrieden waren Sie mit dem Gespräch?</p>
+                    <div class="rating-scale">
+                        <div class="rating-option">😞</div>
+                        <div class="rating-option">😐</div>
+                        <div class="rating-option">🙂</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Skalenpolung (jeweils numerisch)</h4>
+            
+            <div class="card">
+                <div class="card-header">Skalenpolung: unipolar vs. bipolar</div>
+                <div class="two-column">
+                    <div class="column">
+                        <h5>A: unipolar</h5>
+                        <p>(mit "Mitte")</p>
+                        <div class="rating-scale">
+                            <div class="rating-option">1</div>
+                            <div class="rating-option">2</div>
+                            <div class="rating-option">3</div>
+                            <div class="rating-option">4</div>
+                            <div class="rating-option">5</div>
+                            <div class="rating-option">6</div>
+                            <div class="rating-option">7</div>
+                        </div>
+                        <p>(ohne "Mitte")</p>
+                        <div class="rating-scale">
+                            <div class="rating-option">1</div>
+                            <div class="rating-option">2</div>
+                            <div class="rating-option">3</div>
+                            <div class="rating-option">4</div>
+                            <div class="rating-option">5</div>
+                            <div class="rating-option">6</div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h5>B: bipolar</h5>
+                        <div class="rating-bipolar">
+                            <div class="option">-3</div>
+                            <div class="option">-2</div>
+                            <div class="option">-1</div>
+                            <div class="option">0</div>
+                            <div class="option">1</div>
+                            <div class="option">2</div>
+                            <div class="option">3</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <p><strong>Bemerkung:</strong> In der empirischen Bildungsforschung werden oft "kurze" Skalen verwendet, bei PISA und COACTIV zum Beispiel meist vier verbal verankerte Kategorien "ohne Mitte".</p>
+                    <ul>
+                        <li>Ratingskalen mit verbaler Verankerung werden auch "Likert-Skalen" genannt (die "Skalierung" – z.B. 1, 2, 3 und 4 – liegt zwar schon fest, wird den untersuchten Personen aber oft nicht präsentiert).</li>
+                        <li>Skalen ohne Mitte werden dabei auch als "forced choice"-Skalen bezeichnet, da die untersuchten Personen "gezwungen" werden, sich (zumindest tendenziell) für eine Richtung zu entscheiden.</li>
+                    </ul>
+                    <p>→ Es gibt aber kein "immer richtiges" Vorgehen für die Konstruktion einer Skala (die Aussagekraft zeigt sich oft erst im Nachhinein empirisch; vgl. "Gütekriterien").</p>
+                </div>
+            </div>
+            
+            <h4>Welches Skalenniveau haben Ratingskalen?</h4>
+            
+            <ul>
+                <li>Die Operationalisierung von "Disziplin" bei PISA bzw. COACTIV war das Ausmaß des von Schülern bzw. Lehrer berichteten (= beobachteten?) "Durcheinanders" in der Klasse.</li>
+                <li>Nach einer Zuordnung von 1 = "trifft nicht zu", 2 = "trifft eher nicht zu", 3 = "trifft eher zu", 4 = "trifft zu" kann nun der Klassenmittelwert (je nach Klasse z.B. 1,9 oder 3,7) berechnet werden.</li>
+                <li>Dies ist streng genommen nur auf einer Intervallskala möglich, hier liegt aber "eigentlich" nur Ordinalniveau vor. Eine Möglichkeit ist es, die Kategorienlabels ("trifft zu", "trifft eher zu", etc.) so zu wählen, dass der Abstand als möglichst gleich empfunden wird (das ist auch bei einer Smiley-Skala in Näherung möglich).</li>
+                <li>Aufgrund der guten Interpretierbarkeit werden in der Praxis bei Ordinalskalen, die "fast" Intervallskalen sind, Mittelwerte berechnet (das ist nicht nur bei Ratingskalen, sondern auch bei Schulnoten der Fall)!</li>
+            </ul>
+            
+            <h3 id="section3-4">3.4 Konstruierter Fragebogen vs. offenes Interview</h3>
+            
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Standardisierung der Fragen</th>
+                        <td>
+                            <strong>(Voll) standardisiert:</strong> Festlegung der Fragen nach Wortlaut und Abfolge (Vergleichbarkeit der Antworten verschiedener Personen)<br>
+                            <strong>Nicht standardisiert:</strong> konkrete Fragen bzw. Gesprächsführung bleiben offen (bei mündlichen Interviews gibt es aber oft einen "Interviewleitfaden", "halbstandardisiertes" Interview)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Standardisierung der Antworten ("Antwortformat")</th>
+                        <td>
+                            <strong>Geschlossene (feste) Antworten:</strong> Vorgaben der Antwortmöglichkeiten durch Ratingskalen (bzw. Multiple Choice).<br>
+                            Meist schriftlich durch Ankreuzen in einem Fragebogen → sehr einfache Auswertung<br>
+                            <strong>Offene Antworten:</strong> Keine Einschränkung der Äußerungsmöglichkeiten (flexibler), Protokollierung bei Interviews aber schwierig (am besten Tonband oder Video mit anschließender Transkribierung),<br>
+                            Auswertung komplex (z.B. qualitative Inhaltsanalyse)<br>
+                            → Offene Antworten auch im schriftlichen Fragebogen möglich:<br>
+                            Bsp.: "Schildere mir deine Freizeitgewohnheiten"!
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Allgemein:<br>Was sind "gute Fragen"?</th>
+                        <td>
+                            Einfach formuliert, eindeutig interpretierbar, nicht zu allgemein, auf einen konkreten Sachverhalt potentiell beantwortbar, angemessene Antwortvorgabe und sie bringen den Befragten nicht in Verlegenheit
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="alert alert-info">
+                <p>→ Bei der Erhebung "einfacher Merkmale" ist das alles kein Problem!</p>
+            </div>
+            
+            <h3 id="section3-5">3.5 Vorteile und Probleme bei Ratingskalen</h3>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4>Vorteile von Ratingskalen</h4>
+                    <ul>
+                        <li>Standardisierte Fragen und Antworten:
+                            <ul>
+                                <li>→ gute Interpretierbarkeit und Vergleichbarkeit der Daten verschiedener Personen</li>
+                            </ul>
+                        </li>
+                        <li>Einfache und schnelle Durchführung</li>
+                        <li>Da die Antwortkategorien vorgegeben sind, müssen keine (z.B. 100) verschiedenen Antworten individuell ausgewertet werden!</li>
+                        <li>Durchführung und Auswertung objektiv möglich</li>
+                        <li>Bequeme Analyse und Darstellung der Daten möglich (z.B. in der Schule mit Excel; für Experten oder in der Zulassungsarbeit auch mit SPSS).</li>
+                    </ul>
+                    <p>→ Ratingskalen sind auch gut geeignet für die Schule!</p>
+                </div>
+                <div class="column">
+                    <h4>Probleme bei Ratingskalen</h4>
+                    <ul>
+                        <li>Tendenz zur Mitte: Personen neigen dazu, extreme Urteile zu vermeiden und "mittlere Werte" der Skala anzukreuzen (Vermeidung durch "forced choice"-Skalen).</li>
+                        <li>Boden- und Deckeneffekte: Ganz besonders interessierte, leistungsstarke, ängstliche Personen können nicht "extremer" antworten als es durch die äußeren Kategorien definiert ist. Solche Personen werden durch Ratingskalen eventuell "nicht entdeckt".</li>
+                        <li>Gründe für die gesetzten Kreuze bleiben verborgen.</li>
+                        <li>Unmotivierte Studienteilnehmer könnten außerdem "zufällig" ankreuzen.
+                            <ul>
+                                <li>→ Suche nach "Mustern" im Fragebogen</li>
+                                <li>→ Überprüfung der Plausibilität (z.B. "Kreuzvalidierung")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 id="section3-6">3.6 Kategorienbildung</h3>
+            
+            <p>Bei der Konzeption von Ratingskalen wird das mögliche Antwortverhalten bereits im Vorfeld in Kategorien eingeteilt.</p>
+            
+            <h4>Wichtige Begriffe sind dabei:</h4>
+            <ul>
+                <li>Kategorienlabel, z.B.: "trifft eher zu"</li>
+                <li>Kategorienausprägung bzw. -wert, z.B.: "3" (Man spricht auch von "Merkmalsausprägung")</li>
+            </ul>
+            
+            <h4>Eigenschaften von Kategorien ("3 Ex"):</h4>
+            <ul>
+                <li><strong>Exaktheit:</strong> exakte Definition</li>
+                <li><strong>Exklusivität:</strong> Kategorien müssen sich gegenseitig ausschließen</li>
+                <li><strong>Exhaustivität:</strong> Kategorien müssen das Konstrukt erschöpfend beschreiben (ggf. Kategorie "Sonstiges" verwenden)</li>
+            </ul>
+            
+            <h4>Kategorien- bzw. "Klassenbildung"</h4>
+            
+            <p>Im Wesentlichen kann man drei Arten von Kategorien unterscheiden:</p>
+            
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>"Natürliche" Kategorien</th>
+                        <th>Vor der Erhebung festgelegte Kategorien (ggfs. auch schon Klassen genannt)</th>
+                        <th>(ggf. nochmalige) Zusammenfassung in größere "Klassen" zur Darstellung der Daten</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Geschlecht</li>
+                                <li>Geburtstag</li>
+                                <li>Bundesland</li>
+                                <li>usw. (oft Nominalskalen)</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Rohpunkte in Schulaufgabe</li>
+                                <li>Ratingskalen</li>
+                                <li>z.B. Geburtsmonat</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Schulnoten</li>
+                                <li>z.B. Körpergrößen in < 150 cm, 150-159 cm, ... 190-199 cm, ≥ 200 cm</li>
+                                <li>Alter (in Jahren!)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="alert alert-info">
+                <p>Klassen sollten gleich groß sein, sie sollten "intuitiv" gewählt werden und die Mitten benachbarter Klassen sollten gleichen Abstand haben.</p>
+            </div>
+            
+            <h3 id="section3-7">3.7 Gütekriterien</h3>
+            
+            <p>Erwünschte Qualitätsmerkmale jeder Messung:</p>
+            
+            <div class="card">
+                <div class="card-header">Die drei Gütekriterien</div>
+                <ul>
+                    <li><strong>Objektivität:</strong> Das Messergebnis sollte unabhängig sein von
+                        <ul>
+                            <li>a) von der Person, die die Messung durchführt (Durchführungsobjektivität)</li>
+                            <li>b) von der Person, die die Messung auswertet (Auswertungsobjektivität)</li>
+                            <li>c) von der Person, die die Ergebnisse interpretiert</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reliabilität:</strong> Genauigkeit der Messung (wie präzise ist die Messung?)</li>
+                    <li><strong>Validität:</strong> Gültigkeit der Messung (wird auch das gemessen, was gemessen werden soll?)</li>
+                </ul>
+                <p class="quote">Merke: Eine Erhebung, die nicht objektiv ist, kann auch nur eingeschränkt reliabel sein. Eine Erhebung, die nicht reliabel ist, kann auch nur eingeschränkt valide sein.</p>
+            </div>
+            
+            <h4>Objektivität</h4>
+            
+            <p>Die Ergebnisse eines Messverfahrens sollten unabhängig davon sein, wer die Messung durchführt und wer sie auswertet beziehungsweise interpretiert.</p>
+            
+            <p>Ratingskalen (standardisierte Fragen mit geschlossenem Antwortformat) erfüllen diesen Aspekt in der Regel sehr gut.</p>
+            
+            <p>Problematisch ist die Objektivität vor allem bei der Durchführung und Auswertung offener Interviews.</p>
+            
+            <p>Eine hohe Durchführungs- und Auswertungsobjektivität bedeutet nicht automatisch, dass die Messung auch reliabel und valide ist.</p>
+            
+            <h4>Reliabilität (Genauigkeit)</h4>
+            
+            <p>Während z.B. das Alter einer Person genau "gemessen" werden kann, sind z.B. (Ein)schätzungen naturgemäß weniger genau.</p>
+            
+            <h5>Beispiele:</h5>
+            <ol>
+                <li>Schätzung der Entfernung eines Berges</li>
+                <li>Einschätzen der eigenen Angst</li>
+                <li>Beurteilung der Leistung eines Schülers</li>
+            </ol>
+            
+            <p>→ Reliabilitätserhöhung meist möglich durch Erhöhung der Zahl der (Ein)schätzungen bzw. Beurteilungen:</p>
+            <ul>
+                <li>z.B. durch Erhöhung der Zahl der schätzenden Personen</li>
+                <li>oder durch Erhöhung der Anzahl der Items</li>
+            </ul>
+            
+            <p>→ In der empirischen Bildungsforschung werden komplexere "Konstrukte" in der Regel durch mehrere Items gemessen!</p>
+            
+            <h4>Validität (Gültigkeit)</h4>
+            
+            <p>Ist es auch tatsächlich das vorgegebene Konstrukt, das mit der Messung erfasst wird?</p>
+            
+            <p>Will man z.B. Intelligenz durch den Kopfumfang einer Person "messen", ist dies sicher kein gültiges (valides) Messverfahren.</p>
+            
+            <p>Dieses Messverfahren mag zwar sehr reliabel sein (man kann den Kopfumfang sehr genau vermessen), über das angeblich gemessene Konstrukt ("IQ") muss die Messung aber deswegen nicht unbedingt etwas aussagen!</p>
+            
+            <h5>Beispiele für Validitätsdiskussionen:</h5>
+            <ul>
+                <li>→ Inwiefern bildet das Wahlergebnis den "Willen des Volkes" ab?</li>
+                <li>→ Inwieweit bilden die PISA-Testergebnisse die Kompetenzen der Schüler ab?</li>
+                <li>→ Kann man "Disziplin" durch eine Frage nach dem "Durcheinander" in der Klasse messen?</li>
+            </ul>
+            
+            <div class="alert alert-warning">
+                <p><strong>Bemerkung (z.B. auch Hinweis für Zulassungsarbeiten):</strong> In den meisten psychometrischen Erhebungen ist eine 100-prozentige Erfüllung der drei Gütekriterien, für die sich jeweils auch verschiedene Kennwerte angeben lassen, nicht möglich.</p>
+                <p>Wichtig ist in einer wissenschaftlichen Arbeit aber immer, diese Kriterien möglichst zu optimieren bzw. sich bei der Ergebnispräsentation ggf. kritisch mit ihnen auseinanderzusetzen (z.B. in einem Absatz über "die Grenzen dieser Untersuchung").</p>
+                <p>Für den Leser einer wissenschaftlichen empirischen Arbeit müssen weiterhin die einzelnen Schritte (Theorie, Methode, Ergebnisse, etc.) getrennt und transparent nachvollziehbar (und somit kritisierbar) sein.</p>
+                <p>Nur eine umfassende Dokumentation der einzelnen Schritte ermöglicht außerdem die Replizierbarkeit einer Studie.</p>
+            </div>
+            
+            <h2 id="section4">4. Zitieren in wissenschaftlichen Arbeiten</h2>
+            
+            <p>Als Verfasserin oder Verfasser einer wissenschaftlichen Arbeit müssen Sie dafür sorgen, dass die Leserin bzw. der Leser eindeutig unterscheiden kann zwischen:</p>
+            <div class="two-column">
+                <div class="column">
+                    <ul>
+                        <li>den von Ihnen selbst formulierten Gedankengängen und Ihren eigenen Erkenntnissen</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <ul>
+                        <li>den Überlegungen und Betrachtungen fremder Autoren, auf die Sie sich in Ihrer Arbeit beziehen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="alert alert-danger">
+                <strong>Wichtig:</strong> Übernehmen Sie keine Textpassagen, Gedankengänge oder Ideen, ohne sie als Zitate zu kennzeichnen!
+            </div>
+            
+            <h3 id="section4-1">4.1 Direkte Zitate</h3>
+            
+            <p>Für direkte Zitate gilt:</p>
+            <ul>
+                <li>Wörtliche Übernahme einer Textstelle in Anführungszeichen (bei Vermeidung allzu langer direkter Zitate – mehrere Sätze nur in Ausnahmen)</li>
+                <li>Um den Fußnotenapparat der schriftlichen Arbeit zu entlasten, soll dieser möglichst wissenschaftlichen Quellen vorbehalten bleiben.</li>
+            </ul>
+            
+            <h3 id="section4-2">4.2 Indirekte Zitate</h3>
+            
+            <p>Indirekte Zitate oder Übernahme von Ideen, Argumenten oder gedanklichen Strukturen etc. aus Chatbots werden im Fußnotenapparat einer schriftlichen Arbeit nicht angegeben, da dieser wissenschaftlichen Quellen vorbehalten ist.</p>
+            
+            <p>Die Verwendung von Chatbots für die inhaltliche Entwicklung und sprachliche Verbesserung einer W-Seminar-Arbeit ist durch die erweiterte Schlusserklärung abgesichert.</p>
+            
+            <h3 id="section4-3">4.3 Umgang mit KI-Quellen</h3>
+            
+            <div class="card">
+                <div class="card-header">Umgang mit KI-Quellen</div>
+                <p>Ein Nachweis über die direkten Zitate aus dem Output von Chatbots in den Fußnoten nach dem Muster "(Name, Version)" erfolgt nur dann kontextgebunden:</p>
+                <ul>
+                    <li>wenn der erzeugte Output direkt eingebunden wird (z.B. eine mit Hilfe eines Bildgenerators erzeugte Graphik, ein generierter Programmiercode, ein schlüsselstellenrelevantes Wortzitat eines Textgenerators – jeweils ohne nachweisliche menschliche Urheberschaft) oder</li>
+                    <li>wenn der Chatbot selbst Gegenstand der Untersuchung ist (z.B. im Rahmen einer Untersuchung zu Möglichkeiten und Grenzen eines bestimmten Chatbots in einem spezifischen Anwendungskontext).</li>
+                </ul>
+                <p>In diesem Fall ist die entsprechende KI-Anwendung (Name, Version, Anbieter, URL) sowohl in den Fußnoten als auch im Literaturverzeichnis anzugeben:</p>
+                <p><code>KI-Anwendung (Name, Version, Anbieter, &lt;Angabe der URL&gt;), Datum, z. B.:</code></p>
+                <p><code>Chat GPT, GPT4, Open AI, &lt;https://openai.com&gt;, 22.03.2024.</code></p>
+            </div>
+            
+            <div class="alert alert-info">
+                <p><strong>Tipp:</strong> Wenn Sie einen Chatbot genutzt haben, exportieren Sie die entsprechenden Screenshots als PDF und geben Sie sie ggf. mit ab (nicht mitbinden, sondern einfach gesammelt zur Seminararbeit legen bzw. auf USB-Stick).</p>
+                <p>Gleiches gilt für Internetseiten: Wenn Sie eine Internetseite genutzt haben, speichern Sie diese als PDF und geben Sie sie ggf. mit ab.</p>
+                <p>Sollte bis zur Korrektur die Seite geändert worden oder aus dem Netz verschwunden sein, können Sie so nachweisen, dass Sie richtig zitiert haben.</p>
+            </div>
+            
+            <h2 id="section5">5. Zusammenfassung und Tipps für die Praxis</h2>
+            
+            <div class="card">
+                <div class="card-header">Die wichtigsten Punkte im Überblick</div>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Forschungsprozess</h4>
+                        <ul>
+                            <li>Forschungsfrage als Ausgangspunkt</li>
+                            <li>Systematische Planung der Erhebung</li>
+                            <li>Methodenwahl passend zur Fragestellung</li>
+                            <li>Genügend Zeit für alle Phasen einplanen</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Qualitative Methoden (Interview)</h4>
+                        <ul>
+                            <li>Leitfaden sorgfältig erstellen</li>
+                            <li>Offene Fragen fördern Erzählungen</li>
+                            <li>Transkriptionsregeln einheitlich anwenden</li>
+                            <li>Zeit für Transkription (Faktor 5) einplanen</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="two-column">
+                    <div class="column">
+                        <h4>Quantitative Methoden (Umfragen)</h4>
+                        <ul>
+                            <li>Konstrukte sorgfältig operationalisieren</li>
+                            <li>Ratingskalen passend zur Zielgruppe wählen</li>
+                            <li>Auf Verständlichkeit der Fragen achten</li>
+                            <li>Gütekriterien berücksichtigen</li>
+                            <li>Uni- und bipolare Skalen bewusst einsetzen</li>
+                            <li>Kategorien nach den "3 Ex" bilden</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Zitation</h4>
+                        <ul>
+                            <li>Fremde und eigene Gedanken klar trennen</li>
+                            <li>Direkte Zitate in Anführungszeichen</li>
+                            <li>KI-Quellen nur in spezifischen Fällen zitieren</li>
+                            <li>Quellenbelege für spätere Kontrolle sichern</li>
+                            <li>Wissenschaftliche Quellen bevorzugen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-success">
+                <p><strong>Praktische Tipps:</strong></p>
+                <ul>
+                    <li>Erstellen Sie frühzeitig einen realistischen Zeitplan für Ihr Forschungsprojekt</li>
+                    <li>Testen Sie Fragebögen und Interviewleitfäden vorab an einer kleinen Gruppe</li>
+                    <li>Dokumentieren Sie alle Schritte Ihres Forschungsprozesses</li>
+                    <li>Berücksichtigen Sie die Grenzen Ihrer Untersuchung</li>
+                    <li>Bei der Verwendung von Rating-Skalen: Das Arbeiten mit "Daten über sich selbst" wirkt auf Schüler motivierend!</li>
+                    <li>Überprüfen Sie Ihre Messinstrumente auf Objektivität, Reliabilität und Validität</li>
+                    <li>Fragen zur Operationalisierung eines komplexen Konstrukts bewusst angehen</li>
+                </ul>
+            </div>
+            
+            <div class="alert alert-warning">
+                <p><strong>Häufige Fehlerquellen:</strong></p>
+                <ul>
+                    <li>Zu ungenaue oder zu breite Forschungsfrage</li>
+                    <li>Ungeeignete Methoden für die Fragestellung</li>
+                    <li>Suggestive oder unklare Frageformulierungen</li>
+                    <li>Fehlende Dokumentation des Forschungsprozesses</li>
+                    <li>Unzureichende Berücksichtigung der Gütekriterien</li>
+                    <li>Ungenaue Operationalisierung von Konstrukten</li>
+                    <li>Schlecht gestaltete Rating-Skalen (z.B. ungleiche Abstände)</li>
+                </ul>
+            </div>
+            
+            <p>Mit dem Wissen aus diesem Kompendium sind Sie gut gerüstet, um eigene Forschungsprojekte methodisch fundiert zu planen und durchzuführen.</p>
+            
+            <div class="quote">
+                "Wie man in den Wald hineinruft, so schallt es heraus." - Denken Sie daran, dass die Art, wie Sie Ihre Fragen stellen, starken Einfluss auf die Antworten haben kann. Die IG Metall und das Marplan-Institut haben eindrucksvoll demonstriert, wie unterschiedlich Umfrageergebnisse zum selben Thema ausfallen können, je nachdem wie die Frage gestellt wird.
+            </div>
+        </main>
+        
+        <footer>
+            <p> - Nandor Koch - </p>
+            <p>Ich bin für keine Noten verantwortlich. Das wurde mit KI erstellt und dient nur als Unterhaltungsmittel</p>
+        </footer>
+    </div>
+    
+    <a href="#" class="back-to-top">↑</a>
+</body>
+</html>
