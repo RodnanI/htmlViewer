@@ -64,33 +64,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      
-      <div className="card p-6">
-        <h3 className="text-lg font-medium text-gray-800 dark:text-gray-100 mb-4">How to Use</h3>
-        <div className="space-y-3">
-          <div className="flex">
-            <div className="flex-shrink-0 mr-3">
-              <div className="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">1</div>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300">
-              Add <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">.html</code> files to the 
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm"> /public/html-files</code> directory
-            </p>
-          </div>
-          <div className="flex">
-            <div className="flex-shrink-0 mr-3">
-              <div className="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">2</div>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300">They will automatically appear on this homepage</p>
-          </div>
-          <div className="flex">
-            <div className="flex-shrink-0 mr-3">
-              <div className="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">3</div>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300">Click on any file to view it in the browser</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
