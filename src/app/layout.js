@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen bg-light-bg dark:bg-dark-bg">
+          <div className="min-h-screen bg-light-bg dark:bg-dark-bg pb-16">
             <header className="bg-white dark:bg-dark-card border-b border-light-border dark:border-dark-border sticky top-0 z-10">
               <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">HTML Viewer</h1>
@@ -28,9 +28,9 @@ export default function RootLayout({ children }) {
             <main className="w-full px-4 py-6">
               {children}
             </main>
-            <footer className="border-t border-light-border dark:border-dark-border bg-white dark:bg-dark-card py-4">
+            <footer className="fixed bottom-0 left-0 right-0 w-full border-t border-light-border dark:border-dark-border bg-white dark:bg-dark-card py-4 z-10">
               <div className="container mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                HTML File Viewer &copy; {new Date().getFullYear()}
+                Nándor Koch // {new Date().getFullYear()}
               </div>
             </footer>
           </div>
