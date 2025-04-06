@@ -25,8 +25,13 @@ const HtmlViewer = ({ htmlContent }) => {
       // Adjust iframe height based on content
       const resizeIframe = () => {
         try {
-          const height = iframeDoc.body.scrollHeight;
-          iframe.style.height = `${height + 30}px`; // Add some padding
+          const viewportHeight = window.innerHeight;
+          const navHeight = 120; // Approximate height of navigation and header
+          const minHeight = viewportHeight - navHeight;
+          
+          // Get content height, but use at least the viewport height
+          const contentHeight = Math.max(iframeDoc.body.scrollHeight, minHeight);
+          iframe.style.height = `${contentHeight}px`;
         } catch (e) {
           console.error('Error resizing iframe:', e);
           setError('Error resizing content. Try refreshing the page.');
@@ -73,7 +78,7 @@ const HtmlViewer = ({ htmlContent }) => {
         className="html-content-iframe"
         style={{
           width: '100%',
-          minHeight: '500px',
+          minHeight: '80vh',
           border: 'none',
           overflow: 'auto',
           opacity: loading ? 0 : 1,
