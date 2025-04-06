@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getHtmlFiles } from '../utils/fileUtils';
 
-export const dynamic = 'force-dynamic'; // Force dynamic rendering to detect new files
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   const htmlFiles = getHtmlFiles();

@@ -9,9 +9,7 @@ const HtmlViewer = ({ htmlContent }) => {
   const [error, setError] = useState(null);
   const { theme } = useTheme();
 
-  // We're not injecting theme styles to keep original HTML content appearance
   const preserveOriginalStyles = () => {
-    // This is intentionally empty as we want to preserve the original HTML content styling
   };
 
   useEffect(() => {
@@ -20,25 +18,19 @@ const HtmlViewer = ({ htmlContent }) => {
     try {
       setLoading(true);
       
-      // Get the iframe document
       const iframe = iframeRef.current;
       const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
       
-      // Write the complete HTML content to the iframe
       iframeDoc.open();
       iframeDoc.write(htmlContent);
       iframeDoc.close();
       
-      // Not injecting theme styles to preserve original content
-      
-      // Adjust iframe height based on content
       const resizeIframe = () => {
         try {
           const viewportHeight = window.innerHeight;
-          const navHeight = 120; // Approximate height of navigation and header
+          const navHeight = 120;
           const minHeight = viewportHeight - navHeight;
           
-          // Get content height, but use at least the viewport height
           const contentHeight = Math.max(iframeDoc.body.scrollHeight, minHeight);
           iframe.style.height = `${contentHeight}px`;
         } catch (e) {
@@ -47,7 +39,6 @@ const HtmlViewer = ({ htmlContent }) => {
         }
       };
       
-      // Resize initially and on window resize
       iframe.onload = () => {
         resizeIframe();
         setLoading(false);
@@ -55,7 +46,6 @@ const HtmlViewer = ({ htmlContent }) => {
       
       window.addEventListener('resize', resizeIframe);
       
-      // Clean up
       return () => {
         window.removeEventListener('resize', resizeIframe);
       };
@@ -65,9 +55,6 @@ const HtmlViewer = ({ htmlContent }) => {
       setLoading(false);
     }
   }, [htmlContent]);
-  
-  // We're not updating theme in iframe when it changes to preserve original content
-  // This effect has been removed intentionally
 
   if (error) {
     return (
@@ -95,7 +82,7 @@ const HtmlViewer = ({ htmlContent }) => {
           overflow: 'auto',
           opacity: loading ? 0 : 1,
           transition: 'opacity 0.3s ease',
-          backgroundColor: 'white' // Always keep iframe background white regardless of theme
+          backgroundColor: 'white' 
         }}
         title="HTML Content"
         sandbox="allow-same-origin allow-scripts allow-forms"
