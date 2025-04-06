@@ -25,7 +25,7 @@ export default function HtmlViewPage({ params }) {
       </div>
       
       <div className="w-full overflow-hidden">
-        <HtmlViewer htmlContent={htmlContent} />
+        <HtmlViewer htmlContent={htmlContent} slug={slug} />
       </div>
     </div>
   );
