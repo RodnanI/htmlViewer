@@ -312,6 +312,17 @@
             color: var(--accent-color);
         }
         
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .pyramid-structure {
+            width: 100%;
+            max-width: 600px;
+        }
+        
         /* Responsive adjustments */
         @media screen and (max-width: 768px) {
             .timeline::after {
@@ -339,47 +350,55 @@
             .card-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .propaganda-flex {
+                flex-direction: column;
+            }
         }
 
-        /* Specific styling for propagandistic imagery section */
-        .propaganda-images {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        .propaganda-container {
             margin: 2rem 0;
-            gap: 1rem;
         }
-
-        .propaganda-image {
-            flex: 1 1 300px;
-            max-width: 500px;
-            background-color: #f9f9f9;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .propaganda-image h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .propaganda-description {
-            font-style: italic;
-            margin-top: 0.5rem;
-            color: #666;
-        }
-
-        .image-placeholder {
-            height: 200px;
-            background-color: #eee;
+        
+        .propaganda-flex {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
             justify-content: center;
-            color: #666;
-            font-weight: bold;
-            margin: 1rem 0;
-            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .propaganda-item {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        
+        .propaganda-caption {
+            padding: 1rem;
+            background-color: var(--light-accent);
+            font-style: italic;
+        }
+        
+        .circle-diagram {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .two-column {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .two-column > div {
+            flex: 1;
+            min-width: 300px;
         }
     </style>
 </head>
@@ -516,91 +535,182 @@
         <section id="volksgemeinschaft" class="section">
             <h2>Führerkult und „Volksgemeinschaft" – Ideologie und inszenierte Lebenswirklichkeit im NS-Staat</h2>
             
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">Volksgemeinschaft</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Zentrale Ideologie zur Etablierung der NS-Diktatur</li>
-                            <li>Motto: „Du bist nichts, dein Volk ist alles"</li>
-                            <li>Propagierte Einheit aller Deutschen unabhängig von Bildung, Beruf, Vermögen</li>
-                            <li>Zusammenschluss aller Staatsbürger zu einem ethnisch homogenen Verband</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">Führerkult und Führerstaat</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Adolf Hitler als Heilsbringer (Mythos vom übermenschlichen und unfehlbaren „Führer" sowie zugleich „Mann des Volkes")</li>
-                            <li>Führerprinzip: Adolf Hitler als zentrale Gestalt des Nationalsozialismus</li>
-                            <li>Ergänzung der Ideologie der „Volksgemeinschaft" durch das Führerprinzip</li>
-                            <li>Vollkommene Ausrichtung des Staates auf den Führer</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">Propaganda</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Mittel zum Einfluss auf die öffentliche Meinung: Gleichschaltung</li>
-                            <li>Verlust der Presse- und Informationsfreiheit (Zensur)</li>
-                            <li>Glanzvolle Feiern und Inszenierungen, z.B. Reichsparteitage</li>
-                            <li>Propagandaminister: Joseph Goebbels</li>
-                            <li>Medien: Film, Rundfunk, Presse</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">Rassismus</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Einteilung der Menschheit in Rassen (Sozialdarwinismus)</li>
-                            <li>Fähigkeiten nach Herkunft/Rasse verteilt</li>
-                            <li>Pseudo-wissenschaftliche Begründungen</li>
-                            <li>Ableitung: „Rassenhygiene" und Rassenantisemitismus</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">Jugend</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Jugend als Zukunft der Volksgemeinschaft</li>
-                            <li>Lebensweg im Sinne der Partei vorgezeichnet (Jungmädel, BDM; Jungvolk, HJ)</li>
-                            <li>Indoktrinierung der Jugend im Sinne der NS durch Erlebnisfahrten, Rituale, Lagerleben, Schule</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">Ausgrenzung von</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>jüdischer Bevölkerung</li>
-                            <li>Sinti u. Roma</li>
-                            <li>Menschen mit Behinderung</li>
-                            <li>Homosexuellen</li>
-                            <li>politischen Gegnern</li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- NS-Staatsstruktur Pyramide -->
+            <div class="diagram-container">
+                <svg class="pyramid-structure" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Pyramide -->
+                    <polygon points="300,20 550,380 50,380" fill="#f5d7a3" stroke="#333" stroke-width="2" />
+                    
+                    <!-- Ebenen der Pyramide -->
+                    <line x1="50" y1="380" x2="550" y2="380" stroke="#333" stroke-width="2" />
+                    <line x1="83" y1="340" x2="517" y2="340" stroke="#333" stroke-width="1" />
+                    <line x1="116" y1="300" x2="484" y2="300" stroke="#333" stroke-width="1" />
+                    <line x1="149" y1="260" x2="451" y2="260" stroke="#333" stroke-width="1" />
+                    <line x1="182" y1="220" x2="418" y2="220" stroke="#333" stroke-width="1" />
+                    <line x1="215" y1="180" x2="385" y2="180" stroke="#333" stroke-width="1" />
+                    <line x1="248" y1="140" x2="352" y2="140" stroke="#333" stroke-width="1" />
+                    <line x1="281" y1="100" x2="319" y2="100" stroke="#333" stroke-width="1" />
+                    
+                    <!-- Titel an der Spitze -->
+                    <rect x="275" y="40" width="50" height="50" fill="#e63946" rx="5" ry="5" />
+                    <text x="300" y="60" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Führer</text>
+                    <text x="300" y="75" text-anchor="middle" fill="white" font-size="10">und</text>
+                    <text x="300" y="85" text-anchor="middle" fill="white" font-size="8">Reichskanzler</text>
+                    
+                    <!-- Positionen in der Hierarchie -->
+                    <text x="300" y="120" text-anchor="middle" font-weight="bold" font-size="11">Reichsregierung</text>
+                    <text x="300" y="160" text-anchor="middle" font-weight="bold" font-size="11">Reichsstatthalter</text>
+                    <text x="300" y="200" text-anchor="middle" font-weight="bold" font-size="11">Oberpräsidenten</text>
+                    <text x="300" y="240" text-anchor="middle" font-weight="bold" font-size="11">Regierungspräsidenten</text>
+                    <text x="300" y="280" text-anchor="middle" font-weight="bold" font-size="11">Landräte</text>
+                    <text x="300" y="320" text-anchor="middle" font-weight="bold" font-size="11">Bürgermeister</text>
+                    <text x="175" y="360" text-anchor="middle" font-weight="bold" font-size="11">„Volksgenossen"</text>
+                    <text x="425" y="360" text-anchor="middle" font-weight="bold" font-size="11">„Parteigenossen"</text>
+                    
+                    <!-- Parteistruktur -->
+                    <text x="475" y="120" text-anchor="middle" font-weight="bold" font-size="11">Reichsleiter</text>
+                    <text x="475" y="160" text-anchor="middle" font-weight="bold" font-size="11">Gauleiter</text>
+                    <text x="475" y="200" text-anchor="middle" font-weight="bold" font-size="11">Kreisleiter</text>
+                    <text x="475" y="240" text-anchor="middle" font-weight="bold" font-size="11">Ortsgruppenleiter</text>
+                    <text x="475" y="280" text-anchor="middle" font-weight="bold" font-size="11">Zellenleiter</text>
+                    <text x="475" y="320" text-anchor="middle" font-weight="bold" font-size="11">Blockleiter</text>
+                    
+                    <!-- Staatsorgane -->
+                    <text x="125" y="120" text-anchor="middle" font-weight="bold" font-size="11">Reichstag</text>
+                    <text x="125" y="140" text-anchor="middle" font-size="8">(741 Mitglieder, 1934)</text>
+                    <text x="100" y="200" text-anchor="middle" font-weight="bold" font-size="11">Wehrmacht</text>
+                    
+                    <!-- Pfeile und Verbindungen -->
+                    <path d="M175,120 L250,80" stroke="#555" stroke-width="1" fill="none" />
+                    <text x="200" y="90" fill="#555" font-size="8">Scheindebatte ohne Befugnis</text>
+                    
+                    <path d="M125,180 L250,70" stroke="#555" stroke-width="1" fill="none" />
+                    <text x="170" y="120" fill="#555" font-size="8">Oberbefehl</text>
+                </svg>
             </div>
-
-            <div class="propaganda-images">
-                <div class="propaganda-image">
-                    <h4>NS-Propaganda: "Ein Volk, ein Reich, ein Führer!"</h4>
-                    <div class="image-placeholder">Propagandaplakat mit Hitler-Porträt</div>
-                    <p class="propaganda-description">Das Plakat zeigt Hitler als heroische Figur und verkörpert den Führerkult.</p>
-                </div>
-                <div class="propaganda-image">
-                    <h4>NS-Propaganda: "Jugend dient dem Führer"</h4>
-                    <div class="image-placeholder">Propagandaplakat mit Hitlerjunge</div>
-                    <p class="propaganda-description">Darstellung eines blonden Hitlerjungen mit dem überlagerten Gesicht Hitlers im Hintergrund.</p>
+            
+            <!-- Volksgemeinschaft Kreisdiagramm -->
+            <div class="circle-diagram">
+                <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Großer Kreis "Volksgemeinschaft" -->
+                    <circle cx="400" cy="400" r="370" fill="#f5f5f5" stroke="#333" stroke-width="2" />
+                    <text x="400" y="150" text-anchor="middle" font-size="24" font-weight="bold">Volksgemeinschaft</text>
+                    
+                    <!-- Mittlerer Kreis "Führerkult und Führerstaat" -->
+                    <circle cx="400" cy="400" r="250" fill="#e9ecef" stroke="#333" stroke-width="2" />
+                    <text x="400" y="280" text-anchor="middle" font-size="20" font-weight="bold">Führerkult und Führerstaat</text>
+                    
+                    <!-- Volksgemeinschaft Erklärungen -->
+                    <text x="400" y="180" text-anchor="middle" font-size="12">Volksgemeinschaft als zentrale Ideologie zur Etablierung der NS-Diktatur</text>
+                    <text x="400" y="200" text-anchor="middle" font-size="12">Motto: „Du bist nichts, dein Volk ist alles"</text>
+                    <text x="400" y="220" text-anchor="middle" font-size="12">Propagierte Einheit aller Deutschen unabhängig von Bildung, Beruf, Vermögen</text>
+                    <text x="400" y="240" text-anchor="middle" font-size="12">Zusammenschluss aller Staatsbürger zu einem ethnisch homogenen Verband</text>
+                    
+                    <!-- Führerkult Erklärungen -->
+                    <text x="400" y="310" text-anchor="middle" font-size="11">Adolf Hitler als Heilsbringer</text>
+                    <text x="400" y="325" text-anchor="middle" font-size="11">(Mythos vom übermenschlichen und unfehlbaren „Führer")</text>
+                    <text x="400" y="345" text-anchor="middle" font-size="11">Führerprinzip: Adolf Hitler als zentrale Gestalt des Nationalsozialismus</text>
+                    <text x="400" y="365" text-anchor="middle" font-size="11">Ergänzung der Ideologie der „Volksgemeinschaft" durch das Führerprinzip</text>
+                    <text x="400" y="385" text-anchor="middle" font-size="11">Vollkommene Ausrichtung des Staates auf den Führer</text>
+                    
+                    <!-- Unterkonzepte -->
+                    <!-- Jugend -->
+                    <text x="250" y="500" text-anchor="middle" font-size="16" font-weight="bold">Jugend</text>
+                    <text x="250" y="525" text-anchor="middle" font-size="11">Jugend als Zukunft der Volksgemeinschaft</text>
+                    <text x="250" y="545" text-anchor="middle" font-size="11">Lebensweg im Sinne der Partei vorgezeichnet</text>
+                    <text x="250" y="560" text-anchor="middle" font-size="11">(Jungmädel, BDM; Jungvolk, HJ)</text>
+                    <text x="250" y="580" text-anchor="middle" font-size="11">Indoktrinierung der Jugend im Sinne der NS</text>
+                    
+                    <!-- Propaganda -->
+                    <text x="550" y="500" text-anchor="middle" font-size="16" font-weight="bold">Propaganda</text>
+                    <text x="550" y="525" text-anchor="middle" font-size="11">Gleichschaltung der öffentlichen Meinung</text>
+                    <text x="550" y="545" text-anchor="middle" font-size="11">Verlust der Presse- und Informationsfreiheit</text>
+                    <text x="550" y="565" text-anchor="middle" font-size="11">Glanzvolle Feiern und Inszenierungen</text>
+                    <text x="550" y="585" text-anchor="middle" font-size="11">Propagandaminister: Joseph Goebbels</text>
+                    
+                    <!-- Rassismus -->
+                    <text x="400" y="640" text-anchor="middle" font-size="16" font-weight="bold">Rassismus</text>
+                    <text x="400" y="665" text-anchor="middle" font-size="11">Einteilung der Menschheit in Rassen</text>
+                    <text x="400" y="680" text-anchor="middle" font-size="11">(Sozialdarwinismus -> Kampf zw. Höher- und Minderwertig)</text>
+                    <text x="400" y="695" text-anchor="middle" font-size="11">Fähigkeiten nach Herkunft/Rasse verteilt</text>
+                    <text x="400" y="710" text-anchor="middle" font-size="11">Pseudo-wissenschaftliche Begründungen</text>
+                    
+                    <!-- Ausgrenzung -->
+                    <text x="700" y="350" text-anchor="middle" font-size="16" font-weight="bold">Ausgrenzung von</text>
+                    <text x="700" y="375" text-anchor="middle" font-size="11">• jüdischer Bevölkerung</text>
+                    <text x="700" y="395" text-anchor="middle" font-size="11">• Sinti u. Roma</text>
+                    <text x="700" y="415" text-anchor="middle" font-size="11">• Menschen mit Behinderung</text>
+                    <text x="700" y="435" text-anchor="middle" font-size="11">• Homosexuellen</text>
+                    <text x="700" y="455" text-anchor="middle" font-size="11">• politischen Gegnern</text>
+                </svg>
+            </div>
+            
+            <h3>Propagandistische Darstellung</h3>
+            <div class="propaganda-container">
+                <div class="propaganda-flex">
+                    <div class="propaganda-item">
+                        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Rahmen -->
+                            <rect x="0" y="0" width="400" height="500" fill="#f5f5f5" />
+                            
+                            <!-- Hintergrund -->
+                            <rect x="20" y="20" width="360" height="360" fill="#333" />
+                            
+                            <!-- Hitler-Porträt -->
+                            <circle cx="200" cy="150" r="100" fill="#ddd" />
+                            <path d="M160,120 C160,110 180,100 200,100 C220,100 240,110 240,120 L240,140 C240,150 230,180 200,180 C170,180 160,150 160,140 Z" fill="#ddd" />
+                            <rect x="160" y="120" width="80" height="60" fill="#333" />
+                            <path d="M160,120 C160,110 180,110 200,110 C220,110 240,110 240,120" fill="none" stroke="#ddd" stroke-width="2" />
+                            <path d="M170,130 L190,125" stroke="#ddd" stroke-width="2" />
+                            <path d="M210,125 L230,130" stroke="#ddd" stroke-width="2" />
+                            <path d="M185,145 L215,145" stroke="#ddd" stroke-width="2" />
+                            <path d="M185,155 C185,165 215,165 215,155" fill="none" stroke="#ddd" stroke-width="2" />
+                            <path d="M150,90 L250,90" stroke="#ddd" stroke-width="8" />
+                            
+                            <!-- Propagandatexte -->
+                            <text x="200" y="50" font-family="serif" font-size="35" text-anchor="middle" fill="#e63946" font-weight="bold" transform="skewX(-10)">Ein Volk, ein Reich,</text>
+                            <text x="200" y="90" font-family="serif" font-size="35" text-anchor="middle" fill="#e63946" font-weight="bold" transform="skewX(-10)">ein Führer!</text>
+                            
+                            <!-- Untertitel -->
+                            <text x="200" y="450" font-family="serif" font-size="18" text-anchor="middle" font-weight="bold">Ein Volk, ein Reich, ein Führer!</text>
+                            <text x="200" y="480" font-family="serif" font-size="14" text-anchor="middle">Propagandaplakat des NS-Regimes</text>
+                        </svg>
+                        <div class="propaganda-caption">
+                            NS-Propaganda: Führer-Kult mit Hitler als heroische Figur
+                        </div>
+                    </div>
+                    
+                    <div class="propaganda-item">
+                        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Rahmen -->
+                            <rect x="0" y="0" width="400" height="500" fill="#f5f5f5" />
+                            
+                            <!-- Hintergrund -->
+                            <rect x="20" y="20" width="360" height="360" fill="#333" />
+                            
+                            <!-- Hitlerjunge im Vordergrund -->
+                            <rect x="140" y="100" width="120" height="250" fill="#ddd" />
+                            <circle cx="200" cy="100" r="50" fill="#ddd" />
+                            <rect x="170" y="150" width="60" height="100" fill="#8c7853" />
+                            <rect x="180" y="250" width="40" height="100" fill="#8c7853" />
+                            
+                            <!-- Hitler-Silhouette im Hintergrund -->
+                            <circle cx="200" cy="180" r="150" fill="#444" opacity="0.3" />
+                            <rect x="150" y="150" width="100" height="100" fill="#444" opacity="0.3" />
+                            <rect x="180" y="250" width="40" height="100" fill="#444" opacity="0.3" />
+                            
+                            <!-- Propagandatexte -->
+                            <text x="200" y="50" font-family="serif" font-size="30" text-anchor="middle" fill="#e63946" font-weight="bold" transform="skewX(-10)">Jugend dient</text>
+                            <text x="200" y="80" font-family="serif" font-size="30" text-anchor="middle" fill="#e63946" font-weight="bold" transform="skewX(-10)">dem Führer</text>
+                            
+                            <!-- Untertitel -->
+                            <text x="200" y="450" font-family="serif" font-size="18" text-anchor="middle" font-weight="bold">Jugend dient dem Führer</text>
+                            <text x="200" y="480" font-family="serif" font-size="14" text-anchor="middle">Propagandaplakat des NS-Regimes</text>
+                        </svg>
+                        <div class="propaganda-caption">
+                            NS-Propaganda: Indoktrination der Jugend durch den Führerkult
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -614,55 +724,100 @@
                 <p>Reinhaltung deutschen Blutes und Schutz der „Volksgemeinschaft" => Verfolgung, Vernichtung „rassisch Unreiner, rassisch Minderwertiger"</p>
             </div>
             
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">Verfolgte ethnische Gruppen</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Sinti, Roma</li>
-                            <li>„Afrodeutsche"</li>
-                            <li>slawische Völker</li>
-                        </ul>
-                    </div>
+            <div class="two-column">
+                <div>
+                    <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Haupttitel -->
+                        <text x="200" y="30" text-anchor="middle" font-size="18" font-weight="bold">Opfer des NS-Rassismus</text>
+                        
+                        <!-- Erster Zweig: Sinti, Roma, "Afrodeutsche", slawische Völker -->
+                        <line x1="50" y1="120" x2="350" y2="120" stroke="#333" stroke-width="2" />
+                        <line x1="120" y1="120" x2="120" y2="200" stroke="#333" stroke-width="2" />
+                        <text x="120" y="80" text-anchor="middle" font-size="14" font-weight="bold">Sinti, Roma,</text>
+                        <text x="120" y="100" text-anchor="middle" font-size="14" font-weight="bold">„Afrodeutsche",</text>
+                        <text x="120" y="120" text-anchor="middle" font-size="14" font-weight="bold">slawische Völker</text>
+                        
+                        <!-- Zweiter Zweig: Homosexuelle, "Asoziale", Kriminelle -->
+                        <line x1="200" y1="120" x2="200" y2="200" stroke="#333" stroke-width="2" />
+                        <text x="200" y="80" text-anchor="middle" font-size="14" font-weight="bold">Homosexuelle,</text>
+                        <text x="200" y="100" text-anchor="middle" font-size="14" font-weight="bold">„Asoziale",</text>
+                        <text x="200" y="120" text-anchor="middle" font-size="14" font-weight="bold">Kriminelle</text>
+                        
+                        <!-- Dritter Zweig: unheilbar Kranke, körperlich/geistig Behinderte -->
+                        <line x1="280" y1="120" x2="280" y2="200" stroke="#333" stroke-width="2" />
+                        <text x="280" y="80" text-anchor="middle" font-size="14" font-weight="bold">unheilbar Kranke,</text>
+                        <text x="280" y="100" text-anchor="middle" font-size="14" font-weight="bold">körperlich / geistig</text>
+                        <text x="280" y="120" text-anchor="middle" font-size="14" font-weight="bold">Behinderte als</text>
+                        <text x="280" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#e63946">„lebensunwertes Leben"</text>
+                        
+                        <!-- "T4-Aktion" -->
+                        <line x1="280" y1="200" x2="280" y2="260" stroke="#333" stroke-width="2" />
+                        <text x="280" y="220" text-anchor="middle" font-size="14" font-weight="bold">Sterilisierung, „Euthanasie"</text>
+                        <text x="280" y="240" text-anchor="middle" font-size="14" font-weight="bold">/ „T4-Aktion" (Sterbehilfe)</text>
+                        <text x="280" y="260" text-anchor="middle" font-size="14" font-weight="bold">-> ~200.000 Opfer</text>
+                        
+                        <!-- Proteste -->
+                        <line x1="280" y1="260" x2="280" y2="400" stroke="#333" stroke-width="2" />
+                        <text x="280" y="290" text-anchor="middle" font-size="14">Protest durch Angehörige,</text>
+                        <text x="280" y="310" text-anchor="middle" font-size="14">durch katholische Kirche</text>
+                        <text x="280" y="330" text-anchor="middle" font-size="14">-Predigt Bischof von Galen 03.08.1941</text>
+                        <text x="280" y="350" text-anchor="middle" font-size="14">-Protestschreiben Bischofs Hilfrich</text>
+                        <text x="280" y="370" text-anchor="middle" font-size="14">an Reichsjustizminister 13.08.1941</text>
+                        
+                        <!-- Offizielles Ende -->
+                        <text x="280" y="400" text-anchor="middle" font-size="14" font-weight="bold">August 1941: offizielles Ende der Vergasungen</text>
+                        <text x="280" y="420" text-anchor="middle" font-size="14">aber: Tötung durch Giftspritzen weiterhin</text>
+                    </svg>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">Verfolgte soziale Gruppen</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Homosexuelle</li>
-                            <li>„Asoziale"</li>
-                            <li>Kriminelle</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">„Lebensunwertes Leben"</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>unheilbar Kranke</li>
-                            <li>körperlich / geistig Behinderte</li>
-                            <li>Sterilisierung, „Euthanasie" / „T4-Aktion" (Sterbehilfe)</li>
-                            <li>~200.000 Opfer</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Protest und Reaktionen</h3>
-            <ul class="list-group">
-                <li class="list-group-item highlight">Protest durch Angehörige, durch katholische Kirche</li>
-                <li class="list-group-item">Predigt Bischof von Galen 03.08.1941</li>
-                <li class="list-group-item">Protestschreiben Bischofs Hilfrich an Reichsjustizminister 13.08.1941</li>
-                <li class="list-group-item highlight">August 1941: offizielles Ende der Vergasungen aber: Tötung durch Giftspritzen weiterhin</li>
-            </ul>
-
-            <div class="propaganda-images">
-                <div class="propaganda-image">
-                    <h4>NS-Propaganda: "Gesunde Eltern – gesunde Kinder!"</h4>
-                    <div class="image-placeholder">Propagandaplakat mit "idealem" Familienbild</div>
-                    <p class="propaganda-description">Die Broschüre „Gesunde Eltern – gesunde Kinder" enthält den Wortlaut des Gesetzes zur Bekämpfung erbkranken Nachwuchses und seiner Begründung. Zu beziehen durch die Ortsgruppen der N.S.D.A.P. und alle Postschalter. Preis 10 Pf.</p>
+                <div>
+                    <!-- Propaganda für "gesunde" Familie -->
+                    <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Rahmen -->
+                        <rect x="20" y="20" width="360" height="480" fill="#f2f2f2" stroke="#333" stroke-width="1" />
+                        
+                        <!-- Hauptteil des Plakats -->
+                        <rect x="40" y="40" width="320" height="320" fill="#111" />
+                        
+                        <!-- "Ideale" arische Familie -->
+                        <!-- Vater -->
+                        <rect x="240" y="80" width="60" height="120" fill="#ddd" /> <!-- Oberkörper -->
+                        <circle cx="270" cy="60" r="30" fill="#ddd" /> <!-- Kopf -->
+                        <rect x="250" y="200" width="20" height="80" fill="#ddd" /> <!-- Bein rechts -->
+                        <rect x="270" y="200" width="20" height="90" fill="#ddd" /> <!-- Bein links -->
+                        
+                        <!-- Mutter -->
+                        <rect x="160" y="100" width="50" height="100" fill="#ddd" /> <!-- Oberkörper -->
+                        <circle cx="185" cy="70" r="25" fill="#ddd" /> <!-- Kopf -->
+                        <rect x="170" y="200" width="15" height="60" fill="#ddd" /> <!-- Bein rechts -->
+                        <rect x="185" y="200" width="15" height="60" fill="#ddd" /> <!-- Bein links -->
+                        
+                        <!-- Kind 1 (Baby in Armen) -->
+                        <circle cx="185" cy="120" r="15" fill="#ddd" /> <!-- Kopf -->
+                        <rect x="175" y="135" width="20" height="30" fill="#ddd" /> <!-- Körper -->
+                        
+                        <!-- Kind 2 (Mädchen) -->
+                        <rect x="90" y="150" width="30" height="60" fill="#ddd" /> <!-- Oberkörper -->
+                        <circle cx="105" cy="130" r="20" fill="#ddd" /> <!-- Kopf -->
+                        <rect x="95" y="210" width="10" height="40" fill="#ddd" /> <!-- Bein rechts -->
+                        <rect x="105" y="210" width="10" height="40" fill="#ddd" /> <!-- Bein links -->
+                        <rect x="120" y="160" width="30" height="5" fill="#ddd" /> <!-- Arm hoch -->
+                        
+                        <!-- Kind 3 (Junge) -->
+                        <rect x="220" y="180" width="25" height="50" fill="#ddd" /> <!-- Oberkörper -->
+                        <circle cx="232" cy="160" r="18" fill="#ddd" /> <!-- Kopf -->
+                        <rect x="225" y="230" width="8" height="30" fill="#ddd" /> <!-- Bein rechts -->
+                        <rect x="233" y="230" width="8" height="30" fill="#ddd" /> <!-- Bein links -->
+                        
+                        <!-- Titel in roter Frakturschrift -->
+                        <text x="200" y="400" text-anchor="middle" font-size="24" fill="#e63946" font-weight="bold" font-family="serif">Gesunde Eltern – gesunde Kinder!</text>
+                        
+                        <!-- Untertexte -->
+                        <text x="200" y="425" text-anchor="middle" font-size="12">Lest die bevölkerungspolitische Aufklärungsschriften der N.S.Volkswohlfahrt!</text>
+                        <text x="200" y="445" text-anchor="middle" font-size="12">Die Broschüre „Gesunde Eltern – gesunde Kinder" enthält den Wortlaut des</text>
+                        <text x="200" y="465" text-anchor="middle" font-size="12" font-weight="bold">Gesetzes zur Bekämpfung erbkranken Nachwuchses und seiner Begründung.</text>
+                        <text x="200" y="485" text-anchor="middle" font-size="10">Zu beziehen durch die Ortsgruppen der N.S.D.A.P. und alle Postschalter. Preis 10 Pf.</text>
+                    </svg>
                 </div>
             </div>
         </section>
@@ -716,43 +871,90 @@
         <section id="wissen" class="section">
             <h2>Die Frage nach der Wahrnehmung und der Beteiligung der nichtjüdischen Bevölkerung an der Judenverfolgung</h2>
             
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">„Davon haben wir nichts gewusst"?</div>
-                    <div class="card-body">
-                        <p><strong>1933 – 1939:</strong> Wahrnehmung der Judenverfolgung leicht möglich</p>
-                        <p><strong>1939 – 1945:</strong> Wissen grundsätzlich zugänglich, aber: Komplexität und Tragweite nur schwer einschätzbar sowie Flucht in Ahnungslosigkeit</p>
-                        <p class="highlight">Pauschalurteil nicht möglich!</p>
-                        <p>Aber: Passivität und Gleichgültigkeit der nichtjüdischen Bevölkerung gegenüber der Judenverfolgung aufgrund von Eigennutz, Desinteresse, Überzeugung</p>
+            <div class="two-column">
+                <div>
+                    <h3>„Davon haben wir nichts gewusst"?</h3>
+                    <p><strong>1933 – 1939:</strong> Wahrnehmung der Judenverfolgung leicht möglich</p>
+                    <p><strong>1939 – 1945:</strong> Wissen grundsätzlich zugänglich, aber: Komplexität und Tragweite nur schwer einschätzbar sowie Flucht in Ahnungslosigkeit</p>
+                    <p class="highlight" style="font-weight: bold; color: var(--accent-color);">Pauschalurteil nicht möglich!</p>
+                    <p>Aber: Passivität und Gleichgültigkeit der nichtjüdischen Bevölkerung gegenüber der Judenverfolgung aufgrund von Eigennutz, Desinteresse, Überzeugung</p>
+                    <p><strong>➔ aktive Teilhabe und stille Tolerierung stützen die Judenverfolgung und das NS-Regime</strong></p>
+                    
+                    <h3 style="margin-top: 2rem;">Phasen der Judenverfolgung</h3>
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-header">1933 – 1939 Ausgrenzung, Entrechtung und Verfolgung</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Boykotte und Ausgrenzung</li>
+                                <li>„Nürnberger Gesetze" 1935</li>
+                                <li>Arisierungen</li>
+                                <li>Novemberpogrom 1938</li>
+                                <li>Deportationen</li>
+                            </ul>
+                            <p>➔ Schauplatz: Öffentlichkeit</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-header">1939 – 1945 Massenmord an der jüdischen Bevölkerung</div>
+                        <div class="card-body">
+                            <p><strong>mögliches Wissen über:</strong></p>
+                            <ul>
+                                <li>Ermordungen durch Erschießungen</li>
+                                <li>organisierter Massenmord</li>
+                                <li>Konzentrationslager</li>
+                            </ul>
+                            <p><strong>Verbreitung von Informationen durch:</strong></p>
+                            <ul>
+                                <li>Beteiligte, Fronturlauber, Gerüchte, Erzählungen</li>
+                                <li>ab 1942 stärkere Einbindung in Wissen über den Holocaust durch NS-Regime (Longerich)</li>
+                            </ul>
+                            <p><strong>Hemmnisse der Verbreitung:</strong></p>
+                            <ul>
+                                <li>Geheimhaltung durch das NS-Regime</li>
+                                <li>Verfolgung durch Gestapo, Angst vor Denunziation</li>
+                            </ul>
+                            <p style="text-align: right; font-weight: bold; margin-top: 1rem;">„offenes Geheimnis"</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <div class="card-header">„Hitlers willige Volksgenossen"?</div>
-                    <div class="card-body">
-                        <h4>Daniel Jonas Goldhagen</h4>
-                        <ul>
-                            <li>traditioneller (deutscher) Antisemitismus als Grund für Beteiligung und Akzeptanz durch die nichtjüdische Bevölkerung</li>
-                            <li>„eliminatorischer Antisemitismus" führt zu Wunsch nach Vernichtung der Juden</li>
-                            <li>➔ Willige, hilfsbereite Vollstrecker</li>
-                        </ul>
-                        
-                        <h4>Frank Bajohr</h4>
-                        <ul>
-                            <li>4 bestimmende Faktoren für Haltung gegenüber der Judenverfolgung</li>
-                            <li>Antisemitische Tradition (Verstärkung nach 1933)</li>
-                            <li>Anpassung an Werte des herrschenden Systems</li>
-                            <li>Umsetzung individueller Interessen</li>
-                            <li>Zunehmende Akzeptanz und Identifikation mit dem NS-System, solange dieses erfolgreich war</li>
-                        </ul>
-                        
-                        <h4>Bernward Dörner</h4>
-                        <ul>
-                            <li>Pauschalurteile nicht zielführend</li>
-                            <li>Unterschiedliche Reaktionen und Einstellungen zur Judenverfolgung</li>
-                            <li>„gespaltene" Gesellschaft: Billigung <-> Ablehnung</li>
-                            <li>Aber: gemäßigter Antisemitismus ermöglichte „eliminatorischen" Antisemitismus</li>
-                        </ul>
+                <div>
+                    <h3>„Hitlers willige Volksgenossen"?</h3>
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-header">Daniel Jonas Goldhagen</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>traditioneller (deutscher) Antisemitismus als Grund für Beteiligung und Akzeptanz durch die nichtjüdische Bevölkerung</li>
+                                <li>„eliminatorischer Antisemitismus" führt zu Wunsch nach Vernichtung der Juden</li>
+                                <li>➔ Willige, hilfsbereite Vollstrecker</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-header">Frank Bajohr</div>
+                        <div class="card-body">
+                            <p><strong>4 bestimmende Faktoren für Haltung gegenüber der Judenverfolgung:</strong></p>
+                            <ul>
+                                <li>Antisemitische Tradition (Verstärkung nach 1933)</li>
+                                <li>Anpassung an Werte des herrschenden Systems</li>
+                                <li>Umsetzung individueller Interessen</li>
+                                <li>Zunehmende Akzeptanz und Identifikation mit dem NS-System, solange dieses erfolgreich war</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card-header">Bernward Dörner</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Pauschalurteile nicht zielführend</li>
+                                <li>Unterschiedliche Reaktionen und Einstellungen zur Judenverfolgung</li>
+                                <li>„gespaltene" Gesellschaft: Billigung <-> Ablehnung</li>
+                                <li>Aber: gemäßigter Antisemitismus ermöglichte „eliminatorischen" Antisemitismus</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
