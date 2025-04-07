@@ -68,9 +68,10 @@ const PasswordModal = ({ isOpen, onClose, onPasswordSubmit, fileName }) => {
     if (password === 'rodnan') {
       setShowSuccess(true);
       // Show success animation and then submit after a delay
+      // Increased from 1200ms to 3000ms to allow animation to complete
       setTimeout(() => {
         onPasswordSubmit(password);
-      }, 1200);
+      }, 3000);
     } else {
       setError('Incorrect password');
       setShowError(true);
