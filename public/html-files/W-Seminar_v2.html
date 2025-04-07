@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W-Seminar Übersicht</title>
+    <style>
+        :root {
+            --primary-color: #3a5a97;
+            --secondary-color: #f8f9fa;
+            --accent-color: #e63946;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f5f5;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        nav {
+            background-color: #2c4677;
+            padding: 0.5rem 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ddd;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            padding: 2rem;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .example {
+            background-color: #f0f4f8;
+            border: 1px solid #d1e0f0;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .example p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .example .example-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--secondary-color);
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .dos-donts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .dos, .donts {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 5px;
+            padding: 1rem;
+        }
+        
+        .dos {
+            background-color: #e6f3e6;
+            border: 1px solid #c3e6c3;
+        }
+        
+        .donts {
+            background-color: #f8e6e6;
+            border: 1px solid #e6c3c3;
+        }
+        
+        .dos h4, .donts h4 {
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+        }
+        
+        .collapsible {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.4s;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .active, .collapsible:hover {
+            background-color: #e7e7e7;
+        }
+        
+        .collapsible:after {
+            content: '+';
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        
+        .active:after {
+            content: "-";
+        }
+        
+        .content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+        
+        .content-inner {
+            padding: 1rem 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scale-diagram {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .scale {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .scale-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .numeric-scale, .verbal-scale, .symbolic-scale {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .scale-label {
+            min-width: 100px;
+            font-weight: 500;
+        }
+        
+        .numeric-scale .scale-values, 
+        .verbal-scale .scale-values, 
+        .symbolic-scale .scale-values {
+            display: flex;
+            flex: 1;
+            gap: 0.5rem;
+        }
+        
+        .scale-value {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 40px;
+            background: white;
+        }
+        
+        .scale-endpoints {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 0.25rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .dos-donts {
+                flex-direction: column;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+            
+            header, nav, footer {
+                display: none;
+            }
+            
+            section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1.5rem;
+                break-inside: avoid;
+            }
+            
+            .collapsible {
+                background-color: white;
+                cursor: default;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #ddd;
+                border-radius: 0;
+            }
+            
+            .collapsible:after {
+                display: none;
+            }
+            
+            .content {
+                max-height: none;
+                padding: 0;
+            }
+            
+            .content-inner {
+                padding: 0.5rem 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>W-Seminar Übersicht</h1>
+            <nav>
+                <ul>
+                    <li><a href="#zitieren">Zitieren</a></li>
+                    <li><a href="#ki">KI-Nutzung</a></li>
+                    <li><a href="#interviews">Interviews</a></li>
+                    <li><a href="#umfragen">Umfragen</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="zitieren">
+            <h2>Zitieren</h2>
+            <p>Jedes wörtliche oder inhaltliche Zitat muss belegt werden, wofür man Fußnoten verwendet.</p>
+            
+            <h3>1) Wörtliche Zitate</h3>
+            <ul>
+                <li>Anführungszeichen</li>
+                <li>Auslassungen: (...)</li>
+                <li>Am Ende eine Fußnote</li>
+            </ul>
+            <div class="note">
+                <p>Man verwendet wörtliche Zitate nur für Kernaussagen und Phrasen die nicht umformuliert werden können ohne ihren Sinn zu verlieren oder sperrig zu klingen.</p>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Beispiel:</div>
+                <p>„Lesen ist gut" <sup>1</sup></p>
+                <p><sup>1</sup> Mustermann; Warum wir lesen sollten</p>
+            </div>
+            
+            <h3>2) Inhaltliche Zitate</h3>
+            <ul>
+                <li>Aussagen werden sinngemäß wiedergegeben</li>
+                <li>Am Ende eine Fußnote</li>
+                <li>Oft nach einem solchen Zitat ein Absatz</li>
+            </ul>
+            <div class="note">
+                <p>Man verwendet inhaltliche Zitate sehr häufig in der Arbeit und gibt dabei die Inhalte eines bereits formulierten Textes in eigenen Worten sinngemäß wieder.</p>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Beispiel:</div>
+                <p>So herrscht die allgemeine Meinung, dass das aktive Vorlesen gut für die Entwicklung des Babys ist. Diese Schlussfolgerung basiert auf Forschungen. <sup>1</sup></p>
+            </div>
+            
+            <h3>Beispiele für verschiedene Quellenarten</h3>
+            
+            <button class="collapsible">Zitat aus Monographie</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p><sup>1</sup> Mara Mustermann; Warum wir lesen sollten. Die Folgen des Vorlesens.; publiziert in: Bonn am 2000; Seite 1</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Zitat aus Sammelband</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p><sup>1</sup> Bliblub Verlag(Hrsg), Mara Mustermann, u.a.; Warum wir lesen sollten. Die Folgen des Vorlesens. Publiziert in: Bonn; 2000; Seite 1-2</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Zitat aus Aufsatz in einem Sammelband</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p><sup>1</sup> Mara Mustermann, u.a.; Warum wir lesen sollten. Die Folgen des Vorlesens. In: Bliblub Verlag (Hrsg), Sammelband zu Büchern, Publiziert in: Bonn; 2000; Seite 10-30, hier S. 101</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Zitat aus Aufsatz in einer Zeitschrift</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p><sup>1</sup> Mara Mustermann, u.a.; Warum wir lesen sollten. Die Folgen des Vorlesens. In: Zeitschrift für Lesende 200 (2000), S.200-230, hier S.201.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Zitat aus Internetseite</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p><sup>1</sup> Mara Mustermann, u.a.; Warum wir lesen sollten. Die Folgen des Vorlesens. Https://bliblablub/nenenene.de; (Zugegriffen am: 28.3.2025); S.2</p>
+                </div>
+            </div>
+            
+            <h3>Literaturverzeichnis</h3>
+            <ul>
+                <li>Gliederung in Primärquellen, Sekundärquellen, Internetquellen und Künstliche Intelligenz</li>
+                <li>Zitation wie in 1 & 2</li>
+                <li>Auflistung nach alphabetischer Reihenfolge der Nachnamen der Autoren</li>
+            </ul>
+            
+            <div class="example">
+                <div class="example-title">Beispiel:</div>
+                <p>Eich, Armin: Der Wechsel…</p>
+                <p>Raps, Christian: Mensch und Politik…</p>
+            </div>
+        </section>
+        
+        <section id="ki">
+            <h2>Verwendung von und Umgang mit KI</h2>
+            
+            <h3>Grundsätzliches</h3>
+            <ul>
+                <li>Hinterfragung der KI-Quellen</li>
+                <li>KI ist keine Quelle</li>
+                <li>Hilfreich für Struktur</li>
+            </ul>
+            
+            <h3>Dokumentation von KI</h3>
+            <ol>
+                <li>Titel: Prompt der eingegeben wurde</li>
+                <li>Name und Version des Tools</li>
+                <li>Anbieter (Firma, Organisation…)</li>
+                <li>Adresse (Link)</li>
+                <li>Datum</li>
+                <li>Tabelle mit Anwendungszweck</li>
+            </ol>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>KI-Tool/Chatbot (Name, Version, Anbieter, URL)</th>
+                            <th>Verwendungszweck bzw. Einsatzszenario (mit Datum des Einsatzes)</th>
+                            <th>Stellenangabe in der Arbeit (Kapitel-, Seiten- und ggf. Zeilenangabe)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>z.B. ChatGPT, GPT4, OpenAI, https://openai.com</td>
+                            <td>z.B. Orientierungswissen zum Thema XY mithilfe des/der Prompts XY (XX.XX.XX)</td>
+                            <td>z.B. Kapitel 1.2</td>
+                        </tr>
+                        <tr>
+                            <td>ChatGPT, GPT4.0, OpenAI, chat.gpt.com/c3052dc-c659-4d8-a177-e5013d798e8</td>
+                            <td>Zusammenhang Leistung und Bewegung mithilfe des Prompts "Fördert die Bewegung im Unterricht die Leistungsfähigkeit der Schüler?" (14.06.2024)</td>
+                            <td>Hintergrundinformation, Kap. 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="note">
+                <ul>
+                    <li>Keine Fußnoten nötig außer das generierte Ergebnis wird direkt verwendet oder die KI ist Untersuchungsobjekt</li>
+                    <li>KIs sind bei Literaturlisten direkt anzugeben (bsp. Screenshots der Antworten im Anhang)</li>
+                    <li>Jegliche Verwendung von KI ist kenntlich zu machen</li>
+                    <li>Überprüfung der Informationen anhand anderer Quellen welche ebenfalls im Literaturverzeichnis abgegeben werden müssen</li>
+                    <li>Übersetzungen mithilfe von KI: Fremdsprachige Quelle und KI in Zitation und Originalquellen im Literaturverzeichnis</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="interviews">
+            <h2>Interviews</h2>
+            
+            <h3>Gute Fragen stellen</h3>
+            <p>Funktion: Thema für Gesprächspartner verdeutlichen und Erzählanreize setzen.</p>
+            
+            <h4>Einfache Fragen</h4>
+            <ul>
+                <li>Einfach verständlich</li>
+                <li>Einfach formuliert</li>
+                <li>Nur ein Aspekt wird abgefragt</li>
+                <li>Keine "Ja/Nein" Fragen</li>
+            </ul>
+            
+            <div class="dos-donts">
+                <div class="dos">
+                    <h4>Do:</h4>
+                    <ul>
+                        <li>Textgenerierende Fragen<br>—> Beschreiben Sie doch mal…</li>
+                        <li>Aufrechterhaltende Fragen<br>—> Fällt Ihnen sonst noch was hierzu ein?</li>
+                        <li>Prozessorientierte Fragen<br>—> Wie kam es eigentlich, dass…</li>
+                        <li>Offene Fragen: die eigenen Konzepte in der Frage reflektieren</li>
+                        <li>Provokative Fragen: nur sparsam, gezielt und überlegt einsetzen; gegen Ende oder bei stockender Interviewdynamik</li>
+                        <li>Kurze und verständliche Fragen</li>
+                        <li>Beantwortbare Fragen</li>
+                        <li>"Weiche" Fragen<br>—> doch, mal, so, eigentlich</li>
+                        <li>Faktenabfrage am Ende</li>
+                    </ul>
+                </div>
+                
+                <div class="donts">
+                    <h4>Don'ts:</h4>
+                    <ul>
+                        <li>Geschlossene Fragen<br>—> „Waren Sie damit zufrieden?"</li>
+                        <li>Ja-Nein-Fragen<br>—> Haben Sie die Stelle dann angenommen?</li>
+                        <li>Begründungen abfragen<br>—> Warum haben Sie das gemacht?</li>
+                        <li>Suggestive und wertende Fragen<br>—> Sie sind ja in der Türkei eher traditionell aufgewachsen…Wie war das für Sie nach der Migration?</li>
+                        <li>Komplizierte Fragen, Fragereihungen</li>
+                        <li>Fragen, die die Kenntnis des Befragten übersteigen</li>
+                        <li>Hauptforschungsfrage direkt stellen</li>
+                        <li>Fragen in Schriftsprache</li>
+                        <li>Zu frühe Faktenfragen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Der Anfang eines Interviews</h3>
+            <ul>
+                <li>Probeinterviews</li>
+                <li>Reflexionsfragen (nach Probeinterview)
+                    <ul>
+                        <li>Wie hast du dich gefühlt?</li>
+                        <li>Wo hättest du dir eine Erläuterung gewünscht?</li>
+                        <li>Verbesserungsvorschläge?</li>
+                    </ul>
+                </li>
+                <li>Vertrauen des Gesprächspartners erlangen
+                    <ul>
+                        <li>Projekt transparent darstellen</li>
+                        <li>Informieren wie mit Daten umgegangen wird</li>
+                        <li>Nach Wunsch Anonymität</li>
+                        <li>Bereitschaft der Teilnahme würdigen</li>
+                    </ul>
+                </li>
+                <li>Deduktive Fragen erstellen</li>
+            </ul>
+            
+            <h3>Fachbegriffe</h3>
+            <button class="collapsible">Deduktive Kategorienbildung</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Basiert auf Forschung und wird von bereits bestehenden Forschungsideen abgeleitet</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Induktive Kategorienbildung</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Abgeleitete Fragen aus den Informationen des Gesprächspartners.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Leitfragen</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Hauptfragen die mit mehreren Kategorien übereinstimmen und darauf abzielen den Interviewpartner dazu zu bringen, möglichst viele Kategorien abzudecken.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Memofragen</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Fragen bei denen konkret auf eine Kategorie eingegangen wird um die Informationen zu dieser weiter aufzubauen.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Aufrechterhaltungsfragen</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Fragen die den Gesprächsfluss aufrecht erhalten. Sie werden oft genutzt um nachzuhaken. (Z.B. Wie war das für Sie?)</p>
+                </div>
+            </div>
+            
+            <h3>Transkribieren</h3>
+            <ul>
+                <li>Umlaute weglassen</li>
+                <li>Stilmittel bemerkbar machen</li>
+                <li>Lange gezielte Pausen markieren</li>
+                <li>Emotionen erläutern</li>
+                <li>Dialekte rausfiltern</li>
+            </ul>
+            
+            <h3>Ein Interview auswerten</h3>
+            <h4>Qualitative Inhaltsanalyse</h4>
+            <p>Systematische und zusammenfassende Beschreibung von Daten</p>
+            <ul>
+                <li>Sampling: Materialauswahl</li>
+                <li>Bildung von Kategorien (Deduktiv und Induktiv)</li>
+                <li>Identifizieren von bedeutungsvollen Textstellen
+                    <ul>
+                        <li>Relevanz der Kategorie je nach Forschungsfrage abhängig</li>
+                    </ul>
+                </li>
+                <li>Offenheit dem Material gegenüber —> mögliche neue/wichtige Aspekte</li>
+            </ul>
+            
+            <h4>Vereinfachtes Ablaufmodell</h4>
+            <ol>
+                <li>Abtippen</li>
+                <li>Lesen und Entdecken</li>
+                <li>Strukturieren (Bsp—> Zitate für Arbeit kenntlich machen)</li>
+                <li>Zusammenfassen (Nützlich machen für die tatsächliche Arbeit)</li>
+            </ol>
+            
+            <div class="note">
+                <h4>Handlungsempfehlungen</h4>
+                <ol>
+                    <li>Fragen Sie nur nach, wenn es Sie wirklich interessiert.</li>
+                    <li>Vermeiden Sie dabei suggestive Fragen, ungeeignete Rückmeldungen oder Interpretationen.</li>
+                    <li>Halten Sie sich zurück. Versetzen Sie sich in die Rolle eines/einer (seriösen) Fernsehmoderator:in. Ihre Aufgabe ist es, das Gespräch zu leiten. Im Fokus des Interesses steht jedoch immer der Gast und seine Erzählung.</li>
+                    <li>Werten und kommentieren Sie die Aussagen der Gesprächspartner nicht. Ein „Ach wie schlimm!", mit dem man im Alltagsgespräch Empathie signalisiert, sollten Sie sich verkneifen. Signalisieren Sie Ihr Interesse stattdessen durch Kopfnicken, Bestätigungslaute oder neutrale Aussagen wie „Ich verstehe".</li>
+                    <li>Lassen Sie den Gesprächspartner ausreden und schreiten Sie nicht vor etwaigen Momenten. Lassen Sie immer wieder viel Zeit verstreichen, damit auch zögernde Ideen oder längere einleitende Gedanken Gelegenheit haben, ausgedrückt zu werden.</li>
+                    <li>Der Gesprächsstraffaden muss nicht zwingend chronologisch verfolgt werden. Folgen Sie lieber dem thematischen Verlauf Ihres Gesprächspartners, als an der Reihenfolge Ihrer Leitfragen festzuhalten.</li>
+                    <li>Vermeiden Sie, Themen doppelt abzufragen. Wenn Fragen schon „nebenbei" beantwortet wurden, müssen Sie die Frage nicht noch einmal explizieren, vor allem weil sie auf Ihrem Leitfaden steht.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <section id="umfragen">
+            <h2>Umfragen</h2>
+            <h3>Vorüberlegungen</h3>
+            <ul>
+                <li>Wie werden Teilaspekte der Frage definiert (Bsp: Glück; Freizeit; etc.)</li>
+                <li>Gibt es Unterkategorien der Aspekte</li>
+                <li>Wo reichen numerische Werte vs. Text Antworten</li>
+                <li>Wie werden Fragen gewertet (Mehrfachnennung, offene Antworten etc)</li>
+            </ul>
+            
+            <h3>Grundbegriffe</h3>
+            <button class="collapsible">Daten</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Systematisch gesammelte Informationen zur Beantwortung bestimmter Fragestellungen (meist numerisch)</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Merkmal/Konstrukt</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Merkmal, das noch operationalisiert werden muss</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Variable</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Die unterschiedlichen Antwortmöglichkeiten</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Operationalisierung</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Beschreibung der genauen Voraussetzungen, die erfüllt sein müssen, um eine bestimmte Kategorie zu erfüllen. (Z.B. Wer gilt als Arbeitsloser?)</p>
+                    <div class="note">
+                        <p>Problem: setzen eine bestimmte Kenntnis verschiedener Operationalisierungen voraus (z.B. Das „größte" Möbelhaus. Was ist das größte? Wie wurde es operationalisiert?)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Messtheorie</h3>
+            <p>Messung bedeutet die Zuweisung von empirischen Strukturen zu numerischen Strukturen.</p>
+            <p>Das heißt, es werden beispielsweise Skalen bestimmten Empfindungen zugewiesen. (Wärme —> Temperaturskala)</p>
+            
+            <h3>Verschiedene Skalen</h3>
+            <div class="scale-diagram">
+                <div class="scale">
+                    <div class="scale-title">A: Numerisch</div>
+                    <div class="numeric-scale">
+                        <div class="scale-label">Das Gespräch empfand ich als</div>
+                        <div class="scale-values">
+                            <div class="scale-value">1</div>
+                            <div class="scale-value">2</div>
+                            <div class="scale-value">3</div>
+                            <div class="scale-value">4</div>
+                            <div class="scale-value">5</div>
+                            <div class="scale-value">6</div>
+                            <div class="scale-value">7</div>
+                        </div>
+                    </div>
+                    <div class="scale-endpoints">
+                        <span>unfreundlich</span>
+                        <span>freundlich</span>
+                    </div>
+                </div>
+                
+                <div class="scale">
+                    <div class="scale-title">B: Verbal</div>
+                    <div class="verbal-scale">
+                        <div class="scale-label">Das Gespräch empfand ich als freundlich.</div>
+                        <div class="scale-values">
+                            <div class="scale-value">stimmt gar nicht</div>
+                            <div class="scale-value">wenig</div>
+                            <div class="scale-value">teils-teils</div>
+                            <div class="scale-value">ziemlich</div>
+                            <div class="scale-value">völlig</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scale">
+                    <div class="scale-title">C: Symbolisch</div>
+                    <div class="symbolic-scale">
+                        <div class="scale-label">Wie zufrieden waren Sie mit dem Gespräch?</div>
+                        <div class="scale-values">
+                            <div class="scale-value">☹</div>
+                            <div class="scale-value">😐</div>
+                            <div class="scale-value">😊</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Vorgehen bei Umfragen</h3>
+            <h4>1. Standardisierung der Fragen</h4>
+            <ul>
+                <li>Voll standardisiert: Festgelegte Fragen, welche am meisten auf Vergleichbarkeit ausgelegt sind</li>
+                <li>Nicht standardisiert: Konkrete Fragen bzw. die Gesprächsführung bleibt offen</li>
+            </ul>
+            
+            <h4>2. Standardisierung der Antworten</h4>
+            <ul>
+                <li>Geschlossene Antworten: Beispielsweise das Ankreuzen einer Ratingskala —> einfache Auswertung</li>
+                <li>Offene Antworten: Oftmals offen gestellte Fragen, die verbal/schriftlich beantwortet werden —> komplexe Auswertung</li>
+            </ul>
+            
+            <h3>Ratingskalen</h3>
+            <div class="dos-donts">
+                <div class="dos">
+                    <h4>Vorteile:</h4>
+                    <ul>
+                        <li>Standardisierte Fragen/Antworten</li>
+                        <li>Einfache und schnelle Durchführung</li>
+                        <li>Keine individuelle Auswertung (direktes Gesamtbild)</li>
+                        <li>Objektivität einfach möglich</li>
+                        <li>Bequeme Analyse (Bsp—> Excel)</li>
+                    </ul>
+                </div>
+                
+                <div class="donts">
+                    <h4>Probleme:</h4>
+                    <ul>
+                        <li>Tendenz zur Mitte: Menschen kreuzen meist eher mittig an statt extrem</li>
+                        <li>Boden- und Deckeneffekte: Es wird beschränkt inwiefern eine Empfindung wahrgenommen wird. (Bsp. Nicht mehr als 5, nicht weniger als 1)</li>
+                        <li>Keine Angabe der Gründe</li>
+                        <li>Zufälliges Ankreuzen ist möglich</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Kategorienbildung</h3>
+            <h4>Grundbegriffe</h4>
+            <button class="collapsible">Kategorienlabel</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>„Trifft eher zu"</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Kategorienausprägung</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Ein bestimmter Wert (z.B 3)</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Exaktheit</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Exakte Daten</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Exklusivität</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Kategorien müssen sich gegenseitig ausschließen</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Exhaustivität</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Kategorien müssen das Konstrukt erschöpfend beschreiben</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">„Natürliche" Kategorien</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Bsp. Geschlecht, Geburtstag, Bundesland etc.</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Bereits festgelegte Kategorien</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Bsp. Punkte in Schulaufgaben</p>
+                </div>
+            </div>
+            
+            <button class="collapsible">Weitere Zusammenfassungen</button>
+            <div class="content">
+                <div class="content-inner">
+                    <p>Bsp. Zuweisung von Punkteanzahl zu Noten</p>
+                </div>
+            </div>
+            
+            <h3>Gütekriterien</h3>
+            <h4>1. Objektivität</h4>
+            <p>Die Ergebnisse sollten unabhängig von Voreingenommenheit sein</p>
+            <ul>
+                <li>Von der Person die die Messung durchführt (Durchführungsobjektivität)</li>
+                <li>Von der Person die die Messung auswertet (Auswertungsobjektivität)</li>
+                <li>Von der Person die die Ergebnisse interpretiert</li>
+            </ul>
+            
+            <h4>2. Reliabilität</h4>
+            <p>Wie präzise ist die Messung</p>
+            <ul>
+                <li>Nutzen von Zahlen</li>
+                <li>Erhöhung der befragten</li>
+            </ul>
+            
+            <h4>3. Validität</h4>
+            <p>Wie verlässlich ist das Ergebnis und das genutzte Messverfahren</p>
+            
+            <div class="note">
+                <p>Eine Erhebung, die nicht objektiv ist, kann auch nur eingeschränkt reliabel sein. Eine Erhebung die nicht reliabel ist, kann auch nur eingeschränkt valide sein.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>W-Seminar Übersicht © 2025</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Collapsible sections
+            const coll = document.getElementsByClassName("collapsible");
+            
+            for (let i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    const content = this.nextElementSibling;
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add active class to current section in navigation
+            function setActiveLink() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('nav ul li a');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', setActiveLink);
+            
+            // Initialize first section collapsible to be open
+            if (coll.length > 0) {
+                coll[0].click();
+            }
+        });
+    </script>
+</body>
+</html>
