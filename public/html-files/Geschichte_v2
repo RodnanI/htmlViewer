@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS-Diktatur: Strukturen, Ideologie und Holocaust</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --light-accent: #ecf0f1;
+            --timeline-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        nav {
+            background-color: var(--timeline-color);
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--timeline-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 5px;
+        }
+        
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-container.left {
+            left: 0;
+        }
+        
+        .timeline-container.right {
+            left: 50%;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-container.right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-container.left .timeline-content {
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .timeline-container.right .timeline-content {
+            border-right: 4px solid var(--secondary-color);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light-accent);
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .list-group {
+            margin: 1.5rem 0;
+        }
+        
+        .list-group-item {
+            padding: 0.8rem 1.2rem;
+            background-color: var(--light-accent);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            list-style-position: inside;
+        }
+        
+        .list-group-item.highlight {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body ul {
+            padding-left: 1.5rem;
+        }
+        
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .Holocaust-phases {
+            position: relative;
+            padding: 0 0 0 2rem;
+            margin: 2rem 0;
+        }
+        
+        .Holocaust-phases::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 5px;
+        }
+        
+        .phase {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .phase::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            left: -2.5rem;
+            top: 0.5rem;
+        }
+        
+        .phase-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left-color: var(--accent-color);
+        }
+        
+        .alert h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-container.left {
+                left: 0;
+            }
+            
+            .timeline-container.right {
+                left: 0;
+            }
+            
+            .timeline-container.right::after, .timeline-container.left::after {
+                left: 15px;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Specific styling for propagandistic imagery section */
+        .propaganda-images {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .propaganda-image {
+            flex: 1 1 300px;
+            max-width: 500px;
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .propaganda-image h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .propaganda-description {
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: #666;
+        }
+
+        .image-placeholder {
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>NS-Diktatur: Strukturen, Ideologie und Holocaust</h1>
+        <p>Dokumentation und Analyse der nationalsozialistischen Herrschaft 1933-1945</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#machtergreifung">Machtergreifung</a></li>
+            <li><a href="#demokratie-diktatur">Demokratie vs. Diktatur</a></li>
+            <li><a href="#volksgemeinschaft">Volksgemeinschaft</a></li>
+            <li><a href="#opfer">Opfer des NS-Regimes</a></li>
+            <li><a href="#holocaust">Holocaust</a></li>
+            <li><a href="#wissen">Mitwisserschaft</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- Machtergreifung und Etablierung der Diktatur -->
+        <section id="machtergreifung" class="section">
+            <h2>Errichtung und Ausbau der NS-Diktatur</h2>
+            
+            <div class="timeline">
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">30. Januar 1933</div>
+                        <h3>„Machtergreifung"</h3>
+                        <p>Reichspräsident Hindenburg ernennt Hitler zum Reichskanzler. In der Forschung wird teils von „Machtübertragung" gesprochen.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Februar 1933</div>
+                        <h3>Reichstagsbrandverordnung</h3>
+                        <p>Außerkraftsetzung der Grundrechte nach dem Reichstagsbrand.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">März/April 1933</div>
+                        <h3>Ermächtigungsgesetz / Gleichschaltung</h3>
+                        <p>Verabschiedung von Gesetzen ohne Reichstag / Ausschaltung der Länderparlamente. Einsetzung von Reichsstatthaltern für die Länder.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">7. April 1933</div>
+                        <h3>Gesetz zur „Wiederherstellung des Berufsbeamtentums"</h3>
+                        <p>Säuberung der Beamtenschaft von Oppositionellen und jüdischer Bevölkerung.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2. Mai 1933</div>
+                        <h3>Auflösung der Gewerkschaften</h3>
+                        <p>Bildung der DAF (Deutsche Arbeitsfront) als Einheitsorganisation für Arbeitgeber und Arbeitnehmer. Ende der Koalitionsfreiheit.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Juni/Juli 1933</div>
+                        <h3>Einparteienstaat</h3>
+                        <p>Verbot der SPD und Selbstauflösung der anderen Parteien außer der NSDAP. Ende des Parteienpluralismus und der Opposition.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2. August 1934</div>
+                        <h3>Tod Hindenburgs</h3>
+                        <p>Hitler wird „Führer und Reichskanzler", vereint die Ämter des Staatsoberhaupts und Oberbefehlshabers. Das letzte Staatsorgan außerhalb der NSDAP verschwindet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Demokratie vs. Diktatur -->
+        <section id="demokratie-diktatur" class="section">
+            <h2>Demokratie und Diktatur – Herausforderungen in der deutschen Geschichte des 20. Jahrhunderts</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Demokratie</th>
+                        <th>Diktatur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Herrschaft des Volkes</td>
+                        <td>Gewalt basierendes Herrschaftssystem eines Einzelnen, einer Gruppe oder einer Partei</td>
+                    </tr>
+                    <tr>
+                        <td>Freie Wahlen</td>
+                        <td>Aufhebung der Gewaltenteilung</td>
+                    </tr>
+                    <tr>
+                        <td>Parlamente</td>
+                        <td>Staatliche Überwachung aller Lebensbereiche</td>
+                    </tr>
+                    <tr>
+                        <td>Gewaltenteilung</td>
+                        <td>Unterdrückung der Opposition</td>
+                    </tr>
+                    <tr>
+                        <td>Mehrparteiensysteme</td>
+                        <td>Staatliche Propaganda gegen Feindbilder</td>
+                    </tr>
+                    <tr>
+                        <td>Minderheitenschutz</td>
+                        <td>Abschaffung der Presse- und Meinungsfreiheit</td>
+                    </tr>
+                    <tr>
+                        <td>Menschenrechte</td>
+                        <td>Androhung und Ausübung von Gewalt und Terror</td>
+                    </tr>
+                    <tr>
+                        <td>Bsp.: Deutschland, Frankreich, GB, Skandinavien, Italien etc.</td>
+                        <td>Bsp.: Nordkorea, Iran, China</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Volksgemeinschaft und Führerkult -->
+        <section id="volksgemeinschaft" class="section">
+            <h2>Führerkult und „Volksgemeinschaft" – Ideologie und inszenierte Lebenswirklichkeit im NS-Staat</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">Volksgemeinschaft</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Zentrale Ideologie zur Etablierung der NS-Diktatur</li>
+                            <li>Motto: „Du bist nichts, dein Volk ist alles"</li>
+                            <li>Propagierte Einheit aller Deutschen unabhängig von Bildung, Beruf, Vermögen</li>
+                            <li>Zusammenschluss aller Staatsbürger zu einem ethnisch homogenen Verband</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Führerkult und Führerstaat</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Adolf Hitler als Heilsbringer (Mythos vom übermenschlichen und unfehlbaren „Führer" sowie zugleich „Mann des Volkes")</li>
+                            <li>Führerprinzip: Adolf Hitler als zentrale Gestalt des Nationalsozialismus</li>
+                            <li>Ergänzung der Ideologie der „Volksgemeinschaft" durch das Führerprinzip</li>
+                            <li>Vollkommene Ausrichtung des Staates auf den Führer</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Propaganda</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Mittel zum Einfluss auf die öffentliche Meinung: Gleichschaltung</li>
+                            <li>Verlust der Presse- und Informationsfreiheit (Zensur)</li>
+                            <li>Glanzvolle Feiern und Inszenierungen, z.B. Reichsparteitage</li>
+                            <li>Propagandaminister: Joseph Goebbels</li>
+                            <li>Medien: Film, Rundfunk, Presse</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Rassismus</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Einteilung der Menschheit in Rassen (Sozialdarwinismus)</li>
+                            <li>Fähigkeiten nach Herkunft/Rasse verteilt</li>
+                            <li>Pseudo-wissenschaftliche Begründungen</li>
+                            <li>Ableitung: „Rassenhygiene" und Rassenantisemitismus</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Jugend</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Jugend als Zukunft der Volksgemeinschaft</li>
+                            <li>Lebensweg im Sinne der Partei vorgezeichnet (Jungmädel, BDM; Jungvolk, HJ)</li>
+                            <li>Indoktrinierung der Jugend im Sinne der NS durch Erlebnisfahrten, Rituale, Lagerleben, Schule</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ausgrenzung von</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>jüdischer Bevölkerung</li>
+                            <li>Sinti u. Roma</li>
+                            <li>Menschen mit Behinderung</li>
+                            <li>Homosexuellen</li>
+                            <li>politischen Gegnern</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="propaganda-images">
+                <div class="propaganda-image">
+                    <h4>NS-Propaganda: "Ein Volk, ein Reich, ein Führer!"</h4>
+                    <div class="image-placeholder">Propagandaplakat mit Hitler-Porträt</div>
+                    <p class="propaganda-description">Das Plakat zeigt Hitler als heroische Figur und verkörpert den Führerkult.</p>
+                </div>
+                <div class="propaganda-image">
+                    <h4>NS-Propaganda: "Jugend dient dem Führer"</h4>
+                    <div class="image-placeholder">Propagandaplakat mit Hitlerjunge</div>
+                    <p class="propaganda-description">Darstellung eines blonden Hitlerjungen mit dem überlagerten Gesicht Hitlers im Hintergrund.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Opfer des NS-Regimes -->
+        <section id="opfer" class="section">
+            <h2>Opfer des NS-Rassismus</h2>
+            
+            <div class="alert alert-danger">
+                <h4>Rassismus im NS-Staat</h4>
+                <p>Reinhaltung deutschen Blutes und Schutz der „Volksgemeinschaft" => Verfolgung, Vernichtung „rassisch Unreiner, rassisch Minderwertiger"</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">Verfolgte ethnische Gruppen</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Sinti, Roma</li>
+                            <li>„Afrodeutsche"</li>
+                            <li>slawische Völker</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Verfolgte soziale Gruppen</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Homosexuelle</li>
+                            <li>„Asoziale"</li>
+                            <li>Kriminelle</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">„Lebensunwertes Leben"</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>unheilbar Kranke</li>
+                            <li>körperlich / geistig Behinderte</li>
+                            <li>Sterilisierung, „Euthanasie" / „T4-Aktion" (Sterbehilfe)</li>
+                            <li>~200.000 Opfer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Protest und Reaktionen</h3>
+            <ul class="list-group">
+                <li class="list-group-item highlight">Protest durch Angehörige, durch katholische Kirche</li>
+                <li class="list-group-item">Predigt Bischof von Galen 03.08.1941</li>
+                <li class="list-group-item">Protestschreiben Bischofs Hilfrich an Reichsjustizminister 13.08.1941</li>
+                <li class="list-group-item highlight">August 1941: offizielles Ende der Vergasungen aber: Tötung durch Giftspritzen weiterhin</li>
+            </ul>
+
+            <div class="propaganda-images">
+                <div class="propaganda-image">
+                    <h4>NS-Propaganda: "Gesunde Eltern – gesunde Kinder!"</h4>
+                    <div class="image-placeholder">Propagandaplakat mit "idealem" Familienbild</div>
+                    <p class="propaganda-description">Die Broschüre „Gesunde Eltern – gesunde Kinder" enthält den Wortlaut des Gesetzes zur Bekämpfung erbkranken Nachwuchses und seiner Begründung. Zu beziehen durch die Ortsgruppen der N.S.D.A.P. und alle Postschalter. Preis 10 Pf.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Holocaust -->
+        <section id="holocaust" class="section">
+            <h2>Der Völkermord an den Juden (1939 – 1945)</h2>
+            
+            <div class="Holocaust-phases">
+                <div class="phase">
+                    <div class="phase-title">„Territoriale Endlösung" (1939 – 1941)</div>
+                    <ul>
+                        <li>Deportationen und Zwangsumsiedlung der Juden nach Polen</li>
+                        <li>Zusammenfassung und Isolation in Ghettos (Warschau, Lodz, Lublin als Muster)</li>
+                        <li>Scheitern des „Madagaskar-Plans" (Umsiedlung aller Juden auf die Insel Madagaskar)</li>
+                        <li>Koordinator: Richard Heydrich (Leiter des Reichssicherheitshauptamtes)</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-title">Eskalation des Terrors und Beginn des Völkermords</div>
+                    <ul>
+                        <li>Massenerschießungen hinter den Frontlinien in Polen und der Sowjetunion</li>
+                        <li>Durchführung der Tötungsaktionen: SS und Reserve-Polizeibataillone</li>
+                        <li>Versteigerung der zurückgelassenen Habseligkeiten deportierte Juden</li>
+                        <li>noch keine übergeordnete Koordination!</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-title">Die Wannsee – Konferenz (20. Januar 1942)</div>
+                    <p><strong>Ziel:</strong> Organisation der „Endlösung" (= vollständige Vernichtung und Ausrottung der Juden)</p>
+                    <p><strong>Vorgehen:</strong> Deportationen, Ausbeutung und Vernichtung durch Arbeit, Ermordung</p>
+                    <p><strong>Sprache und Stil:</strong> sachlich, bürokratisch, euphemistisch</p>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-title">Das Konzentrationslager Auschwitz</div>
+                    <p><strong>Ziel:</strong> Nutzung der Arbeitskraft und Vernichtung der Juden/Völkermord</p>
+                    <p><strong>Methode:</strong> Systematisches und berechnendes Vorgehen, Besuch anderer KZs, Selektion, Verwendung von Zyclon B in Vergasungsanlagen, medizinische Experimente</p>
+                    <p><strong>➔ Industrielle Tötung/Vernichtung</strong></p>
+                </div>
+            </div>
+            
+            <div class="alert alert-danger">
+                <h4>Ermordung von etwa sechs Millionen Juden</h4>
+            </div>
+        </section>
+        
+        <!-- Mitwisserschaft der deutschen Bevölkerung -->
+        <section id="wissen" class="section">
+            <h2>Die Frage nach der Wahrnehmung und der Beteiligung der nichtjüdischen Bevölkerung an der Judenverfolgung</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">„Davon haben wir nichts gewusst"?</div>
+                    <div class="card-body">
+                        <p><strong>1933 – 1939:</strong> Wahrnehmung der Judenverfolgung leicht möglich</p>
+                        <p><strong>1939 – 1945:</strong> Wissen grundsätzlich zugänglich, aber: Komplexität und Tragweite nur schwer einschätzbar sowie Flucht in Ahnungslosigkeit</p>
+                        <p class="highlight">Pauschalurteil nicht möglich!</p>
+                        <p>Aber: Passivität und Gleichgültigkeit der nichtjüdischen Bevölkerung gegenüber der Judenverfolgung aufgrund von Eigennutz, Desinteresse, Überzeugung</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">„Hitlers willige Volksgenossen"?</div>
+                    <div class="card-body">
+                        <h4>Daniel Jonas Goldhagen</h4>
+                        <ul>
+                            <li>traditioneller (deutscher) Antisemitismus als Grund für Beteiligung und Akzeptanz durch die nichtjüdische Bevölkerung</li>
+                            <li>„eliminatorischer Antisemitismus" führt zu Wunsch nach Vernichtung der Juden</li>
+                            <li>➔ Willige, hilfsbereite Vollstrecker</li>
+                        </ul>
+                        
+                        <h4>Frank Bajohr</h4>
+                        <ul>
+                            <li>4 bestimmende Faktoren für Haltung gegenüber der Judenverfolgung</li>
+                            <li>Antisemitische Tradition (Verstärkung nach 1933)</li>
+                            <li>Anpassung an Werte des herrschenden Systems</li>
+                            <li>Umsetzung individueller Interessen</li>
+                            <li>Zunehmende Akzeptanz und Identifikation mit dem NS-System, solange dieses erfolgreich war</li>
+                        </ul>
+                        
+                        <h4>Bernward Dörner</h4>
+                        <ul>
+                            <li>Pauschalurteile nicht zielführend</li>
+                            <li>Unterschiedliche Reaktionen und Einstellungen zur Judenverfolgung</li>
+                            <li>„gespaltene" Gesellschaft: Billigung <-> Ablehnung</li>
+                            <li>Aber: gemäßigter Antisemitismus ermöglichte „eliminatorischen" Antisemitismus</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer style="background-color: var(--primary-color); color: white; text-align: center; padding: 1.5rem 0; margin-top: 2rem;">
+        <p>Geschichtliche Dokumentation zu Bildungszwecken</p>
+        <p>Diese Materialien dienen ausschließlich der historischen Aufarbeitung und Bildung.</p>
+    </footer>
+</body>
+</html>
