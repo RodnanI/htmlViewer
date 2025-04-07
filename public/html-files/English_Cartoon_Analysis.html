@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoon Analysis Guide for English Exams</title>
+    <style>
+        :root {
+            --primary-color: #3a6ea5;
+            --secondary-color: #c25b56;
+            --accent-color: #f1c40f;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --success-color: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-bottom: 50px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .card {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .example {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .tip {
+            background-color: rgba(241, 196, 15, 0.2);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .structure-chart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+
+        .structure-block {
+            flex-basis: 48%;
+            background-color: var(--light-bg);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .structure-block h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .practice-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .checklist {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checklist-item input {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #2a5382;
+        }
+
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-button {
+            padding: 10px 15px;
+            background-color: #e9ecef;
+            border: none;
+            margin-right: 5px;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-radius: 0 4px 4px 4px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .interactive-example {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-radius: 8px;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .success {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+
+        @media (max-width: 768px) {
+            .structure-block {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cartoon Analysis Guide</h1>
+        <p>Everything you need to know for your English exam</p>
+    </header>
+
+    <div class="container">
+        <h2>Introduction to Cartoon Analysis</h2>
+        <p>Cartoon analysis is a critical skill that requires you to examine visual and textual elements to uncover the artist's message, techniques, and effectiveness. Political cartoons, social commentary cartoons, and editorial cartoons all use visual metaphors, symbolism, and humor to communicate ideas about contemporary issues.</p>
+
+        <div class="tip">
+            <h3>Key Tip:</h3>
+            <p>A good cartoon analysis is not just about describing what you see—it's about interpreting what the cartoonist intended to communicate. Always look for the core message or critique.</p>
+        </div>
+
+        <h2>The 4-Part Structure for Cartoon Analysis</h2>
+        <p>Based on the examples provided, your analysis should follow this clear four-part structure:</p>
+
+        <div class="structure-chart">
+            <div class="structure-block">
+                <h4>1. Introduction</h4>
+                <ul>
+                    <li>Identify the type of cartoon (political, social commentary, etc.)</li>
+                    <li>Mention visual style (black-and-white, color, realistic, etc.)</li>
+                    <li>Briefly state the main theme or issue addressed</li>
+                    <li>Reference the caption if there is one</li>
+                </ul>
+            </div>
+
+            <div class="structure-block">
+                <h4>2. Description</h4>
+                <ul>
+                    <li>Describe the setting and main visual elements</li>
+                    <li>Detail the characters (appearance, expressions, actions)</li>
+                    <li>Note any text, captions, speech bubbles, or labels</li>
+                    <li>Describe significant objects and their positioning</li>
+                    <li>Be specific and use precise language</li>
+                </ul>
+            </div>
+
+            <div class="structure-block">
+                <h4>3. Analysis</h4>
+                <ul>
+                    <li>Identify visual techniques used (exaggeration, symbolism, etc.)</li>
+                    <li>Explain the message/critique the cartoon conveys</li>
+                    <li>Discuss how visual and textual elements work together</li>
+                    <li>Connect to broader social/political contexts</li>
+                    <li>Analyze the use of humor, irony, or satire</li>
+                </ul>
+            </div>
+
+            <div class="structure-block">
+                <h4>4. Evaluation</h4>
+                <ul>
+                    <li>Assess the effectiveness of the cartoon</li>
+                    <li>Discuss how well it conveys its intended message</li>
+                    <li>Comment on the impact on viewers</li>
+                    <li>Consider multiple perspectives on the issue</li>
+                    <li>Offer a balanced conclusion about the cartoon's success</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Essential Techniques to Identify in Cartoons</h2>
+        <div class="card">
+            <ol>
+                <li><strong>Symbolism:</strong> Objects, figures, or actions that represent larger ideas</li>
+                <li><strong>Exaggeration/Caricature:</strong> Distorting features to emphasize certain aspects</li>
+                <li><strong>Irony:</strong> Presenting a situation that's opposite to what's expected</li>
+                <li><strong>Anachronism:</strong> Placing something in the wrong time period (like smartphone-like objects in prehistoric times)</li>
+                <li><strong>Visual metaphors:</strong> Using images to represent abstract concepts</li>
+                <li><strong>Juxtaposition:</strong> Placing contrasting elements side by side</li>
+                <li><strong>Labeling:</strong> Text used to identify elements in the cartoon</li>
+                <li><strong>Stereotyping:</strong> Using recognizable character types</li>
+                <li><strong>Analogy:</strong> Drawing parallels between two different situations</li>
+            </ol>
+        </div>
+
+        <h2>Detailed Breakdown of Each Section</h2>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'intro-tab')">Introduction</button>
+                <button class="tab-button" onclick="openTab(event, 'description-tab')">Description</button>
+                <button class="tab-button" onclick="openTab(event, 'analysis-tab')">Analysis</button>
+                <button class="tab-button" onclick="openTab(event, 'evaluation-tab')">Evaluation</button>
+            </div>
+
+            <div id="intro-tab" class="tab-content active">
+                <h3>Writing a Strong Introduction</h3>
+                <p>Your introduction should be concise but informative, setting the stage for your analysis. Aim for 2-3 sentences that:</p>
+                <ul>
+                    <li>Identify the type of cartoon (political, social, editorial)</li>
+                    <li>Note the visual style (black-and-white, colored, realistic, abstract)</li>
+                    <li>Provide a brief overview of the main theme or issue</li>
+                </ul>
+
+                <div class="example">
+                    <h4>Example from Cartoon 1:</h4>
+                    <p>"A black-and-white cartoon that depicts a humorous scene of prehistoric humans. It criticizes modern technology usage (as suggested by the caption: 'Kids today – only care about the latest technology.')"</p>
+                </div>
+
+                <div class="example">
+                    <h4>Example from Cartoon 2:</h4>
+                    <p>"A black-and-white (political) cartoon that satirizes the state of modern television news. It features a humorous yet critical take on how news reporting has changed. The caption at the bottom states: 'Seems to me the TV news just isn't as hard-hitting as it used to be!'"</p>
+                </div>
+            </div>
+
+            <div id="description-tab" class="tab-content">
+                <h3>Creating a Detailed Description</h3>
+                <p>The description should be objective and thorough, covering all visual elements without interpretation (save that for the analysis). Use the present tense and be specific.</p>
+                <ul>
+                    <li>Describe the setting and composition of the cartoon</li>
+                    <li>Detail all characters—their appearance, positioning, expressions, and actions</li>
+                    <li>Note any text elements (captions, speech bubbles, labels)</li>
+                    <li>Identify significant objects and their arrangement</li>
+                    <li>Use precise language and organize logically (foreground to background, left to right)</li>
+                </ul>
+
+                <div class="example">
+                    <h4>Example from Cartoon 3:</h4>
+                    <p>"The picture shows a scene at a hospital. There is a man completely covered in bandages lying in a bed in a room with some shelves in the background and a nightstand with some flowers next to his bed. Next to the patient there is a man standing who is wearing glasses and a suit. He is smiling at the man in the bed and saying: 'Sorry about the accident but it was a great viral video ad for the company.'"</p>
+                </div>
+            </div>
+
+            <div id="analysis-tab" class="tab-content">
+                <h3>Developing a Thoughtful Analysis</h3>
+                <p>This is where you interpret the cartoon's meaning and techniques. Connect visual elements to the cartoonist's message and broader contexts.</p>
+                <ul>
+                    <li>Identify the techniques used (symbolism, irony, exaggeration, etc.)</li>
+                    <li>Explain what the cartoon is criticizing or commenting on</li>
+                    <li>Discuss how visual and textual elements work together</li>
+                    <li>Connect to contemporary social, political, or cultural issues</li>
+                    <li>Use specific evidence from the cartoon to support your interpretation</li>
+                </ul>
+
+                <div class="example">
+                    <h4>Example from Cartoon 2:</h4>
+                    <p>"The cartoon uses visual symbolism to criticise modern journalism. The three news anchors, instead of delivering factual and critical news, embody self-censorship and avoidance. The reference to the 'Three Wise Monkeys' suggests that the media is deliberately ignoring, avoiding, or failing to report essential truths. The caption adds to the satire by contrasting past and present journalism. The elderly man's comment implies that news used to be more investigative and impactful but has now become passive and censored. The cartoon reflects common criticisms that mainstream media is either biased, controlled, or hesitant to challenge authority."</p>
+                </div>
+            </div>
+
+            <div id="evaluation-tab" class="tab-content">
+                <h3>Crafting an Effective Evaluation</h3>
+                <p>The evaluation assesses the cartoon's success in conveying its message and its potential impact on viewers.</p>
+                <ul>
+                    <li>Evaluate how effectively the cartoon communicates its message</li>
+                    <li>Discuss the strengths and possible weaknesses of the cartoon</li>
+                    <li>Consider different perspectives on the issue presented</li>
+                    <li>Assess the relevance and impact of the cartoon's critique</li>
+                    <li>Provide a balanced conclusion about the cartoon's overall effectiveness</li>
+                </ul>
+
+                <div class="example">
+                    <h4>Example from Cartoon 1:</h4>
+                    <p>"The cartoon effectively conveys its message through exaggeration and irony. It invites the viewer to reconsider the role of technology in daily life and its influence on social behaviour. The cartoon raises an important question: Has technology become a distraction from essential aspects of life? The viewer may relate to or challenge this perspective based on personal experience."</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Language and Expression Tips</h2>
+        <div class="card">
+            <h3>Key Phrases for Cartoon Analysis</h3>
+            <ul>
+                <li>"The cartoon depicts/portrays/illustrates..."</li>
+                <li>"The cartoonist criticizes/satirizes/comments on..."</li>
+                <li>"Through the use of [technique], the cartoonist suggests that..."</li>
+                <li>"The juxtaposition of [element 1] and [element 2] emphasizes..."</li>
+                <li>"The caption reinforces the visual message by..."</li>
+                <li>"The facial expressions/body language of the characters indicate..."</li>
+                <li>"This visual metaphor represents..."</li>
+                <li>"The cartoon effectively/powerfully conveys..."</li>
+                <li>"The viewer is invited to reconsider/reflect on..."</li>
+                <li>"From a critical perspective, the cartoon succeeds/falls short in..."</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <h3>Writing Style Tips:</h3>
+            <ul>
+                <li>Use present tense throughout your analysis</li>
+                <li>Maintain a formal, academic tone</li>
+                <li>Be specific rather than general in your observations</li>
+                <li>Balance description with interpretation</li>
+                <li>Avoid overly simplistic or absolute statements</li>
+                <li>Use precise vocabulary related to visual analysis</li>
+            </ul>
+        </div>
+
+        <h2>Practice Analysis Framework</h2>
+        <div class="practice-section">
+            <h3>Step-by-Step Analysis Process</h3>
+            <p>When you see a cartoon on your exam, follow these steps:</p>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Take a moment to observe the whole cartoon before writing</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Identify the main issue or topic being addressed</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3">Note all visual elements and their potential symbolic meanings</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4">Read any text or captions carefully</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5">Organize your thoughts into the four-part structure</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6">Write your introduction (type, style, theme)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check7">
+                    <label for="check7">Craft your description (setting, characters, text)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check8">
+                    <label for="check8">Develop your analysis (techniques, message, context)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check9">
+                    <label for="check9">Conclude with evaluation (effectiveness, impact)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check10">
+                    <label for="check10">Review your analysis for completeness and clarity</label>
+                </div>
+            </div>
+        </div>
+
+        <h2>Interactive Self-Check Questions</h2>
+        <div class="interactive-example">
+            <h3>Test Your Understanding</h3>
+            <p>What are the four main sections of a cartoon analysis?</p>
+            <div>
+                <input type="text" id="section1" placeholder="First section">
+                <input type="text" id="section2" placeholder="Second section">
+                <input type="text" id="section3" placeholder="Third section">
+                <input type="text" id="section4" placeholder="Fourth section">
+                <button onclick="checkSections()">Check Answer</button>
+            </div>
+            <div id="sections-result" class="result-box"></div>
+        </div>
+
+        <div class="interactive-example">
+            <h3>Techniques Identification</h3>
+            <p>Match these techniques to their correct descriptions:</p>
+            <div>
+                <label>1. Using objects to represent larger ideas:</label>
+                <input type="text" id="technique1" placeholder="Technique name">
+                <br>
+                <label>2. Placing something in the wrong time period:</label>
+                <input type="text" id="technique2" placeholder="Technique name">
+                <br>
+                <label>3. Distorting features to emphasize certain aspects:</label>
+                <input type="text" id="technique3" placeholder="Technique name">
+                <br>
+                <button onclick="checkTechniques()">Check Answers</button>
+            </div>
+            <div id="techniques-result" class="result-box"></div>
+        </div>
+
+        <h2>Final Exam Tips</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Time management:</strong> Allocate about 5 minutes to observe the cartoon and plan your response, 15-20 minutes to write, and 2-3 minutes to review</li>
+                <li><strong>Structure matters:</strong> Clearly organize your response into the four sections</li>
+                <li><strong>Be specific:</strong> Use concrete examples from the cartoon to support your points</li>
+                <li><strong>Balance:</strong> Ensure a good balance between description and interpretation</li>
+                <li><strong>Context awareness:</strong> Consider the broader social/political context of the issue</li>
+                <li><strong>Multiple perspectives:</strong> Acknowledge different viewpoints in your evaluation</li>
+                <li><strong>Logical flow:</strong> Ensure your analysis progresses logically and coherently</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <h3>Remember:</h3>
+            <p>A strong cartoon analysis demonstrates your ability to observe carefully, interpret thoughtfully, and evaluate critically. These skills show your deeper understanding of visual communication and social commentary.</p>
+        </div>
+    </div>
+
+    <script>
+
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Interactive elements
+        function checkSections() {
+            const section1 = document.getElementById('section1').value.toLowerCase();
+            const section2 = document.getElementById('section2').value.toLowerCase();
+            const section3 = document.getElementById('section3').value.toLowerCase();
+            const section4 = document.getElementById('section4').value.toLowerCase();
+            
+            const correct1 = section1.includes('intro');
+            const correct2 = section2.includes('descrip');
+            const correct3 = section3.includes('analy');
+            const correct4 = section4.includes('eval');
+            
+            const result = document.getElementById('sections-result');
+            result.style.display = 'block';
+            
+            if (correct1 && correct2 && correct3 && correct4) {
+                result.innerHTML = "<p class='success'>Correct! The four main sections are Introduction, Description, Analysis, and Evaluation.</p>";
+            } else {
+                result.innerHTML = "<p>Not quite. Remember that the four sections are Introduction, Description, Analysis, and Evaluation.</p>";
+            }
+        }
+
+        function checkTechniques() {
+            const technique1 = document.getElementById('technique1').value.toLowerCase();
+            const technique2 = document.getElementById('technique2').value.toLowerCase();
+            const technique3 = document.getElementById('technique3').value.toLowerCase();
+            
+            const correct1 = technique1.includes('symbol');
+            const correct2 = technique2.includes('anachron');
+            const correct3 = technique3.includes('exagger') || technique3.includes('caric');
+            
+            const result = document.getElementById('techniques-result');
+            result.style.display = 'block';
+            
+            let message = "<p>";
+            if (correct1) {
+                message += "1. Correct! Symbolism is using objects to represent larger ideas.<br>";
+            } else {
+                message += "1. Not quite. Symbolism is using objects to represent larger ideas.<br>";
+            }
+            
+            if (correct2) {
+                message += "2. Correct! Anachronism is placing something in the wrong time period.<br>";
+            } else {
+                message += "2. Not quite. Anachronism is placing something in the wrong time period.<br>";
+            }
+            
+            if (correct3) {
+                message += "3. Correct! Exaggeration/Caricature is distorting features to emphasize certain aspects.";
+            } else {
+                message += "3. Not quite. Exaggeration/Caricature is distorting features to emphasize certain aspects.";
+            }
+            
+            message += "</p>";
+            result.innerHTML = message;
+            
+            if (correct1 && correct2 && correct3) {
+                result.innerHTML += "<p class='success'>Great job! You've correctly identified all the techniques!</p>";
+            }
+        }
+    </script>
+</body>
+</html>
