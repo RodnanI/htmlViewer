@@ -76,9 +76,7 @@ const HtmlViewer = ({ htmlContent, slug }) => {
     if (password === 'rodnan') {
       // Password is correct, start download
       setDownloadStarting(true);
-      
-      // Don't close the modal immediately - keep it open to show the success animation
-      // The PasswordModal component will handle its own timing
+      setIsPasswordModalOpen(false);
       
       // Create blob and download
       try {
@@ -91,18 +89,16 @@ const HtmlViewer = ({ htmlContent, slug }) => {
         document.body.appendChild(a);
         a.click();
         
-        // Clean up and close modal after the animation has had time to complete
+        // Clean up
         setTimeout(() => {
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
           setDownloadStarting(false);
-          setIsPasswordModalOpen(false);
-        }, 3500); // Slightly longer than the animation in PasswordModal
+        }, 100);
       } catch (err) {
         console.error('Download failed:', err);
         setDownloadError('Failed to download file. Please try again.');
         setDownloadStarting(false);
-        setIsPasswordModalOpen(false);
       }
     } else {
       // Incorrect password
