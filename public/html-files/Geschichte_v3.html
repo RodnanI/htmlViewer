@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weimarer Republik, NS-Diktatur und Holocaust</title>
+    <style>
+        :root {
+            --primary-color: #345995;
+            --secondary-color: #e40066;
+            --accent-color: #03cea4;
+            --dark-color: #2b2b2b;
+            --light-color: #f8f8f8;
+            --timeline-color: #d4d4d4;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 20px 0 10px;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--timeline-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left::after {
+            right: -16px;
+        }
+        
+        .right::after {
+            left: -16px;
+        }
+        
+        .content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .event-date {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .glossary {
+            margin-top: 40px;
+        }
+        
+        .term {
+            background-color: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .term h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .term p {
+            margin-left: 20px;
+        }
+        
+        .term h4::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .category {
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weimarer Republik, NS-Diktatur und Holocaust</h1>
+        <p>Wichtige Fachbegriffe und historische Ereignisse zwischen 1918 und 1945</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Historischer Zeitstrahl</h2>
+            <div class="timeline">
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">1918/19</div>
+                        <p>Novemberrevolution und Ende des Ersten Weltkriegs. Bildung von Arbeiter- und Soldatenräten, Abdankung des Kaisers.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">1919</div>
+                        <p>Verabschiedung der Weimarer Verfassung. Erste demokratische Verfassung Deutschlands. Niederschlagung des Spartakusaufstands.</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">1920</div>
+                        <p>Kapp-Putsch: Erster Versuch einer rechtsgerichteten Gruppe, die Republik zu stürzen.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">1922</div>
+                        <p>Ermordung von Außenminister Walther Rathenau durch Rechtsextremisten ("Organisation Consul").</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">1923</div>
+                        <p>Krisenjahr: Ruhrbesetzung durch Siegermächte, Hyperinflation, Hitler-Putsch in München (gescheitert).</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">1929</div>
+                        <p>Weltwirtschaftskrise beginnt mit dem Börsencrash in New York am 24. Oktober ("Schwarzer Freitag").</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">30.01.1933</div>
+                        <p>Adolf Hitler wird von Reichspräsident Hindenburg zum Reichskanzler ernannt. Beginn der NS-Diktatur.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">27.02.1933</div>
+                        <p>Reichstagsbrand: Instrumentalisierung als kommunistischer Umsturzversuch, Erlass der Notverordnung zur Aussetzung der Grundrechte.</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">23.03.1933</div>
+                        <p>Verabschiedung des Ermächtigungsgesetzes: Entmachtung des Parlaments und Ende der Gewaltenteilung.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">01.04.1933</div>
+                        <p>Reichsweiter Boykott jüdischer Geschäfte, Arztpraxen und Anwaltskanzleien. Beginn der systematischen Judenverfolgung.</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">1935</div>
+                        <p>Nürnberger Gesetze: Entrechtung der jüdischen Bevölkerung, Verbot von "rassischen Mischehen" zwischen Juden und Nicht-Juden.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">09.11.1938</div>
+                        <p>Novemberpogrome ("Reichskristallnacht"): Gewaltsame Ausschreitungen gegen die jüdische Bevölkerung im ganzen Reich.</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">01.09.1939</div>
+                        <p>Beginn des Zweiten Weltkriegs mit dem deutschen Überfall auf Polen.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="content">
+                        <div class="event-date">20.01.1942</div>
+                        <p>Wannsee-Konferenz: Koordination der systematischen Vernichtung der europäischen Juden ("Endlösung").</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="content">
+                        <div class="event-date">08./09.05.1945</div>
+                        <p>Bedingungslose Kapitulation des Deutschen Reiches. Ende des Zweiten Weltkriegs in Europa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glossary">
+            <h2>Wichtige Fachbegriffe</h2>
+            
+            <div class="category">
+                <h3>Weimarer Republik: Entstehung und Struktur</h3>
+                
+                <div class="term">
+                    <h4>Novemberrevolution 1918/19</h4>
+                    <p>Revolutionärer Umbruch in Deutschland am Ende des Ersten Weltkriegs, der zur Abdankung des Kaisers und zur Ausrufung der Republik führte. Begann mit dem Matrosenaufstand in Kiel und breitete sich auf andere Städte aus.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Weimarer Republik</h4>
+                    <p>Bezeichnung für den deutschen Staat zwischen 1919 und 1933. Die erste parlamentarische Demokratie in Deutschland, benannt nach der Stadt Weimar, wo die Nationalversammlung die Verfassung ausarbeitete.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Burgfriedenspolitik</h4>
+                    <p>Politischer Konsens der Parteien während des Ersten Weltkriegs, der innenpolitische Konflikte ruhen ließ, um die Kriegsanstrengungen zu unterstützen. Die Auflösung dieses "Burgfriedens" war eine Ursache der Revolution.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Arbeiter- und Soldatenräte</h4>
+                    <p>Revolutionäre Organe, die während der Novemberrevolution gebildet wurden und nach sowjetischem Vorbild eine alternative Machtstruktur darstellten. Sie forderten weitreichende soziale und politische Veränderungen.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Ebert-Groener-Pakt</h4>
+                    <p>Geheimes Abkommen zwischen dem SPD-Politiker Friedrich Ebert und General Wilhelm Groener im November 1918, das die Zusammenarbeit zwischen der neuen republikanischen Regierung und dem Militär regelte. Sicherte die Unterstützung der Armee für die Republik gegen linksradikale Kräfte.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Verhältniswahlrecht</h4>
+                    <p>Wahlsystem, bei dem die Sitzverteilung im Parlament proportional zu den Stimmenanteilen der Parteien erfolgt. In der Weimarer Republik ohne Sperrklausel eingeführt, was zu einer Zersplitterung der Parteienlandschaft führte.</p>
+                </div>
+            </div>
+            
+            <div class="category">
+                <h3>Strukturelle Schwächen und Krisen</h3>
+                
+                <div class="term">
+                    <h4>Dolchstoßlegende</h4>
+                    <p>Von rechten Kreisen verbreitete Verschwörungstheorie, die behauptete, das deutsche Heer sei im Ersten Weltkrieg "im Felde unbesiegt" geblieben und durch einen "Dolchstoß" von Revolutionären in der Heimat verraten worden. Diente der Delegitimierung der Republik.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Notverordnungsrecht</h4>
+                    <p>Nach Artikel 48 der Weimarer Verfassung konnte der Reichspräsident in Notzeiten ohne parlamentarische Zustimmung Verordnungen erlassen. Dieses Recht wurde besonders in der Spätphase der Republik extensiv genutzt und höhlte die parlamentarische Demokratie aus.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Präsidialkabinette</h4>
+                    <p>Regierungen in der Endphase der Weimarer Republik, die nicht auf parlamentarische Mehrheiten, sondern auf das Vertrauen des Reichspräsidenten Hindenburg gestützt waren. Regierten hauptsächlich durch Notverordnungen und umgingen den Reichstag.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Versailler Vertrag</h4>
+                    <p>Friedensvertrag nach dem Ersten Weltkrieg, der Deutschland die alleinige Kriegsschuld zuwies, Gebietsabtretungen und Reparationszahlungen festlegte und die Reichswehr auf 100.000 Mann begrenzte. Wurde in der deutschen Öffentlichkeit als "Diktatfrieden" empfunden und belastete die Weimarer Republik schwer.</p>
+                </div>
+            </div>
+            
+            <div class="category">
+                <h3>NS-Diktatur: Machtübernahme und Ideologie</h3>
+                
+                <div class="term">
+                    <h4>Ermächtigungsgesetz</h4>
+                    <p>Am 23. März 1933 verabschiedetes Gesetz, das der Regierung unter Hitler erlaubte, ohne Parlament Gesetze zu erlassen. Beendete die Gewaltenteilung und schuf die rechtliche Grundlage für die NS-Diktatur.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Volksgemeinschaft</h4>
+                    <p>Zentrales ideologisches Konzept des Nationalsozialismus, das eine homogene, rassisch definierte Gemeinschaft propagierte. Betonte die Überwindung von Klassengegensätzen, schloss aber "rassisch" und politisch Unerwünschte aus.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Führerprinzip</h4>
+                    <p>Autoritäres Herrschaftsprinzip im Nationalsozialismus, das absolute Gehorsamkeit gegenüber Hitler als höchster Autorität forderte. Der Einzelne musste seine Interessen denen der Gemeinschaft, des Staates und der Partei unterordnen.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Gleichschaltung</h4>
+                    <p>Prozess der zwangsweisen Vereinheitlichung des gesamten politischen, gesellschaftlichen und kulturellen Lebens nach nationalsozialistischen Grundsätzen. Umfasste die Zerschlagung von Gewerkschaften, Parteien und Föderalismus sowie die Kontrolle der Medien.</p>
+                </div>
+            </div>
+            
+            <div class="category">
+                <h3>Antisemitismus und Verfolgung</h3>
+                
+                <div class="term">
+                    <h4>Antisemitismus</h4>
+                    <p>Feindschaft gegen Juden, die im Nationalsozialismus zum Staatsprinzip erhoben wurde. Entwickelte sich vom christlichen Antijudaismus über einen rassistisch begründeten Antisemitismus zum eliminatorischen Antisemitismus, der die Vernichtung der Juden zum Ziel hatte.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Nürnberger Gesetze</h4>
+                    <p>1935 erlassene Rassengesetze, die Juden aus der "Rechtsgemeinschaft des deutschen Volkes" ausschlossen. Beinhalteten das "Reichsbürgergesetz" und das "Gesetz zum Schutz des deutschen Blutes und der deutschen Ehre", das u.a. Eheschließungen zwischen Juden und Nicht-Juden verbot.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Novemberpogrome</h4>
+                    <p>Gewaltsame Ausschreitungen gegen Juden am 9./10. November 1938 im gesamten Deutschen Reich. Synagogen wurden in Brand gesetzt, jüdische Geschäfte zerstört und Juden misshandelt. Markierte den Übergang von der Diskriminierung zur offenen Gewalt.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Arisierung</h4>
+                    <p>Enteignung jüdischen Vermögens und Überführung in "arischen" Besitz. Nach den Novemberpogromen wurden jüdische Unternehmen, Grundbesitz und Wertpapiere zwangsweise und meist unter Wert "arisiert", was den wirtschaftlichen Ruin der jüdischen Besitzer bedeutete.</p>
+                </div>
+            </div>
+            
+            <div class="category">
+                <h3>Holocaust und Zweiter Weltkrieg</h3>
+                
+                <div class="term">
+                    <h4>Holocaust/Shoah</h4>
+                    <p>Systematische Ermordung von etwa sechs Millionen europäischen Juden durch das NS-Regime. "Holocaust" stammt aus dem Griechischen und bedeutet "Brandopfer", "Shoah" ist der hebräische Begriff für "Katastrophe". Wird als singuläres Verbrechen und Zivilisationsbruch betrachtet.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Wannsee-Konferenz</h4>
+                    <p>Treffen hochrangiger NS-Funktionäre am 20. Januar 1942 in Berlin-Wannsee, bei dem die organisatorische Durchführung der "Endlösung der Judenfrage" - die systematische Vernichtung aller europäischen Juden - besprochen und koordiniert wurde.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Euthanasieprogramm</h4>
+                    <p>Euphemistische Bezeichnung für die systematische Ermordung von Menschen mit körperlichen und geistigen Behinderungen oder psychischen Erkrankungen durch das NS-Regime (ab 1939). Im Rahmen der "Aktion T4" wurden etwa 200.000 Menschen ermordet.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Lebensraum im Osten</h4>
+                    <p>Nationalsozialistisches Konzept der territorialen Expansion nach Osteuropa zur Gewinnung von Siedlungsraum für "arische" Deutsche. Diente als ideologische Rechtfertigung für den Überfall auf Polen und später die Sowjetunion und führte zu Massenmord und Vertreibungen.</p>
+                </div>
+                
+                <div class="term">
+                    <h4>Totaler Krieg</h4>
+                    <p>Propagandaformel nach der Niederlage von Stalingrad 1943, mit der die totale Mobilisierung aller personellen und materiellen Ressourcen für den Krieg gefordert wurde. Umfasste Ausweitung der Wehrpflicht, Verstärkung von Propaganda und Repression, Intensivierung der Kriegswirtschaft.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
