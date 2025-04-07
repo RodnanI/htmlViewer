@@ -2,6 +2,7 @@ import './global.css';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '../context/ThemeProvider';
 import ThemeToggle from '../components/ThemeToggle';
+import ConditionalFooter from '../components/ConditionalFooter';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,11 +29,7 @@ export default function RootLayout({ children }) {
             <main className="w-full px-4 py-6">
               {children}
             </main>
-            <footer className="fixed bottom-0 left-0 right-0 w-full border-t border-light-border dark:border-dark-border bg-white dark:bg-dark-card py-4 z-10">
-              <div className="container mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                Nándor Koch // {new Date().getFullYear()}
-              </div>
-            </footer>
+            <ConditionalFooter />
           </div>
         </ThemeProvider>
       </body>
