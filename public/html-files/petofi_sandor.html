@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sándor Petőfi - Hungary's National Poet</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.hungarianconservative.com/wp-content/uploads/2022/07/petofi.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 500px;
+        }
+        
+        .hungarian {
+            font-style: italic;
+            color: #7b341e;
+        }
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            border-left: 4px solid #7b341e;
+            padding-left: 20px;
+        }
+        
+        .timeline-item {
+            border-left: 2px solid #7b341e;
+            padding-left: 20px;
+            margin-left: 10px;
+            position: relative;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #7b341e;
+            position: absolute;
+            left: -7px;
+            top: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-red-800">Sándor Petőfi</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#biography" class="hover:text-red-700">Biography</a>
+                    <a href="#revolution" class="hover:text-red-700">Revolution</a>
+                    <a href="#poetry" class="hover:text-red-700">Poetry</a>
+                    <a href="#legacy" class="hover:text-red-700">Legacy</a>
+                    <a href="#memorials" class="hover:text-red-700">Memorials</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-image flex items-center justify-center">
+        <div class="text-center text-white px-4">
+            <h1 class="text-5xl font-bold mb-4">Sándor Petőfi</h1>
+            <p class="text-2xl mb-6">Hungarian National Poet and Revolutionary (1823-1849)</p>
+            <p class="text-xl italic">"Liberty and love! These two I must have. For my love I'll sacrifice my life. For liberty I'll sacrifice my love."</p>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">Hungary's Revered National Poet</h2>
+            <p class="text-lg mb-4">Sándor Petőfi (<span class="hungarian">Petőfi Sándor</span>) stands as one of the most significant figures in Hungarian literature and history. Born on January 1, 1823, and presumed to have died on July 31, 1849, Petőfi's short life of just 26 years left an indelible mark on Hungarian culture, literature, and national identity.</p>
+            <p class="text-lg mb-4">As Hungary's national poet, Petőfi combined literary genius with passionate revolutionary ideals. His poetry captured the essence of Hungarian patriotism and yearning for freedom, while his revolutionary activities helped spark the Hungarian Revolution of 1848 against Habsburg rule.</p>
+            <p class="text-lg">Through his poem "Nemzeti dal" (<span class="hungarian">National Song</span>), which he recited on March 15, 1848, Petőfi ignited the revolutionary spirit that would define Hungary's struggle for independence. His literary works and revolutionary legacy continue to inspire Hungarians and lovers of freedom around the world to this day.</p>
+        </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section id="biography" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Biography</h2>
+            
+            <div class="flex flex-col md:flex-row items-center max-w-6xl mx-auto">
+                <div class="md:w-1/3 mb-6 md:mb-0 md:pr-8">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Barab%C3%A1s_Pet%C5%91fi.jpg" alt="Portrait of Sándor Petőfi" class="rounded-lg shadow-lg">
+                    <p class="text-sm text-center mt-2 italic">Portrait of Sándor Petőfi by Miklós Barabás</p>
+                </div>
+                
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4">Early Life</h3>
+                    <p class="mb-4">Sándor Petőfi was born as Sándor Petrovics on January 1, 1823, in Kiskőrös, Hungary, to a family of Slovakian ancestry. Despite his ethnic origins, Petőfi always strongly identified as Hungarian. His father, István Petrovics, was a butcher and innkeeper, while his mother, Mária Hrúz, was a domestic servant.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 mt-6">Education and Wandering Years</h3>
+                    <p class="mb-4">Petőfi attended eight different schools throughout his youth, showing early signs of an independent and restless spirit. At 18, he abandoned his formal education to join the National Theatre in Pest as an assistant, occasionally appearing in minor roles. This began a period of wandering and uncertainty, as he joined traveling theater troupes, briefly served in the army between 1839 and 1841, and struggled with financial instability.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 mt-6">Rise to Literary Fame</h3>
+                    <p class="mb-4">His literary career began in 1842 when his first poem was published in the journal <span class="italic">Athenaeum</span>. In 1844, with the support of the renowned poet Mihály Vörösmarty, Petőfi published his first collection of poetry. The simple, authentic style of his poems, which drew on Hungarian folk traditions, quickly captivated readers and established him as one of Hungary's most popular poets.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 mt-6">Personal Life</h3>
+                    <p class="mb-4">In 1847, Petőfi married Júlia Szendrey, who became his muse and inspired many of his most beautiful love poems. Their son, Zoltán, was born in December 1848. His marriage to Júlia marked a pivotal period in his life and work, enriching his poetry with deeper themes of love and devotion.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 mt-6">Final Days</h3>
+                    <p>Petőfi disappeared during the Battle of Segesvár (today Sighișoara, Romania) on July 31, 1849, while serving as an aide-de-camp to General Józef Bem in the Hungarian Revolutionary Army. His body was never found, leading to numerous legends about his fate. This mysterious disappearance has only enhanced his legendary status in Hungarian culture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="container mx-auto px-4 py-12 bg-gray-50">
+        <h3 class="text-2xl font-bold mb-8 text-center">Life Timeline</h3>
+        <div class="max-w-3xl mx-auto">
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1823</h4>
+                <p>Born on January 1 in Kiskőrös, Hungary as Sándor Petrovics</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1838-1839</h4>
+                <p>Studies at the Lyceum in Banská Štiavnica (Selmecbánya)</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1839-1841</h4>
+                <p>Serves in the Habsburg Imperial Army</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1842</h4>
+                <p>First poem "A borozó" (The Wine Drinker) published</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1844</h4>
+                <p>Publishes first volume of poetry, "Versek" (Poems)</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1845</h4>
+                <p>Publishes his epic poem "János vitéz" (John the Valiant)</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">1847</h4>
+                <p>Marries Júlia Szendrey; begins co-editing the literary magazine <span class="italic">Életképek</span></p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">March 15, 1848</h4>
+                <p>Recites his "Nemzeti dal" (National Song) during the outbreak of the Hungarian Revolution</p>
+            </div>
+            <div class="timeline-item pb-6">
+                <h4 class="font-bold">December 1848</h4>
+                <p>Son Zoltán is born</p>
+            </div>
+            <div class="timeline-item">
+                <h4 class="font-bold">July 31, 1849</h4>
+                <p>Disappears during the Battle of Segesvár, presumed to have died on the battlefield</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Revolution Section -->
+    <section id="revolution" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Revolutionary Activities</h2>
+            
+            <div class="flex flex-col md:flex-row items-center max-w-6xl mx-auto">
+                <div class="md:w-2/3 md:pr-8">
+                    <h3 class="text-2xl font-bold mb-4">Role in the 1848 Revolution</h3>
+                    <p class="mb-4">As political tensions grew across Europe in the 1840s, Petőfi became increasingly involved in revolutionary circles. By 1847, he was deeply studying the history of the 1789 French Revolution and developing strong republican views that were reflected in his increasingly political poetry.</p>
+                    
+                    <p class="mb-6">On March 15, 1848—a date now celebrated as a Hungarian national holiday—Petőfi played a pivotal role in igniting the Hungarian Revolution. That morning, he recited his newly-written poem "Nemzeti dal" (National Song) at the Pilvax Café in Pest, then again at the University of Medicine, electrifying crowds with its call to action against Habsburg rule.</p>
+                    
+                    <div class="quote mb-6 px-4">
+                        <p>"Hungarians, get on your feet! This is the time, this is the need! Shall we be free or remain slaves? The answer is: No two ways!"</p>
+                        <p class="text-right">— from "Nemzeti dal" (National Song)</p>
+                    </div>
+                    
+                    <p class="mb-4">Together with other young intellectuals known as the "March Youth" (Márciusi Ifjak), Petőfi proclaimed the famous "12 Points," a list of demands for greater Hungarian autonomy within the Habsburg Empire. They succeeded in having their revolutionary documents published without censorship, marking the first free press products in Hungary.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 mt-6">Military Service</h3>
+                    <p class="mb-4">As the revolution progressed, Petőfi became increasingly radical. He joined the revolutionary army, eventually becoming aide-de-camp to Polish General Józef Bem, who commanded the Transylvanian army fighting against Habsburg and Russian forces.</p>
+                    
+                    <p>Petőfi's republican views and his call for the complete overthrow of Habsburg rule eventually made him controversial even among more moderate revolutionaries. Nonetheless, he remained steadfast in his principles, eventually sacrificing his life for Hungary's independence. He disappeared during the Battle of Segesvár on July 31, 1849, where the Hungarian forces were defeated by the Russian imperial army that had intervened to help the Habsburgs crush the revolution.</p>
+                </div>
+                
+                <div class="md:w-1/3 mb-6 md:mb-0">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/March15.jpg/250px-March15.jpg" alt="Depiction of March 15, 1848 revolutionary events" class="rounded-lg shadow-lg mb-6">
+                    <p class="text-sm text-center mb-6 italic">The events of March 15, 1848</p>
+                    
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/12_pont.jpg" alt="The 12 Points of the Hungarian Revolutionaries" class="rounded-lg shadow-lg">
+                    <p class="text-sm text-center mt-2 italic">The 12 Points of the Hungarian Revolution</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poetry Section -->
+    <section id="poetry" class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Poetry</h2>
+            
+            <div class="max-w-6xl mx-auto mb-12">
+                <h3 class="text-2xl font-bold mb-4">Poetic Style and Contributions</h3>
+                <p class="mb-4">Petőfi revolutionized Hungarian poetry through his simple, direct style that drew heavily on folk traditions and the vernacular language. Breaking away from the ornate, formal poetry that dominated Hungarian literature, he wrote accessibly for the common people. His works span from love poems and pastoral idylls to fiery political verse.</p>
+                
+                <p class="mb-4">During his short lifetime, Petőfi wrote nearly 1,000 poems, of which about 850 have survived. His poetic innovations included pioneering family poetry, depicting spousal love, and creating a new form of landscape poetry that celebrated the Hungarian countryside, particularly the Great Hungarian Plain (Az Alföld).</p>
+                
+                <div class="my-8 bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4 text-center">"Nemzeti dal" (National Song)</h3>
+                    <p class="mb-4 text-center italic">The poem that sparked the 1848 Revolution</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold mb-2">Original Hungarian</h4>
+                            <p class="hungarian mb-2">Talpra magyar, hí a haza!</p>
+                            <p class="hungarian mb-2">Itt az idő, most vagy soha!</p>
+                            <p class="hungarian mb-2">Rabok legyünk, vagy szabadok?</p>
+                            <p class="hungarian mb-2">Ez a kérdés, válasszatok!</p>
+                            <p class="hungarian mb-6">A magyarok istenére</p>
+                            <p class="hungarian mb-2">Esküszünk,</p>
+                            <p class="hungarian mb-2">Esküszünk, hogy rabok tovább</p>
+                            <p class="hungarian mb-6">Nem leszünk!</p>
+                            
+                            <p class="hungarian mb-2">Rabok voltunk mostanáig,</p>
+                            <p class="hungarian mb-2">Kárhozottak ősapáink,</p>
+                            <p class="hungarian mb-2">Kik szabadon éltek-haltak,</p>
+                            <p class="hungarian mb-2">Szolgaföldben nem nyughatnak.</p>
+                            <p class="hungarian mb-6">A magyarok istenére</p>
+                            <p class="hungarian mb-2">Esküszünk,</p>
+                            <p class="hungarian mb-2">Esküszünk, hogy rabok tovább</p>
+                            <p class="hungarian mb-2">Nem leszünk!</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold mb-2">English Translation</h4>
+                            <p class="mb-2">Hungarians, get on your feet!</p>
+                            <p class="mb-2">This is the time, this is the need!</p>
+                            <p class="mb-2">Shall we be free or remain slaves?</p>
+                            <p class="mb-2">The answer is: No two ways!</p>
+                            <p class="mb-6">God of Hungarians,</p>
+                            <p class="mb-2">We swear,</p>
+                            <p class="mb-2">We swear that none stays</p>
+                            <p class="mb-6">Prisoner!</p>
+                            
+                            <p class="mb-2">We have been prisoners since when</p>
+                            <p class="mb-2">Our forefathers, who were free men,</p>
+                            <p class="mb-2">Could not rest in slavish soil</p>
+                            <p class="mb-2">That is surrounded by turmoil.</p>
+                            <p class="mb-6">God of Hungarians,</p>
+                            <p class="mb-2">We swear,</p>
+                            <p class="mb-2">We swear that none stays</p>
+                            <p class="mb-2">Prisoner!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-4 mt-12">János Vitéz (John the Valiant)</h3>
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-2/3 md:pr-8">
+                        <p class="mb-4">One of Petőfi's most celebrated works is his epic poem "János Vitéz" (John the Valiant), published in 1845. This narrative poem tells the story of János, a simple shepherd who, after losing his beloved Iluska, embarks on a series of fantastic adventures.</p>
+                        
+                        <p class="mb-4">The poem follows János as he joins a band of hussars, battles with Turks, navigates through lands of giants and witches, and eventually reaches the Kingdom of Fairies. In this fairy realm, he discovers that his beloved Iluska has been transformed into a rose. When he sprinkles her with the Water of Life, she is restored to human form, and the couple live happily as the king and queen of Fairyland.</p>
+                        
+                        <p class="mb-4">Written in 370 four-line stanzas, "János Vitéz" combines elements of Hungarian folk tales with heroic adventures and romantic love. It has become a cornerstone of Hungarian culture, adapted into operas, plays, films, and animated features. The work perfectly exemplifies Petőfi's ability to elevate folk-inspired material to the level of high art while maintaining accessibility for all Hungarians.</p>
+                    </div>
+                    <div class="md:w-1/3">
+                        <img src="https://classicsofstrategy.com/wp-content/uploads/2008/12/Petofi_Nemzeti_Muzeum.jpg" alt="An illustration from János Vitéz" class="rounded-lg shadow-lg">
+                        <p class="text-sm text-center mt-2 italic">An illustration related to Petőfi's works</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-4 mt-12">Other Notable Poems</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"At the End of September" (Szeptember végén)</h4>
+                        <p>A hauntingly beautiful love poem written to his wife Júlia, prophetically foreseeing his own early death.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"One Thought Bothers Me" (Egy gondolat bánt engemet)</h4>
+                        <p>A powerful meditation on death in which Petőfi expresses his wish to die on the battlefield for freedom rather than waste away in bed.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"The Plains" (Az Alföld)</h4>
+                        <p>A love letter to the Hungarian Great Plain landscape, establishing Petőfi as a master of landscape poetry.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"A Plan Gone Up in Smoke" (Füstbement terv)</h4>
+                        <p>A touching poem about returning home and the speechless emotion of reuniting with his mother.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"If You Are a Man, Be a Man" (Ha férfi vagy, légy férfi)</h4>
+                        <p>A rousing call for moral strength, courage, and standing by one's principles.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">"Prophecy" (Jövendölés)</h4>
+                        <p>A poem that eerily foresees his lasting fame despite a short life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legacy Section -->
+    <section id="legacy" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Legacy</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center mb-12">
+                    <div class="md:w-1/3 mb-6 md:mb-0 md:pr-8">
+                        <img src="https://hungarytoday.hu/wp-content/uploads/2023/01/321564700_675582504048949_9034341007123690628_n.jpg" alt="Petőfi memorial" class="rounded-lg shadow-lg">
+                        <p class="text-sm text-center mt-2 italic">A Petőfi commemoration event</p>
+                    </div>
+                    
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold mb-4">Cultural Impact</h3>
+                        <p class="mb-4">Petőfi's impact on Hungarian culture and national identity cannot be overstated. He revolutionized Hungarian literature by creating a new poetic language that drew on folk traditions while addressing contemporary concerns. His works helped establish Hungarian as a literary language of European significance.</p>
+                        
+                        <p class="mb-4">In Hungary, the name "Petőfi" has become synonymous with poetry itself. His face and verses are known to virtually every Hungarian schoolchild, and he remains the most widely read poet in the country. March 15, the day of his revolutionary recitation, is now celebrated as a national holiday in Hungary.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-4">National Symbol</h3>
+                <p class="mb-4">Petőfi's mysterious disappearance on the battlefield enhanced his legendary status. Unable to find his body, Hungarians created numerous myths about his possible survival or heroic death. This mythologizing transformed him into a potent symbol of Hungarian national aspirations and the desire for freedom and independence.</p>
+                
+                <p class="mb-4">Throughout Hungary's turbulent history—from Habsburg rule through Soviet domination—Petőfi's works and image have been invoked by those struggling for Hungarian sovereignty and democratic values. During the 1956 uprising against Soviet control, revolutionaries again recited his "Nemzeti dal" in an echo of 1848.</p>
+                
+                <h3 class="text-2xl font-bold mb-4 mt-8">International Recognition</h3>
+                <p class="mb-4">Beyond Hungary, Petőfi's work has been translated into over 50 languages. His poetry has influenced writers across Central and Eastern Europe and beyond. The directness, passion, and democratic spirit of his verse resonate with readers worldwide.</p>
+                
+                <p>In 2023, Hungary celebrated the bicentenary of Petőfi's birth with numerous exhibitions, performances, and publications, demonstrating the enduring power of his legacy two centuries after his birth.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memorials Section -->
+    <section id="memorials" class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Memorials and Commemorations</h2>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Petőfi Birthplace and Memorial Museum</h3>
+                        <p class="mb-4">Located in Kiskőrös, Hungary, this museum preserves the house where Petőfi was born on January 1, 1823. The house has been maintained in its original state and is accompanied by a literary museum and a unique statue park dedicated to translators of Petőfi's work, which is unique in Europe.</p>
+                        
+                        <p class="mb-4"><strong>Address:</strong> 6200, Kiskőrös Petőfi tér 5.</p>
+                        
+                        <h3 class="text-2xl font-bold mb-4 mt-6">Petőfi Literary Museum</h3>
+                        <p class="mb-4">Located in Budapest, this major literary museum houses a significant collection of Petőfi artifacts, manuscripts, and memorabilia. It serves as a center for research on Petőfi and Hungarian literature in general.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Statues and Monuments</h3>
+                        <p class="mb-4">Petőfi's statues can be found in nearly every Hungarian city and town. The most famous is the Petőfi statue in Budapest's Petőfi Square, facing the Danube River. This iconic statue depicts the poet with an outstretched arm, as if reciting his revolutionary verses.</p>
+                        
+                        <p class="mb-4">Beyond Hungary, Petőfi monuments exist in several countries, reflecting his international significance.</p>
+                        
+                        <h3 class="text-2xl font-bold mb-4 mt-6">Street Names and Institutions</h3>
+                        <p class="mb-4">Countless streets, squares, schools, and cultural institutions across Hungary bear Petőfi's name. Petőfi Bridge in Budapest is one of the city's major Danube crossings, while Petőfi Radio is one of Hungary's national radio stations.</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-4 text-center">Petőfi 200: Bicentenary Celebrations</h3>
+                <p class="mb-4 text-center">In 2023, Hungary celebrated the 200th anniversary of Petőfi's birth with year-long commemorations including:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">Exhibitions</h4>
+                        <p>Special exhibits throughout the country showcased Petőfi's life, manuscripts, and impact.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">Literary Events</h4>
+                        <p>Readings, conferences, and publishing initiatives brought renewed attention to his works.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2">Educational Programs</h4>
+                        <p>Schools across Hungary engaged in special Petőfi-themed curricula and contests.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Image Gallery</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <img src="https://studyinhungary.hu/static/upload/800px-orlai-petofi1.jpg" alt="Portrait of Sándor Petőfi" class="rounded-lg shadow-md">
+                        <img src="https://www.hungarianconservative.com/wp-content/uploads/2022/07/petofi.jpg" alt="Sándor Petőfi portrait" class="rounded-lg shadow-md">
+                        <img src="https://kafkadesk.org/wp-content/uploads/2023/03/a856b-sandor-petofi-hungary-poet.jpg" alt="Petőfi illustration" class="rounded-lg shadow-md">
+                        <img src="https://www.bocskairadio.org/wp-content/uploads/2018/03/Petofi_1848_marcius_15-749x415.jpg" alt="Revolutionary scene" class="rounded-lg shadow-md">
+                        <img src="https://hungarianliving.com/wp-content/uploads/2020/03/National-Song.png" alt="Nemzeti dal manuscript" class="rounded-lg shadow-md">
+                        <img src="https://static.officeholidays.com/images/1280x853c/hungary-revolution-01.jpg" alt="Commemoration of the 1848 Revolution" class="rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section class="py-16 bg-red-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Famous Quotes</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-red-800 p-6 rounded-lg">
+                        <p class="italic mb-2">"Liberty and love! These two I must have. For my love I'll sacrifice my life. For liberty I'll sacrifice my love."</p>
+                        <p class="text-right">— Sándor Petőfi</p>
+                    </div>
+                    <div class="bg-red-800 p-6 rounded-lg">
+                        <p class="italic mb-2">"One thought bothers me night and day, to be in bed when I pass away."</p>
+                        <p class="text-right">— from "One Thought Bothers Me"</p>
+                    </div>
+                    <div class="bg-red-800 p-6 rounded-lg">
+                        <p class="italic mb-2">"If you are a man, be a man, have principles and faith, adhere to them steadfast for whatever it takes."</p>
+                        <p class="text-right">— from "If You Are a Man, Be a Man"</p>
+                    </div>
+                    <div class="bg-red-800 p-6 rounded-lg">
+                        <p class="italic mb-2">"Life is a bliss but first of all you must work hard for this goal."</p>
+                        <p class="text-right">— from "In the Souvenir Book of a Bookseller"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Further Reading -->
+    <section class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center">Further Reading</h2>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4">Books about Petőfi</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>"The Apostle and Other Poems" - Selected poems of Petőfi in English translation</li>
+                        <li>"John the Valiant" - English translations of his epic poem</li>
+                        <li>"Selected Poems" - Various collections of Petőfi's poetry in translation</li>
+                        <li>"Freedom and Love" - Biography and analysis of Petőfi's life and works</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4">Online Resources</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Petőfi Literary Museum - Official website with digital archives</li>
+                        <li>Hungarian Electronic Library - Digitized versions of Petőfi's works in Hungarian</li>
+                        <li>Poetry Foundation - Information and selected poems in English</li>
+                        <li>Hungarian Cultural Center - Information about Petőfi commemorations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-bold mb-4">About This Website</h3>
+                        <p>A comprehensive tribute to Sándor Petőfi, Hungary's national poet and revolutionary.</p>
+                    </div>
+                    
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-bold mb-4">Explore</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#biography" class="hover:text-red-400">Biography</a></li>
+                            <li><a href="#revolution" class="hover:text-red-400">Revolution</a></li>
+                            <li><a href="#poetry" class="hover:text-red-400">Poetry</a></li>
+                            <li><a href="#legacy" class="hover:text-red-400">Legacy</a></li>
+                            <li><a href="#memorials" class="hover:text-red-400">Memorials</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Connect</h3>
+                        <p>For more information about Hungarian literature and culture:</p>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="#" class="text-2xl hover:text-red-400"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-2xl hover:text-red-400"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-2xl hover:text-red-400"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-2xl hover:text-red-400"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm">
+                    <p>&copy; 2024 Sándor Petőfi Memorial Website. All information is provided for educational purposes.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
