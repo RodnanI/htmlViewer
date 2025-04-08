@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stammbaumanalysen</title>
+    <style>
+        :root {
+            --primary: #2b6777;
+            --secondary: #c8d8e4;
+            --accent: #f2f2f2;
+            --text: #333;
+            --highlight: #52ab98;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--accent);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-wrapper {
+            background-color: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary);
+            margin: 25px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--highlight);
+        }
+        
+        h3 {
+            font-size: 1.3em;
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .tab-button {
+            background: var(--secondary);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-button.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 0 5px 5px 5px;
+            border: 1px solid var(--secondary);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .diagram {
+            width: 100%;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        
+        .example-tree {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .family-symbols {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .symbol {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+        }
+        
+        .male {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border: 2px solid #000;
+        }
+        
+        .female {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+        
+        .affected-male {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border: 2px solid #000;
+        }
+        
+        .affected-female {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+        
+        .carrier-female {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border: 2px solid #000;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .carrier-female::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .interactive-quiz {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .option.selected {
+            background-color: var(--highlight);
+            color: white;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--highlight);
+        }
+        
+        .example-pedigree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .pedigree-generation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .couple {
+            display: flex;
+            align-items: center;
+        }
+        
+        .horizontal-line {
+            width: 20px;
+            height: 2px;
+            background-color: black;
+        }
+        
+        .vertical-line {
+            width: 2px;
+            height: 20px;
+            background-color: black;
+            margin: 0 auto;
+        }
+        
+        .children {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .child {
+            margin: 0 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        /* Toggleable sections */
+        .toggle-content {
+            display: none;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .toggle-button {
+            background-color: var(--highlight);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+        
+        .toggle-button::after {
+            content: "+";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .toggle-button.active::after {
+            content: "-";
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header, .content-wrapper {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                width: 100%;
+                margin-bottom: 5px;
+                border-radius: 5px;
+            }
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #e6f7ff;
+        }
+
+        /* Example pedigree styles */
+        .pedigree-svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Stammbaumanalysen</h1>
+            <p>Gonosomal und autosomal vererbte Merkmale und Krankheiten</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <section id="introduction">
+                <h2>1. Einleitung</h2>
+                <p>Die Stammbaumanalyse ist ein zentrales Instrument der Genetik, um den Erbgang von Merkmalen und Krankheiten in Familien zu untersuchen. Dabei werden sowohl autosomal vererbte als auch gonosomal (geschlechtsgebundene) Merkmale betrachtet. Das Verständnis dieser Konzepte hilft, Vererbungsmuster zu identifizieren, Risikoberechnungen durchzuführen und genetische Beratungen vorzubereiten.</p>
+            </section>
+            
+            <section id="basics">
+                <h2>2. Grundlagen der Vererbung</h2>
+                
+                <div class="tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'chromosomes')">Chromosomen & Gene</button>
+                    <button class="tab-button" onclick="openTab(event, 'inheritance-types')">Vererbungstypen</button>
+                </div>
+                
+                <div id="chromosomes" class="tab-content active">
+                    <h3>Chromosomen und Gene</h3>
+                    <ul>
+                        <li><strong>Chromosomen:</strong> Träger der genetischen Information; Menschen haben 23 Chromosomenpaare.</li>
+                        <li><strong>Gene:</strong> Abschnitte der DNA, die für bestimmte Merkmale kodieren.</li>
+                        <li><strong>Allele:</strong> Verschiedene Varianten eines Gens.</li>
+                    </ul>
+                    <div class="diagram">
+                        <img src="/api/placeholder/600/300" alt="Darstellung von Chromosomen, Genen und Allelen" />
+                    </div>
+                </div>
+                
+                <div id="inheritance-types" class="tab-content">
+                    <h3>Vererbungstypen</h3>
+                    <ul>
+                        <li><strong>Autosomal:</strong> Gene liegen auf den Autosomen (nicht-geschlechtsbestimmende Chromosomen).
+                            <ul>
+                                <li><strong>Autosomal-dominant:</strong> Ein dominantes Allel reicht aus, um den Phänotyp auszubilden.</li>
+                                <li><strong>Autosomal-rezessiv:</strong> Beide Allele müssen mutiert sein, damit sich das Merkmal zeigt.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Gonosomal (geschlechtsgebunden):</strong> Gene liegen auf den Geschlechtschromosomen (X oder Y).
+                            <ul>
+                                <li><strong>X-chromosomal-dominant:</strong> Ein mutiertes Allel auf dem X-Chromosom führt zu Ausprägung, wobei Männer (XY) oft schwerer betroffen sein können.</li>
+                                <li><strong>X-chromosomal-rezessiv:</strong> Vor allem Männer zeigen das Merkmal, da sie nur ein X-Chromosom besitzen; Frauen müssen beide Allele tragen, um den Phänotyp zu zeigen.</li>
+                                <li><strong>Y-chromosomal:</strong> Betrifft ausschließlich Männer, da nur Männer ein Y-Chromosom besitzen.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="inheritance-patterns">
+                <h2>3. Besonderheiten der Vererbungsmuster</h2>
+                
+                <button class="toggle-button" onclick="toggleSection('autosomal-dominant')">3.1. Autosomal-dominante Merkmale</button>
+                <div id="autosomal-dominant" class="toggle-content">
+                    <h3>Merkmale und Analyse</h3>
+                    <ul>
+                        <li>Merkmale sind häufig in jeder Generation zu finden.</li>
+                        <li>Betroffene Personen haben mindestens einen betroffenen Elternteil.</li>
+                        <li>Beispiel: Morbus Huntington, Marfan-Syndrom.</li>
+                    </ul>
+                    <div class="example-pedigree">
+                        <svg class="pedigree-svg" viewBox="0 0 500 250">
+                            <!-- Generation I -->
+                            <rect x="200" y="30" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="270" cy="45" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="230" y1="45" x2="255" y2="45" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical line to next generation -->
+                            <line x1="235" y1="75" x2="235" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation II -->
+                            <rect x="150" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="220" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="180" y1="115" x2="205" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <rect x="290" y="100" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="360" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="320" y1="115" x2="345" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal line connecting siblings -->
+                            <line x1="235" y1="90" x2="165" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="235" y1="90" x2="305" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="165" y1="90" x2="165" y2="100" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="90" x2="305" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical lines to next generation -->
+                            <line x1="165" y1="145" x2="165" y2="170" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="145" x2="305" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation III -->
+                            <rect x="120" y="170" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="180" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="150" y1="185" x2="165" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <rect x="260" y="170" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="330" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="290" y1="185" x2="315" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal lines connecting siblings -->
+                            <line x1="165" y1="160" x2="135" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="135" y1="160" x2="135" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <line x1="305" y1="160" x2="275" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="275" y1="160" x2="275" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Legend -->
+                            <text x="20" y="40" font-size="12">Legende:</text>
+                            <rect x="20" y="50" width="20" height="20" fill="#333" stroke="black" stroke-width="2" />
+                            <text x="50" y="65" font-size="12">Betroffener Mann</text>
+                            
+                            <circle cx="30" cy="90" r="10" fill="white" stroke="black" stroke-width="2" />
+                            <text x="50" y="95" font-size="12">Nicht betroffene Frau</text>
+                        </svg>
+                        <p><em>Beispiel-Stammbaum für einen autosomal-dominanten Erbgang</em></p>
+                    </div>
+                </div>
+                
+                <button class="toggle-button" onclick="toggleSection('autosomal-recessive')">3.2. Autosomal-rezessive Merkmale</button>
+                <div id="autosomal-recessive" class="toggle-content">
+                    <h3>Merkmale und Analyse</h3>
+                    <ul>
+                        <li>Merkmale treten oft erst in späteren Generationen auf, da gesunde Träger unauffällig bleiben.</li>
+                        <li>Bei Auftreten des Merkmals in der Familie sind oft beide Elternteile Träger.</li>
+                        <li>Beispiel: Mukoviszidose, Phenylketonurie.</li>
+                    </ul>
+                    <div class="example-pedigree">
+                        <svg class="pedigree-svg" viewBox="0 0 500 250">
+                            <!-- Generation I -->
+                            <rect x="200" y="30" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="270" cy="45" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="230" y1="45" x2="255" y2="45" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical line to next generation -->
+                            <line x1="235" y1="75" x2="235" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation II -->
+                            <rect x="150" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="220" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="180" y1="115" x2="205" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <rect x="290" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="360" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="320" y1="115" x2="345" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal line connecting siblings -->
+                            <line x1="235" y1="90" x2="165" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="235" y1="90" x2="305" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="165" y1="90" x2="165" y2="100" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="90" x2="305" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical lines to next generation -->
+                            <line x1="165" y1="145" x2="165" y2="170" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="145" x2="305" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation III -->
+                            <rect x="120" y="170" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="180" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="150" y1="185" x2="165" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <rect x="260" y="170" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="320" cy="185" r="15" fill="#333" stroke="black" stroke-width="2" />
+                            <line x1="290" y1="185" x2="305" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal lines connecting siblings -->
+                            <line x1="165" y1="160" x2="135" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="135" y1="160" x2="135" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <line x1="305" y1="160" x2="275" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="275" y1="160" x2="275" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Legend -->
+                            <text x="20" y="40" font-size="12">Legende:</text>
+                            <rect x="20" y="50" width="20" height="20" fill="white" stroke="black" stroke-width="2" />
+                            <text x="50" y="65" font-size="12">Gesunder Träger (heterozygot)</text>
+                            
+                            <rect x="20" y="80" width="20" height="20" fill="#333" stroke="black" stroke-width="2" />
+                            <text x="50" y="95" font-size="12">Betroffen (homozygot)</text>
+                        </svg>
+                        <p><em>Beispiel-Stammbaum für einen autosomal-rezessiven Erbgang</em></p>
+                    </div>
+                </div>
+                
+                <button class="toggle-button" onclick="toggleSection('x-dominant')">3.3. X-chromosomal-dominante Merkmale</button>
+                <div id="x-dominant" class="toggle-content">
+                    <h3>Merkmale und Analyse</h3>
+                    <ul>
+                        <li>Frauen sind häufig betroffen, aber Männer können schwerwiegendere Ausprägungen zeigen.</li>
+                        <li>Übertragung von der betroffenen Mutter auf ihre Söhne und Töchter.</li>
+                        <li>Beispiel: Rett-Syndrom, Vitamin-D-resistente Rachitis.</li>
+                    </ul>
+                    <div class="example-pedigree">
+                        <svg class="pedigree-svg" viewBox="0 0 500 250">
+                            <!-- Generation I -->
+                            <rect x="200" y="30" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="270" cy="45" r="15" fill="#333" stroke="black" stroke-width="2" />
+                            <line x1="230" y1="45" x2="255" y2="45" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical line to next generation -->
+                            <line x1="235" y1="75" x2="235" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation II -->
+                            <rect x="150" y="100" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="220" cy="115" r="15" fill="#333" stroke="black" stroke-width="2" />
+                            <line x1="180" y1="115" x2="205" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <rect x="290" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="360" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="320" y1="115" x2="345" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal line connecting siblings -->
+                            <line x1="235" y1="90" x2="165" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="235" y1="90" x2="305" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="165" y1="90" x2="165" y2="100" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="90" x2="305" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Legend -->
+                            <text x="20" y="40" font-size="12">Legende:</text>
+                            <rect x="20" y="50" width="20" height="20" fill="#333" stroke="black" stroke-width="2" />
+                            <text x="50" y="65" font-size="12">Betroffener Mann</text>
+                            
+                            <circle cx="30" cy="90" r="10" fill="#333" stroke="black" stroke-width="2" />
+                            <text x="50" y="95" font-size="12">Betroffene Frau</text>
+                        </svg>
+                        <p><em>Beispiel-Stammbaum für einen X-chromosomal-dominanten Erbgang</em></p>
+                    </div>
+                </div>
+                
+                <button class="toggle-button" onclick="toggleSection('x-recessive')">3.4. X-chromosomal-rezessive Merkmale</button>
+                <div id="x-recessive" class="toggle-content">
+                    <h3>Merkmale und Analyse</h3>
+                    <ul>
+                        <li>Männer sind häufiger betroffen, Frauen fungieren oft als asymptomatische Trägerinnen.</li>
+                        <li>Betroffene Männer haben keine betroffene Mutter, die das Merkmal in ausprägter Form zeigt, sondern eher eine Trägerin als Mutter.</li>
+                        <li>Beispiel: Hämophilie A, Rot-Grün-Sehschwäche, Muskeldystrophie Duchenne.</li>
+                    </ul>
+                    <div class="example-pedigree">
+                        <svg class="pedigree-svg" viewBox="0 0 500 300">
+                            <!-- Generation I -->
+                            <rect x="200" y="30" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="270" cy="45" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="230" y1="45" x2="255" y2="45" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical line to next generation -->
+                            <line x1="235" y1="75" x2="235" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation II -->
+                            <rect x="150" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <!-- Carrier female -->
+                            <circle cx="220" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="220" cy="115" r="7" fill="#333" stroke="black" stroke-width="1" />
+                            <line x1="180" y1="115" x2="205" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <rect x="290" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="360" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="320" y1="115" x2="345" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal line connecting siblings -->
+                            <line x1="235" y1="90" x2="165" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="235" y1="90" x2="305" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="165" y1="90" x2="165" y2="100" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="90" x2="305" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical lines to next generation -->
+                            <line x1="165" y1="145" x2="165" y2="170" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="145" x2="305" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation III -->
+                            <rect x="120" y="170" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <!-- Carrier female -->
+                            <circle cx="180" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="180" cy="185" r="7" fill="#333" stroke="black" stroke-width="1" />
+                            <line x1="150" y1="185" x2="165" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <rect x="260" y="170" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="320" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="290" y1="185" x2="305" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal lines connecting siblings -->
+                            <line x1="165" y1="160" x2="135" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="135" y1="160" x2="135" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <line x1="305" y1="160" x2="275" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="275" y1="160" x2="275" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Legend -->
+                            <text x="20" y="40" font-size="12">Legende:</text>
+                            <rect x="20" y="50" width="20" height="20" fill="#333" stroke="black" stroke-width="2" />
+                            <text x="50" y="65" font-size="12">Betroffener Mann</text>
+                            
+                            <circle cx="30" cy="90" r="10" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="30" cy="90" r="5" fill="#333" stroke="black" stroke-width="1" />
+                            <text x="50" y="95" font-size="12">Weibliche Trägerin</text>
+                        </svg>
+                        <p><em>Beispiel-Stammbaum für einen X-chromosomal-rezessiven Erbgang</em></p>
+                    </div>
+                </div>
+                
+                <button class="toggle-button" onclick="toggleSection('y-linked')">3.5. Y-chromosomale Merkmale</button>
+                <div id="y-linked" class="toggle-content">
+                    <h3>Merkmale und Analyse</h3>
+                    <ul>
+                        <li>Werden ausschließlich von Vätern an Söhne vererbt.</li>
+                        <li>Direkter Durchgang von Vater zu Sohn.</li>
+                        <li>Beispiel: Einige Formen der Unfruchtbarkeit, Y-chromosomale Mikrodeletionen.</li>
+                    </ul>
+                    <div class="example-pedigree">
+                        <svg class="pedigree-svg" viewBox="0 0 500 300">
+                            <!-- Generation I -->
+                            <rect x="200" y="30" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="270" cy="45" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="230" y1="45" x2="255" y2="45" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical line to next generation -->
+                            <line x1="235" y1="75" x2="235" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation II -->
+                            <rect x="150" y="100" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="220" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="180" y1="115" x2="205" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <rect x="290" y="100" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="360" cy="115" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="320" y1="115" x2="345" y2="115" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal line connecting siblings -->
+                            <line x1="235" y1="90" x2="165" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="235" y1="90" x2="305" y2="90" stroke="black" stroke-width="2" />
+                            <line x1="165" y1="90" x2="165" y2="100" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="90" x2="305" y2="100" stroke="black" stroke-width="2" />
+                            
+                            <!-- Vertical lines to next generation -->
+                            <line x1="165" y1="145" x2="165" y2="170" stroke="black" stroke-width="2" />
+                            <line x1="305" y1="145" x2="305" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <!-- Generation III -->
+                            <rect x="120" y="170" width="30" height="30" fill="#333" stroke="black" stroke-width="2" />
+                            <circle cx="180" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="150" y1="185" x2="165" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <rect x="260" y="170" width="30" height="30" fill="white" stroke="black" stroke-width="2" />
+                            <circle cx="320" cy="185" r="15" fill="white" stroke="black" stroke-width="2" />
+                            <line x1="290" y1="185" x2="305" y2="185" stroke="black" stroke-width="2" />
+                            
+                            <!-- Horizontal lines connecting siblings -->
+                            <line x1="165" y1="160" x2="135" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="135" y1="160" x2="135" y2="170" stroke="black" stroke-width="2" />
+                            
+                            <line x1="305" y1="160" x2="275" y2="160" stroke="black" stroke-width="2" />
+                            <line x1="275" y1="160" x2="275" y2="170" stroke="black" stroke-width="2" />
+                        </svg>
+                        <p><em>Beispiel-Stammbaum für einen Y-chromosomalen Erbgang</em></p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Vergleichstabelle der Vererbungsmuster</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Vererbungstyp</th>
+                                <th>Betroffene</th>
+                                <th>Typisches Muster</th>
+                                <th>Beispiele</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Autosomal-dominant</td>
+                                <td>Männer und Frauen gleichermaßen</td>
+                                <td>In jeder Generation, vertikale Übertragung</td>
+                                <td>Morbus Huntington, Marfan-Syndrom</td>
+                            </tr>
+                            <tr>
+                                <td>Autosomal-rezessiv</td>
+                                <td>Männer und Frauen gleichermaßen</td>
+                                <td>Generationen können übersprungen werden</td>
+                                <td>Mukoviszidose, Phenylketonurie</td>
+                            </tr>
+                            <tr>
+                                <td>X-chromosomal-dominant</td>
+                                <td>Mehr Frauen als Männer</td>
+                                <td>Keine Übertragung von Vater zu Sohn</td>
+                                <td>Vitamin-D-resistente Rachitis, Rett-Syndrom</td>
+                            </tr>
+                            <tr>
+                                <td>X-chromosomal-rezessiv</td>
+                                <td>Fast nur Männer</td>
+                                <td>Übertragung über weibliche Trägerinnen</td>
+                                <td>Rot-Grün-Sehschwäche, Hämophilie A</td>
+                            </tr>
+                            <tr>
+                                <td>Y-chromosomal</td>
+                                <td>Nur Männer</td>
+                                <td>Übertragung von Vater zu allen Söhnen</td>
+                                <td>Bestimmte Formen der Unfruchtbarkeit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="analysis">
+                <h2>4. Durchführung einer Stammbaumanalyse</h2>
+                
+                <div class="tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'preparation')">Vorbereitung</button>
+                    <button class="tab-button" onclick="openTab(event, 'procedure')">Vorgehensweise</button>
+                    <button class="tab-button" onclick="openTab(event, 'probability')">Wahrscheinlichkeitsrechnung</button>
+                </div>
+                
+                <div id="preparation" class="tab-content active">
+                    <h3>4.1. Vorbereitung und Datensammlung</h3>
+                    <ul>
+                        <li>Familienanamnese erfassen: Informationen zu betroffenen und nicht betroffenen Personen.</li>
+                        <li>Symbole im Stammbaum:
+                            <ul>
+                                <li>Quadrate = Männer, Kreise = Frauen.</li>
+                                <li>Schattierte Symbole = Betroffene, nicht schattierte = Unbetroffene.</li>
+                                <li>Eventuell Zusätze für Todesfälle, Ehen, etc.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <div class="family-symbols">
+                        <div class="symbol">
+                            <div class="male"></div>
+                            <p>Mann</p>
+                        </div>
+                        <div class="symbol">
+                            <div class="female"></div>
+                            <p>Frau</p>
+                        </div>
+                        <div class="symbol">
+                            <div class="affected-male"></div>
+                            <p>Betroffener Mann</p>
+                        </div>
+                        <div class="symbol">
+                            <div class="affected-female"></div>
+                            <p>Betroffene Frau</p>
+                        </div>
+                        <div class="symbol">
+                            <div class="carrier-female"></div>
+                            <p>Trägerin</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="procedure" class="tab-content">
+                    <h3>4.2. Systematische Vorgehensweise</h3>
+                    <ol>
+                        <li><strong>Erstellung des Stammbaums:</strong> Zeichnen des Diagramms unter Verwendung standardisierter Symbole.</li>
+                        <li><strong>Analyse der Generationen:</strong> Untersuchen, ob das Merkmal in jeder Generation auftritt (Hinweis auf dominant) oder ob Generationen übersprungen werden (Hinweis auf rezessiv).</li>
+                        <li><strong>Beurteilung von Geschlechterverhältnissen:</strong> Bei gonosomalen Merkmalen ist die Geschlechterverteilung oft ein entscheidender Hinweis (z. B. bei X-chromosomal-rezessiven Erkrankungen sind meist Männer betroffen).</li>
+                        <li><strong>Identifikation von Trägern:</strong> Besonders bei rezessiven Merkmalen müssen asymptomatische Träger identifiziert werden, die das Gen weitergeben können.</li>
+                    </ol>
+                    
+                    <div class="diagram">
+                        <img src="/api/placeholder/600/300" alt="Systematische Analyse eines Stammbaums" />
+                    </div>
+                </div>
+                
+                <div id="probability" class="tab-content">
+                    <h3>4.3. Mathematische Wahrscheinlichkeitsrechnung</h3>
+                    <ul>
+                        <li>Berechnung des Erbfallrisikos: Mithilfe von Punnett-Quadraten können Wahrscheinlichkeiten für das Auftreten eines Merkmals bei Nachkommen berechnet werden.</li>
+                        <li>Beispielrechnung: Bei einem autosomal-rezessiven Merkmal besteht bei zwei heterozygoten Eltern eine 25%-ige Wahrscheinlichkeit, dass ein Kind erkrankt.</li>
+                    </ul>
+                    
+                    <div class="diagram">
+                        <h4>Punnett-Quadrat für autosomal-rezessiven Erbgang (Aa × Aa)</h4>
+                        <table class="comparison-table" style="width: 300px; margin: 20px auto;">
+                            <tr>
+                                <th></th>
+                                <th>A</th>
+                                <th>a</th>
+                            </tr>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>AA (gesund)</td>
+                                <td>Aa (gesunder Träger)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>a</strong></td>
+                                <td>Aa (gesunder Träger)</td>
+                                <td>aa (betroffen)</td>
+                            </tr>
+                        </table>
+                        <p style="text-align: center;">Wahrscheinlichkeit für ein betroffenes Kind (aa): 25%</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="important-aspects">
+                <h2>5. Wichtige Aspekte bei der Analyse und Aufgabenbearbeitung</h2>
+                
+                <div class="section">
+                    <h3>5.1. Genauigkeit und Vollständigkeit</h3>
+                    <ul>
+                        <li><strong>Daten überprüfen:</strong> Achte darauf, dass alle relevanten Informationen (Familienmitglieder, Beziehungen, betroffene Individuen) korrekt erfasst werden.</li>
+                        <li><strong>Unschärfen identifizieren:</strong> Fehlende oder unklare Informationen im Stammbaum können zu falschen Schlüssen führen.</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h3>5.2. Beachtung der Vererbungsmuster</h3>
+                    <ul>
+                        <li><strong>Differenzialdiagnose:</strong> Unterscheide klar zwischen den verschiedenen Vererbungsmustern. Notiere Besonderheiten wie Geschlechterverhältnisse und Generationensprünge.</li>
+                        <li><strong>Symbole und Notationen:</strong> Verwende standardisierte Symbole, um Verwirrung zu vermeiden.</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h3>5.3. Mathematische und statistische Überlegungen</h3>
+                    <ul>
+                        <li><strong>Punnett-Quadrat anwenden:</strong> Zur Berechnung von Erbfallrisiken.</li>
+                        <li><strong>Wahrscheinlichkeiten richtig interpretieren:</strong> Unterschied zwischen theoretischem Risiko und beobachteter Häufigkeit in der Familie beachten.</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h3>5.4. Kritische Reflexion</h3>
+                    <ul>
+                        <li><strong>Genetische Heterogenität:</strong> Ähnliche Phänotypen können durch unterschiedliche genetische Ursachen hervorgerufen werden.</li>
+                        <li><strong>Penetranz und Expressivität:</strong> Nicht alle Träger eines dominanten Gens zeigen den Phänotyp in gleicher Ausprägung (variable Expressivität) oder überhaupt (Inkomplette Penetranz).</li>
+                    </ul>
+                </div>
+                
+                <div class="section">
+                    <h3>5.5. Praktische Anwendung in Aufgaben</h3>
+                    <ul>
+                        <li><strong>Schritt-für-Schritt-Lösungsansätze:</strong> Beginne immer mit einer systematischen Darstellung des Stammbaums, bevor du zu Berechnungen oder weiterführenden Interpretationen übergehst.</li>
+                        <li><strong>Fehlerquellen identifizieren:</strong> Achte auf mögliche Missinterpretationen (z. B. falsche Annahmen bei der Trägerbestimmung) und diskutiere diese in deiner Lösung.</li>
+                        <li><strong>Klare Begründung der Ergebnisse:</strong> Erkläre, warum bestimmte Personen als Träger oder Betroffene gelten und wie das Risiko berechnet wurde.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="quiz">
+                <h2>Interaktives Quiz: Teste dein Wissen!</h2>
+                
+                <div class="interactive-quiz">
+                    <div class="quiz-question" id="question1">
+                        <h3>Frage 1: Welches Vererbungsmuster zeigt sich, wenn hauptsächlich Männer betroffen sind und die Mütter oft symptomfreie Trägerinnen sind?</h3>
+                        <div class="options">
+                            <div class="option" onclick="selectOption('question1', this)">Autosomal-dominant</div>
+                            <div class="option" onclick="selectOption('question1', this)">Autosomal-rezessiv</div>
+                            <div class="option" onclick="selectOption('question1', this)">X-chromosomal-dominant</div>
+                            <div class="option" onclick="selectOption('question1', this, true)">X-chromosomal-rezessiv</div>
+                        </div>
+                        <div class="feedback correct">
+                            Richtig! Bei X-chromosomal-rezessiven Erkrankungen sind hauptsächlich Männer betroffen, da sie nur ein X-Chromosom besitzen und daher keine kompensatorische Wirkung eines zweiten X-Chromosoms haben.
+                        </div>
+                        <div class="feedback incorrect">
+                            Leider falsch. Bei X-chromosomal-rezessiven Erkrankungen sind hauptsächlich Männer betroffen, da sie nur ein X-Chromosom besitzen.
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" id="question2">
+                        <h3>Frage 2: Wenn beide Eltern heterozygote Träger eines autosomal-rezessiven Merkmals sind, wie hoch ist die Wahrscheinlichkeit, dass ihr Kind das Merkmal zeigt?</h3>
+                        <div class="options">
+                            <div class="option" onclick="selectOption('question2', this)">0%</div>
+                            <div class="option" onclick="selectOption('question2', this, true)">25%</div>
+                            <div class="option" onclick="selectOption('question2', this)">50%</div>
+                            <div class="option" onclick="selectOption('question2', this)">75%</div>
+                        </div>
+                        <div class="feedback correct">
+                            Richtig! Bei zwei heterozygoten Eltern (Aa × Aa) beträgt die Wahrscheinlichkeit für ein betroffenes Kind (aa) 25%.
+                        </div>
+                        <div class="feedback incorrect">
+                            Leider falsch. Bei zwei heterozygoten Eltern (Aa × Aa) beträgt die Wahrscheinlichkeit für ein betroffenes Kind (aa) 25%.
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" id="question3">
+                        <h3>Frage 3: Welches Merkmal ist ein bekanntes Beispiel für einen autosomal-dominanten Erbgang?</h3>
+                        <div class="options">
+                            <div class="option" onclick="selectOption('question3', this)">Mukoviszidose</div>
+                            <div class="option" onclick="selectOption('question3', this, true)">Morbus Huntington</div>
+                            <div class="option" onclick="selectOption('question3', this)">Hämophilie A</div>
+                            <div class="option" onclick="selectOption('question3', this)">Rot-Grün-Sehschwäche</div>
+                        </div>
+                        <div class="feedback correct">
+                            Richtig! Morbus Huntington ist eine klassische autosomal-dominante Erkrankung. Ein betroffenes Allel reicht aus, um die Krankheit zu entwickeln.
+                        </div>
+                        <div class="feedback incorrect">
+                            Leider falsch. Morbus Huntington ist eine klassische autosomal-dominante Erkrankung.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="summary">
+                <h2>6. Zusammenfassung</h2>
+                
+                <div class="section">
+                    <p>Die Stammbaumanalyse ist ein wesentliches Instrument in der Humangenetik, das es ermöglicht, Vererbungsmuster von autosomal und gonosomal vererbten Merkmalen zu identifizieren. Wichtig ist dabei, systematisch vorzugehen, alle relevanten Informationen zu erfassen und die Besonderheiten der verschiedenen Vererbungstypen zu berücksichtigen. Bei der Aufgabenbearbeitung sollte stets auf Genauigkeit, klare Symbolik und nachvollziehbare mathematische Herleitungen geachtet werden.</p>
+                    
+                    <p>Die Kernpunkte zusammengefasst:</p>
+                    <ul>
+                        <li>Autosomale und gonosomale Vererbung unterscheiden sich grundlegend in ihren Mustern.</li>
+                        <li>Dominante Merkmale treten in jeder Generation auf, rezessive können Generationen überspringen.</li>
+                        <li>X-chromosomal-rezessive Merkmale betreffen hauptsächlich Männer.</li>
+                        <li>Die korrekte Verwendung von Stammbaumsymbolen ist essentiell für eine klare Analyse.</li>
+                        <li>Punnett-Quadrate helfen bei der Berechnung von Vererbungswahrscheinlichkeiten.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <footer>
+                <p>© 2025 Genetik-Bildungsmaterial | Interaktive Stammbaumanalyse</p>
+            </footer>
+        </div>
+    </div>
+    
+    <script>
+        // Function to handle tab switching
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            
+            // Hide all tab content
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            
+            // Remove "active" class from all tab buttons
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            
+            // Show the current tab and add "active" class to the button
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Function to toggle sections
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const button = section.previousElementSibling;
+            
+            if (section.style.display === "block") {
+                section.style.display = "none";
+                button.classList.remove("active");
+            } else {
+                section.style.display = "block";
+                button.classList.add("active");
+            }
+        }
+        
+        // Function to handle quiz options
+        function selectOption(questionId, option, isCorrect = false) {
+            // Remove selected class from all options in this question
+            const options = document.querySelectorAll(`#${questionId} .option`);
+            options.forEach(opt => opt.classList.remove("selected"));
+            
+            // Add selected class to clicked option
+            option.classList.add("selected");
+            
+            // Show appropriate feedback
+            const correctFeedback = document.querySelector(`#${questionId} .feedback.correct`);
+            const incorrectFeedback = document.querySelector(`#${questionId} .feedback.incorrect`);
+            
+            if (isCorrect) {
+                correctFeedback.style.display = "block";
+                incorrectFeedback.style.display = "none";
+            } else {
+                correctFeedback.style.display = "none";
+                incorrectFeedback.style.display = "block";
+            }
+        }
+        
+        // Initialize all toggle sections to be hidden initially
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleContents = document.querySelectorAll(".toggle-content");
+            toggleContents.forEach(content => {
+                content.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
