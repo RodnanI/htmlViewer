@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epochenübersicht der deutschen Literatur</title>
+    <style>
+        :root {
+            --primary-color: #4b6584;
+            --secondary-color: #7f94b0;
+            --accent-color: #f7d794;
+            --text-color: #333;
+            --background-color: #f5f6fa;
+            --card-color: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --timeline-color: #d1d8e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .sidebar {
+            width: 250px;
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 1rem;
+            margin-right: 1rem;
+            border-right: 1px solid var(--timeline-color);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background-color: var(--background-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-link .year {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .nav-link:hover .year, .nav-link.active .year {
+            color: var(--accent-color);
+        }
+
+        .main-content {
+            flex: 1;
+            padding-bottom: 2rem;
+        }
+
+        .epoch {
+            margin-bottom: 2rem;
+            scroll-margin-top: 100px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .epoch.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .epoch-header {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .epoch-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .epoch-year {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-left: 1rem;
+        }
+
+        .epoch-card {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .context-card .card-header {
+            background-color: #546e7a;
+        }
+
+        .traits-card .card-header {
+            background-color: #6a89cc;
+        }
+
+        .forms-card .card-header {
+            background-color: #786fa6;
+        }
+
+        .authors-card .card-header {
+            background-color: #778ca3;
+        }
+
+        .works-card .card-header {
+            background-color: #574b90;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            position: sticky;
+            top: 90px;
+            z-index: 99;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            border-radius: 4px;
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+        }
+
+        .timeline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: var(--timeline-color);
+            z-index: 101;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0;
+            transition: width 0.1s;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--timeline-color);
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .nav-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .nav-item {
+                margin-bottom: 0;
+            }
+
+            .nav-link {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-link .year {
+                display: none;
+            }
+
+            .tool-bar {
+                top: 82px;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .epoch-title {
+                font-size: 1.8rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .epoch-year {
+                margin-left: 0;
+                font-size: 1rem;
+            }
+
+            .nav-list {
+                overflow-x: auto;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                padding-bottom: 0.5rem;
+            }
+            
+            .nav-item {
+                flex-shrink: 0;
+            }
+
+            .tool-bar {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline">
+        <div class="timeline-progress" id="timeline-progress"></div>
+    </div>
+
+    <header>
+        <h1>Epochenübersicht der deutschen Literatur</h1>
+        <p class="subtitle">Ein chronologischer Überblick von Mittelalter bis Gegenwart</p>
+    </header>
+
+    <div class="tool-bar">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="search-input" placeholder="Suche nach Epochen, Autoren, Werken..." />
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="context">Historischer Kontext</button>
+            <button class="filter-btn" data-filter="traits">Merkmale</button>
+            <button class="filter-btn" data-filter="authors">Autoren</button>
+            <button class="filter-btn" data-filter="works">Werke</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item">
+                    <a href="#mittelalter" class="nav-link">
+                        Mittelalter
+                        <span class="year">ca. 750-1500</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#humanismus" class="nav-link">
+                        Humanismus & Renaissance
+                        <span class="year">ca. 1350-1600</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#barock" class="nav-link">
+                        Barock
+                        <span class="year">ca. 1600-1720</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#aufklaerung" class="nav-link">
+                        Aufklärung
+                        <span class="year">ca. 1720-1785</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#sturm-drang" class="nav-link">
+                        Sturm und Drang
+                        <span class="year">ca. 1765-1785</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#klassik" class="nav-link">
+                        Weimarer Klassik
+                        <span class="year">ca. 1786-1832</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#romantik" class="nav-link">
+                        Romantik
+                        <span class="year">ca. 1795-1848</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#biedermeier" class="nav-link">
+                        Biedermeier & Vormärz
+                        <span class="year">ca. 1815-1848</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#realismus" class="nav-link">
+                        Realismus
+                        <span class="year">ca. 1848-1890</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#naturalismus" class="nav-link">
+                        Naturalismus
+                        <span class="year">ca. 1880-1900</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#moderne" class="nav-link">
+                        Literatur der Moderne
+                        <span class="year">ca. 1890-1920</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#weimar" class="nav-link">
+                        Weimarer Republik
+                        <span class="year">1918-1933</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#exil" class="nav-link">
+                        Exilliteratur
+                        <span class="year">1933-1945</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#nachkrieg" class="nav-link">
+                        Nachkriegsliteratur
+                        <span class="year">1945-1968</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gegenwart" class="nav-link">
+                        Gegenwartsliteratur
+                        <span class="year">ab 1968</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section id="mittelalter" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Mittelalter <span class="epoch-year">ca. 750-1500</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Feudalgesellschaft</li>
+                            <li>Christliche Kirche als dominierender kultureller Einfluss</li>
+                            <li>Kreuzzüge und Ritterkultur</li>
+                            <li>Entstehung der Städte und des Bürgertums</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Religiöse und weltliche Literatur</li>
+                            <li>Mündliche Überlieferung und beginnende Verschriftlichung</li>
+                            <li>Ständeordnung als literarisches Ordnungsprinzip</li>
+                            <li>Didaktische Ausrichtung (Belehrung)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Heldenepen (Heldendichtung)</li>
+                            <li>Höfische Dichtung (Minnesang, höfisches Epos)</li>
+                            <li>Geistliche Dichtung (Legenden, Bibelübersetzungen)</li>
+                            <li>Lehrdichtung und Spruchdichtung</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Walther von der Vogelweide (Minnesänger)</li>
+                            <li>Wolfram von Eschenbach</li>
+                            <li>Hartmann von Aue</li>
+                            <li>Gottfried von Straßburg</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Nibelungenlied" (Heldenepos, um 1200)</li>
+                            <li>"Parzival" (Wolfram von Eschenbach, um 1210)</li>
+                            <li>"Tristan" (Gottfried von Straßburg, um 1210)</li>
+                            <li>"Der arme Heinrich" (Hartmann von Aue, um 1190)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="humanismus" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Humanismus & Renaissance <span class="epoch-year">ca. 1350-1600</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Entdeckung Amerikas (1492)</li>
+                            <li>Erfindung des Buchdrucks (Gutenberg, um 1450)</li>
+                            <li>Reformation (Luther, 1517)</li>
+                            <li>Wiederbelebung der Antike</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Weltliche Bildung statt kirchlicher Dogmatik</li>
+                            <li>Humanistisches Menschenbild: Fokus auf Bildung und Vernunft</li>
+                            <li>Kritik an kirchlichen Missständen</li>
+                            <li>Wiederentdeckung antiker Vorbilder</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Satiren</li>
+                            <li>Volksbücher</li>
+                            <li>Fabeln und Schwänke</li>
+                            <li>Reformationsschriften</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Martin Luther</li>
+                            <li>Ulrich von Hutten</li>
+                            <li>Sebastian Brant</li>
+                            <li>Hans Sachs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Das Narrenschiff" (Sebastian Brant, 1494)</li>
+                            <li>Luthers Bibelübersetzung (1522/1534)</li>
+                            <li>"Till Eulenspiegel" (Volksbuch, 1515)</li>
+                            <li>"Fortunatus" (Volksbuch, 1509)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="barock" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Barock <span class="epoch-year">ca. 1600-1720</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Dreißigjähriger Krieg (1618-1648)</li>
+                            <li>Gegenreformation</li>
+                            <li>Absolutismus</li>
+                            <li>Wissenschaftliche Revolution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Vanitas-Motiv (Vergänglichkeit des Lebens)</li>
+                            <li>Antithetik (Gegensatzpaare wie Leben/Tod, Diesseits/Jenseits)</li>
+                            <li>Memento mori (Gedenke des Todes)</li>
+                            <li>Carpe diem (Nutze den Tag)</li>
+                            <li>Schwulst und Pathos in der Sprache</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Sonette</li>
+                            <li>Emblematik</li>
+                            <li>Schäferdichtung</li>
+                            <li>Trauerspiele und Komödien</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Andreas Gryphius</li>
+                            <li>Hans Jakob Christoffel von Grimmelshausen</li>
+                            <li>Martin Opitz</li>
+                            <li>Paul Fleming</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Der abenteuerliche Simplicissimus Teutsch" (Grimmelshausen, 1668)</li>
+                            <li>"Es ist alles eitel" (Sonett, Andreas Gryphius, 1637)</li>
+                            <li>"Buch von der Deutschen Poeterey" (Martin Opitz, 1624)</li>
+                            <li>"Catharina von Georgien" (Andreas Gryphius, 1657)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="aufklaerung" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Aufklärung <span class="epoch-year">ca. 1720-1785</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Aufstieg des Bürgertums</li>
+                            <li>Entwicklung der modernen Wissenschaften</li>
+                            <li>Französische Revolution (1789)</li>
+                            <li>Vernunft als Leitprinzip</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Sapere aude!" (Wage es, weise zu sein!) - Immanuel Kant</li>
+                            <li>Kritisches Denken und Vernunft</li>
+                            <li>Toleranzgedanke</li>
+                            <li>Erziehung und Bildung des Menschen</li>
+                            <li>Natürlichkeit und Empfindsamkeit</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Fabeln</li>
+                            <li>Bürgerliches Trauerspiel</li>
+                            <li>Philosophische Abhandlungen</li>
+                            <li>Moralische Wochenschriften</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Gotthold Ephraim Lessing</li>
+                            <li>Immanuel Kant</li>
+                            <li>Christian Fürchtegott Gellert</li>
+                            <li>Friedrich Gottlieb Klopstock</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Nathan der Weise" (Lessing, 1779)</li>
+                            <li>"Miss Sara Sampson" (Lessing, 1755)</li>
+                            <li>"Emilia Galotti" (Lessing, 1772)</li>
+                            <li>"Was ist Aufklärung?" (Kant, 1784)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sturm-drang" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Sturm und Drang <span class="epoch-year">ca. 1765-1785</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Reaktion gegen die Rationalität der Aufklärung</li>
+                            <li>Politische Unruhen</li>
+                            <li>Vorphase der Französischen Revolution</li>
+                            <li>Gesellschaftlicher Wandel</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Geniekult und Individualismus</li>
+                            <li>Gefühl statt Vernunft</li>
+                            <li>Rebellion gegen gesellschaftliche Normen</li>
+                            <li>Naturverbundenheit</li>
+                            <li>Leidenschaft und Überschwang</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Kraftvolles Drama</li>
+                            <li>Subjektive Lyrik</li>
+                            <li>Briefroman</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Der junge Goethe</li>
+                            <li>Der junge Schiller</li>
+                            <li>Jakob Michael Reinhold Lenz</li>
+                            <li>Friedrich Maximilian Klinger</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Die Räuber" (Schiller, 1781)</li>
+                            <li>"Götz von Berlichingen" (Goethe, 1773)</li>
+                            <li>"Die Leiden des jungen Werthers" (Goethe, 1774)</li>
+                            <li>"Der Hofmeister" (Lenz, 1774)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="klassik" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Weimarer Klassik <span class="epoch-year">ca. 1786-1832</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Französische Revolution und napoleonische Kriege</li>
+                            <li>Kulturelles Zentrum in Weimar</li>
+                            <li>Idealbild der griechischen Antike</li>
+                            <li>Humanistisches Bildungsideal</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Harmonie und Ausgewogenheit</li>
+                            <li>Humanitätsideal</li>
+                            <li>Streben nach Vollkommenheit</li>
+                            <li>Verbindung von Vernunft und Gefühl</li>
+                            <li>Ästhetische Erziehung des Menschen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Klassisches Drama</li>
+                            <li>Ballade</li>
+                            <li>Ideendichtung</li>
+                            <li>Entwicklungsroman</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Johann Wolfgang von Goethe</li>
+                            <li>Friedrich Schiller</li>
+                            <li>Christoph Martin Wieland</li>
+                            <li>Johann Gottfried Herder</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Faust I" und "Faust II" (Goethe, 1808/1832)</li>
+                            <li>"Wilhelm Meisters Lehrjahre" (Goethe, 1795/96)</li>
+                            <li>"Maria Stuart" (Schiller, 1800)</li>
+                            <li>"Über die ästhetische Erziehung des Menschen" (Schiller, 1795)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="romantik" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Romantik <span class="epoch-year">ca. 1795-1848</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Napoleonische Kriege</li>
+                            <li>Restauration nach dem Wiener Kongress (1815)</li>
+                            <li>Industrialisierung</li>
+                            <li>Nationales Bewusstsein in Deutschland</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Sehnsucht nach dem Unendlichen</li>
+                            <li>Weltflucht und Verklärung des Mittelalters</li>
+                            <li>Verbindung von Traum und Wirklichkeit</li>
+                            <li>Das Wunderbare und Geheimnisvolle</li>
+                            <li>Naturmystik und Pantheismus</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Kunstmärchen</li>
+                            <li>Novellen</li>
+                            <li>Volkslieder</li>
+                            <li>Lyrische Gedichte</li>
+                            <li>Schauerromane</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Novalis (Friedrich von Hardenberg)</li>
+                            <li>Ludwig Tieck</li>
+                            <li>Clemens Brentano</li>
+                            <li>Joseph von Eichendorff</li>
+                            <li>E.T.A. Hoffmann</li>
+                            <li>Gebrüder Grimm</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Des Knaben Wunderhorn" (Arnim/Brentano, 1805-1808)</li>
+                            <li>"Der goldne Topf" (E.T.A. Hoffmann, 1814)</li>
+                            <li>"Aus dem Leben eines Taugenichts" (Eichendorff, 1826)</li>
+                            <li>"Heinrich von Ofterdingen" (Novalis, 1802)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="biedermeier" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Biedermeier & Vormärz/Junges Deutschland <span class="epoch-year">ca. 1815-1848</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Restauration nach dem Wiener Kongress</li>
+                            <li>Zensur und politische Unterdrückung</li>
+                            <li>Carlsbader Beschlüsse (1819)</li>
+                            <li>Julirevolution in Frankreich (1830)</li>
+                            <li>Revolutionen von 1848/49</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <h4>Merkmale Biedermeier:</h4>
+                        <ul>
+                            <li>Rückzug ins Private</li>
+                            <li>Idyllisierung des bürgerlichen Lebens</li>
+                            <li>Politische Resignation</li>
+                            <li>Beschaulichkeit und Besinnung</li>
+                        </ul>
+                        <h4>Merkmale Vormärz/Junges Deutschland:</h4>
+                        <ul>
+                            <li>Politisches Engagement</li>
+                            <li>Kritik an bestehenden Verhältnissen</li>
+                            <li>Demokratieforderung</li>
+                            <li>Realitätsbezug und Zeitkritik</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Dorfgeschichten</li>
+                            <li>Politische Lyrik</li>
+                            <li>Feuilleton und Reiseberichte</li>
+                            <li>Zeitromane</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <h4>Biedermeier:</h4>
+                        <ul>
+                            <li>Adalbert Stifter</li>
+                            <li>Eduard Mörike</li>
+                            <li>Annette von Droste-Hülshoff</li>
+                            <li>Jeremias Gotthelf</li>
+                        </ul>
+                        <h4>Vormärz/Junges Deutschland:</h4>
+                        <ul>
+                            <li>Heinrich Heine</li>
+                            <li>Georg Büchner</li>
+                            <li>Ludwig Börne</li>
+                            <li>Ferdinand Freiligrath</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Der Nachsommer" (Stifter, 1857)</li>
+                            <li>"Die Judenbuche" (Droste-Hülshoff, 1842)</li>
+                            <li>"Woyzeck" (Büchner, 1837, postum)</li>
+                            <li>"Deutschland. Ein Wintermärchen" (Heine, 1844)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="realismus" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Realismus <span class="epoch-year">ca. 1848-1890</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Gescheiterte Revolution von 1848/49</li>
+                            <li>Deutsche Reichsgründung (1871)</li>
+                            <li>Industrialisierung und Verstädterung</li>
+                            <li>Soziale Frage und Arbeiterbewegung</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Verklärung" der Wirklichkeit (Poetischer Realismus)</li>
+                            <li>Darstellung des typisch Menschlichen</li>
+                            <li>Gesellschaftliche Konflikte</li>
+                            <li>Bürgerliche Lebenswelt</li>
+                            <li>Detailgetreue Milieuschilderungen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Novellen</li>
+                            <li>Gesellschaftsroman</li>
+                            <li>Dorfgeschichten</li>
+                            <li>Bürgerliches Drama</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Theodor Fontane</li>
+                            <li>Gottfried Keller</li>
+                            <li>Theodor Storm</li>
+                            <li>Wilhelm Raabe</li>
+                            <li>Gustav Freytag</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Effi Briest" (Fontane, 1895)</li>
+                            <li>"Der Schimmelreiter" (Storm, 1888)</li>
+                            <li>"Die Leute von Seldwyla" (Keller, 1856-1874)</li>
+                            <li>"Soll und Haben" (Freytag, 1855)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="naturalismus" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Naturalismus <span class="epoch-year">ca. 1880-1900</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Soziale Probleme durch Industrialisierung</li>
+                            <li>Urbanisierung</li>
+                            <li>Wissenschaftlicher Fortschritt (Darwin)</li>
+                            <li>Sozialgesetzgebung unter Bismarck</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Wissenschaftliche Genauigkeit</li>
+                            <li>Determinismus (Mensch bestimmt durch Milieu, Vererbung, Zeitumstände)</li>
+                            <li>Sekundenstil (präzise Wiedergabe von Alltagssprache)</li>
+                            <li>Gesellschaftskritik</li>
+                            <li>Darstellung sozialer Missstände</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Sozialdrama</li>
+                            <li>Milieustudie</li>
+                            <li>Experimentalroman</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Gerhart Hauptmann</li>
+                            <li>Arno Holz</li>
+                            <li>Johannes Schlaf</li>
+                            <li>Heinrich Mann</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Die Weber" (Hauptmann, 1892)</li>
+                            <li>"Papa Hamlet" (Holz/Schlaf, 1889)</li>
+                            <li>"Bahnwärter Thiel" (Hauptmann, 1888)</li>
+                            <li>"Die Familie Selicke" (Holz/Schlaf, 1890)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="moderne" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Literatur der Moderne <span class="epoch-year">ca. 1890-1920</span></h2>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Strömungen</div>
+                    <div class="card-content">
+                        <h4>Impressionismus (ca. 1890-1910)</h4>
+                        <p><strong>Historischer Kontext:</strong></p>
+                        <ul>
+                            <li>Fin de siècle (Jahrhundertwende)</li>
+                            <li>Fortschreitende Industrialisierung</li>
+                            <li>Technische Neuerungen</li>
+                            <li>Gesellschaftliche Umbrüche</li>
+                        </ul>
+                        <p><strong>Merkmale:</strong></p>
+                        <ul>
+                            <li>Momentaufnahmen und Sinneseindrücke</li>
+                            <li>Subjektive Wahrnehmung</li>
+                            <li>Augenblickskunst</li>
+                            <li>Suggestive Stimmungen</li>
+                        </ul>
+                        <p><strong>Wichtige Vertreter:</strong></p>
+                        <ul>
+                            <li>Arthur Schnitzler</li>
+                            <li>Hugo von Hofmannsthal</li>
+                            <li>Rainer Maria Rilke (frühe Phase)</li>
+                            <li>Thomas Mann (frühe Phase)</li>
+                        </ul>
+                        <p><strong>Bedeutende Werke:</strong></p>
+                        <ul>
+                            <li>"Leutnant Gustl" (Schnitzler, 1900)</li>
+                            <li>"Der Tod in Venedig" (Thomas Mann, 1912)</li>
+                            <li>"Reigen" (Schnitzler, 1897)</li>
+                            <li>"Der Brief des Lord Chandos" (Hofmannsthal, 1902)</li>
+                        </ul>
+
+                        <h4>Symbolismus (ca. 1890-1910)</h4>
+                        <p><strong>Merkmale:</strong></p>
+                        <ul>
+                            <li>Verwendung von Symbolen und Metaphern</li>
+                            <li>Musikalität der Sprache</li>
+                            <li>Mehrdeutigkeit und Suggestion</li>
+                            <li>Abkehr vom Naturalistischen</li>
+                        </ul>
+                        <p><strong>Wichtige Vertreter:</strong></p>
+                        <ul>
+                            <li>Stefan George</li>
+                            <li>Hugo von Hofmannsthal</li>
+                            <li>Rainer Maria Rilke</li>
+                        </ul>
+                        <p><strong>Bedeutende Werke:</strong></p>
+                        <ul>
+                            <li>"Das Jahr der Seele" (George, 1897)</li>
+                            <li>"Die Duineser Elegien" (Rilke, 1912-1922)</li>
+                            <li>"Das Buch der hängenden Gärten" (George, 1895)</li>
+                        </ul>
+
+                        <h4>Expressionismus (ca. 1910-1925)</h4>
+                        <p><strong>Historischer Kontext:</strong></p>
+                        <ul>
+                            <li>Erster Weltkrieg (1914-1918)</li>
+                            <li>Untergang des Kaiserreichs</li>
+                            <li>Novemberrevolution 1918</li>
+                            <li>Krisenbewusstsein</li>
+                        </ul>
+                        <p><strong>Merkmale:</strong></p>
+                        <ul>
+                            <li>Ich-Zerfall und Weltzerfall</li>
+                            <li>Großstadtmotivik</li>
+                            <li>Pathos und Ekstase</li>
+                            <li>Sprachexperimente</li>
+                            <li>Utopisches Denken ("O Mensch!" und "Neuer Mensch")</li>
+                        </ul>
+                        <p><strong>Literarische Formen:</strong></p>
+                        <ul>
+                            <li>Gedichte</li>
+                            <li>Dramen</li>
+                            <li>Kurzprosa</li>
+                        </ul>
+                        <p><strong>Wichtige Vertreter:</strong></p>
+                        <ul>
+                            <li>Georg Trakl</li>
+                            <li>Gottfried Benn</li>
+                            <li>Franz Kafka</li>
+                            <li>Georg Heym</li>
+                            <li>Else Lasker-Schüler</li>
+                            <li>Ernst Toller</li>
+                        </ul>
+                        <p><strong>Bedeutende Werke:</strong></p>
+                        <ul>
+                            <li>"Die Verwandlung" (Kafka, 1915)</li>
+                            <li>"Grodek" (Trakl, 1914)</li>
+                            <li>"Der Sohn" (Walter Hasenclever, 1914)</li>
+                            <li>"Menschen" (Walter Hasenclever, 1918)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="weimar" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Literatur der Weimarer Republik <span class="epoch-year">1918-1933</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Erste deutsche Demokratie</li>
+                            <li>Wirtschaftskrisen (Inflation 1923, Weltwirtschaftskrise 1929)</li>
+                            <li>Politische Instabilität</li>
+                            <li>Aufstieg des Nationalsozialismus</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Neue Sachlichkeit</li>
+                            <li>Politisches Engagement</li>
+                            <li>Zeitkritik</li>
+                            <li>Dokumentarismus</li>
+                            <li>Montage-Technik</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Zeitroman</li>
+                            <li>Reportage</li>
+                            <li>Politisches Theater</li>
+                            <li>Antikriegsliteratur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Bertolt Brecht</li>
+                            <li>Erich Kästner</li>
+                            <li>Kurt Tucholsky</li>
+                            <li>Erich Maria Remarque</li>
+                            <li>Alfred Döblin</li>
+                            <li>Irmgard Keun</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Im Westen nichts Neues" (Remarque, 1929)</li>
+                            <li>"Berlin Alexanderplatz" (Döblin, 1929)</li>
+                            <li>"Die Dreigroschenoper" (Brecht, 1928)</li>
+                            <li>"Fabian" (Kästner, 1931)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="exil" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Exilliteratur & Innere Emigration <span class="epoch-year">1933-1945</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Nationalsozialistische Diktatur</li>
+                            <li>Bücherverbrennung (1933)</li>
+                            <li>Verfolgung und Exil vieler Schriftsteller</li>
+                            <li>Zweiter Weltkrieg</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <h4>Merkmale Exilliteratur:</h4>
+                        <ul>
+                            <li>Warnung vor dem Faschismus</li>
+                            <li>Verarbeitung der Exilerfahrung</li>
+                            <li>Heimatverlust und Identitätskrise</li>
+                            <li>Humanistisches Engagement</li>
+                        </ul>
+                        <h4>Merkmale Innere Emigration:</h4>
+                        <ul>
+                            <li>Rückzug in unpolitische Themen</li>
+                            <li>Versteckte Kritik durch Parabeln</li>
+                            <li>Historische Stoffe als Tarnung</li>
+                            <li>Naturmotivik</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <h4>Exilliteratur:</h4>
+                        <ul>
+                            <li>Thomas Mann</li>
+                            <li>Bertolt Brecht</li>
+                            <li>Anna Seghers</li>
+                            <li>Lion Feuchtwanger</li>
+                            <li>Stefan Zweig</li>
+                        </ul>
+                        <h4>Innere Emigration:</h4>
+                        <ul>
+                            <li>Erich Kästner</li>
+                            <li>Werner Bergengruen</li>
+                            <li>Ernst Wiechert</li>
+                            <li>Reinhold Schneider</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Das siebte Kreuz" (Seghers, 1942)</li>
+                            <li>"Doktor Faustus" (Thomas Mann, 1947)</li>
+                            <li>"Transit" (Seghers, 1944)</li>
+                            <li>"Die Schachnovelle" (Zweig, 1942)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nachkrieg" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Nachkriegsliteratur <span class="epoch-year">1945-1968</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Zusammenbruch des NS-Regimes ("Stunde Null")</li>
+                            <li>Besatzungszeit</li>
+                            <li>Wirtschaftswunder</li>
+                            <li>Deutsche Teilung und Kalter Krieg</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Merkmale</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Vergangenheitsbewältigung</li>
+                            <li>Trümmerliteratur</li>
+                            <li>Kahlschlag-Literatur</li>
+                            <li>Besinnung auf ethische Werte</li>
+                            <li>Literarische Gruppenbildung (Gruppe 47)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card forms-card">
+                    <div class="card-header">Literarische Formen</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Kurzgeschichten</li>
+                            <li>Hörspiele</li>
+                            <li>Parabeln</li>
+                            <li>Dokumentarliteratur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Heinrich Böll</li>
+                            <li>Wolfgang Borchert</li>
+                            <li>Günter Grass</li>
+                            <li>Siegfried Lenz</li>
+                            <li>Ingeborg Bachmann</li>
+                            <li>Paul Celan</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Draußen vor der Tür" (Borchert, 1947)</li>
+                            <li>"Die Blechtrommel" (Grass, 1959)</li>
+                            <li>"Billard um halb zehn" (Böll, 1959)</li>
+                            <li>"Todesfuge" (Celan, 1948)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gegenwart" class="epoch">
+                <div class="epoch-header">
+                    <h2 class="epoch-title">Gegenwartsliteratur <span class="epoch-year">ab 1968</span></h2>
+                </div>
+
+                <div class="epoch-card context-card">
+                    <div class="card-header">Historischer Kontext</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Studentenbewegung und APO</li>
+                            <li>Wiedervereinigung Deutschlands</li>
+                            <li>Globalisierung</li>
+                            <li>Digitalisierung</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card traits-card">
+                    <div class="card-header">Strömungen und Merkmale</div>
+                    <div class="card-content">
+                        <h4>1. Dokumentarliteratur & Neue Subjektivität (70er Jahre):</h4>
+                        <ul>
+                            <li>Authentizität und Alltagserfahrungen</li>
+                            <li>Ich-Bezogenheit</li>
+                            <li>Politisches Engagement</li>
+                            <li>Frauenliteratur</li>
+                        </ul>
+                        <h4>2. Postmoderne (80er & 90er Jahre):</h4>
+                        <ul>
+                            <li>Intertextualität</li>
+                            <li>Sprachspiele und -experimente</li>
+                            <li>Ironie und Parodie</li>
+                            <li>Fragmentierung</li>
+                        </ul>
+                        <h4>3. Literatur nach der Wende:</h4>
+                        <ul>
+                            <li>Auseinandersetzung mit DDR-Vergangenheit</li>
+                            <li>Identitätssuche</li>
+                            <li>Ost-West-Problematik</li>
+                            <li>Generationenkonflikte</li>
+                        </ul>
+                        <h4>4. Popliteratur (90er Jahre):</h4>
+                        <ul>
+                            <li>Konsum- und Medienkritik</li>
+                            <li>Jugendkultur</li>
+                            <li>Alltagssprache</li>
+                            <li>Aktualitätsbezug</li>
+                        </ul>
+                        <h4>5. Migrationsliteratur/Interkulturelle Literatur:</h4>
+                        <ul>
+                            <li>Kulturelle Hybridität</li>
+                            <li>Heimat- und Identitätssuche</li>
+                            <li>Mehrsprachigkeit</li>
+                            <li>Transkulturalität</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card authors-card">
+                    <div class="card-header">Wichtige Vertreter</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Christa Wolf</li>
+                            <li>Peter Handke</li>
+                            <li>Elfriede Jelinek</li>
+                            <li>Herta Müller</li>
+                            <li>W.G. Sebald</li>
+                            <li>Bernhard Schlink</li>
+                            <li>Daniel Kehlmann</li>
+                            <li>Terézia Mora</li>
+                            <li>Judith Hermann</li>
+                            <li>Juli Zeh</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="epoch-card works-card">
+                    <div class="card-header">Bedeutende Werke</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>"Der Vorleser" (Schlink, 1995)</li>
+                            <li>"Die Vermessung der Welt" (Kehlmann, 2005)</li>
+                            <li>"Kassandra" (Wolf, 1983)</li>
+                            <li>"Austerlitz" (Sebald, 2001)</li>
+                            <li>"Tauben fliegen auf" (Mora, 2010)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="back-to-top" id="back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const navLinks = document.querySelectorAll('.nav-link');
+            const epochs = document.querySelectorAll('.epoch');
+            const searchInput = document.getElementById('search-input');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const backToTop = document.getElementById('back-to-top');
+            const timelineProgress = document.getElementById('timeline-progress');
+            let currentActive = null;
+
+            // Initialize Epochs visibility
+            function initEpochs() {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                            }
+                        });
+                    },
+                    { threshold: 0.1 }
+                );
+                
+                epochs.forEach(epoch => {
+                    observer.observe(epoch);
+                });
+            }
+
+            // Navigation active state
+            function setActiveNavItem() {
+                const scrollPosition = window.scrollY + 100;
+
+                epochs.forEach(epoch => {
+                    const top = epoch.offsetTop;
+                    const height = epoch.offsetHeight;
+                    const id = epoch.getAttribute('id');
+                    const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+                    if (scrollPosition >= top && scrollPosition < top + height) {
+                        if (currentActive !== navLink) {
+                            if (currentActive) {
+                                currentActive.classList.remove('active');
+                            }
+                            navLink.classList.add('active');
+                            currentActive = navLink;
+                        }
+                    }
+                });
+            }
+
+            // Timeline progress
+            function updateTimelineProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.offsetHeight;
+                const winHeight = window.innerHeight;
+                const scrollPercent = scrollTop / (docHeight - winHeight);
+                timelineProgress.style.width = `${scrollPercent * 100}%`;
+
+                // Show or hide back to top button
+                if (scrollTop > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+
+            // Search functionality
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    epochs.forEach(epoch => {
+                        epoch.style.display = 'block';
+                    });
+                    return;
+                }
+
+                epochs.forEach(epoch => {
+                    const text = epoch.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        epoch.style.display = 'block';
+                        
+                        // Highlight matches
+                        const highlights = epoch.querySelectorAll('.highlight');
+                        highlights.forEach(el => {
+                            el.outerHTML = el.innerHTML;
+                        });
+                        
+                        // Simple highlight functionality (does not handle HTML tags properly)
+                        const textNodes = getTextNodes(epoch);
+                        textNodes.forEach(node => {
+                            const text = node.nodeValue;
+                            const pattern = new RegExp(escapeRegExp(searchTerm), 'gi');
+                            if (pattern.test(text)) {
+                                const span = document.createElement('span');
+                                span.innerHTML = text.replace(pattern, match => `<span class="highlight" style="background-color: yellow;">${match}</span>`);
+                                node.parentNode.replaceChild(span, node);
+                            }
+                        });
+                    } else {
+                        epoch.style.display = 'none';
+                    }
+                });
+            }
+
+            // Helper function to get text nodes
+            function getTextNodes(element) {
+                const textNodes = [];
+                const walk = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                while (node = walk.nextNode()) {
+                    if (node.nodeValue.trim() !== '') {
+                        textNodes.push(node);
+                    }
+                }
+                return textNodes;
+            }
+
+            // Helper function to escape regex special characters
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            // Filter functionality
+            function applyFilter(filter) {
+                const cards = document.querySelectorAll('.epoch-card');
+                
+                if (filter === 'all') {
+                    cards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                cards.forEach(card => {
+                    if (card.classList.contains(`${filter}-card`)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // Event Listeners
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 90,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            searchInput.addEventListener('input', debounce(performSearch, 300));
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilter(this.dataset.filter);
+                });
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', debounce(function() {
+                setActiveNavItem();
+                updateTimelineProgress();
+            }, 100));
+
+            // Helper function for debouncing
+            function debounce(func, wait) {
+                let timeout;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        func.apply(context, args);
+                    }, wait);
+                };
+            }
+
+            // Initialize
+            initEpochs();
+            setActiveNavItem();
+            updateTimelineProgress();
+        });
+    </script>
+</body>
+</html>
