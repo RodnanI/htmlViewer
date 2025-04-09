@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umfassender Architektur-Leitfaden</title>
+    <style>
+        :root {
+            --primary-color: #3a506b;
+            --secondary-color: #5bc0be;
+            --accent-color: #0b132b;
+            --light-color: #f8f9fa;
+            --dark-color: #1c2541;
+            --success-color: #6fffe9;
+            --warning-color: #ffb703;
+            --danger-color: #e63946;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding-bottom: 50px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+        
+        section {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        h4 {
+            color: var(--dark-color);
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .definition {
+            background-color: #e7f5ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-caption {
+            font-style: italic;
+            text-align: center;
+            margin-top: 8px;
+            color: #666;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--light-color);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--light-color);
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--light-color);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--light-color) transparent transparent;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .comparison-table {
+            overflow-x: auto;
+        }
+        
+        .comparison-table table {
+            min-width: 600px;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .card {
+            flex: 0 0 calc(33.333% - 20px);
+            min-width: 300px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .summary-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .summary-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .summary-box ul {
+            margin-bottom: 0;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid var(--light-color);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--light-color) transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 12pt;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                box-shadow: none;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .timeline::after {
+                background-color: #ccc;
+            }
+            
+            a {
+                color: black;
+                text-decoration: none;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            img {
+                max-width: 100% !important;
+            }
+            
+            table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 999;
+        }
+        
+        .back-to-top:hover {
+            opacity: 1;
+        }
+        
+        .glossary-term {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .col {
+            flex: 1;
+            padding: 0 15px;
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Umfassender Architektur-Leitfaden</h1>
+        <p>Ein Überblick über Architekturepochen, Stile und Merkmale</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#intro">Einführung</a></li>
+            <li><a href="#definitions">Definitionen</a></li>
+            <li><a href="#elements">Architekturelemente</a></li>
+            <li><a href="#epochs">Architekturepochen</a></li>
+            <li><a href="#jugendstil">Jugendstil</a></li>
+            <li><a href="#moderne">Moderne Architektur</a></li>
+            <li><a href="#glossary">Glossar</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="intro">
+            <h2>Einführung in die Architektur</h2>
+            
+            <div class="definition">
+                <h3>Was ist Architektur?</h3>
+                <p>Architektur ist die handwerkliche Beschäftigung und ästhetische Auseinandersetzung mit gebautem Raum. Sie ist sowohl Kunst als auch Wissenschaft des Planens, Entwerfens und Bauens von Gebäuden und anderen physischen Strukturen.</p>
+            </div>
+
+            <h3>Die Grundprinzipien der Architektur nach Vitruv:</h3>
+            <ul>
+                <li><strong>Stabilität (firmitas)</strong> - Die technische und strukturelle Integrität des Gebäudes</li>
+                <li><strong>Nützlichkeit (utilitas)</strong> - Die funktionale Eignung des Gebäudes für seinen Zweck</li>
+                <li><strong>Ästhetik (venustas)</strong> - Die Schönheit und künstlerische Qualität des Gebäudes</li>
+            </ul>
+            
+            <h3>Funktionen der Architektur</h3>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Politisch-repräsentative Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Selbstdarstellung</li>
+                            <li>Machtdemonstrationen</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Sozial-repräsentative Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Darstellung von Aspekten von Regionen und Gruppierungen</li>
+                            <li>Ausdruck von Globalisierung</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ästhetisch-künstlerische Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Wirkung und Ausstrahlung</li>
+                            <li>Form und Proportion</li>
+                            <li>Gestaltungselemente</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ökonomisch-wirtschaftliche Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Entwicklung von Berufen und Arbeitsfeldern</li>
+                            <li>Aufgaben im Wirtschaftskreislauf</li>
+                            <li>Kosten versus Konjunktur</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Wissenschaftlich-technische Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Technik und Statik</li>
+                            <li>Material</li>
+                            <li>Forschungsfeld für Physik und Chemie</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ökologische Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Einbezug von Aspekten des Umweltschutzes</li>
+                            <li>Global oder regional</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Psychologische Funktion</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Identitätsbildung</li>
+                            <li>Kommunikationsfeld für Privatheit und Öffentlichkeit</li>
+                            <li>Grundbedürfnis Schutz und Sicherheit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Arten von Bauwerken</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Sakralbauten</h4>
+                    <p>Religiöse Kultstätten wie:</p>
+                    <ul>
+                        <li>Kirchen</li>
+                        <li>Synagogen</li>
+                        <li>Moscheen</li>
+                        <li>Tempel</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Profanbauten</h4>
+                    <p>"Unreligiöse" öffentliche und private Gebäude wie:</p>
+                    <ul>
+                        <li>Wohnhäuser</li>
+                        <li>Schulen</li>
+                        <li>Paläste</li>
+                        <li>Verwaltungsgebäude</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="definitions">
+            <h2>Grundlegende Definitionen und Konzepte</h2>
+            
+            <h3>Der Baukörper</h3>
+            <div class="definition">
+                <p>Der <span class="glossary-term">Baukörper</span> ist das von Menschen sichtbare und erlebbare Gesamtvolumen eines Gebäudes mit und ohne nutzbare Innenräume. Die architektonische Gestaltung ist vor allem auf die Ausformung der Grenzflächen der Baukörper gerichtet (Dach, Außenwände, Fassade, Boden).</p>
+            </div>
+            
+            <h4>Einflussfaktoren auf die Gestalt des Baukörpers:</h4>
+            <ul>
+                <li>Funktion</li>
+                <li>Ideen</li>
+                <li>Konstruktionsprinzipien</li>
+                <li>Auftraggeber</li>
+                <li>Zeitgeschmack</li>
+                <li>Klima</li>
+            </ul>
+            
+            <h4>Zusammensetzung des Baukörpers</h4>
+            <div class="row">
+                <div class="col">
+                    <h5>Elementare Körper:</h5>
+                    <ul>
+                        <li>Pyramide (z.B. Cheops-Pyramide)</li>
+                        <li>Zylinder (z.B. Leuchtturm)</li>
+                        <li>Quader (z.B. Wohnblock)</li>
+                        <li>Halbkugel (z.B. Iglu)</li>
+                        <li>Kugel (z.B. Wasserturm)</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h5>Addition und Gruppierung elementarer Körper:</h5>
+                    <p>Zusammensetzung von zylindrischen, pyramidalen, quader-, würfel-, kegelförmigen Teilen. Beispiele: Basiliken, Reihenhäuser, postmoderne Bauten.</p>
+                </div>
+                
+                <div class="col">
+                    <h5>"Freie" Körper:</h5>
+                    <p>Meist geschwungene, asymmetrische oder zersplitterte Körper bei dekonstruktivistischen, expressiven, barocken, organischen Bauwerken.</p>
+                </div>
+            </div>
+            
+            <h3>Bauelemente</h3>
+            <p>Als Bauelemente werden die konstruktiven und dekorativen Einzelteile eines Baukörpers bezeichnet.</p>
+            
+            <div class="row">
+                <div class="col">
+                    <h4>Konstruktive Elemente</h4>
+                    <p>Umschließen den Baukörper und sind funktional und statisch notwendige Teile:</p>
+                    <ul>
+                        <li>Tragkonstruktion</li>
+                        <li>Dach</li>
+                        <li>Wände</li>
+                        <li>Boden</li>
+                        <li>Treppen</li>
+                        <li>Gewölbe</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Dekorative Elemente</h4>
+                    <p>Nicht notwendige architektonische Formungen oder Zutaten, die Effekte erzielen, die Konstruktion verschleiern oder bereichern. Sie dienen der Verzierung und Gliederung von Bauten:</p>
+                    <ul>
+                        <li>Funktional-dekorative Bauelemente (z.B. Wasserspeier, Giebel, Voluten, Gesimse)</li>
+                        <li>Bauplastik (z.B. Putten, Neidköpfe, Amoretten)</li>
+                        <li>Ornamentik (z.B. Friese, Rocaillen, pflanzliche Ornamentik, Tierornamentik, Menschenornamentik)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="elements">
+            <h2>Architekturelemente im Detail</h2>
+            
+            <h3>Konstruktionsprinzipien</h3>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Massebau</div>
+                    <div class="card-body">
+                        <p>Standfestigkeit durch Dichte (Festigkeit) und die Masse des Materials gesichert (z.B. Pyramiden).</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Massivbau (Flächenbau)</div>
+                    <div class="card-body">
+                        <p>Tragwerk und Raumabschluss sind identisch. Standfestigkeit durch die Verteilung von Lasten über eine große Fläche gesichert (z.B. Blockbauweise, Mauerwerke, Plattenbauweise).</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Skelettbau</div>
+                    <div class="card-body">
+                        <p>Standfestigkeit durch die Aufspaltung der Last in immer kleinere Anteile. Einzelne Trageelemente (Skelett) fangen die Last auf (z.B. Fachwerke, Strebewerke, Eisenskelette). Materialien: Holz, Beton, Stahlbeton.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Räumliches Tragewerk (Raumtragwerk)</div>
+                    <div class="card-body">
+                        <p>"Multifunktionale" Konstruktionen. Lastabtragung kann durch Verteilung auf mehreren Raumebenen erfolgen. Ermöglicht stützenfreie Überspannung großer Räume + höhere Tragleistung bei geringerer Masse (z.B. Raumstab- o. Raumfachwerke, Gitterschalen, Seilnetztragwerke, Zelte, pneumatische Tragwerke, Schalen).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Umschließungselemente</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Dach</h4>
+                    <p>Funktionell bedingter, oberer Raumabschluss eines Gebäudes. Zur "Formung" des Baus genutzt.</p>
+                    <h5>Dachformen:</h5>
+                    <ul>
+                        <li>Satteldach - zweiseitige Dachfläche zeigt immer einen Giebel</li>
+                        <li>Walmdach - Dachflächen auf allen vier Seiten</li>
+                        <li>Schopfwalmdach - kleine Dachflächen auf den Giebelseiten</li>
+                        <li>Mansardendach - Walmdach mit Dachflächen, die im unteren Teil eine steile und im oberen Teil eine flachere Neigung besitzen</li>
+                        <li>Pultdach - Dachfläche nur auf einer Seite, eventuell mit kurzer Fläche auf der Gegenseite</li>
+                        <li>Zeltdach - Vierseitiges Dach in Pyramidenform; oft in geschwungener Form durch nach außen vorgezogenen Saum</li>
+                        <li>Kegeldach - in Kegelform auslaufend; gerade oder geschwungen</li>
+                        <li>Kuppeldach - Dach mit rundem Grundriss in Form einer Kuppel</li>
+                        <li>Zwiebeldach/Zwiebelhaube - Dachkonstruktion in mehr oder minder deutlicher Zwiebelform</li>
+                        <li>Flachdach - Dach ohne Neigung</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Wände</h4>
+                    <p>Aufrechte, mehr oder weniger gegliederte Fläche. Trennt Räume, innen und/oder außen voneinander ab. Schützt vor Wind und Wetter; Sichtschutz (wenn nicht aus Glas).</p>
+                    <p>Wände werden gegliedert durch:</p>
+                    <ul>
+                        <li>Öffnungen (Türen, Fenster)</li>
+                        <li>Unterschiedliches Material (Marmor, Holz, Glas - teuer/günstig, repräsentativ/funktional)</li>
+                        <li>Form und Dekor</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Boden</h4>
+                    <p>Fläche, auf der ein Bau betreten wird (nicht gemeint: Fundament). Ausdrucksträger (Ästhetik). Spannungsverhältnis zum natürlichen Untergrund (Erde, Fels, etc.).</p>
+                    <p>Varianten:</p>
+                    <ul>
+                        <li>Ebenerdig (barrierefrei)</li>
+                        <li>Podium, 3-Stufiger Unterbau (Antike, Erhabenheit)</li>
+                        <li>Erdverbunden (Mittelalter)</li>
+                        <li>Aufstelzung / Pfeilerunterbauten (Funktionalisten 20. Jh - Le Corbusier)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Öffnungen und Details</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Fenster</h4>
+                    <p>Nach der Form der Fensteröffnung unterscheidet man:</p>
+                    <ul>
+                        <li>Rechteckfenster</li>
+                        <li>Bogenfenster</li>
+                        <li>Rundfenster</li>
+                        <li>Spitzbogenfenster</li>
+                        <li>Ovalfenster ("Ochsenauge")</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Türen und Tore</h4>
+                    <p>Die Türöffnung besitzt oben einen Türsturz oder Bogen, seitlich die Gewände oder Laibung und unten eine Schwelle. Die Tür sitzt mit Angeln im Türstock (Zarge), die im Mauerwerk befestigt ist.</p>
+                </div>
+                
+                <div class="col">
+                    <h4>Fassadenelemente</h4>
+                    <ul>
+                        <li>Gesims - horizontaler, erhabener, relativ schmaler Mauerstreifen</li>
+                        <li>Kranzgesims - oberes Abschlusselement der Fassade</li>
+                        <li>Sockel - unterstes Element der Fassade</li>
+                        <li>Fasche - Farbband oder leicht erhabenes Mauerband zur Gliederung der Fassade</li>
+                        <li>Lisene - Mauerverstärkung, Mauerstreifen; in der Regel vertikal ohne zierenden Abschluss</li>
+                        <li>Pilaster - Wandpfeiler, der nur wenig aus der Wand hervortritt; mit Gliederung in Basis, Schaft und Kapitell</li>
+                        <li>Halbsäule (Dienst) - mehr oder minder halbierte Säulen, die mit der Schnittfläche mit der Mauer verbunden sind</li>
+                        <li>Blendbögen - Bogenserie, der Mauer vorgesetzt, oft mit Lisenen in Verbindung</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Stützelemente und Gewölbe</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Pfeiler</h4>
+                    <p>Senkrechte Mauerstütze mit rechteckigem, polygonalem oder rundem Querschnitt; kann eine Gliederung wie eine Säule aufweisen; als Freipfeiler frei stehen oder als Wandpfeiler in die Wand / aus der Wand ragen (Pilaster).</p>
+                </div>
+                
+                <div class="col">
+                    <h4>Säule</h4>
+                    <p>Stützender Bauteil mit typischer Gliederung in Basis (Fuß), Schaft und Kapitell; freistehend oder als Wandsäule (je nach herausragendem Anteil als Viertel-, Halb-, Dreiviertelsäule bezeichnet).</p>
+                </div>
+                
+                <div class="col">
+                    <h4>Gewölbeformen</h4>
+                    <ul>
+                        <li>Tonnengewölbe - Gewölbe mit mehr oder minder deutlichem halbkreisförmigem oder spitzbogigem Querschnitt</li>
+                        <li>Kreuzgratgewölbe - Gewölbe, das durch die rechtwinkelige Kreuzung zweier gleich hoher Tonnengewölbe entsteht</li>
+                        <li>Kreuzrippengewölbe - Die Grate eines Kreuzgratgewölbes sind deutlich skulpturiert; sogenannte Rippen</li>
+                        <li>Klostergewölbe - Ein Gewölbe, das nur aus vier oder mehr Gewölbewangen besteht</li>
+                        <li>Muldengewölbe - Eine Gewölbeform, die man als Tonnengewölbe mit gewölbten Enden (Kappen) erklären kann</li>
+                        <li>Spiegelgewölbe - Ein (Mulden)Gewölbe mit einer flachen Decke (= Spiegel) als Abschluss</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="epochs">
+            <h2>Architekturepochen im Überblick</h2>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Epoche</th>
+                            <th>Zeitraum</th>
+                            <th>Merkmale</th>
+                            <th>Beispiele</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Griechische Antike</td>
+                            <td>6.-1. Jh. v. Chr.</td>
+                            <td>Tempelbau; Säulen- und Balkenbauweise, Dominanz gerader Linien, Schmuck an Giebelfronten und Friesen, 3 Säulenordnungen: dorisch, ionisch, korinthisch, Reinheit des Stils, Ausgewogenheit der Proportionen</td>
+                            <td>Parthenon</td>
+                        </tr>
+                        <tr>
+                            <td>Römische Antike</td>
+                            <td>1. Jh. v. Chr. - 4. Jh. n. Chr.</td>
+                            <td>Starker Einfluss der griechischen Baukunst, jedoch größere und aufwendigere Gebäude; Bautypen: Tempel, Basilika, Triumphbogen, Therme, Brücke, Aquädukt, Villa; Rundbögen und Säulen</td>
+                            <td>Porta Nigra</td>
+                        </tr>
+                        <tr>
+                            <td>Romanik</td>
+                            <td>750-1250</td>
+                            <td>Romanisch = "im römischen Stil", Massivbauweise (schweres Mauerwerk mit gedrungener Wirkung); Addition plastisch durchgeformter Bauglieder. Rundbogen, Säulen, Arkaden, Tonnengewölbe, kleine schmale Fenster werden durch Einrahmung von Säulen, Bogen und Friesen optisch vergrößert</td>
+                            <td>Speyerer Dom</td>
+                        </tr>
+                        <tr>
+                            <td>Gotik</td>
+                            <td>1130-1500</td>
+                            <td>Sakralbauten: Skelettbauweise, Strebewerk, Spitzbogen, Kriechblumen, Fensterrose, reich geschmückte Portale, Gewändefiguren, Kreuzrippengewölbe, max. Lichteinfall durch große Glasfensterflächen</td>
+                            <td>Notre Dame de Paris</td>
+                        </tr>
+                        <tr>
+                            <td>Renaissance</td>
+                            <td>1420-1620</td>
+                            <td>Architektur der Klarheit und Strenge nach antiken Vorbildern, geprägt durch die Architekturtheorie und -praxis der römischen Kaiserzeit. Typisch: Architekturformen wie Rundbogen, Arkadengänge, Gewölbe, Giebel, Kuppeln und 5 Säulenordnungen; ausgewogene Maßverhältnisse und klare Gliederungen</td>
+                            <td>Villa Rotonda</td>
+                        </tr>
+                        <tr>
+                            <td>Barock</td>
+                            <td>1600-1780</td>
+                            <td>Barock [portug. barocco = unregelm. geformte Perle], Raumdynamik, stark gegliederte und rhythmisch geschwungene Fassaden, Wechselspiel von konvex hervorschwingenden und konkav zurückspringenden Wänden, prunkvoll, pompöser und üppiger Bauschmuck, Stuckarbeiten, Wand- und Deckengemälde im Trompe-l'oeil-Stil, Wendeltreppen mit prachtvollen Balustraden, Gesamtkunstwerk-Charakter: Architektur-Skulptur-Malerei</td>
+                            <td>Vierzehnheiligen</td>
+                        </tr>
+                        <tr>
+                            <td>Klassizismus</td>
+                            <td>1750-1840</td>
+                            <td>Ende des 18. Jahrhunderts zeigt sich eine wachsende Abneigung gegen den Barock, der als extravagant und regellos kritisiert wird. Die antike Kunst wird zum Schönheitsideal: Strenge und Klarheit der Formen, klare und kühle Farbgebung, Ausgewogenheit der Kompositionen, Symmetrie, würdevolle und ernste Architektur</td>
+                            <td>British Museum, Brandenburger Tor</td>
+                        </tr>
+                        <tr>
+                            <td>Historismus</td>
+                            <td>1850-1900</td>
+                            <td>Ab der Hälfte des 19. Jahrhunderts kommt das „Phänomen" Historismus auf, welches auf ältere Stilrichtungen zurückgreift und diese teilweise kombiniert. (Eklektizismus). Stilistische Unterarten sind u. a. die Neoromanik, Neogotik, Neorenaissance, der Rundbogenstil und der Neobarock</td>
+                            <td>Reichstag</td>
+                        </tr>
+                        <tr>
+                            <td>Jugendstil</td>
+                            <td>Ende 19. Jh. - Anf. 20. Jh.</td>
+                            <td>Dekorative Formensprache und Betonung des Ornamentalen. Wellenförmig schwingende, fließende Linien, asymmetrische, florale Ornamentik, Pflanzenformen und geometrische Muster</td>
+                            <td>Metroeingang Paris (Guimard), Casa Batlló (Gaudí)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Architektur des 19. Jahrhunderts</h3>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Klassizismus (spätes 18. - frühes 19. Jh.)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Bewunderung der antiken griechischen und römischen Architektur</li>
+                            <li>Klare, geometrische Formen, Säulenordnungen</li>
+                            <li>Betonung der Symmetrie</li>
+                            <li>Beispiel: Brandenburger Tor in Berlin</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Romantik (frühes - mittleres 19. Jh.)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Ausdruck, Fantasie und Individualität</li>
+                            <li>Mittelalterliche, gotische oder exotische Formen</li>
+                            <li>Gebäude, die Geschichten oder historische Ereignisse thematisieren</li>
+                            <li>Beispiel: Schloss Neuschwanstein</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Eisen- und Stahlbau (Mitte - Ende 19. Jh.)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Neue Baumaterialien wie Eisen und Stahl</li>
+                            <li>Größere und stabilere Gebäude</li>
+                            <li>Glaskuppeln und große Fensterflächen</li>
+                            <li>Beispiele: Eiffelturm, Crystal Palace</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Historismus (Mitte - Ende 19. Jh.)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Rückgriff auf verschiedene historische Epochen</li>
+                            <li>Eklektizismus (Kombination verschiedener Stile)</li>
+                            <li>Unterarten: Neoromanik, Neogotik, Neorenaissance, Neobarock</li>
+                            <li>Beispiel: Reichstagsgebäude Berlin</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ingenieursarchitektur (Mitte - Ende 19. Jh.)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Fokus auf technische Innovation und neue Materialien</li>
+                            <li>Betonung der strukturellen Elemente</li>
+                            <li>Funktionalität im Vordergrund</li>
+                            <li>Beispiele: Crystal Palace, Eiffelturm</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Chicago School (1880-1900)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Hochhausbau und moderne architektonische Stile</li>
+                            <li>Stahlrahmenkonstruktion</li>
+                            <li>Funktionalismus: "Form follows function" (Louis Sullivan)</li>
+                            <li>Beispiel: Wainwright Building</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h3>Fokus: Crystal Palace (1851)</h3>
+                <p>Ein ikonisches Bauwerk, das ursprünglich für die Große Ausstellung von 1851 in London errichtet wurde.</p>
+                <ul>
+                    <li>Architekt: Joseph Paxton</li>
+                    <li>Materialien: Eisen und Glas</li>
+                    <li>Größe: 563 Meter lang, 34 Meter hoch</li>
+                    <li>Design: Von Gewächshäusern inspiriert, ermöglichte viel Tageslicht im Innenraum</li>
+                    <li>Bedeutung: Gilt als frühes Beispiel für moderne Architektur, beeinflusste viele spätere Bauwerke</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="jugendstil">
+            <h2>Jugendstil in der Architektur (ca. 1890-1914)</h2>
+            
+            <div class="definition">
+                <p>Der Jugendstil ist eine Richtung der Kunst, die sich gegen Ende des 19. Jahrhunderts entwickelte. In Frankreich wurde er als "Art Nouveau" (Neue Kunst) und in Österreich als "Sezession" bezeichnet. In Spanien/Katalonien entwickelte sich eine eigene Variante unter dem Namen "Modernisme". Der Jugendstil löste den Historismus ab und führte die Architektur in die Moderne.</p>
+            </div>
+            
+            <h3>Gesellschaftlicher Hintergrund und Entstehung</h3>
+            <p>Hintergrund für die Entstehung des Jugendstils ist die enorme Industrialisierung. Das traditionelle Handwerk verlor zunehmend seine Bedeutung aufgrund billiger Massenfertigung in der Industrie. Besonders in England, dem Ursprungsland der industriellen Revolution, hatte sich schon früh eine Gegenbewegung herausgebildet. Diese englische Bewegung „Arts and Crafts" (Kunst und Kraft) wird als wichtigster Vorläufer des Jugendstils betrachtet.</p>
+            
+            <div class="row">
+                <div class="col">
+                    <h3>Stilmerkmale des Jugendstils</h3>
+                    <ul>
+                        <li>Geschwungene, fließende Linien</li>
+                        <li>Dekorative Ornamente, vor allem Blumen- und Tiermotive</li>
+                        <li>Dekorative Flächen</li>
+                        <li>Asymmetrische Kompositionen</li>
+                        <li>Natürliche, organische Formen</li>
+                        <li>Betonung des Handwerks und der Qualität</li>
+                        <li>Gesamtkunstwerk-Idee: Verbindung von Architektur und Inneneinrichtung</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h3>Zentren des Jugendstils</h3>
+                    <h4>Wiener Sezession</h4>
+                    <p>In Wien schlossen sich 19 Künstler zusammen und gründeten die "Wiener Sezession". "Sezession" bedeutet "Abtrennung" und zeigt, dass sie sich von der herkömmlichen Kunst abspalten wollten. Das Sezessionshaus in Wien, entworfen von Joseph Maria Olbrich, wurde zu einem der bedeutendsten Gebäude des österreichischen Sezessionsstils. Das Leitmotiv lautete: "Der Zeit die Kunst, der Kunst die Freiheit".</p>
+                </div>
+            </div>
+            
+            <h3>Darmstädter Künstlerkolonie</h3>
+            <p>Neben Wien gab es auch in Deutschland wichtige Zentren des Jugendstils, wie in München und vor allem in Darmstadt. In Darmstadt entstand sogar eine eigene Künstlerkolonie. Hier plante man mit finanzieller Unterstützung durch Großherzog Ernst Ludwig von Hessen neue Baustile und moderne Wohnformen. Joseph Maria Olbrich baute das Ernst-Ludwig-Haus als Atelier für die Künstler.</p>
+            
+            <h3>Der Modernisme in Katalonien</h3>
+            <div class="highlight">
+                <h4>Antoni Gaudí und Barcelona</h4>
+                <p>Eine ganz besondere Form der Architektur des Jugendstils entwickelte sich im spanischen Katalonien. Antoni Gaudís (1852-1916) Bauwerke zeigen einen ganz eigenen Stil des Künstlers. Sein Lebenswerk, die Kirche Sagrada Familia in Barcelona, ist ein herausragendes Beispiel für den katalanischen Jugendstil ("Modernisme").</p>
+                <h5>Merkmale des Modernisme:</h5>
+                <ul>
+                    <li>Verbindung von alten (z.B. gotischen) mit neuen, modernen Elementen</li>
+                    <li>Integration von arabischen und europäischen Stilelementen</li>
+                    <li>Naturmotive wie Schnecken, Blätter, Muscheln</li>
+                    <li>Runde, fließende Formen, geschwungene Linien</li>
+                    <li>Verspielte, verträumte und märchenhafte Elemente</li>
+                </ul>
+                <p>Wichtige Werke Gaudís: Casa Vicens, Casa Batlló, Casa Milà, Park Güell und die Sagrada Familia in Barcelona.</p>
+            </div>
+            
+            <h3>Bedeutende Jugendstil-Architekten</h3>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Antoni Gaudí (Spanien)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Organische Formen</li>
+                            <li>Farbige Fliesen</li>
+                            <li>Fantasievolle Designs</li>
+                            <li>Werke: Sagrada Família, Casa Batlló, Casa Milà</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Victor Horta (Belgien)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Geschwungene Linien</li>
+                            <li>Innovative Eisenformen</li>
+                            <li>Werke: Hôtel Tassel, Hôtel Solvay</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Otto Wagner (Österreich)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Kombination traditioneller und neuer Techniken</li>
+                            <li>Werke: Postparkasse Wien, Kirche am Steinhof</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Hector Guimard (Frankreich)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Geschwungenes Design</li>
+                            <li>Werke: U-Bahn-Stationen in Paris, Hôtel Guimard</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Joseph Maria Olbrich (Österreich)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Klare Formensprache mit Jugendstil-Elementen</li>
+                            <li>Werke: Wiener Sezessionsgebäude, Ernst-Ludwig-Haus</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Josef Hoffmann (Österreich)</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Mitbegründer der Wiener Werkstätte</li>
+                            <li>Gestaltung von Möbeln und Innenräumen</li>
+                            <li>Werk: Stoclet-Palast in Brüssel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Ende des Jugendstils</h3>
+            <p>Der Jugendstil fand sein Ende mit dem Ausbruch des Ersten Weltkrieges. In der Weimarer Republik folgten weitere Stilrichtungen, die sich durch strenge Sachlichkeit von den ausladenden Formen des Jugendstils deutlich abgrenzten.</p>
+            
+            <div class="summary-box">
+                <h4>Zusammenfassung: Jugendstil in der Architektur</h4>
+                <ul>
+                    <li>Entstehung: gegen Ende des 19. Jahrhunderts als Reaktion auf Industrialisierung und Historismus</li>
+                    <li>Vorläufer: Arts and Crafts Bewegung in England</li>
+                    <li>Hauptmerkmale: geschwungene Linien, organische Formen, florale Ornamentik, Gesamtkunstwerk-Idee</li>
+                    <li>Regionale Varianten: Jugendstil (Deutschland), Art Nouveau (Frankreich), Sezession (Österreich), Modernisme (Spanien/Katalonien)</li>
+                    <li>Wichtige Zentren: Wien (Sezession), Darmstadt (Künstlerkolonie), Barcelona (Gaudí)</li>
+                    <li>Bedeutende Architekten: Antoni Gaudí, Victor Horta, Otto Wagner, Joseph Maria Olbrich, Hector Guimard</li>
+                    <li>Ende: mit dem Ausbruch des Ersten Weltkriegs</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="moderne">
+            <h2>Moderne Architektur des 20. Jahrhunderts</h2>
+            
+            <div class="definition">
+                <p>Aus Sicht der Architektur ist das 20. Jh. das Zeitalter der "modernen Architektur". Nach einer zu Beginn des Jahrhunderts als "Väter der Moderne" bezeichneten, vom Frührationalismus und Funktionalismus geprägten Phase, sprach man nach dem Ersten Weltkrieg vom "neuen Bauen" oder der "Moderne". Der Begriff fasst die zu dieser Zeit in Deutschland entstandenen avantgardistischen Architekturströmungen zusammen, die sich gegen den Historismus richteten.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">Vor 1920: Väter der Moderne</h3>
+                        <ul>
+                            <li>Frührationalismus</li>
+                            <li>Funktionalismus</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">1920-1968: Klassische Moderne</h3>
+                        <ul>
+                            <li>Bauhaus</li>
+                            <li>Expressionismus</li>
+                            <li>Rationalismus</li>
+                            <li>International Style</li>
+                            <li>Organische Architektur</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">Ab 1960: Vielfalt moderner Strömungen</h3>
+                        <ul>
+                            <li>Brutalismus</li>
+                            <li>Minimalismus</li>
+                            <li>High-Tech-Architektur</li>
+                            <li>Postmoderne Architektur</li>
+                            <li>Dekonstruktivismus</li>
+                            <li>Öko-Architektur</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Frühe Moderne (Väter der Moderne)</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Frührationalismus (ca. 1900-1920)</h4>
+                    <p>In den 1890er Jahren entwickelte sich neben dem Jugendstil eine andere Strömung - ein kritischer Rationalismus. Diese Tendenz lehnte den Überschwang an Dekoration zugunsten der Konstruktion ab.</p>
+                    <p>Wichtige Vertreter:</p>
+                    <ul>
+                        <li>Otto Wagner (1841-1918) - Postsparkassenamt in Wien</li>
+                        <li>Peter Behrens (1868-1940)</li>
+                        <li>Adolf Loos (1870-1933) - radikaler Verzicht auf Ornamente</li>
+                        <li>Josef Hoffmann (1870-1956) - Palais Stoclet</li>
+                    </ul>
+                </div>
+                
+                <div class="col">
+                    <h4>Funktionalismus</h4>
+                    <p>Geprägt durch den Satz des amerikanischen Architekten Louis Henry Sullivan: "Form follows function" (Die Form folgt der Funktion). Aus der jeweiligen Funktion und dem sparsamsten Einsatz der technischen Möglichkeiten ergibt sich die Gestalt des Bauwerkes.</p>
+                    <p>Wichtige Vertreter:</p>
+                    <ul>
+                        <li>Louis Henry Sullivan (1856-1924)</li>
+                        <li>Ludwig Mies van der Rohe (1886-1969) - Barcelona Pavillon</li>
+                        <li>Walter Gropius (1883-1969)</li>
+                        <li>Le Corbusier (1887-1965)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Klassische Moderne (ca. 1920-1968)</h3>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Bauhaus (1919-1933)</div>
+                    <div class="card-body">
+                        <p>Walter Gropius führte 1919 als Direktor die Kunstgewerbeschule Weimar als "Bauhaus" mit neuem Programm weiter. Grundlage der Lehre war die Vereinigung von Kunst, Industrie und Handwerk mit dem Ziel eines Gesamtkunstwerkes.</p>
+                        <p>Prinzipien:</p>
+                        <ul>
+                            <li>Einfachheit im Vielfachen</li>
+                            <li>Gliederung aller Baueinheiten nach der Funktion</li>
+                            <li>Beschränkung auf typische Grundformen</li>
+                            <li>Reihung und Wiederholung</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">International Style</div>
+                    <div class="card-body">
+                        <p>Der Begriff „International Style" wurde 1932 von Henry-Russell Hitchcock und Philip Johnson für eine moderne Architektur geprägt, die sich aus verschiedenen Tendenzen und Strömungen herausgebildet hatte.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Asymmetrische Komposition</li>
+                            <li>Einfache kubische Hauptformen</li>
+                            <li>Weite, oft in horizontalen Streifen angeordnete Fensterfronten</li>
+                            <li>Vorliebe für weißen Verputz</li>
+                            <li>Fehlen von Ornamenten und Verzierungen</li>
+                        </ul>
+                        <p>Wichtige Vertreter: Le Corbusier, Ludwig Mies van der Rohe, Alvar Aalto, Oskar Niemeyer</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Organische Architektur</div>
+                    <div class="card-body">
+                        <p>Der Begriff des "organischen Bauens" wurde bereits in den 1920er Jahren von Hugo Häring geprägt und war als Gegenentwurf zur rationalistischen Architektur gedacht.</p>
+                        <p>Prinzipien:</p>
+                        <ul>
+                            <li>Harmonie zwischen Bau und Landschaft</li>
+                            <li>Organisches Zusammenfügen von Bauteilen</li>
+                            <li>Verwendung natürlicher Baumaterialien</li>
+                            <li>Zweckbezogenheit der Bauwerke</li>
+                        </ul>
+                        <p>Hauptvertreter: Frank Lloyd Wright (Haus Fallingwater, Guggenheim Museum)</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Expressionismus (ca. 1910-1925)</div>
+                    <div class="card-body">
+                        <p>In Mittel- und Nordeuropa entstand nach dem Expressionismus in der bildenden Kunst ein expressionistischer Architekturstil, der eine Ausdruckssteigerung mit baukünstlerischen Mitteln versuchte.</p>
+                        <p>Im Unterschied zum Funktionalismus sollten die Bauten dieses Stils den Eindruck einer frei geformten, abstrakten und monumentalen Plastik vermitteln.</p>
+                        <p>Wichtiger Vertreter: Erich Mendelsohn (1887-1953) - Einstein-Turm</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Architekturströmungen ab 1960</h3>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">Brutalismus (1950er-1970er)</div>
+                    <div class="card-body">
+                        <p>Zeichnet sich durch die Verwendung von rohem, ungeschliffenem Beton und kantigen, massiven Formen aus. Brutalistische Gebäude sollten eine „ehrliche" Architektur darstellen, die keine Verkleidungen oder versteckten Materialien verwendete.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Verwendung von rohem, unbehandeltem Beton („béton brut")</li>
+                            <li>Massive, kantige Formen und geometrische Volumen</li>
+                            <li>Betonung der Struktur und Funktion des Gebäudes</li>
+                            <li>Geringe ornamentale Verzierung</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">High-Tech-Architektur (ab 1970er)</div>
+                    <div class="card-body">
+                        <p>Die Faszination für Technik führte zu einer Ästhetisierung technischer Konstruktionsweisen, die sich z.B. in sichtbar gelassenen Tragwerken und Versorgungssystemen äußert.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Sichtbare Tragwerke und Versorgungssysteme</li>
+                            <li>Industrielle Fertigungsmethoden</li>
+                            <li>Verwendung von Metall, Glas, Kunststoff</li>
+                            <li>Austauschbare Module ("Plug-In-Elemente")</li>
+                        </ul>
+                        <p>Wichtige Vertreter: Norman Foster, Richard Rogers, Renzo Piano (Centre Pompidou)</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Minimalismus</div>
+                    <div class="card-body">
+                        <p>Ein Architekturstil, der sich durch seine einfache Formensprache und durch den Verzicht auf Dekorationselemente auszeichnet.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Stark reduzierte, oft kubische Gebäudeformen</li>
+                            <li>Angestrebte Formreinheit und Geometrismus</li>
+                            <li>Baustoffe: Glas, (Sicht-) Beton, Stahl und Naturstein</li>
+                        </ul>
+                        <p>Vertreter: Peter Zumthor, Tadao Ando</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Postmoderne (1970er-1990er)</div>
+                    <div class="card-body">
+                        <p>Entstand als Reaktion auf die Moderne und den Funktionalismus, die als zu rational und unflexibel empfunden wurden. Brachte zurück, was in der modernen Architektur oft weggelassen wurde – Geschichte, Ornament und symbolische Bedeutung.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Verwendung historischer Stilelemente</li>
+                            <li>Ornamente und Dekorationen, oft ironisch oder verspielt</li>
+                            <li>Farbenfrohe Fassaden und ungewöhnliche Formen</li>
+                            <li>Betonung von Kontextualität</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Dekonstruktivismus (1980er bis heute)</div>
+                    <div class="card-body">
+                        <p>Eine Strömung, die eine Zersplitterung des architektonischen Körpers und eine heterogene, wie "zusammenstürzend" wirkende Neuordnung der Bestandteile verfolgt.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Freier, spielerischer Umgang mit architektonischen Elementen</li>
+                            <li>Durchbrechung gewohnter Kategorien wie Regelmäßigkeit oder Symmetrie</li>
+                            <li>Zerklüftetes, heterogenes Formenkonglomerat</li>
+                            <li>Dynamisierung der Architektur</li>
+                        </ul>
+                        <p>Wichtige Vertreter: Zaha Hadid, Frank Gehry, Coop Himmelb(l)au, Daniel Libeskind</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Ökologische Architektur (1970er bis heute)</div>
+                    <div class="card-body">
+                        <p>Entwickelte sich aufgrund wachsender Bedenken über Umweltschutz und Ressourcenschonung. Umfasst alle Bemühungen, Gebäude umweltfreundlicher zu gestalten.</p>
+                        <p>Merkmale:</p>
+                        <ul>
+                            <li>Nutzung erneuerbarer Energien und umweltfreundlicher Materialien</li>
+                            <li>Integration von grünen Dächern und Solartechnologie</li>
+                            <li>Verwendung von natürlichen Belüftungssystemen</li>
+                            <li>Energieeffiziente Gebäudetechniken</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="summary-box">
+                <h4>Zusammenfassung: Entwicklung der modernen Architektur</h4>
+                <ul>
+                    <li>Von der Dekoration zur Funktion: Abkehr vom Historismus und Jugendstil hin zu mehr Funktionalität und Klarheit</li>
+                    <li>Neue Materialien: Verwendung von Stahl, Beton, Glas und anderen industriellen Materialien</li>
+                    <li>International Style: Globale Architektursprache mit klaren Formen und minimalistischen Elementen</li>
+                    <li>Vielfalt nach 1960: Entwicklung verschiedener Stilrichtungen als Reaktion auf und Weiterentwicklung der klassischen Moderne</li>
+                    <li>Nachhaltigkeit: Zunehmende Bedeutung ökologischer Aspekte in der zeitgenössischen Architektur</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="glossary">
+            <h2>Glossar der Architektur-Fachbegriffe</h2>
+            
+            <div class="row">
+                <div class="col">
+                    <h3>Konstruktive Elemente</h3>
+                    <dl>
+                        <dt>Baukörper</dt>
+                        <dd>Das von einem Menschen sichtbare und erlebbare Gesamtvolumen eines Gebäudes mit und ohne nutzbare Innenräume.</dd>
+                        
+                        <dt>Massebau</dt>
+                        <dd>Standfestigkeit durch Dichte (Festigkeit) und die Masse des Materials gesichert.</dd>
+                        
+                        <dt>Massivbau</dt>
+                        <dd>Tragwerk und Raumabschluss sind identisch. Standfestigkeit durch die Verteilung von Lasten über eine große Fläche gesichert.</dd>
+                        
+                        <dt>Skelettbau</dt>
+                        <dd>Standfestigkeit durch die Aufspaltung der Last in immer kleinere Anteile. Einzelne Trageelemente (Skelett) fangen die Last auf.</dd>
+                        
+                        <dt>Pfeiler</dt>
+                        <dd>Senkrechte Mauerstütze mit rechteckigem, polygonalem oder rundem Querschnitt.</dd>
+                        
+                        <dt>Säule</dt>
+                        <dd>Stützender Bauteil mit typischer Gliederung in Basis (Fuß), Schaft und Kapitell.</dd>
+                        
+                        <dt>Gewölbe</dt>
+                        <dd>Gekrümmte Raumdecken aus Stein, Beton, Stahlbeton.</dd>
+                    </dl>
+                </div>
+                
+                <div class="col">
+                    <h3>Dekorative Elemente</h3>
+                    <dl>
+                        <dt>Gesims</dt>
+                        <dd>Horizontaler, erhabener, relativ schmaler Mauerstreifen.</dd>
+                        
+                        <dt>Kranzgesims</dt>
+                        <dd>Abschlusselement der Fassade zum Dach hin.</dd>
+                        
+                        <dt>Sockel</dt>
+                        <dd>Unterstes Element der Fassade.</dd>
+                        
+                        <dt>Fasche</dt>
+                        <dd>Farbband oder leicht erhabenes Mauerband, das zur Gliederung der Fassade verwendet wird.</dd>
+                        
+                        <dt>Lisene</dt>
+                        <dd>Mauerverstärkung, Mauerstreifen; in der Regel vertikal ohne zierenden Abschluss.</dd>
+                        
+                        <dt>Pilaster</dt>
+                        <dd>Wandpfeiler, der nur wenig aus der Wand hervortritt; mit Gliederung in Basis, Schaft und Kapitell.</dd>
+                        
+                        <dt>Ornamentik</dt>
+                        <dd>Verzierungen wie Friese, Rocaillen, pflanzliche, Tier- und Menschenornamentik.</dd>
+                    </dl>
+                </div>
+                
+                <div class="col">
+                    <h3>Architekturbegriffe</h3>
+                    <dl>
+                        <dt>Sakralbau</dt>
+                        <dd>Religiöse Kultstätten wie Kirchen, Synagogen, Moscheen, Tempel.</dd>
+                        
+                        <dt>Profanbau</dt>
+                        <dd>"Unreligiöse" öffentliche und private Gebäude wie Wohnhäuser, Schulen, Paläste.</dd>
+                        
+                        <dt>Funktionalismus</dt>
+                        <dd>Architekturprinzip, bei dem die Form der Funktion folgt ("Form follows function").</dd>
+                        
+                        <dt>Gesamtkunstwerk</dt>
+                        <dd>Konzept einer Vereinigung verschiedener Kunstformen wie Architektur, Inneneinrichtung, Kunst in einem harmonischen Ganzen.</dd>
+                        
+                        <dt>Historismus</dt>
+                        <dd>Stilrichtung, die auf ältere historische Stile zurückgreift und diese teilweise kombiniert.</dd>
+                        
+                        <dt>International Style</dt>
+                        <dd>Moderne Architekturrichtung mit asymmetrischer Komposition, einfachen kubischen Formen und minimaler Dekoration.</dd>
+                        
+                        <dt>Jugendstil</dt>
+                        <dd>Kunstrichtung mit geschwungenen Linien, floralen Motiven und organischen Formen.</dd>
+                    </dl>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="back-to-top">↑</div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize with button hidden
+        backToTopButton.style.display = 'none';
+    </script>
+</body>
+</html>
