@@ -428,19 +428,25 @@
         
         .tooltip .tooltip-text {
             visibility: hidden;
-            width: 200px;
-            background-color: var(--secondary-color);
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            <div class="tooltip-text">
+                visibility: hidden;
+                width: 220px;
+                background-color: var(--secondary-color);
+                color: white;
+                text-align: center;
+                border-radius: 6px;
+                padding: 8px 10px;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -110px;
+                opacity: 0;
+                transition: opacity 0.3s;
+                font-style: normal;
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
         }
         
         .tooltip:hover .tooltip-text {
@@ -502,16 +508,16 @@
             
             <div class="card">
                 <h3>Literaturgeschichtliche Einordnung: Der Naturalismus</h3>
-                <p>Die Novelle "Bahnwärter Thiel" erschien 1888 und ist ein Schlüsselwerk des deutschen Naturalismus, einer literarischen Strömung, die sich in Deutschland zwischen 1880 und 1900 entwickelte. Der Naturalismus verstand sich als Gegenbewegung zum Idealismus und Ästhetizismus des Bürgertums im Deutschen Kaiserreich.</p>
+                <p>Die Novelle "Bahnwärter Thiel" erschien 1888 und ist ein Schlüsselwerk des deutschen <span class="tooltip">Naturalismus<span class="tooltip-text">Literarische Strömung des späten 19. Jahrhunderts, die die exakte, wissenschaftlich präzise Darstellung der Wirklichkeit anstrebte und soziale Probleme thematisierte.</span></span>, einer literarischen Strömung, die sich in Deutschland zwischen 1880 und 1900 entwickelte. Der Naturalismus verstand sich als Gegenbewegung zum Idealismus und Ästhetizismus des Bürgertums im <span class="tooltip">Deutschen Kaiserreich<span class="tooltip-text">Bezeichnung für den 1871 gegründeten deutschen Nationalstaat, der bis 1918 bestand und von preußischer Vorherrschaft geprägt war.</span></span>.</p>
                 <p>Kennzeichnend für den Naturalismus sind:</p>
                 <ul>
                     <li>Die wissenschaftlich-objektive Darstellung der Wirklichkeit</li>
-                    <li>Die Überzeugung, dass der Mensch durch Vererbung, Milieu und soziale Umstände determiniert ist</li>
+                    <li>Die Überzeugung, dass der Mensch durch <span class="tooltip">Vererbung, Milieu und soziale Umstände determiniert<span class="tooltip-text">Determinismus: Die Vorstellung, dass menschliches Handeln durch äußere Faktoren bestimmt (determiniert) ist und nicht durch freien Willen.</span></span> ist</li>
                     <li>Die Hinwendung zu sozialen Problemen und unteren Gesellschaftsschichten</li>
                     <li>Die detailgetreue Abbildung der Umwelt und der Sprache (Dialekt, Soziolekt)</li>
                     <li>Die Darstellung psychologischer und physiologischer Prozesse</li>
                 </ul>
-                <p>Als <span class="tooltip">novellistische Studie<span class="tooltip-text">Eine im Naturalismus übliche Bezeichnung für Erzählungen, die einen Einzelfall wie in einer wissenschaftlichen Fallstudie analysieren.</span></span> verbindet "Bahnwärter Thiel" naturalistische Präzision mit symbolistischen Elementen und zeigt die für Hauptmann typische Verbindung von sozialer Analyse und psychologischer Tiefe.</p>
+                <p>Als <span class="tooltip">novellistische Studie<span class="tooltip-text">Eine im Naturalismus übliche Bezeichnung für Erzählungen, die einen Einzelfall wie in einer wissenschaftlichen Fallstudie analysieren.</span></span> verbindet "Bahnwärter Thiel" naturalistische Präzision mit <span class="tooltip">symbolistischen<span class="tooltip-text">Der Symbolismus war eine Kunstrichtung um 1900, die durch die Verwendung von Symbolen tiefere Bedeutungsebenen erschließen wollte und sich vom Naturalismus durch ihre Betonung des Subjektiven und Traumhaften unterschied.</span></span> Elementen und zeigt die für Hauptmann typische Verbindung von sozialer Analyse und psychologischer Tiefe.</p>
             </div>
         </section>
 
@@ -519,10 +525,10 @@
             <h2>2. Inhaltsangabe</h2>
             <div class="card">
                 <h3>Zusammenfassung</h3>
-                <p>Die Novelle erzählt die Geschichte des Bahnwärters Thiel, der in dem kleinen Dorf Schön-Schornstein nahe Berlin lebt. Nach dem Tod seiner ersten Frau Minna, die im Kindbett bei der Geburt des gemeinsamen Sohnes Tobias stirbt, heiratet Thiel die robuste und dominante Lene, eine ehemalige Kuhmagd. Diese Ehe soll vor allem dazu dienen, dem kränklichen Tobias eine Pflegerin zu geben.</p>
+                <p>Die <span class="tooltip">Novelle<span class="tooltip-text">Literarische Gattung mittleren Umfangs mit straffer Handlung, wenigen Figuren und oft einer zentralen Wendung. Im Unterschied zum Roman konzentriert sich die Novelle auf ein einzelnes außergewöhnliches Ereignis.</span></span> erzählt die Geschichte des Bahnwärters Thiel, der in dem kleinen Dorf Schön-Schornstein nahe Berlin lebt. Nach dem Tod seiner ersten Frau Minna, die im Kindbett bei der Geburt des gemeinsamen Sohnes Tobias stirbt, heiratet Thiel die robuste und dominante Lene, eine ehemalige Kuhmagd. Diese Ehe soll vor allem dazu dienen, dem kränklichen Tobias eine Pflegerin zu geben.</p>
                 <p>Thiel führt ein gespaltenes Leben: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der Erinnerung an Minna fest, der er sein Wärterhäuschen und seinen Dienst an der Bahnstrecke als heiligen Bereich widmet, zu dem Lene keinen Zugang haben soll. In seinem Häuschen pflegt er eine fast religiöse Verehrung für seine verstorbene erste Frau.</p>
                 <p>Mit der Zeit beginnt Lene, den zarten Tobias zu vernachlässigen und zu misshandeln, während sie ihren eigenen Sohn bevorzugt. Obwohl Thiel dies wahrnimmt, greift er nicht ein, gefangen in seiner Abhängigkeit von Lene. Die Situation spitzt sich zu, als der Bahnmeister Thiel ein Stück Land in der Nähe seines Wärterhäuschens zur Bewirtschaftung überlässt. Lene dringt nun in Thiels heiligen Bereich ein, um das Land zu beackern.</p>
-                <p>Während Lene Kartoffeln pflanzt und dabei nachlässig auf Tobias aufpasst, wird der Junge von einem Zug erfasst und tödlich verletzt. Angesichts des sterbenden Kindes und der Verletzung seines "heiligen Raumes" verfällt Thiel dem Wahnsinn. In einem psychotischen Zustand tötet er Lene und deren Kleinkind und wird schließlich in eine Irrenanstalt eingewiesen.</p>
+                <p>Während Lene Kartoffeln pflanzt und dabei nachlässig auf Tobias aufpasst, wird der Junge von einem Zug erfasst und tödlich verletzt. Angesichts des sterbenden Kindes und der Verletzung seines "heiligen Raumes" verfällt Thiel dem Wahnsinn. In einem <span class="tooltip">psychotischen Zustand<span class="tooltip-text">Ein schwerwiegender psychischer Ausnahmezustand, bei dem der Kontakt zur Realität verloren geht und Wahnvorstellungen oder Halluzinationen auftreten können.</span></span> tötet er Lene und deren Kleinkind und wird schließlich in eine Irrenanstalt eingewiesen.</p>
             </div>
             
             <div class="card">
@@ -531,7 +537,7 @@
                     <div class="timeline-item left">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Exposition</h3>
+                            <h3><span class="tooltip">Exposition<span class="tooltip-text">Einführender Teil einer Erzählung, der die Figuren, den Ort und die Ausgangssituation vorstellt und das zentrale Problem der Handlung anlegt.</span></span></h3>
                             <p>Vorstellung Thiels als zuverlässiger Bahnwärter, der regelmäßig die Kirche besucht. Tod seiner ersten Frau Minna, Heirat mit Lene.</p>
                         </div>
                     </div>
@@ -545,7 +551,7 @@
                     <div class="timeline-item left">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Wendepunkt</h3>
+                            <h3><span class="tooltip">Wendepunkt<span class="tooltip-text">Auch Peripetie genannt: Der entscheidende Umschwung in der Handlung, an dem die Geschichte eine neue Richtung nimmt.</span></span></h3>
                             <p>Der Bahnmeister überlässt Thiel ein Stück Land am Bahndamm. Lene dringt in Thiels "heiligen Bereich" ein.</p>
                         </div>
                     </div>
@@ -566,7 +572,7 @@
                     <div class="timeline-item right">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Katastrophe</h3>
+                            <h3><span class="tooltip">Katastrophe<span class="tooltip-text">In der Dramentheorie der tragische Endpunkt einer Handlung; hier: der vollständige Zusammenbruch des Protagonisten und die finale Gewalttat.</span></span></h3>
                             <p>Thiel ermordet Lene und deren Kind. Er wird später von der Strecke geholt und in die Irrenabteilung der Charité eingeliefert.</p>
                         </div>
                     </div>
@@ -700,12 +706,12 @@
                 <h3>Psychologische Deutung</h3>
                 <p>Die Novelle lässt sich als Studie einer gespaltenen Persönlichkeit und eines psychischen Zusammenbruchs lesen. Thiels Charakter ist von Beginn an durch eine Spaltung gekennzeichnet: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der idealisierten Erinnerung an seine erste Frau fest.</p>
                 <p>Diese Spaltung manifestiert sich räumlich in der Trennung zwischen Dorf (Ort des Alltagslebens mit Lene) und Wärterhäuschen (sakraler Raum der Erinnerung an Minna). Als Lene in diesen "heiligen" Bereich eindringt und durch ihre Nachlässigkeit Tobias' Tod mitverursacht, kollabiert Thiels fragiles psychisches Gleichgewicht.</p>
-                <p>Seine Halluzinationen und Wahnvorstellungen zeigen den fortschreitenden psychischen Verfall, der schließlich in Gewalt und völligen Wahnsinn mündet. Die Novelle kann somit als frühe literarische Darstellung einer dissoziativen Identitätsstörung gedeutet werden.</p>
+                <p>Seine Halluzinationen und Wahnvorstellungen zeigen den fortschreitenden psychischen Verfall, der schließlich in Gewalt und völligen Wahnsinn mündet. Die Novelle kann somit als frühe literarische Darstellung einer <span class="tooltip">dissoziativen Identitätsstörung<span class="tooltip-text">Eine psychische Störung, bei der eine Person zwei oder mehr unterschiedliche Identitäten oder Persönlichkeitszustände entwickelt, die das Verhalten abwechselnd kontrollieren.</span></span> gedeutet werden.</p>
             </div>
             
             <div class="card">
                 <h3>Gesellschaftskritische Deutung</h3>
-                <p>Im Sinne des Naturalismus lässt sich "Bahnwärter Thiel" auch als Kritik an den sozialen und gesellschaftlichen Verhältnissen im Deutschen Kaiserreich verstehen. Die Eisenbahn als Symbol der Industrialisierung dringt zerstörerisch in die Naturwelt ein, ähnlich wie moderne Arbeits- und Lebensbedingungen traditionelle Lebensformen untergraben.</p>
+                <p>Im Sinne des Naturalismus lässt sich "Bahnwärter Thiel" auch als Kritik an den sozialen und gesellschaftlichen Verhältnissen im Deutschen Kaiserreich verstehen. Die Eisenbahn als Symbol der <span class="tooltip">Industrialisierung<span class="tooltip-text">Historischer Prozess der Umwandlung von agrarisch geprägten in industriell geprägte Gesellschaften mit maschineller Fertigung, Fabriksystem und Massenproduktion. In Deutschland setzte die Industrialisierung später als in England ein, beschleunigte sich aber im Kaiserreich nach 1871 stark.</span></span> dringt zerstörerisch in die Naturwelt ein, ähnlich wie moderne Arbeits- und Lebensbedingungen traditionelle Lebensformen untergraben.</p>
                 <p>Thiel als einfacher Arbeiter ist den gesellschaftlichen Kräften hilflos ausgeliefert. Seine fast militärische Pflichttreue und Unterwürfigkeit gegenüber Autoritäten spiegeln die preußischen Tugenden wider, die letztlich zur Selbstentfremdung führen. Die Novelle zeigt, wie die Mechanisierung der Arbeitswelt (symbolisiert durch die Eisenbahn) zur Verdinglichung des Menschen führt.</p>
                 <p>Auch die Geschlechterverhältnisse werden kritisch beleuchtet: Lenes Dominanz über Thiel kehrt die traditionellen Geschlechterrollen um und führt bei Thiel zu einer krisenhaften Männlichkeit, die schließlich in destruktiver Gewalt endet.</p>
             </div>
@@ -740,7 +746,7 @@
                 <ul>
                     <li><strong>Atmosphärische Naturbeschreibungen</strong>: Die Natur wird nicht nur objektiv beschrieben, sondern auch stimmungsvoll inszeniert.</li>
                     <li><strong>Farbsymbolik</strong>: Farben wie Rot (Blut, Thiels Haare), Schwarz (Eisenbahn, Dunkelheit) und Weiß (Reinheit, Tod) tragen symbolische Bedeutung.</li>
-                    <li><strong>Synästhesien</strong>: Verschiedene Sinneseindrücke werden miteinander verknüpft, etwa wenn Thiel das "Klingen der Telegraphenstangen" wahrnimmt.</li>
+                    <li><strong><span class="tooltip">Synästhesien<span class="tooltip-text">Verknüpfung verschiedener Sinneswahrnehmungen, z.B. wenn Farben gehört oder Töne gesehen werden. In der Literatur eine Stilfigur, bei der Eindrücke verschiedener Sinnesgebiete miteinander verbunden werden.</span></span></strong>: Verschiedene Sinneseindrücke werden miteinander verknüpft, etwa wenn Thiel das "Klingen der Telegraphenstangen" wahrnimmt.</li>
                 </ul>
                 <blockquote>
                     "Wie eine riesige purpurglühende Kugel lag der Mond zwischen den Kieferschäften am Waldesgrund. Je höher er rückte um so kleiner schien er zu werden, um so mehr verblaßte er."
@@ -749,11 +755,11 @@
             
             <div class="card">
                 <h3>Erzähltechnik</h3>
-                <p>Die Erzählperspektive ist durch einen personalen Erzähler geprägt, der vorwiegend aus der Sicht Thiels berichtet, aber auch Einblicke in dessen Innenleben gibt:</p>
+                <p>Die Erzählperspektive ist durch einen <span class="tooltip">personalen Erzähler<span class="tooltip-text">Eine Erzählperspektive, bei der der Erzähler zwar in der dritten Person berichtet, aber die Handlung vorwiegend aus der Sicht einer bestimmten Figur darstellt und deren Gedanken und Gefühle vermittelt.</span></span> geprägt, der vorwiegend aus der Sicht Thiels berichtet, aber auch Einblicke in dessen Innenleben gibt:</p>
                 <ul>
-                    <li><strong>Erlebte Rede</strong>: Gedanken und Empfindungen Thiels werden oft in erlebter Rede wiedergegeben, was einen unmittelbaren Zugang zu seinem Bewusstsein ermöglicht.</li>
-                    <li><strong>Innerer Monolog</strong>: Besonders in den Wahnvorstellungen Thiels nähert sich die Erzählweise dem inneren Monolog.</li>
-                    <li><strong>Leitmotivische Struktur</strong>: Bestimmte Bilder und Symbole (Eisenbahn, Blut, religiöse Motive) werden wiederholt und variiert.</li>
+                    <li><strong><span class="tooltip">Erlebte Rede<span class="tooltip-text">Eine Form der Wiedergabe von Figurengedanken, die Merkmale direkter und indirekter Rede vereint. Sie steht in der dritten Person, übernimmt aber die Perspektive und oft auch den Sprachstil der Figur.</span></span></strong>: Gedanken und Empfindungen Thiels werden oft in erlebter Rede wiedergegeben, was einen unmittelbaren Zugang zu seinem Bewusstsein ermöglicht.</li>
+                    <li><strong><span class="tooltip">Innerer Monolog<span class="tooltip-text">Eine Erzähltechnik, bei der die Gedanken einer Figur direkt und unkommentiert wiedergegeben werden, als spräche die Figur zu sich selbst.</span></span></strong>: Besonders in den Wahnvorstellungen Thiels nähert sich die Erzählweise dem inneren Monolog.</li>
+                    <li><strong><span class="tooltip">Leitmotivische Struktur<span class="tooltip-text">Wiederholtes Auftreten bestimmter Motive, Bilder oder Symbole, die eine strukturierende und bedeutungstragende Funktion haben.</span></span></strong>: Bestimmte Bilder und Symbole (Eisenbahn, Blut, religiöse Motive) werden wiederholt und variiert.</li>
                 </ul>
                 <p>Die Novelle hält eine Balance zwischen naturalistischer Objektivität und der subjektiven Darstellung innerer Prozesse, was sie zu einem Übergangswerk zwischen Naturalismus und Symbolismus macht.</p>
             </div>
