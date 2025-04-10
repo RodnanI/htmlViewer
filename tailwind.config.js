@@ -19,15 +19,11 @@ module.exports = {
         'dark-card': '#1f2937',
         'dark-text': '#f9fafb',
         'dark-border': '#374151',
+        
+        'gray-750': '#1e293b', // Additional dark gray for dark mode
       },
-      animation: {
-        'ping': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
-      },
-      keyframes: {
-        ping: {
-          '0%': { transform: 'scale(1)', opacity: '0.8' },
-          '80%, 100%': { transform: 'scale(1.7)', opacity: '0' },
-        },
+      fontWeight: {
+        light: '300',
       },
     },
   },
