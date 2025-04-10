@@ -154,6 +154,7 @@
             box-shadow: var(--shadow);
             padding: 20px;
             margin-bottom: 20px;
+            overflow: visible !important; /* Ensure tooltips can break out */
         }
         
         .card h3 {
@@ -258,7 +259,7 @@
             display: flex;
             background-color: white;
             border-radius: 8px;
-            overflow: visible; /* Changed from 'hidden' to allow tooltips to break out */
+            overflow: visible !important; /* Changed from 'hidden' to allow tooltips to break out */
             box-shadow: var(--shadow);
             margin-bottom: 20px;
             position: relative; /* Added for proper tooltip positioning */
@@ -268,11 +269,12 @@
             padding: 20px;
             flex: 1;
             position: relative; /* Added for proper tooltip positioning */
-            overflow: visible; /* Ensure tooltips can break out of the container */
+            overflow: visible !important; /* Ensure tooltips can break out of the container */
         }
         
         .tab-container {
             margin-bottom: 20px;
+            overflow: visible !important; /* Ensure tooltips can break out */
         }
         
         .tab-buttons {
@@ -303,6 +305,7 @@
             border: 1px solid var(--border-color);
             border-top: none;
             background-color: white;
+            overflow: visible !important; /* Ensure tooltips can break out */
         }
         
         .tab-content.active {
@@ -421,8 +424,7 @@
             text-decoration: underline;
         }
         
-        /* Tooltip styles */
-        /* Modified tooltip styles to ensure they break out of containers */
+        /* Completely redesigned tooltip styles for better reliability */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -431,26 +433,24 @@
         }
         
         .tooltip .tooltip-text {
-            visibility: hidden;
+            display: none; /* Changed from visibility: hidden */
             width: 250px;
             background-color: var(--secondary-color);
             color: white;
             text-align: center;
             border-radius: 6px;
             padding: 8px;
-            position: absolute;
-            z-index: 9999;
+            position: absolute; /* Changed back to absolute for more reliable positioning */
+            z-index: 10000;
             bottom: 125%;
             left: 50%;
-            margin-left: -125px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            transform: translateX(-50%); /* Center horizontally */
             font-size: 0.85rem;
             line-height: 1.4;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            pointer-events: none; /* Prevents tooltip from blocking mouse events */
         }
         
+        /* Add arrow to the tooltip */
         .tooltip .tooltip-text::after {
             content: "";
             position: absolute;
@@ -462,10 +462,50 @@
             border-color: var(--secondary-color) transparent transparent transparent;
         }
         
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        /* Show tooltip on hover and when active class is applied */
+        .tooltip:hover .tooltip-text,
+        .tooltip.active .tooltip-text {
+            display: block;
         }
+        
+        /* Special handling for tooltips that would go off-screen */
+        .tooltip.tooltip-left .tooltip-text {
+            left: 0;
+            transform: none;
+        }
+        
+        .tooltip.tooltip-right .tooltip-text {
+            left: auto;
+            right: 0;
+            transform: none;
+        }
+        
+        .tooltip.tooltip-bottom .tooltip-text {
+            bottom: auto;
+            top: 125%;
+        }
+        
+        .tooltip.tooltip-bottom .tooltip-text::after {
+            top: auto;
+            bottom: 100%;
+            border-color: transparent transparent var(--secondary-color) transparent;
+        }
+        
+        /* Additional positioning for tooltip */
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--secondary-color) transparent transparent transparent;
+        }
+        
+        /* Make sure all elements that might contain tooltips have overflow visible */
+        section, div, p, li, blockquote, .card, .character-card, .tab-content {
+            overflow: visible !important;
+        }
+        
+        /* Add JavaScript to position tooltips properly */
     </style>
 </head>
 <body>
@@ -654,7 +694,7 @@
                     <div class="tab-button" data-tab="sexualitaet">Sexualität</div>
                 </div>
                 
-                <div class="tab-content" id="eisenbahn">
+                <div class="tab-content active" id="eisenbahn">
                     <h3>Die Eisenbahn als zentrales Symbol</h3>
                     <p>Die Eisenbahn ist das dominierende Symbol der Novelle und erfüllt mehrere Funktionen:</p>
                     <ul>
@@ -916,6 +956,96 @@
                     // Close mobile menu if open
                     navLinks.classList.remove('active');
                 }
+            });
+        });
+        
+        // Completely reworked tooltip handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltips = document.querySelectorAll('.tooltip');
+            let activeTooltip = null;
+            
+            function adjustTooltipPosition(tooltip) {
+                // Remove any previous positioning classes
+                tooltip.classList.remove('tooltip-left', 'tooltip-right', 'tooltip-bottom');
+                
+                const tooltipText = tooltip.querySelector('.tooltip-text');
+                if (!tooltipText) return;
+                
+                // First make the tooltip visible temporarily to measure it
+                const originalDisplay = tooltipText.style.display;
+                tooltipText.style.display = 'block';
+                
+                // Get positions and dimensions
+                const tooltipRect = tooltip.getBoundingClientRect();
+                const tooltipTextRect = tooltipText.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                // Check if tooltip would go off-screen to the left
+                if (tooltipTextRect.left < 0) {
+                    tooltip.classList.add('tooltip-left');
+                }
+                
+                // Check if tooltip would go off-screen to the right
+                if (tooltipTextRect.right > windowWidth) {
+                    tooltip.classList.add('tooltip-right');
+                }
+                
+                // Check if tooltip would go off-screen at the top
+                if (tooltipTextRect.top < 0 || tooltipRect.top < tooltipTextRect.height + 10) {
+                    tooltip.classList.add('tooltip-bottom');
+                }
+                
+                // Restore original display
+                tooltipText.style.display = originalDisplay;
+            }
+            
+            // Set up click handling for all tooltips
+            tooltips.forEach(tooltip => {
+                // Pre-position on page load
+                adjustTooltipPosition(tooltip);
+                
+                // Handle clicks
+                tooltip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Toggle active state
+                    if (this.classList.contains('active')) {
+                        this.classList.remove('active');
+                        activeTooltip = null;
+                    } else {
+                        // First deactivate any previously active tooltip
+                        if (activeTooltip) {
+                            activeTooltip.classList.remove('active');
+                        }
+                        
+                        // Then activate this one
+                        this.classList.add('active');
+                        activeTooltip = this;
+                        adjustTooltipPosition(this);
+                    }
+                });
+                
+                // For desktop users, also position correctly on hover
+                tooltip.addEventListener('mouseenter', function() {
+                    adjustTooltipPosition(this);
+                });
+            });
+            
+            // Close active tooltip when clicking elsewhere on the page
+            document.addEventListener('click', function(e) {
+                if (activeTooltip && !activeTooltip.contains(e.target)) {
+                    activeTooltip.classList.remove('active');
+                    activeTooltip = null;
+                }
+            });
+            
+            // Adjust tooltip positions on window resize
+            window.addEventListener('resize', function() {
+                tooltips.forEach(tooltip => {
+                    adjustTooltipPosition(tooltip);
+                });
             });
         });
     </script>
