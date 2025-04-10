@@ -62,7 +62,7 @@ export default function Home() {
       
       {/* Empty State */}
       {htmlFiles.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-10 mb-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-6 sm:p-10 mb-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-50 dark:bg-gray-700 rounded-full mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -73,7 +73,7 @@ export default function Home() {
             To get started, add HTML files to the following directory:
           </p>
           
-          <div className="inline-block bg-gray-50 dark:bg-gray-700 rounded px-3 py-2 font-mono text-sm text-gray-600 dark:text-gray-300 mb-8">
+          <div className="inline-block bg-gray-50 dark:bg-gray-700 rounded px-3 py-2 font-mono text-sm text-gray-600 dark:text-gray-300 mb-8 overflow-x-auto max-w-full">
             /public/html-files/
           </div>
           
@@ -97,47 +97,73 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {/* Table View for Files */}
-          <div className="overflow-hidden bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 mb-8">
-            <div className="overflow-x-auto">
+          {/* File List - Responsive for mobile and desktop */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 mb-8 overflow-hidden">
+            {/* Desktop Table (hidden on small screens) */}
+            <div className="hidden md:block">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-100 dark:border-gray-700">
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">File Name</th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Added</th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Size</th>
-                    <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                   {htmlFiles.map((file) => (
-                    <tr key={file.fileName} className="group hover:bg-gray-50 dark:hover:bg-gray-750">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{file.fileName}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                        {formatDate(file.createdAt)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                        {formatFileSize(file.size)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link 
-                          href={`/html-view/${file.slug}`}
-                          className="text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-150 hover:text-blue-700 dark:hover:text-blue-300"
-                        >
-                          View
-                        </Link>
-                      </td>
+                    <tr 
+                      key={file.fileName}
+                      className="group hover:bg-gray-50 dark:hover:bg-gray-750 cursor-pointer"
+                    >
+                      <Link
+                        href={`/html-view/${file.slug}`}
+                        className="contents"
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {file.fileName}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                          {formatDate(file.createdAt)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                          {formatFileSize(file.size)}
+                        </td>
+                      </Link>
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+            
+            {/* Mobile List View (shown only on small screens) */}
+            <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700">
+              {htmlFiles.map((file) => (
+                <Link 
+                  href={`/html-view/${file.slug}`}
+                  key={file.fileName}
+                  className="block p-4 hover:bg-gray-50 dark:hover:bg-gray-750"
+                >
+                  <div className="flex items-center mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {file.fileName}
+                    </div>
+                  </div>
+                  <div className="ml-7 flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                    <div>{formatDate(file.createdAt)}</div>
+                    <div>{formatFileSize(file.size)}</div>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
           
