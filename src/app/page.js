@@ -53,7 +53,7 @@ export default function Home() {
     <div className="max-w-5xl mx-auto px-4">
       {/* Header Section */}
       <header className="mb-12 pt-8">
-        <h1 className="text-3xl font-light text-gray-900 dark:text-gray-100 mb-2">HTML Viewer</h1>
+        <h1 className="text-3xl font-light text-gray-900 dark:text-gray-100 mb-2">Nándor's HTML Viewer</h1>
         <p className="text-gray-500 dark:text-gray-400 max-w-2xl">
           A minimalist tool to view and manage your HTML files. {htmlFiles.length > 0 && 
             `Currently hosting ${htmlFiles.length} file${htmlFiles.length !== 1 ? 's' : ''}.`}
