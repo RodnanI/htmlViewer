@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from '../context/ThemeProvider';
 import { AuthProvider } from '../context/AuthProvider';
 import ThemeToggle from '../components/ThemeToggle';
+import LogoutButton from '../components/LogoutButton';
 import ConditionalFooter from '../components/ConditionalFooter';
 import ProtectedContent from '../components/ProtectedContent';
 
@@ -27,7 +28,10 @@ export default function RootLayout({ children }) {
                 <header className="bg-white dark:bg-dark-card border-b border-light-border dark:border-dark-border sticky top-0 z-10">
                   <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-100">HTML Viewer</h1>
-                    <ThemeToggle />
+                    <div className="flex items-center space-x-2">
+                      <ThemeToggle />
+                      <LogoutButton />
+                    </div>
                   </div>
                 </header>
                 <main className="w-full px-4 py-6">
