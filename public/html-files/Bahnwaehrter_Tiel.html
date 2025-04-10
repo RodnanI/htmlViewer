@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahnwärter Thiel - Eine ausführliche Analyse</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --card-color: #fff;
+            --border-color: #ddd;
+            --quote-color: #f9f9f9;
+            --success-color: #2ecc71;
+            --shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding-top: 70px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Dampflokomotive_01_1066%2C_Museum_Bochum.jpg/1280px-Dampflokomotive_01_1066%2C_Museum_Bochum.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        section {
+            margin-bottom: 60px;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            margin-top: 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        blockquote {
+            background-color: var(--quote-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .right .timeline-dot {
+            left: -16px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .character-card {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        
+        .character-info {
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .tab-container {
+            margin-bottom: 20px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            margin-right: 5px;
+        }
+        
+        .tab-button.active {
+            background-color: white;
+            border-bottom: 2px solid white;
+            margin-bottom: -1px;
+            color: var(--accent-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            background-color: white;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+            
+            .timeline-dot {
+                left: 15px;
+            }
+            
+            .character-card {
+                flex-direction: column;
+            }
+        }
+
+        /* Additional styles for the table of contents */
+        .toc {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .toc-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .toc ul {
+            list-style-type: none;
+        }
+        
+        .toc ul li {
+            margin-bottom: 8px;
+        }
+        
+        .toc ul li a {
+            text-decoration: none;
+            color: var(--accent-color);
+            transition: color 0.3s;
+        }
+        
+        .toc ul li a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--accent-color);
+            cursor: help;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Bahnwärter Thiel</div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars">≡</i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#autor">Autor</a></li>
+                    <li><a href="#inhaltsangabe">Inhaltsangabe</a></li>
+                    <li><a href="#charaktere">Charaktere</a></li>
+                    <li><a href="#motive">Motive & Symbole</a></li>
+                    <li><a href="#interpretation">Interpretation</a></li>
+                    <li><a href="#sprache">Sprache & Stil</a></li>
+                    <li><a href="#rezeption">Rezeption</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Bahnwärter Thiel</h1>
+        <p>Eine ausführliche Analyse der naturalistischen Novelle von Gerhart Hauptmann (1888)</p>
+        <a href="#inhaltsverzeichnis" class="btn">Zur Analyse</a>
+    </div>
+
+    <div class="container">
+        <div class="toc" id="inhaltsverzeichnis">
+            <div class="toc-title">Inhaltsverzeichnis</div>
+            <ul>
+                <li><a href="#autor">1. Der Autor und literaturgeschichtliche Einordnung</a></li>
+                <li><a href="#inhaltsangabe">2. Inhaltsangabe</a></li>
+                <li><a href="#charaktere">3. Charakterisierung der Hauptfiguren</a></li>
+                <li><a href="#motive">4. Motive und Symbole</a></li>
+                <li><a href="#interpretation">5. Interpretation und Deutungsansätze</a></li>
+                <li><a href="#sprache">6. Sprache und Stil</a></li>
+                <li><a href="#rezeption">7. Rezeption und Wirkungsgeschichte</a></li>
+                <li><a href="#literaturhinweise">8. Literaturhinweise</a></li>
+            </ul>
+        </div>
+
+        <section id="autor">
+            <h2>1. Der Autor und literaturgeschichtliche Einordnung</h2>
+            <div class="card">
+                <h3>Gerhart Hauptmann (1862-1946)</h3>
+                <p>Gerhart Hauptmann wurde am 15. November 1862 in Obersalzbrunn (heute Szczawno-Zdrój in Polen, damals zu Schlesien gehörend) geboren und starb am 6. Juni 1946 in Agnetendorf (heute Jagniątków). Er gilt als einer der bedeutendsten deutschen Dramatiker und Schriftsteller des Naturalismus und erhielt 1912 den Nobelpreis für Literatur.</p>
+                <p>Hauptmann stammte aus kleinbürgerlichen Verhältnissen. Nach einer abgebrochenen Landwirtschaftsausbildung und einem kurzen Studium an der Kunstakademie in Breslau wandte er sich der Literatur zu. Er ließ sich in Berlin nieder, wo er mit dem naturalistischen Autorenkreis "Durch" in Kontakt kam.</p>
+                <p>Sein literarischer Durchbruch gelang ihm 1889 mit dem sozialkritischen Drama "Vor Sonnenaufgang", das bei seiner Uraufführung einen Skandal auslöste. In den folgenden Jahren etablierte er sich mit Werken wie "Die Weber" (1892), "Der Biberpelz" (1893) und "Die Ratten" (1911) als führender Vertreter des deutschen Naturalismus.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Literaturgeschichtliche Einordnung: Der Naturalismus</h3>
+                <p>Die Novelle "Bahnwärter Thiel" erschien 1888 und ist ein Schlüsselwerk des deutschen Naturalismus, einer literarischen Strömung, die sich in Deutschland zwischen 1880 und 1900 entwickelte. Der Naturalismus verstand sich als Gegenbewegung zum Idealismus und Ästhetizismus des Bürgertums im Deutschen Kaiserreich.</p>
+                <p>Kennzeichnend für den Naturalismus sind:</p>
+                <ul>
+                    <li>Die wissenschaftlich-objektive Darstellung der Wirklichkeit</li>
+                    <li>Die Überzeugung, dass der Mensch durch Vererbung, Milieu und soziale Umstände determiniert ist</li>
+                    <li>Die Hinwendung zu sozialen Problemen und unteren Gesellschaftsschichten</li>
+                    <li>Die detailgetreue Abbildung der Umwelt und der Sprache (Dialekt, Soziolekt)</li>
+                    <li>Die Darstellung psychologischer und physiologischer Prozesse</li>
+                </ul>
+                <p>Als <span class="tooltip">novellistische Studie<span class="tooltip-text">Eine im Naturalismus übliche Bezeichnung für Erzählungen, die einen Einzelfall wie in einer wissenschaftlichen Fallstudie analysieren.</span></span> verbindet "Bahnwärter Thiel" naturalistische Präzision mit symbolistischen Elementen und zeigt die für Hauptmann typische Verbindung von sozialer Analyse und psychologischer Tiefe.</p>
+            </div>
+        </section>
+
+        <section id="inhaltsangabe">
+            <h2>2. Inhaltsangabe</h2>
+            <div class="card">
+                <h3>Zusammenfassung</h3>
+                <p>Die Novelle erzählt die Geschichte des Bahnwärters Thiel, der in dem kleinen Dorf Schön-Schornstein nahe Berlin lebt. Nach dem Tod seiner ersten Frau Minna, die im Kindbett bei der Geburt des gemeinsamen Sohnes Tobias stirbt, heiratet Thiel die robuste und dominante Lene, eine ehemalige Kuhmagd. Diese Ehe soll vor allem dazu dienen, dem kränklichen Tobias eine Pflegerin zu geben.</p>
+                <p>Thiel führt ein gespaltenes Leben: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der Erinnerung an Minna fest, der er sein Wärterhäuschen und seinen Dienst an der Bahnstrecke als heiligen Bereich widmet, zu dem Lene keinen Zugang haben soll. In seinem Häuschen pflegt er eine fast religiöse Verehrung für seine verstorbene erste Frau.</p>
+                <p>Mit der Zeit beginnt Lene, den zarten Tobias zu vernachlässigen und zu misshandeln, während sie ihren eigenen Sohn bevorzugt. Obwohl Thiel dies wahrnimmt, greift er nicht ein, gefangen in seiner Abhängigkeit von Lene. Die Situation spitzt sich zu, als der Bahnmeister Thiel ein Stück Land in der Nähe seines Wärterhäuschens zur Bewirtschaftung überlässt. Lene dringt nun in Thiels heiligen Bereich ein, um das Land zu beackern.</p>
+                <p>Während Lene Kartoffeln pflanzt und dabei nachlässig auf Tobias aufpasst, wird der Junge von einem Zug erfasst und tödlich verletzt. Angesichts des sterbenden Kindes und der Verletzung seines "heiligen Raumes" verfällt Thiel dem Wahnsinn. In einem psychotischen Zustand tötet er Lene und deren Kleinkind und wird schließlich in eine Irrenanstalt eingewiesen.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Aufbau und Handlungsverlauf</h3>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Exposition</h3>
+                            <p>Vorstellung Thiels als zuverlässiger Bahnwärter, der regelmäßig die Kirche besucht. Tod seiner ersten Frau Minna, Heirat mit Lene.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Steigende Handlung</h3>
+                            <p>Entwicklung von Thiels Doppelleben: sexuelle Hörigkeit gegenüber Lene, religiöse Verehrung Minnas. Misshandlung von Tobias durch Lene.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Wendepunkt</h3>
+                            <p>Der Bahnmeister überlässt Thiel ein Stück Land am Bahndamm. Lene dringt in Thiels "heiligen Bereich" ein.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Höhepunkt</h3>
+                            <p>Tobias wird von einem Zug erfasst und tödlich verletzt, während Lene unaufmerksam ist.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Fallende Handlung</h3>
+                            <p>Thiel verfällt in Wahnvorstellungen, in denen er seine verstorbene Frau sieht.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Katastrophe</h3>
+                            <p>Thiel ermordet Lene und deren Kind. Er wird später von der Strecke geholt und in die Irrenabteilung der Charité eingeliefert.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="charaktere">
+            <h2>3. Charakterisierung der Hauptfiguren</h2>
+            <div class="character-card">
+                <div class="character-info">
+                    <h3>Thiel</h3>
+                    <p>Der Protagonist Thiel wird als ein phlegmatischer, gutmütiger und pflichtbewusster Mann beschrieben, der durch seine herkulische Gestalt auffällt. Seine rotbraunen Haare und seine körperliche Stärke betonen seine männliche Erscheinung. Als Bahnwärter erfüllt er seinen Dienst mit äußerster Gewissenhaftigkeit und hat in zehn Jahren nur zweimal krankheitsbedingt gefehlt.</p>
+                    <p>Thiels Charakter zeichnet sich durch eine innere Spaltung aus:</p>
+                    <ul>
+                        <li><strong>Passivität und Unterwürfigkeit</strong> gegenüber seiner zweiten Frau Lene, der er trotz ihrer Misshandlung seines Sohnes kaum widerspricht</li>
+                        <li><strong>Sexuelle Abhängigkeit</strong> von Lene, die seine früheren idealistischeren Gefühle für Minna verdrängt</li>
+                        <li><strong>Religiöse Verehrung</strong> seiner verstorbenen ersten Frau Minna, für die er sein Wärterhäuschen zu einer Art Kapelle macht</li>
+                        <li><strong>Innerlicher Kontrollverlust</strong>, der schließlich in Wahnsinn und Gewalt mündet</li>
+                    </ul>
+                    <p>Seine Charakterentwicklung verläuft von einem ursprünglich integren, wenn auch passiven Mann zu einer zerrütteten Persönlichkeit, die letztlich der eigenen psychischen Spaltung nicht mehr standhalten kann.</p>
+                </div>
+            </div>
+            
+            <div class="character-card">
+                <div class="character-info">
+                    <h3>Lene</h3>
+                    <p>Lene, Thiels zweite Frau, wird als kräftige, dominante Frau dargestellt. Im Gegensatz zu Thiels schmächtiger erster Frau ist sie robust und körperlich stark – der Text beschreibt sie als "kaum einen halben Kopf kleiner wie er" und betont ihre "Gliederfülle".</p>
+                    <p>Charakterliche Eigenschaften:</p>
+                    <ul>
+                        <li><strong>Herrschsüchtig und dominant</strong>: Sie übernimmt schnell das "Regiment" im Haus</li>
+                        <li><strong>Arbeitsam und wirtschaftlich</strong>: Als ehemalige Kuhmagd ist sie eine "unverwüstliche Arbeiterin" und "musterhafte Wirtschafterin"</li>
+                        <li><strong>Zänkisch und brutal</strong>: Sie zeigt eine harte, unversöhnliche Gemütsart</li>
+                        <li><strong>Lieblos</strong> gegenüber Tobias, während sie ihren eigenen Sohn bevorzugt</li>
+                    </ul>
+                    <p>Lene verkörpert einen pragmatischen, materialistischen Lebensentwurf, der im Kontrast zu Thiels innerer, spirituell-idealistischer Welt steht. Sie ist die treibende Kraft hinter der zunehmenden Entfremdung Thiels von seiner idealistischen Erinnerung an Minna.</p>
+                </div>
+            </div>
+            
+            <div class="character-card">
+                <div class="character-info">
+                    <h3>Tobias</h3>
+                    <p>Tobias, der Sohn aus Thiels erster Ehe, wird als schwächliches, kränkliches Kind dargestellt. Seine äußere Erscheinung wird als bemitleidenswert beschrieben: ein ungewöhnlich großer Kopf, brandrote Haare und ein kreidiges Gesicht.</p>
+                    <p>Trotz seiner körperlichen Schwäche zeigt er eine besondere Zuneigung zu seinem Vater und Freude an kleinen Dingen, wie dem Ausflug zum Wärterhäuschen. Er ist ein unschuldiges Opfer der dysfunktionalen Familienkonstellation und symbolisiert die zerbrechliche Verbindung Thiels zu seiner verstorbenen ersten Frau.</p>
+                    <p>Sein tragischer Tod wird zum Auslöser für Thiels endgültigen psychischen Zusammenbruch und die darauffolgende Gewalttat.</p>
+                </div>
+            </div>
+            
+            <div class="character-card">
+                <div class="character-info">
+                    <h3>Minna</h3>
+                    <p>Obwohl Minna, Thiels erste Frau, zu Beginn der Handlung bereits verstorben ist, nimmt sie eine wichtige Rolle in der Novelle ein. Sie wird als schmächtig und kränklich beschrieben, was einen starken Kontrast zu Lene bildet.</p>
+                    <p>Minna wird von Thiel idealisiert und in einer fast religiösen Weise verehrt. Sie steht für eine idealisierte, vergeistigte Form der Liebe, die im Gegensatz zu Thiels körperlicher Beziehung zu Lene steht. Ihre Präsenz in Thiels Gedanken und Erinnerungen macht sie zu einer Art Gegenspielerin Lenes, obwohl sie nicht mehr physisch anwesend ist.</p>
+                    <p>Symbolisch repräsentiert Minna eine spirituelle, idealisierte Welt, während Lene für die materialistische, triebhafte Wirklichkeit steht.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="motive">
+            <h2>4. Motive und Symbole</h2>
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <div class="tab-button active" data-tab="eisenbahn">Eisenbahn</div>
+                    <div class="tab-button" data-tab="natur">Natur & Wald</div>
+                    <div class="tab-button" data-tab="religion">Religion</div>
+                    <div class="tab-button" data-tab="sexualitaet">Sexualität</div>
+                </div>
+                
+                <div class="tab-content active" id="eisenbahn">
+                    <h3>Die Eisenbahn als zentrales Symbol</h3>
+                    <p>Die Eisenbahn ist das dominierende Symbol der Novelle und erfüllt mehrere Funktionen:</p>
+                    <ul>
+                        <li><strong>Symbol der Industrialisierung</strong>: Die Eisenbahn repräsentiert die moderne, industrialisierte Welt, die in die Naturidylle des Waldes eindringt. Sie symbolisiert den technischen Fortschritt im deutschen Kaiserreich.</li>
+                        <li><strong>Zerstörerische Kraft</strong>: Die Bahn wird als "schwarzes, schnaubendes Ungetüm" beschrieben, das schließlich Tobias tötet. Sie steht für die bedrohliche, zerstörerische Kraft der Moderne.</li>
+                        <li><strong>Grenze zwischen Welten</strong>: Die Bahnlinie trennt symbolisch Thiels geteilte Existenz – sein Alltagsleben im Dorf und sein spirituelles Leben im Wärterhäuschen.</li>
+                        <li><strong>Schicksalsmacht</strong>: Die Eisenbahn verkörpert das unaufhaltsame Schicksal, dem die Figuren ausgeliefert sind.</li>
+                    </ul>
+                    <blockquote>
+                        "Ein Keuchen und Brausen schwoll stoßweise fernher durch die Luft. Dann plötzlich zerriß die Stille. Ein rasendes Tosen und Toben erfüllte den Raum, die Geleise bogen sich, die Erde zitterte — ein starker Luftdruck — eine Wolke von Staub, Dampf und Qualm, und das schwarze, schnaubende Ungetüm war vorüber."
+                    </blockquote>
+                </div>
+                
+                <div class="tab-content" id="natur">
+                    <h3>Natur und Wald</h3>
+                    <p>Die Natur, insbesondere der Kiefernwald, bildet einen wichtigen Symbolkomplex in der Novelle:</p>
+                    <ul>
+                        <li><strong>Gegenwelt zur Industrialisierung</strong>: Der Wald stellt einen Gegenpol zur technisierten Welt der Eisenbahn dar.</li>
+                        <li><strong>Seelische Landschaft</strong>: Die Naturbeschreibungen spiegeln häufig Thiels Gemütszustand wider. Der Wald erscheint als "schwarzgrünes, wellenwerfendes Meer" und wandelt sich je nach Thiels psychischer Verfassung.</li>
+                        <li><strong>Ambivalenter Raum</strong>: Der Wald ist einerseits ein Ort der Ruhe und Kontemplation, andererseits aber auch ein Ort der Bedrohung und des Unheimlichen.</li>
+                    </ul>
+                    <blockquote>
+                        "Unhörbar wie auf Filz schritt er über die feuchte Moos- und Nadelschicht des Waldbodens. Er fand seinen Weg ohne aufzublicken, hier durch die rostbraunen Säulen des Hochwaldes, dort weiterhin durch dicht verschlungenes Jungholz..."
+                    </blockquote>
+                    <p>Die Naturdarstellungen in der Novelle gehen über bloße naturalistische Beschreibung hinaus und enthalten symbolistische Elemente, die Thiels innere Zerrissenheit widerspiegeln.</p>
+                </div>
+                
+                <div class="tab-content" id="religion">
+                    <h3>Religiöse Symbolik</h3>
+                    <p>Religiöse Motive durchziehen die gesamte Novelle und reflektieren Thiels seelische Entwicklung:</p>
+                    <ul>
+                        <li><strong>Kirchenbesuch</strong>: Die Novelle beginnt mit Thiels regelmäßigen Kirchenbesuchen, die seine anfängliche Frömmigkeit unterstreichen.</li>
+                        <li><strong>Wärterhäuschen als Kapelle</strong>: Thiel verwandelt sein Wärterhäuschen in eine Art Kapelle, in der er die verstorbene Minna verehrt – mit Gesangbuch, Bibel und Fotografie wie religiöse Reliquien.</li>
+                        <li><strong>Heiliger Raum</strong>: Die Bahnstrecke wird für Thiel zu "geheiligtem Land", das ausschließlich dem Andenken an Minna gewidmet ist.</li>
+                        <li><strong>Religiöse Ekstase</strong>: In seinem Wärterhäuschen gerät Thiel in "eine Ekstase, die sich zu Gesichten steigerte", was an religiöse Visionen erinnert.</li>
+                    </ul>
+                    <blockquote>
+                        "Noch bei der Einlieferung hielt er das braune Mützchen in Händen und bewachte es mit eifersüchtiger Sorgfalt und Zärtlichkeit."
+                    </blockquote>
+                    <p>Die religiöse Symbolik unterstreicht die psychologische Dimension der Novelle und zeigt, wie Thiels religiöse Gefühle sich zunehmend in pathologische Wahnvorstellungen verwandeln.</p>
+                </div>
+                
+                <div class="tab-content" id="sexualitaet">
+                    <h3>Sexualität und Triebhaftigkeit</h3>
+                    <p>Die Darstellung der Sexualität ist ein wichtiger Teil der naturalistischen Dimension der Novelle:</p>
+                    <ul>
+                        <li><strong>Kontrast der Beziehungen</strong>: Thiels Beziehung zu Minna wird als "mehr vergeistigte Liebe" beschrieben, während er durch "die Macht roher Triebe in die Gewalt seiner zweiten Frau" gerät.</li>
+                        <li><strong>Körperliche Dominanz Lenes</strong>: Lenes physische Präsenz wird mehrfach betont. Ihre "vollen, halbnackten Brüste" und "breiten Hüften" üben eine unwiderstehliche Anziehungskraft auf Thiel aus.</li>
+                        <li><strong>Sexuelle Abhängigkeit</strong>: Thiels Abhängigkeit von Lene wird als eine Art Gefangenschaft dargestellt, die ihn unfähig macht, sich gegen die Misshandlung seines Sohnes zu wehren.</li>
+                    </ul>
+                    <blockquote>
+                        "Er, der mit seinem ersten Weibe durch eine mehr vergeistigte Liebe verbunden gewesen war, geriet durch die Macht roher Triebe in die Gewalt seiner zweiten Frau und wurde zuletzt in allem fast unbedingt von ihr abhängig."
+                    </blockquote>
+                    <p>Die Darstellung der Sexualität folgt der naturalistischen Überzeugung, dass der Mensch auch durch triebhafte Kräfte determiniert ist. Diese Triebhaftigkeit steht im Spannungsverhältnis zu Thiels idealistischen und religiösen Gefühlen.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="interpretation">
+            <h2>5. Interpretation und Deutungsansätze</h2>
+            <div class="card">
+                <h3>Psychologische Deutung</h3>
+                <p>Die Novelle lässt sich als Studie einer gespaltenen Persönlichkeit und eines psychischen Zusammenbruchs lesen. Thiels Charakter ist von Beginn an durch eine Spaltung gekennzeichnet: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der idealisierten Erinnerung an seine erste Frau fest.</p>
+                <p>Diese Spaltung manifestiert sich räumlich in der Trennung zwischen Dorf (Ort des Alltagslebens mit Lene) und Wärterhäuschen (sakraler Raum der Erinnerung an Minna). Als Lene in diesen "heiligen" Bereich eindringt und durch ihre Nachlässigkeit Tobias' Tod mitverursacht, kollabiert Thiels fragiles psychisches Gleichgewicht.</p>
+                <p>Seine Halluzinationen und Wahnvorstellungen zeigen den fortschreitenden psychischen Verfall, der schließlich in Gewalt und völligen Wahnsinn mündet. Die Novelle kann somit als frühe literarische Darstellung einer dissoziativen Identitätsstörung gedeutet werden.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Gesellschaftskritische Deutung</h3>
+                <p>Im Sinne des Naturalismus lässt sich "Bahnwärter Thiel" auch als Kritik an den sozialen und gesellschaftlichen Verhältnissen im Deutschen Kaiserreich verstehen. Die Eisenbahn als Symbol der Industrialisierung dringt zerstörerisch in die Naturwelt ein, ähnlich wie moderne Arbeits- und Lebensbedingungen traditionelle Lebensformen untergraben.</p>
+                <p>Thiel als einfacher Arbeiter ist den gesellschaftlichen Kräften hilflos ausgeliefert. Seine fast militärische Pflichttreue und Unterwürfigkeit gegenüber Autoritäten spiegeln die preußischen Tugenden wider, die letztlich zur Selbstentfremdung führen. Die Novelle zeigt, wie die Mechanisierung der Arbeitswelt (symbolisiert durch die Eisenbahn) zur Verdinglichung des Menschen führt.</p>
+                <p>Auch die Geschlechterverhältnisse werden kritisch beleuchtet: Lenes Dominanz über Thiel kehrt die traditionellen Geschlechterrollen um und führt bei Thiel zu einer krisenhaften Männlichkeit, die schließlich in destruktiver Gewalt endet.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Symbolistische Deutung</h3>
+                <p>Neben den naturalistischen Elementen enthält die Novelle auch symbolistische Züge. Die detaillierten Naturbeschreibungen gehen über bloße naturalistische Milieuschilderungen hinaus und werden zu Seelenlandschaften, die Thiels innere Verfassung widerspiegeln.</p>
+                <p>Die Eisenbahn kann als Symbol des modernen, technisierten Zeitalters gedeutet werden, das unaufhaltsam in die tradierte Welt einbricht. Der Kontrast zwischen Natur und Technik, zwischen spiritueller und materieller Welt wird zum zentralen Konflikt der Novelle.</p>
+                <p>Thiels Wärterhäuschen nimmt dabei eine Schwellenposition ein – es steht zwischen Natur und Technik, zwischen spiritueller und materieller Welt. Der Zusammenbruch dieser Grenze führt zum Kontrollverlust des Protagonisten.</p>
+            </div>
+        </section>
+
+        <section id="sprache">
+            <h2>6. Sprache und Stil</h2>
+            <div class="card">
+                <h3>Naturalistische Elemente</h3>
+                <p>Die Sprache der Novelle ist geprägt von naturalistischer Präzision und Detailtreue:</p>
+                <ul>
+                    <li><strong>Präzise Milieuschilderungen</strong>: Die Umgebung wird mit wissenschaftlicher Genauigkeit dargestellt, etwa die Beschreibung des Waldes und der Bahnstrecke.</li>
+                    <li><strong>Detaillierte Personenbeschreibungen</strong>: Körperliche Merkmale werden genau erfasst, wie Thiels "rote Haare" und "herkulische Gestalt" oder Lenes "Gliederfülle".</li>
+                    <li><strong>Darstellung physiologischer Prozesse</strong>: Körperliche Reaktionen wie Schwitzen, Zittern und Atemnot werden präzise beschrieben.</li>
+                    <li><strong>Ungeschönte Darstellung</strong>: Auch abstoßende oder brutale Elemente werden ohne Beschönigung geschildert.</li>
+                </ul>
+                <blockquote>
+                    "Seine Knöpfe seiner sauberen Sonntagsuniform waren so blank geputzt als je zuvor, seine roten Haare so wohl geölt und militärisch gescheitelt wie immer, nur daß er den breiten, behaarten Nacken ein wenig gesenkt trug."
+                </blockquote>
+            </div>
+            
+            <div class="card">
+                <h3>Symbolistische Tendenzen</h3>
+                <p>Hauptmanns Erzählstil geht über den reinen Naturalismus hinaus und zeigt symbolistische Tendenzen:</p>
+                <ul>
+                    <li><strong>Atmosphärische Naturbeschreibungen</strong>: Die Natur wird nicht nur objektiv beschrieben, sondern auch stimmungsvoll inszeniert.</li>
+                    <li><strong>Farbsymbolik</strong>: Farben wie Rot (Blut, Thiels Haare), Schwarz (Eisenbahn, Dunkelheit) und Weiß (Reinheit, Tod) tragen symbolische Bedeutung.</li>
+                    <li><strong>Synästhesien</strong>: Verschiedene Sinneseindrücke werden miteinander verknüpft, etwa wenn Thiel das "Klingen der Telegraphenstangen" wahrnimmt.</li>
+                </ul>
+                <blockquote>
+                    "Wie eine riesige purpurglühende Kugel lag der Mond zwischen den Kieferschäften am Waldesgrund. Je höher er rückte um so kleiner schien er zu werden, um so mehr verblaßte er."
+                </blockquote>
+            </div>
+            
+            <div class="card">
+                <h3>Erzähltechnik</h3>
+                <p>Die Erzählperspektive ist durch einen personalen Erzähler geprägt, der vorwiegend aus der Sicht Thiels berichtet, aber auch Einblicke in dessen Innenleben gibt:</p>
+                <ul>
+                    <li><strong>Erlebte Rede</strong>: Gedanken und Empfindungen Thiels werden oft in erlebter Rede wiedergegeben, was einen unmittelbaren Zugang zu seinem Bewusstsein ermöglicht.</li>
+                    <li><strong>Innerer Monolog</strong>: Besonders in den Wahnvorstellungen Thiels nähert sich die Erzählweise dem inneren Monolog.</li>
+                    <li><strong>Leitmotivische Struktur</strong>: Bestimmte Bilder und Symbole (Eisenbahn, Blut, religiöse Motive) werden wiederholt und variiert.</li>
+                </ul>
+                <p>Die Novelle hält eine Balance zwischen naturalistischer Objektivität und der subjektiven Darstellung innerer Prozesse, was sie zu einem Übergangswerk zwischen Naturalismus und Symbolismus macht.</p>
+            </div>
+        </section>
+
+        <section id="rezeption">
+            <h2>7. Rezeption und Wirkungsgeschichte</h2>
+            <div class="card">
+                <h3>Zeitgenössische Rezeption</h3>
+                <p>Bei ihrem Erscheinen 1888 in der Zeitschrift "Die Gesellschaft" erregte die Novelle vor allem in naturalistischen Kreisen Aufmerksamkeit. Die drastische Darstellung von Sexualität, Gewalt und psychischer Zerrüttung stieß bei konservativen Kritikern jedoch auf Ablehnung. Die unmittelbare Rezeption war gespalten:</p>
+                <ul>
+                    <li>Naturalistische Autoren wie Wilhelm Bölsche lobten die psychologische Tiefe und präzise Milieuschilderung</li>
+                    <li>Konservative Kritiker bemängelten den "Schmutz und Unrat" und die "krankhafte Atmosphäre"</li>
+                    <li>Die literarische Öffentlichkeit nahm die Novelle zunächst weniger wahr als Hauptmanns später erschienene Dramen</li>
+                </ul>
+                <p>Erst mit Hauptmanns wachsendem Ruhm als Dramatiker stieg auch das Interesse an seinem frühen Prosawerk.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Literaturwissenschaftliche Einordnung</h3>
+                <p>In der Literaturwissenschaft wird "Bahnwärter Thiel" heute als wichtiges Beispiel der naturalistischen Prosa und als Schlüsselwerk in Hauptmanns Schaffen angesehen. Besondere Aufmerksamkeit haben folgende Aspekte erfahren:</p>
+                <ul>
+                    <li>Die Verbindung naturalistischer und symbolistischer Elemente</li>
+                    <li>Die psychologische Darstellung einer Persönlichkeitsspaltung</li>
+                    <li>Die symbolische Darstellung des Konflikts zwischen Tradition und Moderne</li>
+                    <li>Die Thematisierung der Industrialisierung und ihrer Auswirkungen</li>
+                </ul>
+                <p>Die Novelle gilt als bedeutendes Beispiel für die literarische Verarbeitung der Modernisierungsprozesse im Kaiserreich und als früher Beleg für die literarische Darstellung psychopathologischer Phänomene.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Adaptionen und Wirkung</h3>
+                <p>Die Novelle wurde mehrfach adaptiert und hat verschiedene Künstler beeinflusst:</p>
+                <ul>
+                    <li>1982: Verfilmung für das Fernsehen der DDR (Regie: Hans Joachim Kasprzik)</li>
+                    <li>2006: Hörspiel des Deutschlandradios (Regie: Jörg Jannings)</li>
+                    <li>Zahlreiche Theateradaptionen an deutschen Bühnen</li>
+                </ul>
+                <p>In der Schulbildung ist "Bahnwärter Thiel" eine häufig behandelte Lektüre im Deutschunterricht der Oberstufe, insbesondere zur Veranschaulichung des Naturalismus in der deutschen Literatur.</p>
+                <p>Die Novelle hat auch verschiedene Autoren beeinflusst, insbesondere in der Darstellung psychischer Grenzzustände und der symbolischen Aufladung technischer Modernisierung.</p>
+            </div>
+        </section>
+
+        <section id="literaturhinweise">
+            <h2>8. Literaturhinweise</h2>
+            <div class="card">
+                <h3>Primärliteratur</h3>
+                <ul>
+                    <li>Hauptmann, Gerhart: Bahnwärter Thiel. Novellistische Studie. In: Sämtliche Werke, Bd. 6. Berlin: Propyläen, 1996.</li>
+                </ul>
+                
+                <h3>Sekundärliteratur</h3>
+                <ul>
+                    <li>Bernhardt, Rüdiger: Gerhart Hauptmann: Bahnwärter Thiel. Königs Erläuterungen und Materialien. Hollfeld: Bange, 2013.</li>
+                    <li>Cowen, Roy C.: Der Naturalismus. Kommentar zu einer Epoche. München: Winkler, 1985.</li>
+                    <li>Freund, Winfried: Gerhart Hauptmann. Stuttgart: Reclam, 2007.</li>
+                    <li>Kiesel, Helmuth: Geschichte der literarischen Moderne. Sprache, Ästhetik, Dichtung im zwanzigsten Jahrhundert. München: C.H. Beck, 2004.</li>
+                    <li>Sprengel, Peter: Gerhart Hauptmann. Epoche – Werk – Wirkung. München: C.H. Beck, 1984.</li>
+                </ul>
+                
+                <h3>Weblinks</h3>
+                <ul>
+                    <li><a href="https://gutenberg.org/ebooks/29376" target="_blank">Bahnwärter Thiel beim Project Gutenberg</a></li>
+                    <li><a href="https://www.gerhart-hauptmann.de/" target="_blank">Gerhart-Hauptmann-Museum Erkner</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Literaturanalyse zu Gerhart Hauptmanns "Bahnwärter Thiel"</p>
+            <p>Eine ausführliche Inhaltserläuterung und Interpretation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu for mobile devices
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Tabs functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Scroll to top button
+        const scrollTopButton = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.style.opacity = '1';
+            } else {
+                scrollTopButton.style.opacity = '0';
+            }
+        });
+        
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
