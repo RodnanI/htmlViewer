@@ -258,14 +258,17 @@
             display: flex;
             background-color: white;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible; /* Changed from 'hidden' to allow tooltips to break out */
             box-shadow: var(--shadow);
             margin-bottom: 20px;
+            position: relative; /* Added for proper tooltip positioning */
         }
         
         .character-info {
             padding: 20px;
             flex: 1;
+            position: relative; /* Added for proper tooltip positioning */
+            overflow: visible; /* Ensure tooltips can break out of the container */
         }
         
         .tab-container {
@@ -419,6 +422,7 @@
         }
         
         /* Tooltip styles */
+        /* Modified tooltip styles to ensure they break out of containers */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -428,19 +432,34 @@
         
         .tooltip .tooltip-text {
             visibility: hidden;
-            width: 200px;
+            width: 250px;
             background-color: var(--secondary-color);
             color: white;
             text-align: center;
             border-radius: 6px;
-            padding: 5px;
+            padding: 8px;
             position: absolute;
-            z-index: 1;
+            z-index: 9999;
             bottom: 125%;
             left: 50%;
-            margin-left: -100px;
+            margin-left: -125px;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            pointer-events: none; /* Prevents tooltip from blocking mouse events */
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--secondary-color) transparent transparent transparent;
         }
         
         .tooltip:hover .tooltip-text {
@@ -502,16 +521,16 @@
             
             <div class="card">
                 <h3>Literaturgeschichtliche Einordnung: Der Naturalismus</h3>
-                <p>Die Novelle "Bahnwärter Thiel" erschien 1888 und ist ein Schlüsselwerk des deutschen Naturalismus, einer literarischen Strömung, die sich in Deutschland zwischen 1880 und 1900 entwickelte. Der Naturalismus verstand sich als Gegenbewegung zum Idealismus und Ästhetizismus des Bürgertums im Deutschen Kaiserreich.</p>
+                <p>Die Novelle "Bahnwärter Thiel" erschien 1888 und ist ein Schlüsselwerk des deutschen <span class="tooltip">Naturalismus<span class="tooltip-text">Literarische Strömung (ca. 1880-1900), die eine wissenschaftlich exakte Darstellung der Wirklichkeit anstrebte und den Menschen als durch Vererbung, Milieu und soziale Umstände determiniert sah.</span></span>, einer literarischen Strömung, die sich in Deutschland zwischen 1880 und 1900 entwickelte. Der Naturalismus verstand sich als Gegenbewegung zum Idealismus und Ästhetizismus des Bürgertums im <span class="tooltip">Deutschen Kaiserreich<span class="tooltip-text">Staatsform des deutschen Nationalstaates von 1871 bis 1918 unter der Führung Preußens und der Hohenzollern-Dynastie. Geprägt von Industrialisierung, sozialen Spannungen und militärischem Auftreten.</span></span>.</p>
                 <p>Kennzeichnend für den Naturalismus sind:</p>
                 <ul>
                     <li>Die wissenschaftlich-objektive Darstellung der Wirklichkeit</li>
-                    <li>Die Überzeugung, dass der Mensch durch Vererbung, Milieu und soziale Umstände determiniert ist</li>
+                    <li>Die Überzeugung, dass der Mensch durch <span class="tooltip">Vererbung, Milieu und soziale Umstände determiniert<span class="tooltip-text">Grundgedanke des Naturalismus: Der Mensch wird in seinem Wesen und Handeln durch biologische Vererbung, seine unmittelbare Umgebung und gesellschaftliche Verhältnisse bestimmt und hat keinen freien Willen.</span></span> ist</li>
                     <li>Die Hinwendung zu sozialen Problemen und unteren Gesellschaftsschichten</li>
                     <li>Die detailgetreue Abbildung der Umwelt und der Sprache (Dialekt, Soziolekt)</li>
                     <li>Die Darstellung psychologischer und physiologischer Prozesse</li>
                 </ul>
-                <p>Als <span class="tooltip">novellistische Studie<span class="tooltip-text">Eine im Naturalismus übliche Bezeichnung für Erzählungen, die einen Einzelfall wie in einer wissenschaftlichen Fallstudie analysieren.</span></span> verbindet "Bahnwärter Thiel" naturalistische Präzision mit symbolistischen Elementen und zeigt die für Hauptmann typische Verbindung von sozialer Analyse und psychologischer Tiefe.</p>
+                <p>Als <span class="tooltip">novellistische Studie<span class="tooltip-text">Eine im Naturalismus übliche Bezeichnung für Erzählungen, die einen Einzelfall wie in einer wissenschaftlichen Fallstudie analysieren.</span></span> verbindet "Bahnwärter Thiel" naturalistische Präzision mit <span class="tooltip">symbolistischen<span class="tooltip-text">Der Symbolismus (ca. 1890-1920) betont im Gegensatz zum Naturalismus die subjektive Wahrnehmung und verwendet Symbole, um tiefere seelische und geistige Wahrheiten auszudrücken.</span></span> Elementen und zeigt die für Hauptmann typische Verbindung von sozialer Analyse und psychologischer Tiefe.</p>
             </div>
         </section>
 
@@ -519,7 +538,7 @@
             <h2>2. Inhaltsangabe</h2>
             <div class="card">
                 <h3>Zusammenfassung</h3>
-                <p>Die Novelle erzählt die Geschichte des Bahnwärters Thiel, der in dem kleinen Dorf Schön-Schornstein nahe Berlin lebt. Nach dem Tod seiner ersten Frau Minna, die im Kindbett bei der Geburt des gemeinsamen Sohnes Tobias stirbt, heiratet Thiel die robuste und dominante Lene, eine ehemalige Kuhmagd. Diese Ehe soll vor allem dazu dienen, dem kränklichen Tobias eine Pflegerin zu geben.</p>
+                <p>Die <span class="tooltip">Novelle<span class="tooltip-text">Literarische Gattung mittleren Umfangs, die sich durch eine straffe Handlung, eine zentrale Wendung und oft eine symbolische Verdichtung auszeichnet. Vom Theoretiker Paul Heyse durch die "Falkentheorie" geprägt.</span></span> erzählt die Geschichte des Bahnwärters Thiel, der in dem kleinen Dorf Schön-Schornstein nahe Berlin lebt. Nach dem Tod seiner ersten Frau Minna, die im Kindbett bei der Geburt des gemeinsamen Sohnes Tobias stirbt, heiratet Thiel die robuste und dominante Lene, eine ehemalige Kuhmagd. Diese Ehe soll vor allem dazu dienen, dem kränklichen Tobias eine Pflegerin zu geben.</p>
                 <p>Thiel führt ein gespaltenes Leben: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der Erinnerung an Minna fest, der er sein Wärterhäuschen und seinen Dienst an der Bahnstrecke als heiligen Bereich widmet, zu dem Lene keinen Zugang haben soll. In seinem Häuschen pflegt er eine fast religiöse Verehrung für seine verstorbene erste Frau.</p>
                 <p>Mit der Zeit beginnt Lene, den zarten Tobias zu vernachlässigen und zu misshandeln, während sie ihren eigenen Sohn bevorzugt. Obwohl Thiel dies wahrnimmt, greift er nicht ein, gefangen in seiner Abhängigkeit von Lene. Die Situation spitzt sich zu, als der Bahnmeister Thiel ein Stück Land in der Nähe seines Wärterhäuschens zur Bewirtschaftung überlässt. Lene dringt nun in Thiels heiligen Bereich ein, um das Land zu beackern.</p>
                 <p>Während Lene Kartoffeln pflanzt und dabei nachlässig auf Tobias aufpasst, wird der Junge von einem Zug erfasst und tödlich verletzt. Angesichts des sterbenden Kindes und der Verletzung seines "heiligen Raumes" verfällt Thiel dem Wahnsinn. In einem psychotischen Zustand tötet er Lene und deren Kleinkind und wird schließlich in eine Irrenanstalt eingewiesen.</p>
@@ -531,7 +550,7 @@
                     <div class="timeline-item left">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3>Exposition</h3>
+                            <h3><span class="tooltip">Exposition<span class="tooltip-text">Einführender Teil einer Erzählung, der die Grundsituation, die Figuren und ihre Beziehungen sowie Zeit und Ort der Handlung vorstellt.</span></span></h3>
                             <p>Vorstellung Thiels als zuverlässiger Bahnwärter, der regelmäßig die Kirche besucht. Tod seiner ersten Frau Minna, Heirat mit Lene.</p>
                         </div>
                     </div>
@@ -579,7 +598,7 @@
             <div class="character-card">
                 <div class="character-info">
                     <h3>Thiel</h3>
-                    <p>Der Protagonist Thiel wird als ein phlegmatischer, gutmütiger und pflichtbewusster Mann beschrieben, der durch seine herkulische Gestalt auffällt. Seine rotbraunen Haare und seine körperliche Stärke betonen seine männliche Erscheinung. Als Bahnwärter erfüllt er seinen Dienst mit äußerster Gewissenhaftigkeit und hat in zehn Jahren nur zweimal krankheitsbedingt gefehlt.</p>
+                    <p>Der Protagonist Thiel wird als ein <span class="tooltip tooltip-bottom">phlegmatischer<span class="tooltip-text" style="z-index: 9999;">Nach der alten Temperamentenlehre bezeichnet "phlegmatisch" einen ruhigen, bedächtigen, oft passiven Charaktertyp. Im Kontext der Novelle verweist es auf Thiels äußere Ruhe, die im Kontrast zu seinen inneren Konflikten steht.</span></span>, gutmütiger und pflichtbewusster Mann beschrieben, der durch seine herkulische Gestalt auffällt. Seine rotbraunen Haare und seine körperliche Stärke betonen seine männliche Erscheinung. Als Bahnwärter erfüllt er seinen Dienst mit äußerster Gewissenhaftigkeit und hat in zehn Jahren nur zweimal krankheitsbedingt gefehlt.</p>
                     <p>Thiels Charakter zeichnet sich durch eine innere Spaltung aus:</p>
                     <ul>
                         <li><strong>Passivität und Unterwürfigkeit</strong> gegenüber seiner zweiten Frau Lene, der er trotz ihrer Misshandlung seines Sohnes kaum widerspricht</li>
@@ -635,11 +654,11 @@
                     <div class="tab-button" data-tab="sexualitaet">Sexualität</div>
                 </div>
                 
-                <div class="tab-content active" id="eisenbahn">
+                <div class="tab-content" id="eisenbahn">
                     <h3>Die Eisenbahn als zentrales Symbol</h3>
                     <p>Die Eisenbahn ist das dominierende Symbol der Novelle und erfüllt mehrere Funktionen:</p>
                     <ul>
-                        <li><strong>Symbol der Industrialisierung</strong>: Die Eisenbahn repräsentiert die moderne, industrialisierte Welt, die in die Naturidylle des Waldes eindringt. Sie symbolisiert den technischen Fortschritt im deutschen Kaiserreich.</li>
+                        <li><strong>Symbol der <span class="tooltip">Industrialisierung<span class="tooltip-text">Gesellschaftlicher Transformationsprozess im 19. Jahrhundert, gekennzeichnet durch den Übergang von der Agrar- zur Industriegesellschaft, Maschinisierung der Produktion und die Entstehung des Industrieproletariats.</span></span></strong>: Die Eisenbahn repräsentiert die moderne, industrialisierte Welt, die in die Naturidylle des Waldes eindringt. Sie symbolisiert den technischen Fortschritt im deutschen Kaiserreich.</li>
                         <li><strong>Zerstörerische Kraft</strong>: Die Bahn wird als "schwarzes, schnaubendes Ungetüm" beschrieben, das schließlich Tobias tötet. Sie steht für die bedrohliche, zerstörerische Kraft der Moderne.</li>
                         <li><strong>Grenze zwischen Welten</strong>: Die Bahnlinie trennt symbolisch Thiels geteilte Existenz – sein Alltagsleben im Dorf und sein spirituelles Leben im Wärterhäuschen.</li>
                         <li><strong>Schicksalsmacht</strong>: Die Eisenbahn verkörpert das unaufhaltsame Schicksal, dem die Figuren ausgeliefert sind.</li>
@@ -660,7 +679,7 @@
                     <blockquote>
                         "Unhörbar wie auf Filz schritt er über die feuchte Moos- und Nadelschicht des Waldbodens. Er fand seinen Weg ohne aufzublicken, hier durch die rostbraunen Säulen des Hochwaldes, dort weiterhin durch dicht verschlungenes Jungholz..."
                     </blockquote>
-                    <p>Die Naturdarstellungen in der Novelle gehen über bloße naturalistische Beschreibung hinaus und enthalten symbolistische Elemente, die Thiels innere Zerrissenheit widerspiegeln.</p>
+                    <p>Die Naturbeschreibungen in der Novelle gehen über bloße naturalistische Beschreibung hinaus und enthalten <span class="tooltip">symbolistische Elemente<span class="tooltip-text">Stilmittel der symbolistischen Literatur, die über die realistische Darstellung hinausgehen und durch Bilder, Metaphern und Symbole tiefere Bedeutungsschichten erschließen.</span></span>, die Thiels innere Zerrissenheit widerspiegeln.</p>
                 </div>
                 
                 <div class="tab-content" id="religion">
@@ -670,7 +689,7 @@
                         <li><strong>Kirchenbesuch</strong>: Die Novelle beginnt mit Thiels regelmäßigen Kirchenbesuchen, die seine anfängliche Frömmigkeit unterstreichen.</li>
                         <li><strong>Wärterhäuschen als Kapelle</strong>: Thiel verwandelt sein Wärterhäuschen in eine Art Kapelle, in der er die verstorbene Minna verehrt – mit Gesangbuch, Bibel und Fotografie wie religiöse Reliquien.</li>
                         <li><strong>Heiliger Raum</strong>: Die Bahnstrecke wird für Thiel zu "geheiligtem Land", das ausschließlich dem Andenken an Minna gewidmet ist.</li>
-                        <li><strong>Religiöse Ekstase</strong>: In seinem Wärterhäuschen gerät Thiel in "eine Ekstase, die sich zu Gesichten steigerte", was an religiöse Visionen erinnert.</li>
+                        <li><strong><span class="tooltip">Ekstase<span class="tooltip-text">Ein Zustand höchster Erregung und Verzückung, in dem die normale Wahrnehmung und Selbstkontrolle aufgehoben ist. In religiösem Kontext oft verbunden mit visionären Erfahrungen oder mystischen Erlebnissen.</span></span></strong>: In seinem Wärterhäuschen gerät Thiel in "eine Ekstase, die sich zu Gesichten steigerte", was an religiöse Visionen erinnert.</li>
                     </ul>
                     <blockquote>
                         "Noch bei der Einlieferung hielt er das braune Mützchen in Händen und bewachte es mit eifersüchtiger Sorgfalt und Zärtlichkeit."
@@ -700,12 +719,12 @@
                 <h3>Psychologische Deutung</h3>
                 <p>Die Novelle lässt sich als Studie einer gespaltenen Persönlichkeit und eines psychischen Zusammenbruchs lesen. Thiels Charakter ist von Beginn an durch eine Spaltung gekennzeichnet: Einerseits ist er seiner zweiten Frau sexuell hörig, andererseits hält er an der idealisierten Erinnerung an seine erste Frau fest.</p>
                 <p>Diese Spaltung manifestiert sich räumlich in der Trennung zwischen Dorf (Ort des Alltagslebens mit Lene) und Wärterhäuschen (sakraler Raum der Erinnerung an Minna). Als Lene in diesen "heiligen" Bereich eindringt und durch ihre Nachlässigkeit Tobias' Tod mitverursacht, kollabiert Thiels fragiles psychisches Gleichgewicht.</p>
-                <p>Seine Halluzinationen und Wahnvorstellungen zeigen den fortschreitenden psychischen Verfall, der schließlich in Gewalt und völligen Wahnsinn mündet. Die Novelle kann somit als frühe literarische Darstellung einer dissoziativen Identitätsstörung gedeutet werden.</p>
+                <p>Seine Halluzinationen und Wahnvorstellungen zeigen den fortschreitenden psychischen Verfall, der schließlich in Gewalt und völligen Wahnsinn mündet. Die Novelle kann somit als frühe literarische Darstellung einer <span class="tooltip">dissoziativen Identitätsstörung<span class="tooltip-text">Psychische Störung, bei der eine Person zwei oder mehr unterschiedliche Identitäten oder Persönlichkeitszustände entwickelt. Früher bekannt als Multiple Persönlichkeitsstörung.</span></span> gedeutet werden.</p>
             </div>
             
             <div class="card">
                 <h3>Gesellschaftskritische Deutung</h3>
-                <p>Im Sinne des Naturalismus lässt sich "Bahnwärter Thiel" auch als Kritik an den sozialen und gesellschaftlichen Verhältnissen im Deutschen Kaiserreich verstehen. Die Eisenbahn als Symbol der Industrialisierung dringt zerstörerisch in die Naturwelt ein, ähnlich wie moderne Arbeits- und Lebensbedingungen traditionelle Lebensformen untergraben.</p>
+                <p>Im Sinne des Naturalismus lässt sich "Bahnwärter Thiel" auch als <span class="tooltip">Sozialkritik<span class="tooltip-text">Kritische Auseinandersetzung mit gesellschaftlichen Strukturen, Normen und Missständen. Im Naturalismus oft verbunden mit der Darstellung sozialer Ungleichheit und der Lebensbedingungen unterer Gesellschaftsschichten.</span></span> an den sozialen und gesellschaftlichen Verhältnissen im Deutschen Kaiserreich verstehen. Die Eisenbahn als Symbol der Industrialisierung dringt zerstörerisch in die Naturwelt ein, ähnlich wie moderne Arbeits- und Lebensbedingungen traditionelle Lebensformen untergraben.</p>
                 <p>Thiel als einfacher Arbeiter ist den gesellschaftlichen Kräften hilflos ausgeliefert. Seine fast militärische Pflichttreue und Unterwürfigkeit gegenüber Autoritäten spiegeln die preußischen Tugenden wider, die letztlich zur Selbstentfremdung führen. Die Novelle zeigt, wie die Mechanisierung der Arbeitswelt (symbolisiert durch die Eisenbahn) zur Verdinglichung des Menschen führt.</p>
                 <p>Auch die Geschlechterverhältnisse werden kritisch beleuchtet: Lenes Dominanz über Thiel kehrt die traditionellen Geschlechterrollen um und führt bei Thiel zu einer krisenhaften Männlichkeit, die schließlich in destruktiver Gewalt endet.</p>
             </div>
@@ -740,7 +759,7 @@
                 <ul>
                     <li><strong>Atmosphärische Naturbeschreibungen</strong>: Die Natur wird nicht nur objektiv beschrieben, sondern auch stimmungsvoll inszeniert.</li>
                     <li><strong>Farbsymbolik</strong>: Farben wie Rot (Blut, Thiels Haare), Schwarz (Eisenbahn, Dunkelheit) und Weiß (Reinheit, Tod) tragen symbolische Bedeutung.</li>
-                    <li><strong>Synästhesien</strong>: Verschiedene Sinneseindrücke werden miteinander verknüpft, etwa wenn Thiel das "Klingen der Telegraphenstangen" wahrnimmt.</li>
+                    <li><strong><span class="tooltip">Synästhesien<span class="tooltip-text">Literarisches Stilmittel, bei dem Sinneswahrnehmungen verschiedener Bereiche (z.B. visuell, auditiv, taktil) miteinander verknüpft werden. Beispiel: 'farbige Klänge' oder 'süße Melodie'.</span></span></strong>: Verschiedene Sinneseindrücke werden miteinander verknüpft, etwa wenn Thiel das "Klingen der Telegraphenstangen" wahrnimmt.</li>
                 </ul>
                 <blockquote>
                     "Wie eine riesige purpurglühende Kugel lag der Mond zwischen den Kieferschäften am Waldesgrund. Je höher er rückte um so kleiner schien er zu werden, um so mehr verblaßte er."
@@ -749,11 +768,11 @@
             
             <div class="card">
                 <h3>Erzähltechnik</h3>
-                <p>Die Erzählperspektive ist durch einen personalen Erzähler geprägt, der vorwiegend aus der Sicht Thiels berichtet, aber auch Einblicke in dessen Innenleben gibt:</p>
+                <p>Die Erzählperspektive ist durch einen <span class="tooltip">personalen Erzähler<span class="tooltip-text">Erzählperspektive, bei der ein Geschehen aus der Sicht einer bestimmten Figur dargestellt wird, ohne dass diese selbst erzählt. Der Erzähler bleibt im Hintergrund und vermittelt die Wahrnehmungen, Gedanken und Gefühle der Fokalisierungsfigur.</span></span> geprägt, der vorwiegend aus der Sicht Thiels berichtet, aber auch Einblicke in dessen Innenleben gibt:</p>
                 <ul>
-                    <li><strong>Erlebte Rede</strong>: Gedanken und Empfindungen Thiels werden oft in erlebter Rede wiedergegeben, was einen unmittelbaren Zugang zu seinem Bewusstsein ermöglicht.</li>
-                    <li><strong>Innerer Monolog</strong>: Besonders in den Wahnvorstellungen Thiels nähert sich die Erzählweise dem inneren Monolog.</li>
-                    <li><strong>Leitmotivische Struktur</strong>: Bestimmte Bilder und Symbole (Eisenbahn, Blut, religiöse Motive) werden wiederholt und variiert.</li>
+                    <li><strong><span class="tooltip">Erlebte Rede<span class="tooltip-text">Erzähltechnisches Mittel, bei dem die Gedanken oder Äußerungen einer Figur ohne einleitende Redewendungen und ohne Anführungszeichen wiedergegeben werden. Gramatikalisch steht sie in der 3. Person und im Präteritum.</span></span></strong>: Gedanken und Empfindungen Thiels werden oft in erlebter Rede wiedergegeben, was einen unmittelbaren Zugang zu seinem Bewusstsein ermöglicht.</li>
+                    <li><strong><span class="tooltip">Innerer Monolog<span class="tooltip-text">Literarische Technik zur Darstellung des Bewusstseinsstroms einer Figur, bei der Gedanken, Gefühle und Assoziationen in der Ich-Form und im Präsens unmittelbar wiedergegeben werden.</span></span></strong>: Besonders in den Wahnvorstellungen Thiels nähert sich die Erzählweise dem inneren Monolog.</li>
+                    <li><strong><span class="tooltip">Leitmotivische Struktur<span class="tooltip-text">Erzähltechnik, bei der bestimmte Motive oder Symbole wiederholt auftreten und dadurch eine strukturierende und bedeutungstragende Funktion erhalten. Ein Leitmotiv verknüpft verschiedene Handlungselemente und Themen.</span></span></strong>: Bestimmte Bilder und Symbole (Eisenbahn, Blut, religiöse Motive) werden wiederholt und variiert.</li>
                 </ul>
                 <p>Die Novelle hält eine Balance zwischen naturalistischer Objektivität und der subjektiven Darstellung innerer Prozesse, was sie zu einem Übergangswerk zwischen Naturalismus und Symbolismus macht.</p>
             </div>
@@ -832,6 +851,9 @@
         </div>
     </footer>
 
+    <!-- Add tooltip container to the DOM for tooltips that need to break out of containers -->
+    <div class="tooltip-container" id="tooltip-container"></div>
+    
     <script>
         // Toggle menu for mobile devices
         const menuToggle = document.querySelector('.menu-toggle');
