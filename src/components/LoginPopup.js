@@ -41,7 +41,7 @@ const LoginPopup = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
       <div 
-        className={`bg-white dark:bg-dark-card rounded-lg shadow-lg max-w-md w-full p-6 transform transition-all duration-300 ${
+        className={`login-popup bg-white dark:bg-dark-card rounded-lg shadow-lg max-w-md w-full p-6 transform transition-all duration-300 ${
           isShaking ? 'animate-shake' : ''
         }`}
       >
@@ -57,7 +57,7 @@ const LoginPopup = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="login-popup">
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Password

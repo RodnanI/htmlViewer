@@ -12,7 +12,7 @@ export default function ProtectedContent({ children }) {
     if (!isAuthenticated) {
       const preventClick = (e) => {
         // Don't prevent clicks inside the login popup
-        if (e.target.closest('.login-popup')) return;
+        if (e.target.closest('.login-popup') || e.target.closest('form')) return;
         
         e.preventDefault();
         e.stopPropagation();
