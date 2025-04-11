@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Portfolio 2025 | Strategic Market Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d47a1;
+            --secondary: #4fc3f7;
+            --accent: #00e676;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .bg-darker {
+            background-color: var(--darker);
+        }
+        
+        .accent {
+            color: var(--accent);
+        }
+        
+        .primary {
+            color: var(--primary);
+        }
+        
+        .secondary {
+            color: var(--secondary);
+        }
+        
+        .section {
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: rgba(18, 18, 24, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card {
+            background-color: rgba(25, 25, 30, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            margin: 30px 0;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #0a3d91;
+            transform: translateY(-2px);
+        }
+        
+        .progress-container {
+            background-color: rgba(255,255,255,0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        .ai-bar { background: linear-gradient(90deg, #00e676, #00c853); }
+        .energy-bar { background: linear-gradient(90deg, #ffab40, #ff6d00); }
+        .healthcare-bar { background: linear-gradient(90deg, #40c4ff, #0091ea); }
+        .realestate-bar { background: linear-gradient(90deg, #ec407a, #ad1457); }
+        .cyber-bar { background: linear-gradient(90deg, #7e57c2, #4527a0); }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        table th {
+            background-color: rgba(0,0,0,0.3);
+        }
+        
+        .trend-up {
+            color: #4caf50;
+        }
+        
+        .trend-down {
+            color: #f44336;
+        }
+        
+        /* Ensure the page is optimized for PDF export */
+        @media print {
+            body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .chart-container {
+                break-inside: avoid;
+            }
+            .section, .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-darker py-6 shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-chart-line text-3xl mr-2 accent"></i>
+                <h1 class="text-2xl font-bold">VISION 2025</h1>
+                <span class="ml-2 text-sm secondary">Strategic Investment Portfolio</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#intro" class="nav-link">Introduction</a></li>
+                    <li><a href="#sectors" class="nav-link">Key Sectors</a></li>
+                    <li><a href="#market-data" class="nav-link">Market Data</a></li>
+                    <li><a href="#recommendations" class="nav-link">Recommendations</a></li>
+                    <li><a href="#conclusion" class="nav-link">Conclusion</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-xl"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-28 pb-12">
+        <!-- Introduction Section -->
+        <section id="intro" class="section">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-lightbulb accent mr-3"></i>
+                Investment Outlook 2025
+            </h2>
+            <div class="divider"></div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4">As we look toward 2025, the investment landscape presents unique opportunities amid evolving global economic conditions. Following a period of market volatility and technological transformation, investors must navigate carefully to capitalize on emerging trends while managing risk exposure.</p>
+                    <p class="mb-4">Our comprehensive analysis reveals several key investment themes for 2025:</p>
+                    <ul class="list-disc pl-5 mb-6 space-y-2">
+                        <li><strong class="secondary">Artificial Intelligence Revolution:</strong> AI and machine learning continue transforming industries and creating investment opportunities beyond the established tech giants.</li>
+                        <li><strong class="secondary">Clean Energy Transition:</strong> Accelerating investment in renewable energy and energy storage technologies is being driven by policy support and improving economics.</li>
+                        <li><strong class="secondary">Healthcare Innovation:</strong> Technology-enabled healthcare solutions are expanding rapidly, creating growth opportunities across pharmaceutical, device, and service sectors.</li>
+                        <li><strong class="secondary">Evolving Real Estate:</strong> Shifting workplace dynamics, housing affordability challenges, and climate considerations are reshaping real estate investment strategies.</li>
+                        <li><strong class="secondary">Cybersecurity Focus:</strong> As digital transformation accelerates, cybersecurity investment becomes increasingly critical across all sectors.</li>
+                    </ul>
+                </div>
+                <div class="bg-darker p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-4 secondary">Global Investment Climate</h3>
+                    <p class="mb-4">The 2025 investment environment is characterized by:</p>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between">
+                                <span>Interest Rate Stability</span>
+                                <span class="text-sm text-green-400">Favorable</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar ai-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between">
+                                <span>Market Volatility</span>
+                                <span class="text-sm text-yellow-400">Moderate</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar energy-bar" style="width: 55%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between">
+                                <span>Innovation Growth</span>
+                                <span class="text-sm text-green-400">Strong</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar healthcare-bar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between">
+                                <span>Geopolitical Risk</span>
+                                <span class="text-sm text-red-400">Elevated</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cyber-bar" style="width: 62%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-black bg-opacity-30 rounded-lg">
+                        <p class="text-sm italic text-gray-300">
+                            "In 2025, we see a two-speed transition emerging - with mature sectors like renewables, EVs, and power grids growing strongly, while emerging technologies like hydrogen and carbon capture still face scalability challenges."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Sectors Section -->
+        <section id="sectors" class="section">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-layer-group accent mr-3"></i>
+                Key Investment Sectors
+            </h2>
+            <div class="divider"></div>
+            
+            <!-- AI/Technology Section -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-microchip text-blue-400 mr-2"></i>
+                    Artificial Intelligence & Technology
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Market Outlook</h4>
+                        <p>AI investment is projected to continue its strong momentum into 2025. The market is evolving beyond the initial hype cycle, with increasing focus on return on investment and practical applications. According to BloombergNEF, 72% of senior business leaders plan to maintain or increase AI investments in 2025.</p>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Growth Potential</span>
+                                <span class="text-green-400">High</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar ai-bar" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Key Trends</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Expanding focus beyond megacap tech stocks to broader AI ecosystem</li>
+                            <li>Growing emphasis on AI hardware producers (semiconductors, chips)</li>
+                            <li>Rising importance of AI hyperscalers providing infrastructure</li>
+                            <li>Increasing investment in AI developers creating practical applications</li>
+                            <li>Greater attention to AI solutions with demonstrable ROI</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">NVDA Stock Performance</h4>
+                        <div class="chart-container h-48">
+                            <canvas id="nvdaChart"></canvas>
+                        </div>
+                        <p class="text-sm mt-2">NVIDIA continues to be a key player in the AI hardware space, with significant volatility but overall strong performance through early 2025.</p>
+                    </div>
+                </div>
+                <div class="bg-darker p-5 rounded-lg mt-6">
+                    <h4 class="text-lg font-medium mb-3 secondary">AI Investment Insights</h4>
+                    <p class="mb-3">The AI value chain presents diversified investment opportunities across five key segments:</p>
+                    <div class="grid md:grid-cols-5 gap-4 text-center">
+                        <div class="bg-opacity-20 bg-blue-900 p-3 rounded">
+                            <h5 class="font-medium text-blue-300">AI Hardware</h5>
+                            <p class="text-sm mt-2">Semiconductors, chips, computing infrastructure</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-purple-900 p-3 rounded">
+                            <h5 class="font-medium text-purple-300">AI Hyperscalers</h5>
+                            <p class="text-sm mt-2">Cloud services, data centers, LLM development</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-green-900 p-3 rounded">
+                            <h5 class="font-medium text-green-300">AI Developers</h5>
+                            <p class="text-sm mt-2">Software solutions, enterprise applications</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-orange-900 p-3 rounded">
+                            <h5 class="font-medium text-orange-300">AI Integrators</h5>
+                            <p class="text-sm mt-2">Implementation services, consulting, solutions</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-red-900 p-3 rounded">
+                            <h5 class="font-medium text-red-300">AI Essentials</h5>
+                            <p class="text-sm mt-2">Energy, cooling, raw materials, data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clean Energy Section -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-solar-panel text-yellow-400 mr-2"></i>
+                    Clean Energy
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Market Outlook</h4>
+                        <p>Global energy transition investment hit a record $2.1 trillion in 2024, with continued growth expected in 2025. According to BloombergNEF, this represents a doubling since 2020, though growth has slowed to 10.7% from the 24-29% rates seen in previous years.</p>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Growth Potential</span>
+                                <span class="text-green-400">Strong</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar energy-bar" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Key Trends</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Renewable energy investments reached $728 billion in 2024</li>
+                            <li>Power grid expansion attracting $390 billion annually</li>
+                            <li>Energy storage investments grew 36% to $53.9 billion</li>
+                            <li>Specialty battery and solar supply chains seeing $140 billion investment</li>
+                            <li>Emerging technologies (hydrogen, CCS) facing growth challenges</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">ENPH Stock Performance</h4>
+                        <div class="chart-container h-48">
+                            <canvas id="enphChart"></canvas>
+                        </div>
+                        <p class="text-sm mt-2">Enphase Energy has experienced significant volatility, reflecting the broader challenges and opportunities in the clean energy sector.</p>
+                    </div>
+                </div>
+                <div class="bg-darker p-5 rounded-lg mt-6">
+                    <h4 class="text-lg font-medium mb-3 secondary">Clean Energy Investment Distribution 2025</h4>
+                    <div class="chart-container">
+                        <canvas id="energyInvestmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Healthcare Section -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-heartbeat text-red-400 mr-2"></i>
+                    Healthcare Technology
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Market Outlook</h4>
+                        <p>Healthcare EBITDA is projected to increase at a 7% CAGR to $987 billion in 2028 from $676 billion in 2023. Technology-enabled healthcare solutions and services are experiencing the strongest growth, with software platforms, data analytics, and specialty pharmacy services leading the way.</p>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Growth Potential</span>
+                                <span class="text-green-400">Solid</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar healthcare-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Key Trends</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Health Services & Technology (HST) segments growing at 8% CAGR</li>
+                            <li>Outpatient care settings expanding due to site-of-care shifts</li>
+                            <li>Home health expanding with technology-driven efficiencies</li>
+                            <li>Generative AI adoption accelerating across healthcare</li>
+                            <li>Specialty pharmacy revenue growing at 8% CAGR through 2028</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">MRK Stock Performance</h4>
+                        <div class="chart-container h-48">
+                            <canvas id="mrkChart"></canvas>
+                        </div>
+                        <p class="text-sm mt-2">Merck has demonstrated relatively stable performance amid healthcare sector volatility, supported by a strong product portfolio.</p>
+                    </div>
+                </div>
+                <div class="bg-darker p-5 rounded-lg mt-6">
+                    <h4 class="text-lg font-medium mb-3 secondary">Healthcare Technology Growth Areas</h4>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="bg-opacity-20 bg-blue-900 p-4 rounded">
+                            <h5 class="font-medium text-blue-300 mb-2">Software Platforms</h5>
+                            <div class="text-3xl font-bold text-center">14%</div>
+                            <p class="text-sm mt-2 text-center">CAGR 2023-2028</p>
+                            <p class="text-xs mt-3">Provider and payer efficiency solutions, workflow automation, clinical decision support</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-purple-900 p-4 rounded">
+                            <h5 class="font-medium text-purple-300 mb-2">Data & Analytics</h5>
+                            <div class="text-3xl font-bold text-center">20%</div>
+                            <p class="text-sm mt-2 text-center">CAGR 2023-2028</p>
+                            <p class="text-xs mt-3">AI-driven insights, interoperability solutions, predictive analytics for clinical and operational use</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-green-900 p-4 rounded">
+                            <h5 class="font-medium text-green-300 mb-2">Specialty Pharmacy</h5>
+                            <div class="text-3xl font-bold text-center">10%</div>
+                            <p class="text-sm mt-2 text-center">CAGR 2023-2028</p>
+                            <p class="text-xs mt-3">Hospital-owned specialty pharmacies, provider-based infusion centers, oncology medication management</p>
+                        </div>
+                        <div class="bg-opacity-20 bg-red-900 p-4 rounded">
+                            <h5 class="font-medium text-red-300 mb-2">Home Health</h5>
+                            <div class="text-3xl font-bold text-center">12%</div>
+                            <p class="text-sm mt-2 text-center">CAGR 2023-2028</p>
+                            <p class="text-xs mt-3">Tech-enabled remote care, monitoring solutions, personal care services, fiscal intermediary models</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real Estate Section -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-building text-purple-400 mr-2"></i>
+                    Real Estate
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Market Outlook</h4>
+                        <p>Real estate investment strategies are evolving in 2025 as investors respond to changing work patterns, housing affordability challenges, climate risks, and technological innovation. The market is seeing increased interest in strategic diversification and sustainability-focused properties.</p>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Growth Potential</span>
+                                <span class="text-yellow-400">Moderate</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar realestate-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Key Trends</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Increased spending on both existing and new properties</li>
+                            <li>Growing demand for flexible workspaces and mixed-use developments</li>
+                            <li>Strategic shift away from high climate risk areas</li>
+                            <li>Rising interest in second-tier markets with strong fundamentals</li>
+                            <li>Expansion of data-driven investment decision tools using AI</li>
+                            <li>Growth in co-living spaces addressing affordability concerns</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Digital Infrastructure</h4>
+                        <p>Data centers, server farms, and cell towers represent a rapidly growing real estate segment in 2025, driven by AI, cloud services, and 5G expansion. This digital infrastructure category is seeing strong investment flows as demand outstrips supply.</p>
+                        <div class="mt-4 bg-black bg-opacity-30 p-3 rounded">
+                            <h5 class="text-sm font-medium mb-2">Growth Drivers</h5>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-2"></i>
+                                    <span>AI Computing</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-2"></i>
+                                    <span>5G Expansion</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-2"></i>
+                                    <span>Cloud Migration</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-2"></i>
+                                    <span>IoT Growth</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-darker p-5 rounded-lg mt-6">
+                    <h4 class="text-lg font-medium mb-3 secondary">Real Estate Sector Performance Outlook</h4>
+                    <div class="grid md:grid-cols-5 gap-4 text-center">
+                        <div class="p-4 rounded bg-opacity-20 bg-green-900">
+                            <h5 class="font-medium">Mixed-Use Developments</h5>
+                            <div class="text-2xl font-bold mt-2 text-green-400">↑ 8.2%</div>
+                            <p class="text-xs mt-2">Projected Annual Return</p>
+                        </div>
+                        <div class="p-4 rounded bg-opacity-20 bg-green-900">
+                            <h5 class="font-medium">Data Centers</h5>
+                            <div class="text-2xl font-bold mt-2 text-green-400">↑ 12.5%</div>
+                            <p class="text-xs mt-2">Projected Annual Return</p>
+                        </div>
+                        <div class="p-4 rounded bg-opacity-20 bg-green-900">
+                            <h5 class="font-medium">Flexible Workspace</h5>
+                            <div class="text-2xl font-bold mt-2 text-green-400">↑ 7.8%</div>
+                            <p class="text-xs mt-2">Projected Annual Return</p>
+                        </div>
+                        <div class="p-4 rounded bg-opacity-20 bg-yellow-900">
+                            <h5 class="font-medium">Residential</h5>
+                            <div class="text-2xl font-bold mt-2 text-yellow-400">↑ 4.3%</div>
+                            <p class="text-xs mt-2">Projected Annual Return</p>
+                        </div>
+                        <div class="p-4 rounded bg-opacity-20 bg-red-900">
+                            <h5 class="font-medium">Traditional Office</h5>
+                            <div class="text-2xl font-bold mt-2 text-red-400">↓ 2.1%</div>
+                            <p class="text-xs mt-2">Projected Annual Return</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cybersecurity Section -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                    <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                    Cybersecurity
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Market Outlook</h4>
+                        <p>Cybersecurity investment continues to grow in 2025, with venture capitalists investing $9.5 billion into cybersecurity startups during 2024, marking a 9% increase from 2023. The market is seeing increased consolidation and a shift toward AI-focused solutions addressing the evolving threat landscape.</p>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm">
+                                <span>Growth Potential</span>
+                                <span class="text-green-400">High</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cyber-bar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Key Trends</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Market consolidation as larger players acquire innovative startups</li>
+                            <li>AI tools being exploited for more sophisticated cyberattacks</li>
+                            <li>Corresponding growth in AI-powered defensive solutions</li>
+                            <li>Increased focus on cloud security as migration accelerates</li>
+                            <li>Rising importance of identity protection and zero-trust architecture</li>
+                            <li>Growing demand for managed security services</li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <h4 class="text-lg font-medium mb-3 secondary">Cybersecurity Funding Focus</h4>
+                        <div class="chart-container h-48">
+                            <canvas id="cybersecurityChart"></canvas>
+                        </div>
+                        <p class="text-sm mt-2">AI-focused cybersecurity funding more than doubled from 2023 ($181.5M) to 2024 ($369.9M), representing 96% year-over-year growth.</p>
+                    </div>
+                </div>
+                <div class="bg-darker p-5 rounded-lg mt-6">
+                    <h4 class="text-lg font-medium mb-3 secondary">Cybersecurity Investment Strategy</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-medium mb-3 text-green-300">Key Investment Areas</h5>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between">
+                                        <span>Cloud Security Platforms</span>
+                                        <span class="text-sm text-green-400">High Priority</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar cyber-bar" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between">
+                                        <span>AI-Powered Threat Detection</span>
+                                        <span class="text-sm text-green-400">High Priority</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar cyber-bar" style="width: 88%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between">
+                                        <span>Identity & Access Management</span>
+                                        <span class="text-sm text-green-400">High Priority</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar cyber-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between">
+                                        <span>Managed Security Services</span>
+                                        <span class="text-sm text-yellow-400">Medium Priority</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar cyber-bar" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between">
+                                        <span>IoT Security</span>
+                                        <span class="text-sm text-yellow-400">Medium Priority</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar cyber-bar" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-medium mb-3 text-yellow-300">Market Dynamics</h5>
+                            <table class="w-full text-sm">
+                                <tr>
+                                    <th class="text-left">Segment</th>
+                                    <th class="text-right">Growth Rate</th>
+                                    <th class="text-right">Investment Outlook</th>
+                                </tr>
+                                <tr>
+                                    <td>AI Security</td>
+                                    <td class="text-right text-green-400">+96%</td>
+                                    <td class="text-right">Very Positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Cloud Security</td>
+                                    <td class="text-right text-green-400">+22%</td>
+                                    <td class="text-right">Positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Identity Protection</td>
+                                    <td class="text-right text-green-400">+18%</td>
+                                    <td class="text-right">Positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Network Security</td>
+                                    <td class="text-right text-yellow-400">+6%</td>
+                                    <td class="text-right">Stable</td>
+                                </tr>
+                                <tr>
+                                    <td>Legacy Solutions</td>
+                                    <td class="text-right text-red-400">-5%</td>
+                                    <td class="text-right">Negative</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Data Section -->
+        <section id="market-data" class="section">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-chart-bar accent mr-3"></i>
+                Market Data & Performance Insights
+            </h2>
+            <div class="divider"></div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Stock Performance Analysis</h3>
+                    <p class="mb-4">Key stocks in our recommended sectors have shown varying performance patterns in early 2025, reflecting both sector-specific dynamics and broader market trends.</p>
+                    <div class="chart-container">
+                        <canvas id="stockComparisonChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Sector Performance Comparison</h3>
+                    <p class="mb-4">Comparative analysis of our focus sectors reveals divergent growth trajectories, with technology and clean energy leading while traditional sectors lag.</p>
+                    <div class="chart-container">
+                        <canvas id="sectorPerformanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-darker p-6 rounded-lg mb-8">
+                <h3 class="text-xl font-semibold mb-4 secondary">Global Investment Distribution 2025</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="chart-container">
+                        <canvas id="globalInvestmentChart"></canvas>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-3">Key Insights</h4>
+                        <ul class="space-y-4">
+                            <li>
+                                <div class="flex">
+                                    <i class="fas fa-globe-asia text-blue-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>China Dominance:</strong>
+                                        <p class="text-sm text-gray-300">Mainland China invested $818 billion in the energy transition in 2024, more than double any other economy and representing 4.5% of its GDP.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex">
+                                    <i class="fas fa-flag-usa text-blue-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>US Investment:</strong>
+                                        <p class="text-sm text-gray-300">The US maintained stable investment at $338 billion, focused primarily on AI technology and renewable energy deployment.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex">
+                                    <i class="fas fa-euro-sign text-blue-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>European Decline:</strong>
+                                        <p class="text-sm text-gray-300">The EU saw investment decline to $381 billion in 2024, with slower growth in renewable capacity additions and EV adoption.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex">
+                                    <i class="fas fa-users text-blue-400 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Emerging Markets:</strong>
+                                        <p class="text-sm text-gray-300">India (up 13% to $47 billion) and Canada (up 19% to $35 billion) showed robust growth, highlighting expanding investment opportunities.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 secondary">Stock Spotlight: Recent Performance</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Company</th>
+                                <th>Sector</th>
+                                <th>Current Price</th>
+                                <th>1-Month Change</th>
+                                <th>Volatility</th>
+                                <th>Outlook</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-medium">NVDA</td>
+                                <td>NVIDIA Corporation</td>
+                                <td>AI/Technology</td>
+                                <td>$108.60</td>
+                                <td class="trend-up">+3.2%</td>
+                                <td class="text-yellow-400">High</td>
+                                <td class="text-green-400">Positive</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">TSLA</td>
+                                <td>Tesla, Inc.</td>
+                                <td>Clean Energy/EVs</td>
+                                <td>$253.24</td>
+                                <td class="trend-down">-9.7%</td>
+                                <td class="text-red-400">Very High</td>
+                                <td class="text-yellow-400">Neutral</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">ENPH</td>
+                                <td>Enphase Energy</td>
+                                <td>Clean Energy</td>
+                                <td>$49.17</td>
+                                <td class="trend-down">-21.8%</td>
+                                <td class="text-red-400">Very High</td>
+                                <td class="text-yellow-400">Neutral</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">MRK</td>
+                                <td>Merck & Co.</td>
+                                <td>Healthcare</td>
+                                <td>$77.24</td>
+                                <td class="trend-down">-13.6%</td>
+                                <td class="text-yellow-400">Moderate</td>
+                                <td class="text-green-400">Positive</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">VZ</td>
+                                <td>Verizon Communications</td>
+                                <td>Telecommunications</td>
+                                <td>$43.52</td>
+                                <td class="trend-down">-2.8%</td>
+                                <td class="text-green-400">Low</td>
+                                <td class="text-yellow-400">Neutral</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="bg-darker p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 secondary">Investment Gap Analysis</h3>
+                <p class="mb-4">Despite record investments in energy transition technologies ($2.1 trillion in 2024), there remains a significant gap between current spending and what's required to reach net zero by 2050.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="chart-container">
+                        <canvas id="investmentGapChart"></canvas>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-3">Required Annual Investment 2025-2030</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between">
+                                    <span>Electrified Transport</span>
+                                    <span class="text-sm">$3.0 Trillion</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar energy-bar" style="width: 25%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>Current: $757 Billion</span>
+                                    <span>Gap: 75%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between">
+                                    <span>Renewable Energy</span>
+                                    <span class="text-sm">$1.3 Trillion</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar energy-bar" style="width: 56%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>Current: $728 Billion</span>
+                                    <span>Gap: 44%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between">
+                                    <span>Power Grids</span>
+                                    <span class="text-sm">$820 Billion</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar energy-bar" style="width: 48%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>Current: $390 Billion</span>
+                                    <span>Gap: 52%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between">
+                                    <span>Emerging Clean Tech</span>
+                                    <span class="text-sm">$455 Billion</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar energy-bar" style="width: 32%"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>Current: $145 Billion</span>
+                                    <span>Gap: 68%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Recommendations Section -->
+        <section id="recommendations" class="section">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-lightbulb accent mr-3"></i>
+                Strategic Investment Recommendations
+            </h2>
+            <div class="divider"></div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Portfolio Allocation Strategy</h3>
+                    <div class="chart-container mb-6">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                    <div class="bg-darker p-4 rounded">
+                        <h4 class="font-medium mb-2">Allocation Rationale</h4>
+                        <p class="text-sm">Our recommended allocation balances growth opportunities in technology and clean energy with more stable healthcare and infrastructure investments, while maintaining sufficient liquidity for new opportunities.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Risk-Return Positioning</h3>
+                    <div class="chart-container mb-6">
+                        <canvas id="riskReturnChart"></canvas>
+                    </div>
+                    <div class="bg-darker p-4 rounded">
+                        <h4 class="font-medium mb-2">Strategic Positioning</h4>
+                        <p class="text-sm">The 2025 investment landscape presents opportunities across the risk-return spectrum. Our positioning aims to capture growth areas while balancing overall portfolio risk through diversification across sectors and geographies.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 secondary">Sector-Specific Recommendations</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-microchip text-blue-400 mr-2"></i>
+                            <h4 class="text-lg font-medium secondary">AI & Technology</h4>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Look beyond megacap tech</strong>
+                                    <p class="text-sm text-gray-300">Explore opportunities across the full AI value chain, including hardware providers, AI developers, and infrastructure suppliers.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Prioritize practical applications</strong>
+                                    <p class="text-sm text-gray-300">Focus on companies demonstrating tangible ROI from AI implementation rather than speculative pre-revenue ventures.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Consider AI essentials</strong>
+                                    <p class="text-sm text-gray-300">Invest in the supporting infrastructure like data centers, energy suppliers, and cooling technologies critical for AI deployment.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-solar-panel text-yellow-400 mr-2"></i>
+                            <h4 class="text-lg font-medium secondary">Clean Energy</h4>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Focus on proven technologies</strong>
+                                    <p class="text-sm text-gray-300">Prioritize investments in commercially viable renewable energy, energy storage, and EV segments over emerging technologies.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Consider grid infrastructure</strong>
+                                    <p class="text-sm text-gray-300">Transmission and distribution networks represent critical bottlenecks and investment opportunities in the clean energy transition.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Selective exposure to supply chains</strong>
+                                    <p class="text-sm text-gray-300">Carefully evaluate clean energy manufacturing investments due to ongoing overcapacity concerns in some segments.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card p-5">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-heartbeat text-red-400 mr-2"></i>
+                            <h4 class="text-lg font-medium secondary">Healthcare & Cybersecurity</h4>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Target health tech innovation</strong>
+                                    <p class="text-sm text-gray-300">Invest in healthcare software, data analytics, and technology-enabled services showing rapid growth and margin expansion.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Consider specialty pharmacy</strong>
+                                    <p class="text-sm text-gray-300">The specialty pharmacy segment continues to outperform, with particular strength in oncology and rare disease treatments.</p>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Prioritize AI-powered security</strong>
+                                    <p class="text-sm text-gray-300">Focus on cybersecurity firms leveraging AI for threat detection and response, which are seeing the strongest funding growth.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-darker p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 secondary">Strategic Implementation Timeline</h3>
+                <div class="relative">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-900 rounded ml-3 md:ml-4"></div>
+                    <div class="space-y-10">
+                        <div class="flex">
+                            <div class="relative">
+                                <div class="h-8 w-8 md:h-10 md:w-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg z-10 relative">
+                                    <span class="text-sm md:text-base font-semibold">Q2</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 md:ml-6">
+                                <h4 class="text-lg font-medium secondary">Q2 2025: Initial Positioning</h4>
+                                <ul class="mt-2 space-y-2">
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Establish core positions in AI/technology and healthcare technology sectors</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Begin building clean energy exposure with focus on grid infrastructure and energy storage</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Maintain elevated cash position (15-20%) to preserve flexibility</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="relative">
+                                <div class="h-8 w-8 md:h-10 md:w-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg z-10 relative">
+                                    <span class="text-sm md:text-base font-semibold">Q3</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 md:ml-6">
+                                <h4 class="text-lg font-medium secondary">Q3 2025: Strategic Expansion</h4>
+                                <ul class="mt-2 space-y-2">
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Increase allocation to growth-oriented segments as economic conditions become clearer</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Expand digital infrastructure and cybersecurity positions</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Consider strategic entry into select real estate segments (data centers, flexible workspaces)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="relative">
+                                <div class="h-8 w-8 md:h-10 md:w-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg z-10 relative">
+                                    <span class="text-sm md:text-base font-semibold">Q4</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 md:ml-6">
+                                <h4 class="text-lg font-medium secondary">Q4 2025: Portfolio Optimization</h4>
+                                <ul class="mt-2 space-y-2">
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Evaluate performance of initial allocations and adjust based on market conditions</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Consider selective exposure to emerging climate technologies showing commercial traction</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Rebalance portfolio to target allocation with reduced cash position (10-15%)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="relative">
+                                <div class="h-8 w-8 md:h-10 md:w-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg z-10 relative">
+                                    <span class="text-sm md:text-base font-semibold">Q1</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 md:ml-6">
+                                <h4 class="text-lg font-medium secondary">Q1 2026: Forward Planning</h4>
+                                <ul class="mt-2 space-y-2">
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Comprehensive portfolio review and performance assessment</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Adjust strategic allocations based on evolving market conditions and tech adoption trends</span>
+                                    </li>
+                                    <li class="flex">
+                                        <i class="fas fa-arrow-right text-blue-400 mt-1 mr-2"></i>
+                                        <span>Develop updated investment thesis for 2026-2027 strategic positioning</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="section">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <i class="fas fa-flag-checkered accent mr-3"></i>
+                Conclusion
+            </h2>
+            <div class="divider"></div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Key Investment Takeaways</h3>
+                    <ul class="space-y-4">
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-400 text-xl mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-lg">Look beyond the obvious players</strong>
+                                <p class="mt-1">The most compelling investment opportunities in 2025 may not be the most obvious ones. While megacap tech stocks have driven much of the market's gains, future value creation will likely spread more broadly across the AI ecosystem and other transformative sectors.</p>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-400 text-xl mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-lg">Prioritize proven technologies and applications</strong>
+                                <p class="mt-1">In both the AI and clean energy sectors, focus on companies and technologies with proven commercial viability and clear paths to profitability. The most speculative areas face the highest risk of disappointment.</p>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-400 text-xl mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-lg">Maintain strategic diversification</strong>
+                                <p class="mt-1">While technology and innovation themes dominate growth prospects, a balanced portfolio should include strategic allocations to healthcare, infrastructure, and select real estate segments that offer different risk-return profiles.</p>
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <i class="fas fa-check-circle text-green-400 text-xl mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-lg">Prepare for continued volatility</strong>
+                                <p class="mt-1">Market volatility is likely to remain elevated in 2025 as technological disruption accelerates and geopolitical tensions persist. Maintain adequate liquidity to take advantage of market dislocations.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 secondary">Final Perspectives</h3>
+                    <p class="mb-4">The investment landscape of 2025 presents both significant opportunities and challenges. The pace of technological transformation continues to accelerate, reshaping industries and creating new value pools. At the same time, the transition to clean energy is gaining momentum as both mature and emerging technologies contribute to decarbonization efforts.</p>
+                    
+                    <p class="mb-4">Healthcare remains in a state of transformation, with technology increasingly enabling new models of care and cost management. Meanwhile, real estate and infrastructure are evolving to meet changing demographic, technological, and climate needs.</p>
+                    
+                    <p class="mb-4">In this environment, investors should maintain a disciplined approach focused on identifying companies with sustainable competitive advantages, strong management teams, and clear paths to value creation. While embracing innovation themes, attention to valuation and fundamentals remains crucial.</p>
+                    
+                    <div class="bg-darker p-5 rounded-lg mt-6">
+                        <h4 class="font-medium mb-3 secondary">Looking Ahead</h4>
+                        <p>As we progress through 2025 and beyond, several developments bear close monitoring:</p>
+                        <ul class="list-disc pl-5 mt-3 space-y-2">
+                            <li>The evolution of regulatory frameworks around AI, data privacy, and clean energy</li>
+                            <li>The pace of AI adoption and its impact on corporate productivity and profitability</li>
+                            <li>Progress in scaling emerging clean technologies like hydrogen and carbon capture</li>
+                            <li>Changes in healthcare delivery models and reimbursement structures</li>
+                            <li>The evolution of workplace patterns and their impact on commercial real estate</li>
+                        </ul>
+                        <p class="mt-3">By staying informed and adaptable, investors can navigate this complex landscape and position their portfolios for long-term success.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-8 px-4">
+        <div class="container mx-auto">
+            <div class="divider"></div>
+            <div class="grid md:grid-cols-2 gap-8 mt-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-line accent mr-2"></i>
+                        VISION 2025
+                    </h3>
+                    <p class="text-gray-400 mb-4">Strategic Investment Portfolio is a comprehensive analysis of global investment opportunities for the year 2025 and beyond.</p>
+                    <p class="text-gray-400">Prepared: April 2025</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Disclaimer</h3>
+                    <p class="text-gray-400 text-sm">
+                        This document is provided for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security. The information contained herein has been obtained from sources believed to be reliable, but its accuracy and completeness cannot be guaranteed.
+                    </p>
+                    <p class="text-gray-400 text-sm mt-2">
+                        Past performance is not indicative of future results. Any investment involves risk, including the possible loss of principal. The investment strategies and themes discussed may not be suitable for all investors. Investors should consult with qualified professional advisors before making any investment decisions.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                &copy; 2025 Strategic Investment Advisors. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // NVDA Chart
+            const nvdaCtx = document.getElementById('nvdaChart').getContext('2d');
+            const nvdaChart = new Chart(nvdaCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mar 03', 'Mar 10', 'Mar 17', 'Mar 24', 'Mar 31', 'Apr 07', 'Apr 11'],
+                    datasets: [{
+                        label: 'NVDA Price ($)',
+                        data: [114.06, 106.98, 119.53, 121.67, 108.38, 97.64, 108.60],
+                        borderColor: 'rgba(0, 230, 118, 1)',
+                        backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // ENPH Chart
+            const enphCtx = document.getElementById('enphChart').getContext('2d');
+            const enphChart = new Chart(enphCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mar 03', 'Mar 10', 'Mar 17', 'Mar 24', 'Mar 31', 'Apr 07', 'Apr 11'],
+                    datasets: [{
+                        label: 'ENPH Price ($)',
+                        data: [52.87, 63.32, 63.8, 62.16, 62.05, 55.76, 49.17],
+                        borderColor: 'rgba(255, 171, 64, 1)',
+                        backgroundColor: 'rgba(255, 171, 64, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // MRK Chart
+            const mrkCtx = document.getElementById('mrkChart').getContext('2d');
+            const mrkChart = new Chart(mrkCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mar 03', 'Mar 10', 'Mar 17', 'Mar 24', 'Mar 31', 'Apr 07', 'Apr 11'],
+                    datasets: [{
+                        label: 'MRK Price ($)',
+                        data: [93.15, 95.23, 94.79, 92.31, 89.76, 81.18, 77.24],
+                        borderColor: 'rgba(64, 196, 255, 1)',
+                        backgroundColor: 'rgba(64, 196, 255, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Stock Comparison Chart
+            const stockComparisonCtx = document.getElementById('stockComparisonChart').getContext('2d');
+            const stockComparisonChart = new Chart(stockComparisonCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mar 03', 'Mar 10', 'Mar 17', 'Mar 24', 'Mar 31', 'Apr 07', 'Apr 11'],
+                    datasets: [
+                        {
+                            label: 'NVDA',
+                            data: [114.06, 106.98, 119.53, 121.67, 108.38, 97.64, 108.60],
+                            borderColor: 'rgba(0, 230, 118, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'TSLA',
+                            data: [284.65, 222.15, 238.01, 278.39, 259.16, 233.29, 253.24],
+                            borderColor: 'rgba(255, 171, 64, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'ENPH',
+                            data: [52.87, 63.32, 63.8, 62.16, 62.05, 55.76, 49.17],
+                            borderColor: 'rgba(64, 196, 255, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'MRK',
+                            data: [93.15, 95.23, 94.79, 92.31, 89.76, 81.18, 77.24],
+                            borderColor: 'rgba(236, 64, 122, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'VZ',
+                            data: [43.87, 46.49, 43.65, 43.56, 45.36, 42.58, 43.52],
+                            borderColor: 'rgba(126, 87, 194, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Stock Price Performance - March-April 2025',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sector Performance Chart
+            const sectorCtx = document.getElementById('sectorPerformanceChart').getContext('2d');
+            const sectorChart = new Chart(sectorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['AI/Technology', 'Clean Energy', 'Healthcare', 'Digital Infrastructure', 'Cybersecurity', 'Traditional Real Estate'],
+                    datasets: [{
+                        label: 'Projected Annual Growth Rate (%)',
+                        data: [14.5, 11.2, 7.8, 12.6, 9.4, 2.3],
+                        backgroundColor: [
+                            'rgba(0, 230, 118, 0.7)',
+                            'rgba(255, 171, 64, 0.7)',
+                            'rgba(64, 196, 255, 0.7)',
+                            'rgba(236, 64, 122, 0.7)',
+                            'rgba(126, 87, 194, 0.7)',
+                            'rgba(120, 144, 156, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(255, 171, 64, 1)',
+                            'rgba(64, 196, 255, 1)',
+                            'rgba(236, 64, 122, 1)',
+                            'rgba(126, 87, 194, 1)',
+                            'rgba(120, 144, 156, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Projected Sector Growth Rates - 2025',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Energy Investment Chart
+            const energyInvestmentCtx = document.getElementById('energyInvestmentChart').getContext('2d');
+            const energyInvestmentChart = new Chart(energyInvestmentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Renewable Energy', 'Power Grids', 'Electrified Transport', 'Energy Storage', 'Hydrogen', 'CCS', 'Nuclear', 'Other'],
+                    datasets: [{
+                        data: [35, 19, 36, 2.6, 0.4, 0.3, 1.6, 5.1],
+                        backgroundColor: [
+                            'rgba(0, 230, 118, 0.7)',
+                            'rgba(255, 171, 64, 0.7)',
+                            'rgba(64, 196, 255, 0.7)',
+                            'rgba(236, 64, 122, 0.7)',
+                            'rgba(126, 87, 194, 0.7)',
+                            'rgba(255, 109, 0, 0.7)',
+                            'rgba(0, 145, 234, 0.7)',
+                            'rgba(120, 144, 156, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(255, 171, 64, 1)',
+                            'rgba(64, 196, 255, 1)',
+                            'rgba(236, 64, 122, 1)',
+                            'rgba(126, 87, 194, 1)',
+                            'rgba(255, 109, 0, 1)',
+                            'rgba(0, 145, 234, 1)',
+                            'rgba(120, 144, 156, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Clean Energy Investment Distribution (% of $2.1T)',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Global Investment Chart
+            const globalInvestmentCtx = document.getElementById('globalInvestmentChart').getContext('2d');
+            const globalInvestmentChart = new Chart(globalInvestmentCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Mainland China', 'US', 'EU-27', 'UK', 'India', 'Canada', 'Japan', 'Brazil', 'Others'],
+                    datasets: [{
+                        data: [39.4, 16.3, 18.3, 3.1, 2.3, 1.7, 1.5, 1.8, 15.6],
+                        backgroundColor: [
+                            'rgba(0, 230, 118, 0.7)',
+                            'rgba(255, 171, 64, 0.7)',
+                            'rgba(64, 196, 255, 0.7)',
+                            'rgba(236, 64, 122, 0.7)',
+                            'rgba(126, 87, 194, 0.7)',
+                            'rgba(255, 109, 0, 0.7)',
+                            'rgba(0, 145, 234, 0.7)',
+                            'rgba(139, 195, 74, 0.7)',
+                            'rgba(120, 144, 156, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(255, 171, 64, 1)',
+                            'rgba(64, 196, 255, 1)',
+                            'rgba(236, 64, 122, 1)',
+                            'rgba(126, 87, 194, 1)',
+                            'rgba(255, 109, 0, 1)',
+                            'rgba(0, 145, 234, 1)',
+                            'rgba(139, 195, 74, 1)',
+                            'rgba(120, 144, 156, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Global Clean Energy Investment Distribution 2025 (%)',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Cybersecurity Chart
+            const cyberCtx = document.getElementById('cybersecurityChart').getContext('2d');
+            const cyberChart = new Chart(cyberCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2023', '2024'],
+                    datasets: [{
+                        label: 'AI Cybersecurity Funding ($ Million)',
+                        data: [181.5, 369.9],
+                        backgroundColor: [
+                            'rgba(126, 87, 194, 0.7)',
+                            'rgba(126, 87, 194, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(126, 87, 194, 1)',
+                            'rgba(126, 87, 194, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Investment Gap Chart
+            const gapCtx = document.getElementById('investmentGapChart').getContext('2d');
+            const gapChart = new Chart(gapCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Current (2024)', 'Required (2025-2030)'],
+                    datasets: [{
+                        label: 'Annual Clean Energy Investment ($ Trillion)',
+                        data: [2.1, 5.6],
+                        backgroundColor: [
+                            'rgba(64, 196, 255, 0.7)',
+                            'rgba(0, 230, 118, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(64, 196, 255, 1)',
+                            'rgba(0, 230, 118, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Investment Gap for Net Zero Pathway',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Portfolio Allocation Chart
+            const allocationCtx = document.getElementById('allocationChart').getContext('2d');
+            const allocationChart = new Chart(allocationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['AI & Technology', 'Clean Energy', 'Healthcare', 'Digital Infrastructure', 'Cybersecurity', 'Real Estate', 'Cash & Equivalents'],
+                    datasets: [{
+                        data: [28, 22, 16, 12, 8, 6, 8],
+                        backgroundColor: [
+                            'rgba(0, 230, 118, 0.7)',
+                            'rgba(255, 171, 64, 0.7)',
+                            'rgba(64, 196, 255, 0.7)',
+                            'rgba(236, 64, 122, 0.7)',
+                            'rgba(126, 87, 194, 0.7)',
+                            'rgba(255, 109, 0, 0.7)',
+                            'rgba(120, 144, 156, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 118, 1)',
+                            'rgba(255, 171, 64, 1)',
+                            'rgba(64, 196, 255, 1)',
+                            'rgba(236, 64, 122, 1)',
+                            'rgba(126, 87, 194, 1)',
+                            'rgba(255, 109, 0, 1)',
+                            'rgba(120, 144, 156, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Recommended Portfolio Allocation (%)',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Risk Return Chart
+            const riskReturnCtx = document.getElementById('riskReturnChart').getContext('2d');
+            const riskReturnChart = new Chart(riskReturnCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'AI Hardware',
+                            data: [{x: 8.2, y: 14.5}],
+                            backgroundColor: 'rgba(0, 230, 118, 0.7)',
+                            borderColor: 'rgba(0, 230, 118, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'AI Software',
+                            data: [{x: 7.5, y: 13.2}],
+                            backgroundColor: 'rgba(0, 230, 118, 0.5)',
+                            borderColor: 'rgba(0, 230, 118, 0.8)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Renewable Energy',
+                            data: [{x: 6.3, y: 9.8}],
+                            backgroundColor: 'rgba(255, 171, 64, 0.7)',
+                            borderColor: 'rgba(255, 171, 64, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Energy Storage',
+                            data: [{x: 7.1, y: 11.4}],
+                            backgroundColor: 'rgba(255, 171, 64, 0.5)',
+                            borderColor: 'rgba(255, 171, 64, 0.8)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Healthcare Tech',
+                            data: [{x: 5.8, y: 10.2}],
+                            backgroundColor: 'rgba(64, 196, 255, 0.7)',
+                            borderColor: 'rgba(64, 196, 255, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Specialty Pharma',
+                            data: [{x: 6.2, y: 8.4}],
+                            backgroundColor: 'rgba(64, 196, 255, 0.5)',
+                            borderColor: 'rgba(64, 196, 255, 0.8)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Data Centers',
+                            data: [{x: 5.1, y: 9.2}],
+                            backgroundColor: 'rgba(236, 64, 122, 0.7)',
+                            borderColor: 'rgba(236, 64, 122, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Cybersecurity',
+                            data: [{x: 6.8, y: 11.6}],
+                            backgroundColor: 'rgba(126, 87, 194, 0.7)',
+                            borderColor: 'rgba(126, 87, 194, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Mixed-Use Real Estate',
+                            data: [{x: 4.2, y: 6.8}],
+                            backgroundColor: 'rgba(255, 109, 0, 0.7)',
+                            borderColor: 'rgba(255, 109, 0, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        },
+                        {
+                            label: 'Cash & Equivalents',
+                            data: [{x: 0.8, y: 2.1}],
+                            backgroundColor: 'rgba(120, 144, 156, 0.7)',
+                            borderColor: 'rgba(120, 144, 156, 1)',
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Risk-Return Analysis by Investment Segment',
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Projected Return (%)',
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            beginAtZero: true,
+                            max: 16,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Risk Level (1-10)',
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            beginAtZero: true,
+                            max: 10,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
