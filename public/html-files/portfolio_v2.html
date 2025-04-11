@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Portfolio 2025 & Beyond</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+        }
+        .section {
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #7928CA, #FF0080);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .accent-line {
+            height: 4px;
+            width: 60px;
+            background: linear-gradient(90deg, #7928CA, #FF0080);
+            margin: 1rem 0;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #7928CA, #FF0080);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #6a23b0, #e0006f);
+            transform: translateY(-2px);
+        }
+        .sector-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #7928CA, #FF0080);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background-color: #252525;
+        }
+        tr:hover {
+            background-color: #252525;
+        }
+        .risk-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .risk-low {
+            background-color: #4CAF50;
+        }
+        .risk-medium {
+            background-color: #FFC107;
+        }
+        .risk-high {
+            background-color: #F44336;
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .prediction-card {
+            border-left: 4px solid;
+            padding-left: 1rem;
+        }
+        .prediction-positive {
+            border-color: #4CAF50;
+        }
+        .prediction-neutral {
+            border-color: #FFC107;
+        }
+        .prediction-negative {
+            border-color: #F44336;
+        }
+        .shadow-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex flex-col items-center justify-center text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="gradient-text">INSIGHT</span> <span class="text-white">CAPITAL</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-6">Investment Portfolio & Market Prognosis 2025-2030</p>
+            <div class="accent-line"></div>
+            <p class="text-gray-400 max-w-3xl mt-6">A comprehensive analysis of market trends, investment opportunities, and strategic recommendations based on thorough research and data-driven insights.</p>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <div class="card p-6 shadow-card">
+                <h2 class="text-2xl font-bold mb-4">Executive Summary</h2>
+                <div class="accent-line"></div>
+                <div class="mt-4">
+                    <p class="mb-4">As we navigate through 2025, the investment landscape continues to evolve rapidly, shaped by technological innovation, geopolitical shifts, and changing economic policies. Our analysis indicates a period of moderate growth with key opportunities in emerging sectors despite ongoing market volatility.</p>
+                    <p class="mb-4">The S&P 500 is forecast to reach approximately 6,500 by year-end 2025, representing a 15% increase from current levels. However, this projection comes with increased uncertainty as inflation pressures persist and monetary policy adjustments continue to impact market dynamics.</p>
+                    <p>This portfolio presents a strategic allocation framework designed to capitalize on high-growth sectors while maintaining resilience against potential market corrections in the 14-20% range that analysts are currently forecasting as possible scenarios.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Market Overview -->
+        <section class="section" id="market-overview">
+            <h2 class="text-3xl font-bold mb-6">Market Overview & 2025 Forecast</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Current Market Conditions</h3>
+                    <p class="mb-4">After two strong years for stocks, 2025 is expected to bring more muted gains. Key economic indicators show a transition to a period of moderation, with GDP growth forecast around 0.5% for 2025, significantly below trend.</p>
+                    <p>Inflation concerns remain prominent, with the PCE forecast at 3.3% in 2025, up from previous projections of 2.4%. Core PCE is expected to reach 2.6% in 2026, indicating persistent inflationary pressures that will likely influence monetary policy decisions.</p>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">GDP Growth Forecast</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-yellow-500" style="width: 50%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">0.5% (Below Trend)</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Inflation (PCE)</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-red-500" style="width: 75%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">3.3% (Above Target)</p>
+                    </div>
+                </div>
+                
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Market Performance Projections</h3>
+                    <div class="chart-container">
+                        <canvas id="marketProjectionChart"></canvas>
+                    </div>
+                    <div class="mt-4">
+                        <div class="grid grid-cols-3 gap-4 mt-4">
+                            <div class="prediction-card prediction-positive p-3">
+                                <h4 class="font-bold">Bullish</h4>
+                                <p class="text-2xl font-bold">+15%</p>
+                                <p class="text-sm text-gray-400">S&P 500 at 6,500</p>
+                            </div>
+                            <div class="prediction-card prediction-neutral p-3">
+                                <h4 class="font-bold">Base Case</h4>
+                                <p class="text-2xl font-bold">+8%</p>
+                                <p class="text-sm text-gray-400">S&P 500 at 6,100</p>
+                            </div>
+                            <div class="prediction-card prediction-negative p-3">
+                                <h4 class="font-bold">Bearish</h4>
+                                <p class="text-2xl font-bold">-14%</p>
+                                <p class="text-sm text-gray-400">S&P 500 at 4,850</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-6 shadow-card mt-6">
+                <h3 class="text-xl font-bold mb-4">Key Market Drivers</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">Positive Factors</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Continued technological innovation driving productivity gains</li>
+                            <li>Moderation in inflation expectations in late 2025</li>
+                            <li>Strong corporate earnings in specific sectors</li>
+                            <li>Increased infrastructure spending</li>
+                            <li>Stabilizing global supply chains</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">Risk Factors</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Persistent inflation above Federal Reserve targets</li>
+                            <li>Potential for additional tariffs creating market uncertainty</li>
+                            <li>Slowing global growth, particularly in major economies</li>
+                            <li>Geopolitical tensions affecting trade relations</li>
+                            <li>Market repricing of risk premiums</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Investment Sectors -->
+        <section class="section" id="investment-sectors">
+            <h2 class="text-3xl font-bold mb-6">Key Investment Sectors</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <!-- AI Sector -->
+                <div class="card p-6 shadow-card">
+                    <div class="sector-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Artificial Intelligence</h3>
+                    <p class="mb-4">AI continues to be a transformative force across industries, with investment opportunities extending beyond the well-established megacap tech stocks. Our analysis indicates significant growth potential in AI infrastructure, specialized applications, and emerging use cases.</p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Growth Forecast</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-purple-600" style="width: 90%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Exceptional (18-22% CAGR through 2030)</p>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Key Investment Opportunities</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>AI infrastructure providers (data centers, specialized processors)</li>
+                            <li>Enterprise AI application platforms</li>
+                            <li>AI-powered healthcare and diagnostics solutions</li>
+                            <li>Specialized AI chip manufacturers beyond market leaders</li>
+                            <li>AI-driven productivity and automation tools</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Notable Companies & ETFs</h4>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Growth Potential</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>NVIDIA (NVDA)</td>
+                                        <td>Market Leader</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Microsoft (MSFT)</td>
+                                        <td>Enterprise AI</td>
+                                        <td>Moderate</td>
+                                        <td><span class="risk-indicator risk-low"></span> Low</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Global X AI ETF (AIQ)</td>
+                                        <td>ETF</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C3.ai (AI)</td>
+                                        <td>Specialized AI</td>
+                                        <td>Very High</td>
+                                        <td><span class="risk-indicator risk-high"></span> High</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Clean Energy Sector -->
+                <div class="card p-6 shadow-card">
+                    <div class="sector-icon">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Clean Energy</h3>
+                    <p class="mb-4">Clean energy investments are seeing unprecedented growth, with global investment exceeding $2 trillion for the first time in 2024. The sector is driven by both policy support and improving economics, with renewable energy now competitive with fossil fuels in many markets.</p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Growth Forecast</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-green-500" style="width: 85%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Strong (15-18% CAGR through 2030)</p>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Key Investment Opportunities</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Energy storage technologies and battery manufacturers</li>
+                            <li>Grid modernization and smart grid technologies</li>
+                            <li>Solar and wind equipment manufacturers</li>
+                            <li>Electric vehicle infrastructure and charging networks</li>
+                            <li>Green hydrogen production and infrastructure</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Notable Companies & ETFs</h4>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Growth Potential</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Enphase Energy (ENPH)</td>
+                                        <td>Solar Energy</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Solar (FSLR)</td>
+                                        <td>Solar Manufacturing</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Invesco Solar ETF (TAN)</td>
+                                        <td>ETF</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>iShares Global Clean Energy ETF (ICLN)</td>
+                                        <td>ETF</td>
+                                        <td>Moderate</td>
+                                        <td><span class="risk-indicator risk-low"></span> Low</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real Estate Sector -->
+                <div class="card p-6 shadow-card">
+                    <div class="sector-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Real Estate</h3>
+                    <p class="mb-4">The real estate sector is showing signs of recovery in 2025 after a period of adjustment to higher interest rates. Our analysis reveals shifting opportunities from traditional residential and commercial properties toward specialized and technology-enabled real estate assets.</p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Growth Forecast</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-blue-500" style="width: 65%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Moderate (6-9% CAGR through 2030)</p>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Key Investment Opportunities</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Data centers and digital infrastructure REITs</li>
+                            <li>Logistics and industrial properties supporting e-commerce</li>
+                            <li>Residential housing in high-growth regional markets</li>
+                            <li>Healthcare and life sciences real estate</li>
+                            <li>PropTech companies enhancing real estate efficiency</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Notable Companies & REITs</h4>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Growth Potential</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Digital Realty Trust (DLR)</td>
+                                        <td>Data Center REIT</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prologis (PLD)</td>
+                                        <td>Industrial REIT</td>
+                                        <td>Moderate</td>
+                                        <td><span class="risk-indicator risk-low"></span> Low</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vanguard Real Estate ETF (VNQ)</td>
+                                        <td>ETF</td>
+                                        <td>Moderate</td>
+                                        <td><span class="risk-indicator risk-low"></span> Low</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alexandria Real Estate (ARE)</td>
+                                        <td>Life Sciences REIT</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Biotechnology Sector -->
+                <div class="card p-6 shadow-card">
+                    <div class="sector-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Biotechnology</h3>
+                    <p class="mb-4">The biotech sector continues to show strong innovation momentum, with the first quarter of 2025 seeing more than $5 billion in venture funding. Despite funding challenges in previous years, biotech is experiencing a resurgence driven by breakthrough therapies and technological advancements.</p>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Growth Forecast</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-pink-500" style="width: 80%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Strong (12-16% CAGR through 2030)</p>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Key Investment Opportunities</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Precision medicine and gene therapy companies</li>
+                            <li>AI-driven drug discovery platforms</li>
+                            <li>Novel treatment modalities (mRNA, gene editing)</li>
+                            <li>Diagnostic and research tools manufacturers</li>
+                            <li>Companies addressing age-related diseases</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Notable Companies & ETFs</h4>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Growth Potential</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Vertex Pharmaceuticals (VRTX)</td>
+                                        <td>Established Biotech</td>
+                                        <td>Moderate</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CRISPR Therapeutics (CRSP)</td>
+                                        <td>Gene Editing</td>
+                                        <td>Very High</td>
+                                        <td><span class="risk-indicator risk-high"></span> High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ARK Genomic Revolution ETF (ARKG)</td>
+                                        <td>ETF</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-high"></span> High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Intuitive Surgical (ISRG)</td>
+                                        <td>Medical Devices</td>
+                                        <td>High</td>
+                                        <td><span class="risk-indicator risk-medium"></span> Medium</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Allocation -->
+        <section class="section" id="portfolio-allocation">
+            <h2 class="text-3xl font-bold mb-6">Strategic Portfolio Allocation</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Recommended Allocation</h3>
+                    <div class="chart-container">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                    <div class="mt-6">
+                        <p class="mb-4">This balanced allocation is designed to capitalize on high-growth sectors while maintaining adequate defensive positioning. The portfolio has been stress-tested against multiple economic scenarios including persistent inflation, economic slowdown, and market correction.</p>
+                    </div>
+                </div>
+                
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Time Horizon & Risk Profile</h3>
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-2">Short-Term (1-2 Years)</h4>
+                        <p class="text-gray-300 mb-2">Focus on companies with strong balance sheets, positive cash flow, and reasonable valuations. Maintain higher cash reserves (10-15%) to capitalize on potential market corrections.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-blue-400" style="width: 40%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Moderate Growth / Defensive</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-2">Medium-Term (3-5 Years)</h4>
+                        <p class="text-gray-300 mb-2">Gradually increase exposure to emerging technologies and growth sectors as inflationary pressures moderate and economic stability improves.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-purple-500" style="width: 70%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Growth-Oriented</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-2">Long-Term (5+ Years)</h4>
+                        <p class="text-gray-300 mb-2">Position for structural growth trends in AI, clean energy, biotechnology, and digital infrastructure that will reshape industries over the coming decade.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-pink-500" style="width: 90%;"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">Aggressive Growth</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-6 shadow-card mt-6">
+                <h3 class="text-xl font-bold mb-4">Tactical Considerations</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">Current Tactical Positioning</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Overweight quality growth companies with pricing power</li>
+                            <li>Selective exposure to small and mid-cap innovators</li>
+                            <li>Increased allocation to infrastructure and energy efficiency</li>
+                            <li>Reduced exposure to rate-sensitive sectors</li>
+                            <li>Geographic diversification with focus on domestic markets</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">Monitoring Triggers for Reallocation</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>Federal Reserve policy shifts and rate cut trajectory</li>
+                            <li>Inflation data falling below 3% consistently</li>
+                            <li>Market correction exceeding 10% from peak</li>
+                            <li>Significant regulatory developments in key sectors</li>
+                            <li>Material changes to corporate earnings expectations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Analysis -->
+        <section class="section" id="risk-analysis">
+            <h2 class="text-3xl font-bold mb-6">Risk Analysis & Mitigation</h2>
+            <div class="accent-line"></div>
+            
+            <div class="card p-6 shadow-card mt-8">
+                <h3 class="text-xl font-bold mb-4">Key Risk Factors</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Risk Factor</th>
+                                <th>Probability</th>
+                                <th>Impact</th>
+                                <th>Mitigation Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Persistent Inflation</td>
+                                <td>High</td>
+                                <td>High</td>
+                                <td>Increase allocation to companies with pricing power and inflation-resistant business models</td>
+                            </tr>
+                            <tr>
+                                <td>Interest Rate Volatility</td>
+                                <td>High</td>
+                                <td>Medium</td>
+                                <td>Reduce duration risk, favor floating rate securities, limit exposure to highly leveraged companies</td>
+                            </tr>
+                            <tr>
+                                <td>Market Correction (10-20%)</td>
+                                <td>Medium</td>
+                                <td>High</td>
+                                <td>Maintain strategic cash reserves, implement targeted hedging strategies, prepare buy-list for quality companies</td>
+                            </tr>
+                            <tr>
+                                <td>Geopolitical Tensions</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Geographic diversification, focus on companies with primarily domestic revenue streams</td>
+                            </tr>
+                            <tr>
+                                <td>Technology Sector Valuation Compression</td>
+                                <td>Medium</td>
+                                <td>High</td>
+                                <td>Favor profitable tech companies, diversify across growth horizons, emphasize reasonable valuations</td>
+                            </tr>
+                            <tr>
+                                <td>Regulatory Headwinds</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Monitor regulatory developments, diversify across sectors, avoid concentration in heavily regulated industries</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Scenario Analysis</h3>
+                    <div class="chart-container">
+                        <canvas id="scenarioChart"></canvas>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-400">Portfolio performance under different economic scenarios over a 12-month horizon</p>
+                    </div>
+                </div>
+                
+                <div class="card p-6 shadow-card">
+                    <h3 class="text-xl font-bold mb-4">Risk Mitigation Framework</h3>
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-2">Diversification Strategy</h4>
+                        <p class="text-gray-300">The portfolio maintains diversification across:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 mt-2">
+                            <li>Growth stages (established leaders, emerging disruptors)</li>
+                            <li>Sector exposure (avoid excessive concentration)</li>
+                            <li>Geographic regions (domestic, international developed, select emerging)</li>
+                            <li>Market capitalization (large, mid, and selective small cap)</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-2">Hedging Considerations</h4>
+                        <p class="text-gray-300 mb-2">For investors seeking enhanced downside protection, consider:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 mt-2">
+                            <li>Strategic cash allocation (10-15% for opportunistic deployment)</li>
+                            <li>Quality fixed income with shorter duration</li>
+                            <li>Select alternative investments with low correlation to equities</li>
+                            <li>Option-based hedging strategies for large positions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="section" id="conclusion">
+            <h2 class="text-3xl font-bold mb-6">Conclusion & Outlook</h2>
+            <div class="accent-line"></div>
+            
+            <div class="card p-6 shadow-card mt-8">
+                <div class="mb-6">
+                    <p class="mb-4">The investment landscape in 2025 presents a complex mix of opportunities and challenges. While growth is expected to moderate compared to recent years, significant potential exists in sectors undergoing transformative change.</p>
+                    <p class="mb-4">Our analysis suggests that a balanced approach emphasizing quality, innovation, and resilience will be most effective in navigating the current market environment. The recommended portfolio allocation is designed to capture growth while maintaining sufficient protection against downside risks.</p>
+                    <p>Key investment themes including artificial intelligence, clean energy transition, specialized real estate, and biotechnology advancements are expected to drive outperformance over the medium to long term, even as the broader market experiences more muted returns.</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4">Long-Term Perspective</h3>
+                    <p class="mb-4">Looking beyond 2025, several structural trends will shape investment opportunities:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 mt-2">
+                        <li>AI integration across all sectors of the economy</li>
+                        <li>Energy transition and decarbonization of industry</li>
+                        <li>Demographic shifts driving healthcare innovation</li>
+                        <li>Digital transformation of physical infrastructure</li>
+                        <li>Reshoring and supply chain reconfiguration</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Final Recommendations</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 mt-2">
+                        <li>Implement the strategic allocation outlined in this portfolio</li>
+                        <li>Maintain discipline during periods of market volatility</li>
+                        <li>Review and rebalance quarterly, with tactical adjustments as needed</li>
+                        <li>Continue monitoring key economic indicators for signs of regime change</li>
+                        <li>Consider tax-efficient implementation strategies to maximize after-tax returns</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-gray-400 text-sm">
+            <p>Investment Portfolio & Market Prognosis 2025-2030</p>
+            <p class="mt-2">Last Updated: April 11, 2025</p>
+            <p class="mt-2">Disclaimer: This document is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Investors should conduct their own research and consult with a financial advisor before making investment decisions.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Market Projection Chart
+        const marketCtx = document.getElementById('marketProjectionChart').getContext('2d');
+        const marketChart = new Chart(marketCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Bullish Scenario',
+                        data: [5650, 5720, 5800, 5850, 5950, 6050, 6150, 6220, 6300, 6400, 6450, 6500],
+                        borderColor: 'rgba(76, 175, 80, 1)',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Base Case',
+                        data: [5650, 5680, 5730, 5750, 5800, 5850, 5900, 5950, 6000, 6050, 6080, 6100],
+                        borderColor: 'rgba(255, 193, 7, 1)',
+                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Bearish Scenario',
+                        data: [5650, 5600, 5500, 5400, 5300, 5200, 5150, 5050, 4950, 4900, 4870, 4850],
+                        borderColor: 'rgba(244, 67, 54, 1)',
+                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Portfolio Allocation Chart
+        const allocCtx = document.getElementById('allocationChart').getContext('2d');
+        const allocChart = new Chart(allocCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Artificial Intelligence', 'Clean Energy', 'Biotechnology', 'Real Estate', 'Traditional Tech', 'Consumer Staples', 'Fixed Income', 'Cash'],
+                datasets: [{
+                    data: [25, 20, 15, 10, 10, 5, 10, 5],
+                    backgroundColor: [
+                        'rgba(156, 39, 176, 0.7)',
+                        'rgba(76, 175, 80, 0.7)',
+                        'rgba(233, 30, 99, 0.7)',
+                        'rgba(33, 150, 243, 0.7)',
+                        'rgba(255, 193, 7, 0.7)',
+                        'rgba(0, 188, 212, 0.7)',
+                        'rgba(158, 158, 158, 0.7)',
+                        'rgba(96, 125, 139, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(156, 39, 176, 1)',
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(233, 30, 99, 1)',
+                        'rgba(33, 150, 243, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 188, 212, 1)',
+                        'rgba(158, 158, 158, 1)',
+                        'rgba(96, 125, 139, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Scenario Analysis Chart
+        const scenarioCtx = document.getElementById('scenarioChart').getContext('2d');
+        const scenarioChart = new Chart(scenarioCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Continued Growth', 'Mild Recession', 'Stagflation', 'Market Correction', 'Rate Normalization'],
+                datasets: [{
+                    label: 'Portfolio Performance (%)',
+                    data: [12, -8, -5, -14, 6],
+                    backgroundColor: [
+                        'rgba(76, 175, 80, 0.7)',
+                        'rgba(244, 67, 54, 0.7)',
+                        'rgba(244, 67, 54, 0.7)',
+                        'rgba(244, 67, 54, 0.7)',
+                        'rgba(76, 175, 80, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(244, 67, 54, 1)',
+                        'rgba(244, 67, 54, 1)',
+                        'rgba(244, 67, 54, 1)',
+                        'rgba(76, 175, 80, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Performance: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#e0e0e0'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
