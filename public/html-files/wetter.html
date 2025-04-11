@@ -3,809 +3,1689 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Analysis - Fürth, Bavaria</title>
+    <title>Oberhaching Weather Forecast</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #1abc9c;
+            --text-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --card-color: #ffffff;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-color: #dfe6e9;
+        }
+
+        .dark-mode {
+            --primary-color: #2980b9;
+            --secondary-color: #3498db;
+            --accent-color: #16a085;
+            --text-color: #ecf0f1;
+            --background-color: #2c3e50;
+            --card-color: #34495e;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --border-color: #4b6584;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
-            color: #334155;
-            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            transition: all 0.3s ease;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem;
         }
-        .weather-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 62, 143, 0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .forecast-day {
-            border-bottom: 1px solid #e2e8f0;
+
+        .card {
+            background-color: var(--card-color);
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
-        .forecast-day:hover {
-            background-color: #f8fafc;
+
+        .forecast-card {
+            width: 100%;
+            min-width: 160px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .forecast-day:last-child {
-            border-bottom: none;
+
+        .forecast-card:hover {
+            transform: translateY(-5px);
         }
-        .climate-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+
+        .hourly-card {
+            min-width: 100px;
+            flex: 0 0 auto;
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+
+        .primary-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
         }
-        .season-spring { background: linear-gradient(to right, #d1fae5, #a7f3d0); }
-        .season-summer { background: linear-gradient(to right, #fef3c7, #fde68a); }
-        .season-autumn { background: linear-gradient(to right, #fee2e2, #fecaca); }
-        .season-winter { background: linear-gradient(to right, #e0f2fe, #bae6fd); }
+
+        .primary-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .header-icon {
+            font-size: 2em;
+            margin-right: 0.5rem;
+        }
+
+        .weather-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-temp {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        .weather-details-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .precipitation-cell {
+            height: 30px;
+            width: 100%;
+            border-radius: 4px;
+            margin: 2px 0;
+        }
         
-        canvas {
-            width: 100% !important;
-            height: auto !important;
+        .precipitation-level-0 {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
         }
         
+        .precipitation-level-1 {
+            background-color: rgba(135, 206, 250, 0.3);
+        }
+        
+        .precipitation-level-2 {
+            background-color: rgba(135, 206, 250, 0.5);
+        }
+        
+        .precipitation-level-3 {
+            background-color: rgba(65, 105, 225, 0.5);
+        }
+        
+        .precipitation-level-4 {
+            background-color: rgba(65, 105, 225, 0.7);
+        }
+        
+        .precipitation-level-5 {
+            background-color: rgba(0, 0, 128, 0.7);
+        }
+
+        /* For tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Temperature gradient */
+        .temp-gradient {
+            background: linear-gradient(to right, #3498db, #8e44ad, #c0392b);
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* Wind direction arrow */
+        .wind-arrow {
+            display: inline-block;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Day and night indicators */
+        .day-indicator {
+            color: #f39c12;
+            margin-right: 5px;
+        }
+
+        .night-indicator {
+            color: #34495e;
+            margin-right: 5px;
+        }
+
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .weather-info {
-                flex-direction: column;
+            .forecast-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles for PDF export */
+        @media print {
+            body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: white;
+                color: black;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .hourly-scroll {
+                overflow: visible;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            
+            .chart-container {
+                width: 100%;
+                height: 200px;
+                page-break-inside: avoid;
+            }
+            
+            .tab-content {
+                display: block !important;
+            }
+            
+            .tabs, .theme-toggle {
+                display: none;
             }
         }
     </style>
 </head>
-<body class="py-8 px-4">
+<body>
     <div class="container">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold mb-4 gradient-text">Weather Analysis</h1>
-            <h2 class="text-3xl text-gray-600 mb-2">Fürth, Bavaria, Germany</h2>
-            <p class="text-gray-500">Updated: April 11, 2025 • 18:42 CEST</p>
+        <!-- Header with location and theme toggle -->
+        <header class="flex justify-between items-center py-4 mb-6">
+            <div class="flex items-center">
+                <i class="fas fa-map-marker-alt header-icon" style="color: var(--accent-color);"></i>
+                <div>
+                    <h1 class="text-3xl font-bold">Furth, Oberhaching</h1>
+                    <p class="text-sm">Bavaria, Germany | Elevation: 587m | 48.02° N 11.60° E</p>
+                </div>
+            </div>
+            <div class="theme-toggle flex items-center">
+                <span class="mr-2"><i class="fas fa-sun"></i></span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="ml-2"><i class="fas fa-moon"></i></span>
+            </div>
         </header>
-        
-        <!-- Current Weather -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-indigo-700">Current Weather</h2>
-            <div class="weather-card p-6">
-                <div class="flex flex-col md:flex-row items-center weather-info">
-                    <!-- Current Temperature and Condition -->
-                    <div class="flex-1 flex items-center justify-center mb-6 md:mb-0">
-                        <i class="fas fa-sun text-6xl text-yellow-500 mr-4"></i>
+
+        <!-- Current weather section -->
+        <section class="card p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-center">
+                        <p class="text-lg">Current Weather</p>
+                        <p class="text-sm text-gray-500">Updated as of Friday, April 11, 2025, 9:07 PM</p>
+                        <i class="fas fa-sun weather-icon" style="color: #f39c12;"></i>
+                        <div class="current-temp">59°F</div>
+                        <p class="text-xl">Sunny</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-temperature-high weather-details-icon" style="color: var(--accent-color);"></i>
                         <div>
-                            <div class="text-6xl font-bold">17°C</div>
-                            <div class="text-xl text-gray-500">Sunny</div>
+                            <p class="text-sm">Feels Like</p>
+                            <p class="text-lg font-semibold">62°F</p>
                         </div>
                     </div>
-                    
-                    <!-- Current Details -->
-                    <div class="flex-1 grid grid-cols-2 gap-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-wind weather-details-icon" style="color: var(--accent-color);"></i>
                         <div>
-                            <p class="text-gray-500 font-medium">Feels Like</p>
-                            <p class="text-2xl font-semibold">16°C</p>
+                            <p class="text-sm">Wind</p>
+                            <p class="text-lg font-semibold">NW 15 mph</p>
                         </div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-tint weather-details-icon" style="color: var(--accent-color);"></i>
                         <div>
-                            <p class="text-gray-500 font-medium">Humidity</p>
-                            <p class="text-2xl font-semibold">59%</p>
+                            <p class="text-sm">Humidity</p>
+                            <p class="text-lg font-semibold">43%</p>
                         </div>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-umbrella weather-details-icon" style="color: var(--accent-color);"></i>
                         <div>
-                            <p class="text-gray-500 font-medium">Wind</p>
-                            <p class="text-2xl font-semibold">SW 8 km/h</p>
-                        </div>
-                        <div>
-                            <p class="text-gray-500 font-medium">UV Index</p>
-                            <p class="text-2xl font-semibold">Low</p>
+                            <p class="text-sm">Precipitation</p>
+                            <p class="text-lg font-semibold">0%</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Hourly Forecast -->
-                <div class="mt-8 pt-6 border-t border-gray-200">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Hourly Forecast</h3>
-                    <div class="flex overflow-x-auto pb-4">
-                        <div class="flex space-x-6">
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">19:00</span>
-                                <i class="fas fa-sun text-2xl my-2 text-yellow-500"></i>
-                                <span class="font-semibold">16°C</span>
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span><i class="fas fa-sun day-indicator"></i> Sunrise</span>
+                            <span class="font-semibold">6:29 AM</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span><i class="fas fa-moon night-indicator"></i> Sunset</span>
+                            <span class="font-semibold">7:59 PM</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span><i class="fas fa-eye weather-details-icon"></i> Visibility</span>
+                            <span class="font-semibold">10 miles</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span><i class="fas fa-sun weather-details-icon"></i> UV Index</span>
+                            <span class="font-semibold">0 of 11 (Low)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-moon weather-details-icon"></i>
+                        <div>
+                            <p class="text-sm">Moon Phase</p>
+                            <p class="text-md">Waxing Gibbous (Day 13)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily forecast section -->
+        <section class="mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">16-Day Forecast</h2>
+                <div class="flex">
+                    <button class="primary-btn mr-2" id="celsiusBtn">°C</button>
+                    <button class="primary-btn bg-gray-400" id="fahrenheitBtn">°F</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4" id="forecastContainer">
+                <!-- Day 1: Friday (Today) -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day1Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Fri, Apr 11</p>
+                        <p class="text-sm text-gray-500">Today</p>
+                        <i class="fas fa-moon weather-icon" style="color: #34495e;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">39°</span>
+                            <span class="text-xl text-gray-500">-</span>
+                        </div>
+                        <p>Partly cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 0%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2: Saturday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day2Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Sat, Apr 12</p>
+                        <p class="text-sm text-gray-500">Tomorrow</p>
+                        <i class="fas fa-sun weather-icon" style="color: #f39c12;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">69°</span>
+                            <span class="text-xl text-gray-500">48°</span>
+                        </div>
+                        <p>Mostly Clear</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 4%</span>
+                            <span><i class="fas fa-wind"></i> 10 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3: Sunday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day3Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Sun, Apr 13</p>
+                        <i class="fas fa-cloud weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">68°</span>
+                            <span class="text-xl text-gray-500">48°</span>
+                        </div>
+                        <p>Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 19%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4: Monday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day4Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Mon, Apr 14</p>
+                        <i class="fas fa-cloud weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">67°</span>
+                            <span class="text-xl text-gray-500">50°</span>
+                        </div>
+                        <p>Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 17%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5: Tuesday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day5Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Tue, Apr 15</p>
+                        <i class="fas fa-cloud-showers-heavy weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">68°</span>
+                            <span class="text-xl text-gray-500">49°</span>
+                        </div>
+                        <p>Scattered Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 41%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 6: Wednesday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day6Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Wed, Apr 16</p>
+                        <i class="fas fa-cloud-sun weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">72°</span>
+                            <span class="text-xl text-gray-500">49°</span>
+                        </div>
+                        <p>Mostly Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 19%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 7: Thursday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day7Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Thu, Apr 17</p>
+                        <i class="fas fa-cloud-rain weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">54°</span>
+                            <span class="text-xl text-gray-500">43°</span>
+                        </div>
+                        <p>Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 56%</span>
+                            <span><i class="fas fa-wind"></i> 10 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 8: Friday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day8Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Fri, Apr 18</p>
+                        <i class="fas fa-cloud-sun-rain weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">59°</span>
+                            <span class="text-xl text-gray-500">40°</span>
+                        </div>
+                        <p>Scattered Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 40%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 9: Saturday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day9Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Sat, Apr 19</p>
+                        <i class="fas fa-cloud-sun weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">66°</span>
+                            <span class="text-xl text-gray-500">44°</span>
+                        </div>
+                        <p>Partly Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 22%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 10: Sunday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day10Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Sun, Apr 20</p>
+                        <i class="fas fa-cloud-rain weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">60°</span>
+                            <span class="text-xl text-gray-500">43°</span>
+                        </div>
+                        <p>Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 39%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 11: Monday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day11Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Mon, Apr 21</p>
+                        <i class="fas fa-cloud-sun weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">63°</span>
+                            <span class="text-xl text-gray-500">43°</span>
+                        </div>
+                        <p>Partly Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 24%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 12: Tuesday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day12Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Tue, Apr 22</p>
+                        <i class="fas fa-cloud-sun weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">66°</span>
+                            <span class="text-xl text-gray-500">45°</span>
+                        </div>
+                        <p>Partly Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 24%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 13: Wednesday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day13Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Wed, Apr 23</p>
+                        <i class="fas fa-cloud-sun weather-icon" style="color: #95a5a6;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">66°</span>
+                            <span class="text-xl text-gray-500">45°</span>
+                        </div>
+                        <p>Partly Cloudy</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 24%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 14: Thursday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day14Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Thu, Apr 24</p>
+                        <i class="fas fa-cloud-rain weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">65°</span>
+                            <span class="text-xl text-gray-500">45°</span>
+                        </div>
+                        <p>Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 46%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 15: Friday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day15Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Fri, Apr 25</p>
+                        <i class="fas fa-cloud-sun-rain weather-icon" style="color: #3498db;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">65°</span>
+                            <span class="text-xl text-gray-500">44°</span>
+                        </div>
+                        <p>Scattered Showers</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 34%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 16: Saturday -->
+                <div class="card p-4 forecast-card" onclick="toggleDayDetails('day16Details')">
+                    <div class="text-center">
+                        <p class="font-bold">Sat, Apr 26</p>
+                        <i class="fas fa-sun weather-icon" style="color: #f39c12;"></i>
+                        <div class="flex justify-around">
+                            <span class="text-xl font-bold">67°</span>
+                            <span class="text-xl text-gray-500">45°</span>
+                        </div>
+                        <p>Mostly Sunny</p>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span><i class="fas fa-tint"></i> 15%</span>
+                            <span><i class="fas fa-wind"></i> 5 mph</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day Details Section - Will be shown when a day is clicked -->
+        <section id="dayDetailsSection" class="card p-6 mb-8 hidden">
+            <h3 class="text-xl font-bold mb-4" id="dayDetailsTitle">Day Details</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Daytime</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm">Temperature</p>
+                            <p id="dayDetailsHighTemp" class="text-lg font-bold">69°F</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Feels Like</p>
+                            <p id="dayDetailsFeelsLike" class="text-lg">65°F</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Wind</p>
+                            <p id="dayDetailsWind" class="text-lg">E 10-15 mph</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Humidity</p>
+                            <p id="dayDetailsHumidity" class="text-lg">47%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Precipitation</p>
+                            <p id="dayDetailsPrecip" class="text-lg">4%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">UV Index</p>
+                            <p id="dayDetailsUV" class="text-lg">5 of 11 (Moderate)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm font-semibold">Description</p>
+                        <p id="dayDetailsDesc" class="text-md">Mostly sunny skies. High 69F. Winds E at 10 to 15 mph.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Nighttime</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm">Temperature</p>
+                            <p id="nightDetailsLowTemp" class="text-lg font-bold">48°F</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Feels Like</p>
+                            <p id="nightDetailsFeelsLike" class="text-lg">45°F</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Wind</p>
+                            <p id="nightDetailsWind" class="text-lg">S 5-10 mph</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Humidity</p>
+                            <p id="nightDetailsHumidity" class="text-lg">63%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Precipitation</p>
+                            <p id="nightDetailsPrecip" class="text-lg">0%</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Moon Phase</p>
+                            <p id="nightDetailsMoon" class="text-lg">Full Moon (Day 14)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm font-semibold">Description</p>
+                        <p id="nightDetailsDesc" class="text-md">Mostly clear during the evening followed by cloudy skies overnight. Low 48F. Winds S at 5 to 10 mph.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button class="primary-btn" id="closeDayDetails">Close</button>
+            </div>
+        </section>
+
+        <!-- Hourly forecast section -->
+        <section class="card p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Hourly Forecast</h2>
+            <div class="overflow-x-auto hourly-scroll">
+                <div class="flex space-x-4 pb-4" style="min-width: max-content;">
+                    <!-- Hour 1 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">9 PM</p>
+                            <i class="fas fa-cloud-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">50°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> NW 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">20:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">14°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 2 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">10 PM</p>
+                            <i class="fas fa-cloud-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">47°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> W 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">21:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">13°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 3 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">11 PM</p>
+                            <i class="fas fa-cloud-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">44°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> SW 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">22:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">11°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 4 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">12 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">43°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> S 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">23:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">9°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 5 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">1 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">41°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> S 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">00:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">8°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 6 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">2 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">40°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> S 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">01:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">7°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 7 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">3 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">39°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> SE 5 mph</span>
                             </div>
-                            <div class="flex flex-col items-center min-w-[70px]">
-                                <span class="text-gray-500">02:00</span>
-                                <i class="fas fa-moon text-2xl my-2 text-blue-300"></i>
-                                <span class="font-semibold">6°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Hour 8 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">4 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">38°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> SE 5 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 9 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">5 AM</p>
+                            <i class="fas fa-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">37°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> SE 5 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 10 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">6 AM</p>
+                            <i class="fas fa-cloud-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">36°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 10 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 11 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">7 AM</p>
+                            <i class="fas fa-cloud-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">37°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 10 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 12 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">8 AM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">40°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 10 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 13 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">9 AM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">45°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 14 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">10 AM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">51°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 15 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">11 AM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">56°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 16 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">12 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">60°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 17 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">1 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">64°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 18 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">2 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">67°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> E 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 19 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">3 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">69°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 20 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">4 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">69°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 21 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">5 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">68°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 22 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">6 PM</p>
+                            <i class="fas fa-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">65°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 15 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 23 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">7 PM</p>
+                            <i class="fas fa-cloud-sun" style="font-size: 2rem; color: #f39c12;"></i>
+                            <p class="text-xl font-bold">60°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 10 mph</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hour 24 -->
+                    <div class="card p-4 hourly-card">
+                        <div class="text-center">
+                            <p class="font-bold">8 PM</p>
+                            <i class="fas fa-cloud-moon" style="font-size: 2rem; color: #34495e;"></i>
+                            <p class="text-xl font-bold">54°</p>
+                            <div class="flex flex-col mt-2 text-sm">
+                                <span><i class="fas fa-tint mr-1"></i> 0%</span>
+                                <span class="mt-1"><i class="fas fa-wind mr-1"></i> ENE 5 mph</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- 10-Day Forecast and Temperature Chart -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <!-- 10-Day Forecast -->
-            <div class="lg:col-span-2">
-                <h2 class="text-2xl font-bold mb-6 text-indigo-700">10-Day Forecast</h2>
-                <div class="weather-card">
-                    <!-- Day 1 (Today) -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Today</p>
-                            <p class="text-sm text-gray-500">Apr 11</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud-sun text-3xl text-yellow-500"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Partly sunny</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">19°C</p>
-                            <p class="text-gray-500">3°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 2 (Tomorrow) -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Sat</p>
-                            <p class="text-sm text-gray-500">Apr 12</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-sun text-3xl text-yellow-500"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Mostly sunny</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">22°C</p>
-                            <p class="text-gray-500">8°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 3 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Sun</p>
-                            <p class="text-sm text-gray-500">Apr 13</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud text-3xl text-gray-400"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Cloudy</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">20°C</p>
-                            <p class="text-gray-500">9°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 4 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Mon</p>
-                            <p class="text-sm text-gray-500">Apr 14</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud text-3xl text-gray-400"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Cloudy</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">19°C</p>
-                            <p class="text-gray-500">10°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 5 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Tue</p>
-                            <p class="text-sm text-gray-500">Apr 15</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud-sun text-3xl text-yellow-500"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Partly cloudy</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">21°C</p>
-                            <p class="text-gray-500">8°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 6 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Wed</p>
-                            <p class="text-sm text-gray-500">Apr 16</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-bolt text-3xl text-yellow-600"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Thunderstorms</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">22°C</p>
-                            <p class="text-gray-500">10°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 7 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Thu</p>
-                            <p class="text-sm text-gray-500">Apr 17</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud-rain text-3xl text-blue-400"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Showers</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">12°C</p>
-                            <p class="text-gray-500">6°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 8 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Fri</p>
-                            <p class="text-sm text-gray-500">Apr 18</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud text-3xl text-gray-400"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Cloudy</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">13°C</p>
-                            <p class="text-gray-500">5°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 9 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Sat</p>
-                            <p class="text-sm text-gray-500">Apr 19</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud text-3xl text-gray-400"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Mostly cloudy</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">14°C</p>
-                            <p class="text-gray-500">6°C</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Day 10 -->
-                    <div class="forecast-day p-4 flex items-center">
-                        <div class="w-1/6">
-                            <p class="font-semibold">Sun</p>
-                            <p class="text-sm text-gray-500">Apr 20</p>
-                        </div>
-                        <div class="w-1/6 flex justify-center">
-                            <i class="fas fa-cloud-sun text-3xl text-yellow-500"></i>
-                        </div>
-                        <div class="w-2/6 px-2">
-                            <p class="font-medium">Partly sunny</p>
-                        </div>
-                        <div class="w-2/6 text-right">
-                            <p class="text-xl font-bold">17°C</p>
-                            <p class="text-gray-500">7°C</p>
-                        </div>
-                    </div>
-                </div>
+
+        <!-- Detailed Weather Analysis Tabs -->
+        <section class="card p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Detailed Weather Analysis</h2>
+            <div class="tabs mb-6">
+                <div class="tab active" data-tab="temperatures">Temperatures</div>
+                <div class="tab" data-tab="precipitation">Precipitation</div>
+                <div class="tab" data-tab="wind">Wind</div>
+                <div class="tab" data-tab="humidity">Humidity</div>
+                <div class="tab" data-tab="comfort">Comfort Index</div>
             </div>
             
-            <!-- Temperature Chart -->
-            <div class="lg:col-span-1">
-                <h2 class="text-2xl font-bold mb-6 text-indigo-700">Temperature Trend</h2>
-                <div class="weather-card p-6 h-full flex flex-col justify-between">
-                    <div>
-                        <canvas id="temperatureChart" height="300"></canvas>
+            <!-- Temperature Tab Content -->
+            <div class="tab-content active" id="temperaturesTab">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Temperature Trend (16-Day)</h3>
+                    <div class="chart-container">
+                        <canvas id="temperatureChart"></canvas>
                     </div>
-                    <div class="mt-6 text-sm text-gray-500">
-                        <p>This chart shows the expected high and low temperatures over the next 10 days for Fürth. Note the significant drop in temperature on April 17th.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Temperature Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="card p-4">
+                                <p class="text-sm">Highest Temperature</p>
+                                <p class="text-2xl font-bold">72°F</p>
+                                <p class="text-xs text-gray-500">Wed, Apr 16</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Lowest Temperature</p>
+                                <p class="text-2xl font-bold">36°F</p>
+                                <p class="text-xs text-gray-500">Fri, Apr 11 (Tonight)</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Average High</p>
+                                <p class="text-2xl font-bold">65°F</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Average Low</p>
+                                <p class="text-2xl font-bold">45°F</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Temperature Patterns</h3>
+                        <div class="card p-4">
+                            <p class="mb-2"><span class="font-semibold">Warmest Period:</span> April 15-17, with temperatures reaching above 70°F</p>
+                            <p class="mb-2"><span class="font-semibold">Coolest Period:</span> April 17-18, with a notable temperature drop to mid-50s</p>
+                            <p class="mb-2"><span class="font-semibold">Temperature Swing:</span> Around 32-36°F daily temperature variation</p>
+                            <p><span class="font-semibold">Stability:</span> Relatively stable temperatures after April 19, fluctuating between 60-66°F</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Precipitation and Sunshine -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-indigo-700">Precipitation & Sunshine</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="weather-card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Precipitation Forecast</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Today</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 5%"></div>
+
+            <!-- Precipitation Tab Content -->
+            <div class="tab-content" id="precipitationTab">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Precipitation Forecast (16-Day)</h3>
+                    <div class="chart-container">
+                        <canvas id="precipitationChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Precipitation Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="card p-4">
+                                <p class="text-sm">Highest Chance</p>
+                                <p class="text-2xl font-bold">56%</p>
+                                <p class="text-xs text-gray-500">Thu, Apr 17</p>
                             </div>
-                            <span class="text-gray-600">5%</span>
+                            <div class="card p-4">
+                                <p class="text-sm">Expected Total</p>
+                                <p class="text-2xl font-bold">15.2 mm</p>
+                                <p class="text-xs text-gray-500">Next 16 days</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Rainy Days</p>
+                                <p class="text-2xl font-bold">7</p>
+                                <p class="text-xs text-gray-500">(>30% chance)</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Dry Days</p>
+                                <p class="text-2xl font-bold">9</p>
+                                <p class="text-xs text-gray-500">(<10% chance)</p>
+                            </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 12</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 5%"></div>
-                            </div>
-                            <span class="text-gray-600">5%</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 13</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 22%"></div>
-                            </div>
-                            <span class="text-gray-600">22%</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 14</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 15%"></div>
-                            </div>
-                            <span class="text-gray-600">15%</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 15</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 24%"></div>
-                            </div>
-                            <span class="text-gray-600">24%</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 16</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 65%"></div>
-                            </div>
-                            <span class="text-gray-600">65%</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Apr 17</span>
-                            <div class="w-2/3 bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full" style="width: 59%"></div>
-                            </div>
-                            <span class="text-gray-600">59%</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Precipitation Forecast</h3>
+                        <div class="card p-4">
+                            <p class="mb-2"><span class="font-semibold">Wettest Period:</span> April 15-17, with scattered showers and rain</p>
+                            <p class="mb-2"><span class="font-semibold">Precipitation Type:</span> Mainly rain showers, no snow expected</p>
+                            <p class="mb-2"><span class="font-semibold">Risk of Thunderstorms:</span> Low throughout the period</p>
+                            <p><span class="font-semibold">Best Outdoor Days:</span> April 11-13, 19, 21-23 (less than 25% precipitation chance)</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="weather-card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Daylight Hours</h3>
-                    <div class="flex flex-col h-full justify-between">
-                        <div>
-                            <canvas id="daylightChart" height="200"></canvas>
+
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-4">Daily Precipitation Forecast</h3>
+                    <div class="grid grid-cols-8 md:grid-cols-16 gap-2">
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 11</p>
+                            <div class="precipitation-cell precipitation-level-0"></div>
+                            <p class="text-xs">0%</p>
                         </div>
-                        <div class="mt-6">
-                            <div class="flex justify-between text-sm">
-                                <div>
-                                    <p class="font-medium text-gray-700">Sunrise Today</p>
-                                    <p class="text-gray-500">6:29 AM</p>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-700">Sunset Today</p>
-                                    <p class="text-gray-500">7:59 PM</p>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-700">Daylight</p>
-                                    <p class="text-gray-500">13h 30m</p>
-                                </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 12</p>
+                            <div class="precipitation-cell precipitation-level-0"></div>
+                            <p class="text-xs">4%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 13</p>
+                            <div class="precipitation-cell precipitation-level-1"></div>
+                            <p class="text-xs">19%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 14</p>
+                            <div class="precipitation-cell precipitation-level-1"></div>
+                            <p class="text-xs">17%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 15</p>
+                            <div class="precipitation-cell precipitation-level-3"></div>
+                            <p class="text-xs">41%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 16</p>
+                            <div class="precipitation-cell precipitation-level-1"></div>
+                            <p class="text-xs">19%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 17</p>
+                            <div class="precipitation-cell precipitation-level-4"></div>
+                            <p class="text-xs">56%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 18</p>
+                            <div class="precipitation-cell precipitation-level-3"></div>
+                            <p class="text-xs">40%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 19</p>
+                            <div class="precipitation-cell precipitation-level-2"></div>
+                            <p class="text-xs">22%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 20</p>
+                            <div class="precipitation-cell precipitation-level-3"></div>
+                            <p class="text-xs">39%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 21</p>
+                            <div class="precipitation-cell precipitation-level-2"></div>
+                            <p class="text-xs">24%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 22</p>
+                            <div class="precipitation-cell precipitation-level-2"></div>
+                            <p class="text-xs">24%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 23</p>
+                            <div class="precipitation-cell precipitation-level-2"></div>
+                            <p class="text-xs">24%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 24</p>
+                            <div class="precipitation-cell precipitation-level-3"></div>
+                            <p class="text-xs">46%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 25</p>
+                            <div class="precipitation-cell precipitation-level-3"></div>
+                            <p class="text-xs">34%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Apr 26</p>
+                            <div class="precipitation-cell precipitation-level-1"></div>
+                            <p class="text-xs">15%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wind Tab Content -->
+            <div class="tab-content" id="windTab">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Wind Forecast (16-Day)</h3>
+                    <div class="chart-container">
+                        <canvas id="windChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Wind Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="card p-4">
+                                <p class="text-sm">Highest Wind</p>
+                                <p class="text-2xl font-bold">15 mph</p>
+                                <p class="text-xs text-gray-500">Several days</p>
                             </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Average Wind</p>
+                                <p class="text-2xl font-bold">7 mph</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Predominant Direction</p>
+                                <p class="text-xl font-bold">E/NE</p>
+                                <i class="fas fa-arrow-right wind-arrow" style="transform: rotate(70deg);"></i>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Gusty Days</p>
+                                <p class="text-2xl font-bold">3</p>
+                                <p class="text-xs text-gray-500">(>12 mph)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Wind Patterns</h3>
+                        <div class="card p-4">
+                            <p class="mb-2"><span class="font-semibold">Windiest Period:</span> April 12-13 and April 16-17 with easterly winds up to 15 mph</p>
+                            <p class="mb-2"><span class="font-semibold">Calmest Period:</span> Nights between April 18-25 with winds below 5 mph</p>
+                            <p class="mb-2"><span class="font-semibold">Wind Direction Shift:</span> From easterly to westerly on April 17-18, then returning to easterly</p>
+                            <p><span class="font-semibold">Wind Impact:</span> Generally favorable for outdoor activities with only occasional moderate winds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Humidity Tab Content -->
+            <div class="tab-content" id="humidityTab">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Humidity Forecast (16-Day)</h3>
+                    <div class="chart-container">
+                        <canvas id="humidityChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Humidity Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="card p-4">
+                                <p class="text-sm">Highest Humidity</p>
+                                <p class="text-2xl font-bold">80%</p>
+                                <p class="text-xs text-gray-500">Apr 17 Night</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Lowest Humidity</p>
+                                <p class="text-2xl font-bold">47%</p>
+                                <p class="text-xs text-gray-500">Apr 12 Day</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Morning Average</p>
+                                <p class="text-2xl font-bold">68%</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Afternoon Average</p>
+                                <p class="text-2xl font-bold">56%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Humidity Patterns</h3>
+                        <div class="card p-4">
+                            <p class="mb-2"><span class="font-semibold">High Humidity Period:</span> April 17-18, following rainfall</p>
+                            <p class="mb-2"><span class="font-semibold">Comfort Impact:</span> Mostly comfortable humidity levels throughout the period</p>
+                            <p class="mb-2"><span class="font-semibold">Daily Pattern:</span> Typical diurnal cycle with higher humidity in morning/night</p>
+                            <p><span class="font-semibold">Fog Risk:</span> Minor risk of early morning fog on April 15-17</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comfort Index Tab Content -->
+            <div class="tab-content" id="comfortTab">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Outdoor Comfort Index (16-Day)</h3>
+                    <div class="chart-container">
+                        <canvas id="comfortChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Comfort Summary</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="card p-4">
+                                <p class="text-sm">Most Comfortable</p>
+                                <p class="text-2xl font-bold">Apr 12, 16</p>
+                                <p class="text-xs text-gray-500">Warm, low humidity</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Least Comfortable</p>
+                                <p class="text-2xl font-bold">Apr 17</p>
+                                <p class="text-xs text-gray-500">Cool, rainy</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">UV Index Peak</p>
+                                <p class="text-2xl font-bold">5</p>
+                                <p class="text-xs text-gray-500">Moderate</p>
+                            </div>
+                            <div class="card p-4">
+                                <p class="text-sm">Allergy Index</p>
+                                <p class="text-2xl font-bold">Medium</p>
+                                <p class="text-xs text-gray-500">Tree pollen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Outdoor Activity Recommendations</h3>
+                        <div class="card p-4">
+                            <p class="mb-3"><span class="font-semibold">Best Days for Hiking:</span> April 12-13, 19, 21-23</p>
+                            <p class="mb-3"><span class="font-semibold">Best Days for Water Activities:</span> April 12, 16 (warmest days)</p>
+                            <p class="mb-3"><span class="font-semibold">Avoid Outdoor Activities:</span> April 17 (showers, cooler)</p>
+                            <p><span class="font-semibold">Morning Outdoor Exercise:</span> Best between 7-10 AM on most days</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Climate Information -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-indigo-700">Climate Information</h2>
-            
-            <!-- Seasonal Weather -->
-            <div class="weather-card p-6 mb-8">
-                <h3 class="text-xl font-semibold mb-4 text-gray-700">Seasonal Weather in Fürth</h3>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="season-spring p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-800 mb-2">Spring (Mar-May)</h4>
-                        <p class="text-gray-700 mb-2">Cool to mild temperatures gradually warming through the season.</p>
-                        <ul class="text-sm text-gray-600">
-                            <li>• Avg. High: 6-19°C</li>
-                            <li>• Avg. Low: 1-8°C</li>
-                            <li>• Precipitation: 28-53mm</li>
-                            <li>• Daylight: 12-15.4h</li>
-                        </ul>
+
+        <!-- Local Insights and Activity Planning -->
+        <section class="card p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Local Insights & Activity Planning</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Best Days for Activities</h3>
+                    <div class="card p-4 mb-4">
+                        <h4 class="font-bold">Outdoor Recreation</h4>
+                        <p class="mb-2"><i class="fas fa-hiking mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Hiking:</span> April 12, 16, 19, 21-23</p>
+                        <p class="mb-2"><i class="fas fa-bicycle mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Cycling:</span> April 12-14, 16, 19, 22-23</p>
+                        <p><i class="fas fa-running mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Running:</span> April 12-16, 19-23 (mornings best)</p>
                     </div>
-                    
-                    <div class="season-summer p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-800 mb-2">Summer (Jun-Aug)</h4>
-                        <p class="text-gray-700 mb-2">Comfortable temperatures with partly cloudy skies and occasional rain.</p>
-                        <ul class="text-sm text-gray-600">
-                            <li>• Avg. High: 22-24°C</li>
-                            <li>• Avg. Low: 11-13°C</li>
-                            <li>• Precipitation: 51-64mm</li>
-                            <li>• Daylight: 14.3-16.2h</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="season-autumn p-4 rounded-lg">
-                        <h4 class="font-semibold text-red-800 mb-2">Autumn (Sep-Nov)</h4>
-                        <p class="text-gray-700 mb-2">Gradually cooling with increasing cloud cover and rainfall.</p>
-                        <ul class="text-sm text-gray-600">
-                            <li>• Avg. High: 7-19°C</li>
-                            <li>• Avg. Low: 2-9°C</li>
-                            <li>• Precipitation: 38-46mm</li>
-                            <li>• Daylight: 9.1-12.5h</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="season-winter p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-800 mb-2">Winter (Dec-Feb)</h4>
-                        <p class="text-gray-700 mb-2">Cold temperatures with cloudy skies and occasional snowfall.</p>
-                        <ul class="text-sm text-gray-600">
-                            <li>• Avg. High: 3-4°C</li>
-                            <li>• Avg. Low: -2 to -1°C</li>
-                            <li>• Precipitation: 28-38mm</li>
-                            <li>• Snowfall: 1.1-1.5"</li>
-                            <li>• Daylight: 8.2-10.2h</li>
-                        </ul>
+                    <div class="card p-4">
+                        <h4 class="font-bold">Leisure & Sightseeing</h4>
+                        <p class="mb-2"><i class="fas fa-camera mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Photography:</span> April 12 (clear skies), April 16-17 (dramatic clouds)</p>
+                        <p class="mb-2"><i class="fas fa-tree mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Parks & Gardens:</span> April 12-16, 19-21</p>
+                        <p><i class="fas fa-umbrella-beach mr-2" style="color: var(--accent-color);"></i> <span class="font-semibold">Lake Activities:</span> April 16 (warmest, 72°F)</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Monthly Average Table -->
-            <div class="weather-card overflow-hidden mb-8">
-                <h3 class="text-xl font-semibold p-6 pb-4 text-gray-700">Monthly Climate Averages</h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Month</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">High (°C)</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Low (°C)</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Rainfall (mm)</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Rainy Days</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Daylight (h)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">January</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">3</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">-2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">30</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">7.1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">8.7</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">February</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">4</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">-2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">28</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">6.1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">10.2</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">March</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">9</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">28</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">6.8</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">12.0</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">April</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">14</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">4</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">33</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">6.7</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">13.8</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">May</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">19</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">8</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">53</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">9.4</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">15.4</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">June</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">22</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">11</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">58</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">10.0</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">16.2</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">July</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">24</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">13</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">64</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">10.5</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">15.7</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">August</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">24</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">13</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">51</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">8.6</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">14.3</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">September</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">19</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">9</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">46</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">7.3</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">12.5</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">October</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">14</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">6</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">41</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">7.3</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">10.7</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">November</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">7</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">38</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">7.5</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">9.1</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">December</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">4</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">-1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">38</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">8.0</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">8.2</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Best Time to Visit and Tourism -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="weather-card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Best Time to Visit</h3>
-                    <div class="mb-4">
-                        <p class="text-gray-700 mb-4">Based on tourism scores that consider temperature, cloud cover, and precipitation, the best time to visit Fürth for warm-weather activities is from <span class="font-semibold text-blue-700">late June to early September</span>, with the peak in early August.</p>
-                        <div>
-                            <canvas id="tourismChart" height="200"></canvas>
-                        </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Local Weather Insights</h3>
+                    <div class="card p-4 mb-4">
+                        <h4 class="font-bold">Weather Patterns in Oberhaching</h4>
+                        <p class="mb-2">The area typically experiences variable spring weather in April with occasional showers but generally improving conditions.</p>
+                        <p class="mb-2">Due to its elevation (587m), Oberhaching can sometimes experience different conditions than nearby Munich.</p>
+                        <p>The easterly wind pattern visible in the forecast is typical for this time of year and generally brings stable conditions.</p>
                     </div>
-                </div>
-                
-                <div class="weather-card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Wind & Humidity</h3>
-                    <div class="mb-6">
-                        <h4 class="font-medium text-gray-600 mb-2">Wind Patterns</h4>
-                        <p class="text-gray-700 mb-2">• The windier season lasts from November to April (9.3-10.8 km/h)</p>
-                        <p class="text-gray-700 mb-2">• The windiest month is January (10.8 km/h)</p>
-                        <p class="text-gray-700 mb-2">• The calmest month is August (7.8 km/h)</p>
-                        <p class="text-gray-700">• The predominant wind direction is from the west throughout the year</p>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-gray-600 mb-2">Humidity & Sunshine</h4>
-                        <p class="text-gray-700 mb-2">• Humidity levels remain comfortable throughout the year</p>
-                        <p class="text-gray-700 mb-2">• The brightest month is June (6.5 kWh solar energy)</p>
-                        <p class="text-gray-700">• The darkest month is December (0.8 kWh solar energy)</p>
+                    <div class="card p-4">
+                        <h4 class="font-bold">Planning Tips</h4>
+                        <p class="mb-2"><i class="fas fa-sun mr-2" style="color: var(--accent-color);"></i> UV protection recommended even on cloudy days (UV index up to 5)</p>
+                        <p class="mb-2"><i class="fas fa-cloud-rain mr-2" style="color: var(--accent-color);"></i> Pack a light raincoat for April 13-17 and April 20-25</p>
+                        <p><i class="fas fa-temperature-low mr-2" style="color: var(--accent-color);"></i> Mornings and evenings still cool (below 50°F) - dress in layers</p>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- About Fürth -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-indigo-700">About Fürth</h2>
-            <div class="weather-card p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-gray-700">Location & Topography</h3>
-                        <p class="text-gray-700 mb-3">Fürth is located at 49.476° latitude, 10.989° longitude, at an elevation of about 302 meters (991 ft) in Bavaria, Germany.</p>
-                        <p class="text-gray-700 mb-3">The topography within 2 miles contains only modest variations in elevation, with a maximum elevation change of 89 meters (292 feet).</p>
-                        <p class="text-gray-700 mb-3">The area within 2 miles of Fürth is covered by artificial surfaces (74%) and cropland (14%), within 10 miles by cropland (36%) and trees (31%).</p>
-                        <p class="text-gray-700">The city is situated in the Middle Franconia region and is closely connected to the neighboring city of Nuremberg.</p>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-gray-700">Weather Highlights</h3>
-                        <ul class="space-y-2 text-gray-700">
-                            <li><i class="fas fa-snowflake text-blue-400 mr-2"></i> Bavaria is one of the coldest regions in Germany</li>
-                            <li><i class="fas fa-sun text-yellow-400 mr-2"></i> The hottest month is July, with average highs of 24°C</li>
-                            <li><i class="fas fa-temperature-low text-blue-600 mr-2"></i> The coldest month is January, with average lows of -2°C</li>
-                            <li><i class="fas fa-umbrella text-gray-600 mr-2"></i> July has the most rainfall with 64mm on average</li>
-                            <li><i class="fas fa-cloud mr-2"></i> December has the most cloud cover (72% of the time)</li>
-                            <li><i class="fas fa-wind text-gray-500 mr-2"></i> The windiest month is January</li>
-                            <li><i class="fas fa-leaf text-green-500 mr-2"></i> Growing season typically lasts from late April to late October</li>
-                            <li><i class="fas fa-cloud-sun text-yellow-500 mr-2"></i> The clearest month is July with 58% clear days</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
+
         <!-- Footer -->
-        <footer class="text-center text-gray-500 mt-16">
-            <p class="mb-2">© 2025 Weather Analysis for Fürth, Bavaria, Germany</p>
-            <p class="text-sm">Data sources: AccuWeather, Weather.com, and WeatherSpark</p>
-            <p class="text-xs mt-4">Analysis created on April 11, 2025</p>
+        <footer class="text-center py-4 text-sm text-gray-500">
+            <p class="mb-2">Weather data sourced from multiple providers. Last updated: April 11, 2025, 9:07 PM CEST</p>
+            <p class="mb-2">Location: Furth, Oberhaching, Bavaria, Germany (48.02° N 11.60° E, Elevation: 587m)</p>
+            <p>This forecast is for planning purposes only. Weather conditions may change.</p>
         </footer>
     </div>
-    
-    <!-- Charts -->
+
+    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script>
-        // Temperature Chart
-        const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
-        new Chart(temperatureCtx, {
-            type: 'line',
-            data: {
-                labels: ['Today', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20'],
-                datasets: [
-                    {
-                        label: 'High (°C)',
-                        data: [19, 22, 20, 19, 21, 22, 12, 13, 14, 17],
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        borderWidth: 2,
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Check for saved user preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${target}Tab`).classList.add('active');
+            });
+        });
+
+        // Day details functionality
+        function toggleDayDetails(dayId) {
+            const dayDetailsSection = document.getElementById('dayDetailsSection');
+            dayDetailsSection.classList.remove('hidden');
+            
+            // Set title based on which day was clicked
+            const dayNum = dayId.replace('day', '').replace('Details', '');
+            const days = ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dates = ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'];
+            
+            document.getElementById('dayDetailsTitle').textContent = `${days[dayNum-1]}, ${dates[dayNum-1]} - Detailed Forecast`;
+            
+            // Scroll to the details section
+            dayDetailsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('closeDayDetails').addEventListener('click', () => {
+            document.getElementById('dayDetailsSection').classList.add('hidden');
+        });
+
+        // Temperature unit toggle
+        const celsiusBtn = document.getElementById('celsiusBtn');
+        const fahrenheitBtn = document.getElementById('fahrenheitBtn');
+        
+        celsiusBtn.addEventListener('click', () => {
+            celsiusBtn.classList.remove('bg-gray-400');
+            fahrenheitBtn.classList.add('bg-gray-400');
+            // Convert temperatures to Celsius - in a real app
+        });
+        
+        fahrenheitBtn.addEventListener('click', () => {
+            fahrenheitBtn.classList.remove('bg-gray-400');
+            celsiusBtn.classList.add('bg-gray-400');
+            // Convert temperatures to Fahrenheit - in a real app
+        });
+
+        // Chart initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Temperature Chart
+            const tempCtx = document.getElementById('temperatureChart').getContext('2d');
+            const tempChart = new Chart(tempCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'],
+                    datasets: [{
+                        label: 'High Temperature (°F)',
+                        data: [65, 69, 68, 67, 68, 72, 54, 59, 66, 60, 63, 66, 66, 65, 65, 67],
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
                         tension: 0.3,
-                        pointBackgroundColor: '#ef4444',
-                        pointRadius: 4
+                        pointRadius: 4,
+                        pointBackgroundColor: '#e74c3c'
+                    }, {
+                        label: 'Low Temperature (°F)',
+                        data: [39, 48, 48, 50, 49, 49, 43, 40, 44, 43, 43, 45, 45, 45, 44, 45],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#3498db'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
                     },
-                    {
-                        label: 'Low (°C)',
-                        data: [3, 8, 9, 10, 8, 10, 6, 5, 6, 7],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        borderWidth: 2,
+                    scales: {
+                        y: {
+                            suggestedMin: 35,
+                            suggestedMax: 75
+                        }
+                    }
+                }
+            });
+
+            // Precipitation Chart
+            const precipCtx = document.getElementById('precipitationChart').getContext('2d');
+            const precipChart = new Chart(precipCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'],
+                    datasets: [{
+                        label: 'Precipitation Chance (%)',
+                        data: [0, 4, 19, 17, 41, 19, 56, 40, 22, 39, 24, 24, 24, 46, 34, 15],
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(41, 128, 185, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Chance of Precipitation (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Wind Chart
+            const windCtx = document.getElementById('windChart').getContext('2d');
+            const windChart = new Chart(windCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'],
+                    datasets: [{
+                        label: 'Wind Speed (mph)',
+                        data: [5, 10, 5, 5, 5, 5, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46, 204, 113, 0.2)',
                         tension: 0.3,
-                        pointBackgroundColor: '#3b82f6',
-                        pointRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
+                        pointRadius: 4,
+                        pointBackgroundColor: '#2ecc71'
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        title: {
-                            display: true,
-                            text: 'Temperature (°C)'
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Wind Speed (mph)'
+                            }
                         }
                     }
                 }
-            }
-        });
-        
-        // Daylight Chart
-        const daylightCtx = document.getElementById('daylightChart').getContext('2d');
-        new Chart(daylightCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Daylight Hours',
-                    data: [8.7, 10.2, 12.0, 13.8, 15.4, 16.2, 15.7, 14.3, 12.5, 10.7, 9.1, 8.2],
-                    backgroundColor: 'rgba(251, 191, 36, 0.7)',
-                    borderColor: 'rgba(251, 191, 36, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+            });
+
+            // Humidity Chart
+            const humidityCtx = document.getElementById('humidityChart').getContext('2d');
+            const humidityChart = new Chart(humidityCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'],
+                    datasets: [{
+                        label: 'Morning Humidity (%)',
+                        data: [66, 60, 63, 65, 67, 72, 76, 67, 57, 62, 72, 70, 71, 72, 70, 64],
+                        borderColor: '#9b59b6',
+                        backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#9b59b6'
+                    }, {
+                        label: 'Afternoon Humidity (%)',
+                        data: [43, 47, 54, 65, 54, 52, 76, 58, 52, 59, 57, 58, 58, 59, 58, 52],
+                        borderColor: '#8e44ad',
+                        backgroundColor: 'rgba(142, 68, 173, 0.2)',
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#8e44ad'
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Hours'
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            suggestedMax: 100,
+                            title: {
+                                display: true,
+                                text: 'Relative Humidity (%)'
+                            }
                         }
                     }
                 }
-            }
-        });
-        
-        // Tourism Chart
-        const tourismCtx = document.getElementById('tourismChart').getContext('2d');
-        new Chart(tourismCtx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Tourism Score',
-                    data: [0.0, 0.0, 1.8, 3.6, 5.2, 6.4, 6.8, 6.6, 5.0, 2.8, 0.8, 0.0],
-                    fill: true,
-                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                    borderColor: 'rgba(16, 185, 129, 1)',
-                    tension: 0.4,
-                    pointRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+            });
+
+            // Comfort Index Chart
+            const comfortCtx = document.getElementById('comfortChart').getContext('2d');
+            const comfortChart = new Chart(comfortCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Apr 11', 'Apr 12', 'Apr 13', 'Apr 14', 'Apr 15', 'Apr 16', 'Apr 17', 'Apr 18', 'Apr 19', 'Apr 20', 'Apr 21', 'Apr 22', 'Apr 23', 'Apr 24', 'Apr 25', 'Apr 26'],
+                    datasets: [{
+                        label: 'Outdoor Comfort Index (1-10)',
+                        data: [7, 9, 8, 6, 7, 9, 3, 5, 7, 5, 8, 8, 8, 6, 6, 8],
+                        backgroundColor: 'rgba(26, 188, 156, 0.7)',
+                        borderColor: 'rgba(22, 160, 133, 1)',
+                        borderWidth: 1
+                    }]
                 },
-                scales: {
-                    y: {
-                        min: 0,
-                        max: 10,
-                        title: {
-                            display: true,
-                            text: 'Score (0-10)'
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Comfort Index (1-10)'
+                            }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 </body>
