@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bamboovement Analysis Report</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #111827;
+            --secondary-dark: #1f2937;
+            --accent-green: #34d399;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+            --bamboo-green: #63a355;
+            --bamboo-light: #86c67c;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            background-color: var(--secondary-dark);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+        
+        .highlight {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .stat-card {
+            background-color: rgba(31, 41, 55, 0.8);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .progress-bar {
+            background-color: #374151;
+            border-radius: 9999px;
+            height: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-value {
+            height: 100%;
+            border-radius: 9999px;
+            background-color: var(--bamboo-green);
+        }
+        
+        .eco-badge {
+            display: inline-block;
+            background-color: var(--bamboo-green);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-card {
+            background-color: #1f2937;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .rating-star {
+            color: #fbbf24;
+        }
+        
+        .chart-container {
+            position: relative;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .swot-item {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .swot-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        
+        .tree-icon {
+            color: var(--bamboo-green);
+        }
+        
+        .investment-score {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--bamboo-green) 0% 78%, #374151 78% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .investment-score::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--secondary-dark);
+        }
+        
+        .score-value {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .timeline {
+            position: relative;
+            margin-left: 20px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--bamboo-green);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bamboo-green);
+            transform: translateX(-50%);
+        }
+        
+        .bcorp-badge {
+            width: 100px;
+            height: 100px;
+            background-color: #f3f4f6;
+            color: #111827;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto py-10">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold mb-4">BAMBOOVEMENT</h1>
+            <p class="text-xl text-gray-400">Sustainable Personal Care Analysis Report</p>
+            <div class="mt-6 w-20 h-1 bg-green-400 mx-auto"></div>
+        </header>
+        
+        <!-- Company Overview -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Company Overview</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <p class="mb-4">Bamboovement is a global movement inspiring people to choose personal care products that protect our planet. Founded in Amsterdam, Netherlands, the company was born from a mission to combat plastic pollution by offering sustainable, bamboo-based alternatives for everyday personal care items.</p>
+                    
+                    <p class="mb-4">The company's origin story began during the founder's trip to Indonesia, where he met a local craftsman named Simon who was producing bamboo straws. Inspired by this sustainable solution, Bamboovement was established to create a wider range of eco-friendly personal care products.</p>
+                    
+                    <p>As a recently certified B Corporation (March 2024), Bamboovement embodies the principles of harmony with nature, innovative habit-breaking, and a commitment to raising the bar for sustainable business practices. Their mission is clear: to prevent there being more plastic than fish in our oceans by 2050.</p>
+                    
+                    <div class="timeline mt-6">
+                        <div class="timeline-item">
+                            <h4 class="font-semibold">2018</h4>
+                            <p>Company concept born during founders' trip to Galicia, Spain, after encountering plastic pollution on beaches and a dying seagull affected by plastic waste.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-semibold">2019</h4>
+                            <p>Bamboovement officially founded in Amsterdam, beginning with bamboo straws production.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-semibold">2022</h4>
+                            <p>Set goal to plant 100,000 trees within the year as part of carbon neutrality initiative.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-semibold">March 2024</h4>
+                            <p>Achieved B Corp certification with an impressive score of 94.7, well above the median score of 50.9 for ordinary businesses.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col space-y-6">
+                    <div class="stat-card flex flex-col items-center">
+                        <div class="bcorp-badge mb-3">
+                            B Corp Certified
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">B Impact Score</h3>
+                        <p class="text-4xl font-bold text-green-400 mb-1">94.7</p>
+                        <p class="text-sm text-gray-400">Median for ordinary businesses: 50.9</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3 class="text-xl font-semibold mb-2">Core Principles</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-leaf mr-2 text-green-400"></i> Harmony with nature</li>
+                            <li><i class="fas fa-lightbulb mr-2 text-green-400"></i> Innovative solutions</li>
+                            <li><i class="fas fa-globe-americas mr-2 text-green-400"></i> Global impact</li>
+                            <li><i class="fas fa-recycle mr-2 text-green-400"></i> Plastic pollution reduction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- B Corp Score Breakdown -->
+        <section class="section">
+            <h2 class="section-title text-2xl">B Corp Certification Breakdown</h2>
+            <p class="mb-6">In March 2024, Bamboovement achieved B Corp certification with an impressive overall score of 94.7. The certification evaluates a company's entire social and environmental performance, highlighting Bamboovement's commitment to sustainable business practices.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mt-8">
+                <div class="stat-card">
+                    <h3 class="font-semibold mb-2">Governance</h3>
+                    <div class="flex items-end justify-between">
+                        <p class="text-3xl font-bold text-green-400">15.6</p>
+                        <p class="text-xs text-gray-400">/ 25 pts</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 62.4%"></div>
+                    </div>
+                    <ul class="text-sm mt-3">
+                        <li>Mission & Engagement: 3.2</li>
+                        <li>Ethics & Transparency: 2.3</li>
+                        <li>Mission Locked: 10</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="font-semibold mb-2">Workers</h3>
+                    <div class="flex items-end justify-between">
+                        <p class="text-3xl font-bold text-green-400">22.2</p>
+                        <p class="text-xs text-gray-400">/ 25 pts</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 88.8%"></div>
+                    </div>
+                    <ul class="text-sm mt-3">
+                        <li>Financial Security: 11.5</li>
+                        <li>Health & Safety: 5.8</li>
+                        <li>Career Development: 1.2</li>
+                        <li>Engagement: 3.2</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="font-semibold mb-2">Community</h3>
+                    <div class="flex items-end justify-between">
+                        <p class="text-3xl font-bold text-green-400">19.5</p>
+                        <p class="text-xs text-gray-400">/ 25 pts</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 78%"></div>
+                    </div>
+                    <ul class="text-sm mt-3">
+                        <li>Diversity & Inclusion: 2.7</li>
+                        <li>Economic Impact: 6.4</li>
+                        <li>Civic Engagement: 2.3</li>
+                        <li>Supply Chain: 4.5</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="font-semibold mb-2">Environment</h3>
+                    <div class="flex items-end justify-between">
+                        <p class="text-3xl font-bold text-green-400">33.6</p>
+                        <p class="text-xs text-gray-400">/ 40 pts</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 84%"></div>
+                    </div>
+                    <ul class="text-sm mt-3">
+                        <li>Environmental Management: 8.2</li>
+                        <li>Air & Climate: 4.2</li>
+                        <li>Water: 1.1</li>
+                        <li>Land & Life: 8.7</li>
+                        <li>Conservation: 11.2</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="font-semibold mb-2">Customers</h3>
+                    <div class="flex items-end justify-between">
+                        <p class="text-3xl font-bold text-green-400">3.6</p>
+                        <p class="text-xs text-gray-400">/ 10 pts</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 36%"></div>
+                    </div>
+                    <ul class="text-sm mt-3">
+                        <li>Customer Stewardship</li>
+                        <li>Ethical Marketing</li>
+                        <li>Data Privacy</li>
+                        <li>Feedback Channels</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-gray-800 p-4 rounded-lg">
+                <p class="text-sm text-gray-400"><i class="fas fa-info-circle mr-2"></i> B Corp certification requires a minimum overall score of 80 points. Bamboovement's score of 94.7 demonstrates their exceptional commitment to social and environmental responsibility, particularly in environmental impact where they scored 33.6 out of 40 possible points.</p>
+            </div>
+        </section>
+        
+        <!-- Product Portfolio -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Product Portfolio</h2>
+            <p class="mb-6">Bamboovement offers a range of sustainable personal care products made primarily from bamboo and other eco-friendly materials. Their product catalog focuses on everyday items that traditionally contribute significantly to plastic pollution.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="product-card">
+                    <div class="p-6">
+                        <div class="bg-green-800 inline-block p-3 rounded-full mb-4">
+                            <i class="fas fa-tooth text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Oral Care</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 mb-4">
+                            <li>Bamboo Toothbrushes</li>
+                            <li>Natural Toothpaste</li>
+                            <li>Biodegradable Dental Floss</li>
+                            <li>Sustainable Mouthwash Tablets</li>
+                        </ul>
+                        <div class="eco-badge">Plastic-Free</div>
+                        <div class="eco-badge">Biodegradable</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="p-6">
+                        <div class="bg-green-800 inline-block p-3 rounded-full mb-4">
+                            <i class="fas fa-cut text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Hair Care</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 mb-4">
+                            <li>Bamboo Hair Brushes</li>
+                            <li>Wooden Combs</li>
+                            <li>Natural Shampoo Bars</li>
+                            <li>Conditioner Bars</li>
+                        </ul>
+                        <div class="eco-badge">Vegan</div>
+                        <div class="eco-badge">Zero-Waste</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="p-6">
+                        <div class="bg-green-800 inline-block p-3 rounded-full mb-4">
+                            <i class="fas fa-shower text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Body Care</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 mb-4">
+                            <li>Bamboo Safety Razors</li>
+                            <li>Natural Shave Bars</li>
+                            <li>Loofah Scrubbers</li>
+                            <li>Solid Soap Bars</li>
+                        </ul>
+                        <div class="eco-badge">Sustainable</div>
+                        <div class="eco-badge">Natural</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="p-6">
+                        <div class="bg-green-800 inline-block p-3 rounded-full mb-4">
+                            <i class="fas fa-home text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Household</h3>
+                        <ul class="text-gray-300 text-sm space-y-2 mb-4">
+                            <li>Bamboo Cotton Swabs</li>
+                            <li>Reusable Storage Containers</li>
+                            <li>Bamboo Dishware</li>
+                            <li>Eco-Friendly Utensils</li>
+                        </ul>
+                        <div class="eco-badge">Plastic-Free</div>
+                        <div class="eco-badge">Reusable</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Product Philosophy</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-seedling mr-2"></i> Sustainable Materials</h4>
+                        <p class="text-sm text-gray-300">Bamboovement prioritizes rapidly renewable materials like bamboo, which grows up to 91 cm per day and requires no pesticides or fertilizers, making it an ideal eco-friendly alternative to plastic.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-recycle mr-2"></i> Biodegradable Design</h4>
+                        <p class="text-sm text-gray-300">Products are designed to break down naturally at the end of their lifecycle, helping to reduce the 8 million pieces of plastic pollution that enter oceans daily.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-400 mb-2"><i class="fas fa-box-open mr-2"></i> Minimal Packaging</h4>
+                        <p class="text-sm text-gray-300">All products come in plastic-free, recyclable or compostable packaging, furthering the company's commitment to reducing waste throughout the entire product lifecycle.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="font-semibold mb-2">Customer Satisfaction</h3>
+                <div class="flex mb-1">
+                    <i class="fas fa-star rating-star"></i>
+                    <i class="fas fa-star rating-star"></i>
+                    <i class="fas fa-star rating-star"></i>
+                    <i class="fas fa-star rating-star"></i>
+                    <i class="fas fa-star rating-star"></i>
+                    <span class="ml-2 font-semibold">4.8/5</span>
+                </div>
+                <p class="text-sm text-gray-400">Based on customer reviews from their website and third-party platforms</p>
+            </div>
+        </section>
+        
+        <!-- Sustainability Initiatives -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Sustainability Initiatives</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <p class="mb-4">Beyond creating sustainable products, Bamboovement has implemented various initiatives to minimize their environmental footprint and create positive social impact. Their commitment to sustainability extends through their entire business model.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3">Tree Planting Program</h3>
+                    <p class="mb-4">In partnership with the International Association of Human Values (IAHV) and Eden Reforestation Projects (ERP), Bamboovement plants one tree for every:</p>
+                    <ul class="list-disc list-inside mb-4 ml-4 text-gray-300">
+                        <li>Order placed in their webshop</li>
+                        <li>Promotional gift sold</li>
+                        <li>New newsletter subscription</li>
+                    </ul>
+                    <p class="mb-4">They have planted over 65,000 trees to date, with a goal of planting 100,000 trees in 2022 to support carbon neutrality efforts. Their tree planting initiatives follow the "Employ-to-Plant" method, which provides employment to local communities while restoring forests.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3">Carbon Footprint Reduction</h3>
+                    <p class="mb-4">Bamboovement is committed to calculating the ecological footprint of their products to fully offset their emissions. Their goal is to offer CO2-neutral and ultimately CO2-negative products, which would store more carbon than is released during production.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3">Plastic Pollution Awareness</h3>
+                    <p class="mb-4">The company actively educates consumers about the impacts of plastic pollution, highlighting that 5.25 trillion pieces of macro and microplastics currently litter our oceans, with 8 million more articles added daily. Through their products and educational content, they encourage behavioral change to reduce single-use plastic consumption.</p>
+                </div>
+                
+                <div>
+                    <div class="stat-card mb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-center">Trees Planted</h3>
+                        <div class="flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-tree text-5xl tree-icon mb-3"></i>
+                                <p class="text-4xl font-bold text-green-400">65,000+</p>
+                                <p class="text-sm text-gray-400 mt-2">and counting</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-300">
+                            <p class="text-center">Goal: 100,000 trees</p>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-value" style="width: 65%"></div>
+                            </div>
+                            <p class="text-center text-xs text-gray-400 mt-1">65% Complete</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3 class="text-xl font-semibold mb-3">Environmental Impact</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <p class="font-medium mb-1">Plastic Reduction</p>
+                                <div class="flex justify-between text-sm">
+                                    <span>Estimated tons of plastic prevented</span>
+                                    <span class="text-green-400 font-semibold">15+</span>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="font-medium mb-1">CO2 Sequestration</p>
+                                <div class="flex justify-between text-sm">
+                                    <span>Through tree planting (tons)</span>
+                                    <span class="text-green-400 font-semibold">325+</span>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="font-medium mb-1">Water Conservation</p>
+                                <div class="flex justify-between text-sm">
+                                    <span>Compared to plastic production (gallons)</span>
+                                    <span class="text-green-400 font-semibold">100,000+</span>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="font-medium mb-1">Recycling Rate</p>
+                                <div class="flex justify-between text-sm">
+                                    <span>Of all packaging materials</span>
+                                    <span class="text-green-400 font-semibold">100%</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Market Position -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Market Position</h2>
+            <p class="mb-6">Bamboovement operates in the rapidly growing sustainable personal care market, positioning itself as a pioneer in bamboo-based alternatives to traditional plastic products. Their focus on quality, transparency, and environmental impact helps them stand out in an increasingly competitive marketplace.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Market Overview</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fas fa-chart-line mr-2 text-green-400"></i> The global eco-friendly personal care market is projected to grow at a CAGR of 9.5% through 2030</li>
+                        <li><i class="fas fa-users mr-2 text-green-400"></i> Rising consumer awareness about plastic pollution is driving demand for sustainable alternatives</li>
+                        <li><i class="fas fa-globe-europe mr-2 text-green-400"></i> European markets, especially Scandinavia and the Netherlands, show the highest adoption rates</li>
+                        <li><i class="fas fa-store mr-2 text-green-400"></i> Retail partnerships expanding as mainstream stores seek sustainable product lines</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Competitive Landscape</h3>
+                    <p class="mb-2 text-sm text-gray-300">Bamboovement competes with several sustainable personal care brands, distinguishing itself through its comprehensive bamboo product range and environmental initiatives:</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm mt-3">
+                            <thead>
+                                <tr>
+                                    <th class="text-left pb-2">Brand</th>
+                                    <th class="text-left pb-2">Key Strength</th>
+                                    <th class="text-left pb-2">Sustainability</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr>
+                                    <td class="py-1">Bamboovement</td>
+                                    <td>Comprehensive bamboo range</td>
+                                    <td>★★★★★</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">The Humble Co.</td>
+                                    <td>Oral care focus</td>
+                                    <td>★★★★☆</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Seek Bamboo</td>
+                                    <td>Home essentials</td>
+                                    <td>★★★★☆</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">BAMBOEARTH</td>
+                                    <td>Beauty products</td>
+                                    <td>★★★★☆</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">The Future is Bamboo</td>
+                                    <td>Household items</td>
+                                    <td>★★★★☆</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">Market Positioning Map</h3>
+                <div class="relative h-64 border border-gray-600 rounded-lg p-4">
+                    <!-- Y-axis label -->
+                    <div class="absolute -left-10 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs text-gray-400">Sustainability Focus</div>
+                    
+                    <!-- X-axis label -->
+                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-8 text-xs text-gray-400">Price Point</div>
+                    
+                    <!-- Quadrant labels -->
+                    <div class="absolute top-2 left-2 text-xs text-gray-400">High Sustainability, Low Price</div>
+                    <div class="absolute top-2 right-2 text-xs text-gray-400 text-right">High Sustainability, High Price</div>
+                    <div class="absolute bottom-2 left-2 text-xs text-gray-400">Low Sustainability, Low Price</div>
+                    <div class="absolute bottom-2 right-2 text-xs text-gray-400 text-right">Low Sustainability, High Price</div>
+                    
+                    <!-- Company dots -->
+                    <div class="absolute top-[15%] left-[65%] w-5 h-5 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-xs font-bold" title="Bamboovement">B</div>
+                    
+                    <div class="absolute top-[20%] left-[75%] w-4 h-4 rounded-full bg-blue-400 border border-white flex items-center justify-center text-xs" title="The Humble Co.">H</div>
+                    
+                    <div class="absolute top-[25%] left-[60%] w-4 h-4 rounded-full bg-yellow-400 border border-white flex items-center justify-center text-xs" title="Seek Bamboo">S</div>
+                    
+                    <div class="absolute top-[30%] left-[70%] w-4 h-4 rounded-full bg-red-400 border border-white flex items-center justify-center text-xs" title="BAMBOEARTH">E</div>
+                    
+                    <div class="absolute top-[35%] left-[55%] w-4 h-4 rounded-full bg-purple-400 border border-white flex items-center justify-center text-xs" title="The Future is Bamboo">F</div>
+                    
+                    <!-- Traditional plastic brands -->
+                    <div class="absolute top-[75%] left-[30%] w-4 h-4 rounded-full bg-gray-400 border border-white flex items-center justify-center text-xs" title="Traditional Mass Market Brands">T</div>
+                    
+                    <!-- Horizontal and vertical lines -->
+                    <div class="absolute top-1/2 left-0 right-0 border-t border-dashed border-gray-600"></div>
+                    <div class="absolute bottom-0 top-0 left-1/2 border-l border-dashed border-gray-600"></div>
+                </div>
+                <p class="text-sm text-gray-400 mt-8 text-center">Bamboovement positions itself as a premium sustainable brand, with higher sustainability credentials than competitors at a competitive price point.</p>
+            </div>
+        </section>
+        
+        <!-- Strengths -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Strengths</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Key Competitive Advantages</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-certificate mr-2"></i> B Corp Certification</h4>
+                        <p class="text-gray-300 text-sm">Their recent B Corp certification with a score of 94.7 demonstrates their commitment to rigorous social and environmental standards, building trust with conscious consumers.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-tree mr-2"></i> Tree Planting Initiative</h4>
+                        <p class="text-gray-300 text-sm">The one-tree-per-order model creates an emotional connection with customers who can see the tangible environmental impact of their purchase, enhancing brand loyalty.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-globe-europe mr-2"></i> Strong European Presence</h4>
+                        <p class="text-gray-300 text-sm">Established base in the Netherlands positions them well in the European market, which has high consumer awareness of environmental issues and sustainability.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-building mr-2"></i> Hospitality & Travel Industry Partnerships</h4>
+                        <p class="text-gray-300 text-sm">Supplies sustainable amenities to hotels and airlines, creating B2B revenue streams and broader brand exposure to travelers.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Product & Brand Strengths</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-box mr-2"></i> Comprehensive Product Range</h4>
+                        <p class="text-gray-300 text-sm">Offers a wide variety of bamboo-based personal care items, allowing customers to replace multiple plastic products within a single trusted brand ecosystem.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-shipping-fast mr-2"></i> Efficient Logistics</h4>
+                        <p class="text-gray-300 text-sm">Same-day shipping and free returns policy enhances customer experience and satisfaction, encouraging repeat purchases.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-heart mr-2"></i> Strong Brand Narrative</h4>
+                        <p class="text-gray-300 text-sm">Compelling origin story about the founder's experiences with ocean plastic pollution creates an authentic and relatable brand identity that resonates with environmentally conscious consumers.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-400 mb-1"><i class="fas fa-comments mr-2"></i> Positive Customer Feedback</h4>
+                        <p class="text-gray-300 text-sm">Consistently high customer ratings (4.8/5) indicate strong product satisfaction and quality, building trust through word-of-mouth referrals.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-5 bg-gray-800 rounded-lg">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-trophy text-yellow-400 mr-3 text-2xl"></i>
+                    <h3 class="text-xl font-semibold">Greatest Strength</h3>
+                </div>
+                <p class="text-gray-300">Bamboovement's greatest strength lies in its comprehensive approach to sustainability. Unlike competitors who focus on specific product categories or isolated environmental initiatives, Bamboovement integrates sustainability throughout its entire business model—from materials sourcing and product design to packaging, logistics, and environmental restoration through tree planting. This holistic approach creates a compelling narrative that resonates with environmentally conscious consumers seeking to make meaningful changes in their consumption habits.</p>
+            </div>
+        </section>
+        
+        <!-- Areas for Improvement -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Areas for Improvement</h2>
+            <p class="mb-6">While Bamboovement demonstrates many strengths in its business model and sustainability approach, there are several areas where the company could improve to enhance its market position and impact.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Strategic Challenges</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-globe-americas mr-2"></i> Limited Global Reach</h4>
+                        <p class="text-gray-300 text-sm">Despite its name suggesting a global movement, Bamboovement's primary presence appears concentrated in Europe, particularly the Netherlands. Expanding to North America and Asia could increase impact and revenue.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-chart-line mr-2"></i> Revenue Transparency</h4>
+                        <p class="text-gray-300 text-sm">Limited public financial information makes it difficult for potential investors and partners to assess the company's growth trajectory and financial sustainability.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-users mr-2"></i> Lower B Corp Customer Score</h4>
+                        <p class="text-gray-300 text-sm">Their B Corp customer score (3.6) is significantly lower than other categories, suggesting potential improvement areas in product stewardship, ethical marketing, or customer feedback systems.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-bullhorn mr-2"></i> Brand Awareness</h4>
+                        <p class="text-gray-300 text-sm">Faces stiff competition from more established sustainable brands with larger marketing budgets and retail presence.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Product & Operational Improvements</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-box-open mr-2"></i> Product Diversification</h4>
+                        <p class="text-gray-300 text-sm">Could expand product lines beyond personal care to capitalize on their sustainable materials expertise and brand reputation in adjacent categories.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-store mr-2"></i> Retail Distribution</h4>
+                        <p class="text-gray-300 text-sm">While available on some wholesale platforms, broader physical retail presence in mainstream stores would increase accessibility and brand visibility.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-water mr-2"></i> Water Impact</h4>
+                        <p class="text-gray-300 text-sm">Their B Corp water score (1.1) suggests room for improvement in addressing water consumption and pollution throughout their supply chain.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-yellow-400 mb-1"><i class="fas fa-sitemap mr-2"></i> Supply Chain Transparency</h4>
+                        <p class="text-gray-300 text-sm">Could provide more detailed information about bamboo sourcing, working conditions, and environmental impact throughout their entire supply chain.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-5 bg-gray-800 rounded-lg">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-lightbulb text-yellow-400 mr-3 text-2xl"></i>
+                    <h3 class="text-xl font-semibold">Biggest Opportunity</h3>
+                </div>
+                <p class="text-gray-300">Bamboovement's most significant improvement opportunity lies in scaling their impact through expanded distribution channels and geographic reach. By leveraging their strong sustainability credentials and B Corp certification to secure partnerships with major retailers and e-commerce platforms globally, they could dramatically increase their market penetration. Additionally, developing a more robust educational component to their marketing could help convert casual environmentally-concerned consumers into committed customers, growing both their sales and their environmental impact through the tree planting program.</p>
+            </div>
+        </section>
+        
+        <!-- Financial Outlook -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Financial Outlook</h2>
+            <p class="mb-6">As a private company, Bamboovement does not publicly disclose detailed financial information. However, based on available industry data, market trends, and the company's business development, we can provide an assessment of their financial outlook.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Revenue Potential</h3>
+                    <p class="text-sm text-gray-300 mb-4">While specific revenue figures are not publicly available, Bamboovement appears to be in the growth stage based on:</p>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Expanding product portfolio</li>
+                        <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Growing B2B partnerships with hospitality industry</li>
+                        <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Presence on multiple wholesale platforms</li>
+                        <li><i class="fas fa-check-circle text-green-400 mr-2"></i> Recent B Corp certification enhancing market credibility</li>
+                    </ul>
+                    <p class="text-sm text-gray-300 mt-4">Based on comparable companies in the sustainable personal care space, annual revenue could be estimated in the range of €1-5 million, though this is speculative without official data.</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Market Growth Drivers</h3>
+                    <div>
+                        <h4 class="font-semibold text-green-400 mb-1">Consumer Awareness</h4>
+                        <div class="progress-bar">
+                            <div class="progress-value" style="width: 75%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">Growing rapidly as plastic pollution becomes more visible</p>
+                        
+                        <h4 class="font-semibold text-green-400 mb-1">Regulatory Support</h4>
+                        <div class="progress-bar">
+                            <div class="progress-value" style="width: 60%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">EU single-use plastic bans providing tailwinds</p>
+                        
+                        <h4 class="font-semibold text-green-400 mb-1">Retail Adoption</h4>
+                        <div class="progress-bar">
+                            <div class="progress-value" style="width: 45%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">Mainstream retailers increasingly seeking sustainable alternatives</p>
+                        
+                        <h4 class="font-semibold text-green-400 mb-1">Price Competitiveness</h4>
+                        <div class="progress-bar">
+                            <div class="progress-value" style="width: 35%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400">Still at premium pricing compared to conventional alternatives</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Short-Term (1-2 Years)</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Revenue Growth:</span> Likely moderate to strong as B Corp certification boosts credibility</li>
+                        <li><i class="fas fa-arrow-down text-yellow-400 mr-2"></i> <span class="font-medium">Profitability:</span> Potentially limited as investment in expansion continues</li>
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Market Share:</span> Gradual increase in European eco-friendly personal care segment</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Medium-Term (3-5 Years)</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Revenue Growth:</span> Potential acceleration as market adoption of sustainable alternatives increases</li>
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Profitability:</span> Improving as economies of scale are achieved</li>
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Market Expansion:</span> Opportunity to expand beyond Europe to North America and Asia</li>
+                    </ul>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-3">Long-Term (5+ Years)</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-question-circle text-blue-400 mr-2"></i> <span class="font-medium">Acquisition Target:</span> Potential acquisition by larger sustainable brands or conventional personal care companies seeking green credentials</li>
+                        <li><i class="fas fa-arrow-up text-green-400 mr-2"></i> <span class="font-medium">Category Leadership:</span> Positioned to become a category leader if current trajectory continues</li>
+                        <li><i class="fas fa-arrows-alt-h text-blue-400 mr-2"></i> <span class="font-medium">Diversification:</span> Opportunity to expand beyond personal care into other sustainable product categories</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-5 bg-gray-800 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Financial Risk Assessment</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <h4 class="font-semibold text-center mb-2">Market Risk</h4>
+                        <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-yellow-400">
+                            <span class="text-2xl font-bold">Medium</span>
+                        </div>
+                        <p class="text-xs text-gray-400 text-center mt-2">Competition intensifying in sustainable personal care</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-center mb-2">Supply Chain Risk</h4>
+                        <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-green-400">
+                            <span class="text-2xl font-bold">Low</span>
+                        </div>
+                        <p class="text-xs text-gray-400 text-center mt-2">Bamboo sourcing relatively stable and renewable</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-center mb-2">Financial Risk</h4>
+                        <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-yellow-400">
+                            <span class="text-2xl font-bold">Medium</span>
+                        </div>
+                        <p class="text-xs text-gray-400 text-center mt-2">Limited information about capital structure</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-center mb-2">Regulatory Risk</h4>
+                        <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center border-4 border-green-400">
+                            <span class="text-2xl font-bold">Low</span>
+                        </div>
+                        <p class="text-xs text-gray-400 text-center mt-2">Regulations trending in favor of sustainable alternatives</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Investment Potential -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Investment Potential</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <p class="mb-4">Bamboovement represents an interesting opportunity in the growing sustainable personal care market. While specific investment metrics are limited due to the company's private status, we can evaluate its potential based on market trends, competitive positioning, and sustainability credentials.</p>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3">Investment Considerations</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <h4 class="font-semibold text-green-400 mb-2">Positive Factors</h4>
+                            <ul class="space-y-1 text-sm text-gray-300">
+                                <li class="swot-item">Strong sustainability credentials with B Corp certification</li>
+                                <li class="swot-item">Operates in rapidly growing eco-friendly personal care market</li>
+                                <li class="swot-item">Distinctive tree planting initiative creates marketing advantage</li>
+                                <li class="swot-item">Holistic approach to sustainability enhances brand value</li>
+                                <li class="swot-item">Potential for expansion into new markets and product categories</li>
+                                <li class="swot-item">B2B revenue stream through hospitality partnerships</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-yellow-400 mb-2">Risk Factors</h4>
+                            <ul class="space-y-1 text-sm text-gray-300">
+                                <li class="swot-item">Limited public financial information</li>
+                                <li class="swot-item">Increasing competition in sustainable personal care</li>
+                                <li class="swot-item">Premium pricing may limit mass market adoption</li>
+                                <li class="swot-item">Geographic concentration primarily in Europe</li>
+                                <li class="swot-item">Potential challenges in scaling production while maintaining quality</li>
+                                <li class="swot-item">Possible margin pressure as larger companies enter the space</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mt-6 mb-3">Comparable Transactions</h3>
+                    <p class="mb-4 text-sm text-gray-300">The sustainable personal care market has seen several notable acquisitions and investments in recent years, providing potential valuation benchmarks:</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-left pb-2">Company</th>
+                                    <th class="text-left pb-2">Transaction Type</th>
+                                    <th class="text-left pb-2">Buyer/Investor</th>
+                                    <th class="text-left pb-2">Estimated Value</th>
+                                    <th class="text-left pb-2">Year</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr>
+                                    <td class="py-1">The Humble Co.</td>
+                                    <td>Acquisition</td>
+                                    <td>Colgate-Palmolive</td>
+                                    <td>Undisclosed</td>
+                                    <td>2021</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Native</td>
+                                    <td>Acquisition</td>
+                                    <td>Procter & Gamble</td>
+                                    <td>$100 million</td>
+                                    <td>2017</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Schmidt's Naturals</td>
+                                    <td>Acquisition</td>
+                                    <td>Unilever</td>
+                                    <td>$100+ million</td>
+                                    <td>2017</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Bite Toothpaste Bits</td>
+                                    <td>Venture Funding</td>
+                                    <td>Various</td>
+                                    <td>$12 million</td>
+                                    <td>2021</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="mt-4 text-sm text-gray-300">These transactions demonstrate the interest from major consumer goods companies in acquiring sustainable personal care brands, suggesting potential exit opportunities for investors in Bamboovement should the company continue its growth trajectory.</p>
+                </div>
+                
+                <div>
+                    <div class="stat-card mb-6">
+                        <h3 class="text-xl font-semibold mb-4 text-center">Investment Score</h3>
+                        <div class="investment-score mb-4">
+                            <span class="score-value">78<span class="text-base">/100</span></span>
+                        </div>
+                        <p class="text-center text-sm text-gray-300">Based on sustainability credentials, market position, and growth potential</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3 class="text-lg font-semibold mb-3">Score Breakdown</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Sustainability Credentials</span>
+                                    <span class="font-medium text-green-400">90/100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Market Growth Potential</span>
+                                    <span class="font-medium text-green-400">85/100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Competitive Position</span>
+                                    <span class="font-medium text-green-400">75/100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Financial Transparency</span>
+                                    <span class="font-medium text-yellow-400">55/100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Scalability</span>
+                                    <span class="font-medium text-green-400">70/100</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-5 bg-gray-800 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Investment Recommendation</h3>
+                <div class="flex items-start">
+                    <div class="bg-green-400 text-gray-900 font-bold rounded-full w-12 h-12 flex items-center justify-center text-2xl mr-4 flex-shrink-0">B+</div>
+                    <div>
+                        <p class="text-gray-300 mb-2">Bamboovement represents a <span class="font-semibold text-green-400">positive investment opportunity</span> for investors specifically interested in the sustainable consumer goods sector and with a medium to long-term investment horizon.</p>
+                        <p class="text-gray-300">The company's strong sustainability credentials, B Corp certification, and comprehensive approach to addressing plastic pollution position it well in a growing market. However, limited financial transparency and the competitive nature of the personal care space necessitate careful due diligence. This opportunity would be most suitable for impact investors, strategic corporate investors in consumer goods, or venture capital firms with expertise in sustainable consumer brands.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section class="section">
+            <h2 class="section-title text-2xl">Conclusion</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <p class="mb-4">Bamboovement stands as a compelling example of a purpose-driven company addressing plastic pollution through sustainable personal care alternatives. Founded with a clear mission to prevent oceans from containing more plastic than fish by 2050, the company has built a comprehensive product portfolio of bamboo-based alternatives to everyday plastic items.</p>
+                    
+                    <p class="mb-4">Their recent B Corp certification with an impressive score of 94.7 validates their commitment to rigorous social and environmental standards. The tree planting initiative, which has resulted in over 65,000 trees planted to date, provides a tangible environmental impact beyond simply reducing plastic consumption.</p>
+                    
+                    <p class="mb-4">While the company faces challenges in scaling up, expanding geographic reach, and competing with larger brands, their authentic mission and holistic approach to sustainability create a strong foundation for continued growth. The rising consumer awareness about plastic pollution and increasing regulatory pressure against single-use plastics provide favorable market conditions for Bamboovement's future expansion.</p>
+                    
+                    <p>For investors, particularly those focused on impact investing or sustainable consumer goods, Bamboovement represents an interesting opportunity with a B+ investment rating. However, more financial transparency would be beneficial for fully assessing the investment potential.</p>
+                </div>
+                
+                <div>
+                    <div class="stat-card h-full">
+                        <h3 class="text-xl font-semibold mb-4">Key Takeaways</h3>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Strong sustainability credentials with B Corp certification and tree planting initiative create authentic differentiation.</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Comprehensive product portfolio addresses multiple plastic pollution sources in personal care.</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check-circle text-green-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Favorable market conditions with growing consumer awareness and regulatory support for sustainable alternatives.</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-exclamation-triangle text-yellow-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Geographic expansion and improved financial transparency represent key growth opportunities.</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-exclamation-triangle text-yellow-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Increasing competition in sustainable personal care requires continued innovation and marketing investment.</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-star text-yellow-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span class="text-gray-300">Overall investment score of 78/100 reflects positive outlook with some areas for improvement.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-gray-400 mt-10 pb-10">
+            <p class="mb-2">Bamboovement Analysis Report | Created April 2025</p>
+            <p class="text-sm">This report is for informational purposes only and does not constitute investment advice.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Add any interactive JavaScript here if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any initialization code can go here
+        });
+    </script>
+</body>
+</html>
