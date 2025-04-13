@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Investment Guide 2025</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        .gradient-header {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .risk-meter {
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #22c55e 0%, #eab308 50%, #ef4444 100%);
+        }
+        .risk-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #333;
+            position: absolute;
+            top: -5px;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: left 0.3s ease;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            width: 100%;
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 40px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background-color: #4f46e5;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+        .timeline-content {
+            width: 45%;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #4f46e5;
+            border-radius: 50%;
+            top: 15px;
+        }
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f1f5f9;
+        }
+        tr:hover {
+            background-color: #f8fafc;
+        }
+        .investment-options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .investment-options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .step-card {
+            border-left: 4px solid #4f46e5;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        /* Interactive risk-reward slider styles */
+        .slider-container {
+            width: 100%;
+            padding: 20px 0;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #22c55e 0%, #eab308 50%, #ef4444 100%);
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #4f46e5;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #4f46e5;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="pb-20">
+    <!-- Header -->
+    <header class="gradient-header py-10 px-6 mb-10">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold mb-2">Beginner Investment Guide 2025</h1>
+            <p class="text-xl opacity-90">Start your investment journey with confidence</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Introduction to Investing</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="flex flex-col md:flex-row items-center mb-8">
+                    <div class="md:w-1/2 mb-6 md:mb-0 md:pr-6">
+                        <h3 class="text-2xl font-semibold mb-4">Why Invest?</h3>
+                        <p class="mb-4">Investing is how you make your money work for you, potentially growing your wealth over time. Rather than simply saving money in a low-interest account, investing allows you to:</p>
+                        <ul class="list-disc pl-6 mb-4">
+                            <li>Build wealth for long-term goals like retirement</li>
+                            <li>Generate passive income</li>
+                            <li>Beat inflation, which erodes the value of money over time</li>
+                            <li>Achieve financial security and independence</li>
+                        </ul>
+                        <p>In 2025, with interest rates stabilizing and diverse investment options available, it's an excellent time for beginners to start their investment journey.</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-indigo-50 p-5 rounded-lg">
+                            <h4 class="text-xl font-semibold mb-3">The Power of Compound Interest</h4>
+                            <p class="mb-3">One of the most powerful concepts in investing is compound interest - when your earnings generate their own earnings.</p>
+                            <div class="chart-container h-64">
+                                <canvas id="compoundChart"></canvas>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Chart: $10,000 invested with different annual returns over 30 years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-6">
+                    <h3 class="text-2xl font-semibold mb-4">Key Investment Concepts</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="card bg-white p-5 border border-gray-200">
+                            <div class="icon-container bg-blue-100 text-blue-600">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2">Risk vs. Reward</h4>
+                            <p>Higher potential returns typically come with higher risk. Finding your comfort zone is essential.</p>
+                        </div>
+                        <div class="card bg-white p-5 border border-gray-200">
+                            <div class="icon-container bg-green-100 text-green-600">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2">Diversification</h4>
+                            <p>Spreading investments across different assets helps manage risk and stabilize returns.</p>
+                        </div>
+                        <div class="card bg-white p-5 border border-gray-200">
+                            <div class="icon-container bg-purple-100 text-purple-600">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-2">Time Horizon</h4>
+                            <p>Longer investment periods generally allow you to take more risk and weather market volatility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Trends 2025 Section -->
+        <section id="market-trends" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Current Market Trends 2025</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">Economic Overview</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-2">Key Market Indicators</h4>
+                            <table class="w-full">
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Current Status</th>
+                                    <th>Trend</th>
+                                </tr>
+                                <tr>
+                                    <td>Inflation</td>
+                                    <td>2.5%</td>
+                                    <td class="text-yellow-500"><i class="fas fa-arrow-right"></i> Stabilizing</td>
+                                </tr>
+                                <tr>
+                                    <td>Interest Rates</td>
+                                    <td>Moderate</td>
+                                    <td class="text-green-500"><i class="fas fa-arrow-down"></i> Decreasing</td>
+                                </tr>
+                                <tr>
+                                    <td>Market Volatility</td>
+                                    <td>Moderate</td>
+                                    <td class="text-yellow-500"><i class="fas fa-arrow-right"></i> Stable</td>
+                                </tr>
+                                <tr>
+                                    <td>Economic Growth</td>
+                                    <td>Positive</td>
+                                    <td class="text-green-500"><i class="fas fa-arrow-up"></i> Improving</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="marketTrends"></canvas>
+                        </div>
+                    </div>
+                    <p class="mb-4">As of 2025, markets have undergone significant adjustments following the events of previous years. After periods of high inflation and interest rate hikes, we're now seeing more stability with moderate growth and well-positioned sectors emerging as leaders.</p>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-6 mb-6">
+                    <h3 class="text-2xl font-semibold mb-4">Key Trends Shaping 2025</h3>
+                    <div class="timeline">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="text-xl font-semibold mb-2">AI and Technology Integration</h4>
+                                <p>AI continues to reshape industries with unprecedented growth in implementation across sectors, creating investment opportunities in both tech giants and specialized AI companies.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="text-xl font-semibold mb-2">Renewable Energy Expansion</h4>
+                                <p>The renewable energy sector is experiencing strong growth driven by government policies, technological advancements, and increasing corporate and consumer demand for sustainable solutions.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="text-xl font-semibold mb-2">Cryptocurrency Maturation</h4>
+                                <p>Cryptocurrencies have become more regulated and integrated into traditional financial systems, with Bitcoin ETFs and institutional adoption creating a more stable but still volatile investment class.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h4 class="text-xl font-semibold mb-2">Housing Market Stabilization</h4>
+                                <p>After years of fluctuation, housing markets are showing signs of stability with moderate growth, creating opportunities in both direct real estate investments and REITs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 p-5 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">Market Risks in 2025</h3>
+                    <p class="mb-4">While markets show positive trends, several risks remain on the horizon:</p>
+                    <ul class="list-disc pl-6">
+                        <li class="mb-2"><strong>Economic uncertainty</strong> - Fluctuating interest rates, inflation risks, and global instability</li>
+                        <li class="mb-2"><strong>Market concentration</strong> - High valuations in certain sectors, particularly tech</li>
+                        <li class="mb-2"><strong>Geopolitical tensions</strong> - Potential disruptions to global trade and supply chains</li>
+                        <li class="mb-2"><strong>Regulatory changes</strong> - Evolving policies impacting various sectors, particularly technology and finance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Options Section -->
+        <section id="investment-options" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Investment Options Analysis</h2>
+            
+            <!-- Interactive Risk-Reward Comparison -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h3 class="text-2xl font-semibold mb-6">Interactive Risk-Reward Comparison</h3>
+                <p class="mb-4">Adjust the slider below to see which investments might match your risk tolerance:</p>
+                
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="riskSlider">
+                    <div class="flex justify-between mt-2">
+                        <span>Low Risk</span>
+                        <span>Medium Risk</span>
+                        <span>High Risk</span>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <div id="lowRiskInvestments" class="p-4 bg-green-50 rounded-lg mb-4">
+                        <h4 class="text-xl font-semibold mb-2 text-green-700">Low Risk Investments (1-3)</h4>
+                        <ul class="list-disc pl-6">
+                            <li>High-yield savings accounts</li>
+                            <li>Certificates of deposit (CDs)</li>
+                            <li>Treasury bonds</li>
+                            <li>Money market funds</li>
+                            <li>Short-term corporate bond funds</li>
+                        </ul>
+                        <p class="mt-3"><strong>Potential return:</strong> 1-4% annually</p>
+                        <p><strong>Best for:</strong> Short-term goals, emergency funds, conservative investors, or those near retirement</p>
+                    </div>
+                    
+                    <div id="mediumRiskInvestments" class="p-4 bg-yellow-50 rounded-lg mb-4">
+                        <h4 class="text-xl font-semibold mb-2 text-yellow-700">Medium Risk Investments (4-7)</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Dividend stocks</li>
+                            <li>Balanced mutual funds and ETFs</li>
+                            <li>Blue-chip stocks</li>
+                            <li>REITs (Real Estate Investment Trusts)</li>
+                            <li>Corporate bonds</li>
+                            <li>Larger established renewable energy companies</li>
+                        </ul>
+                        <p class="mt-3"><strong>Potential return:</strong> 4-8% annually</p>
+                        <p><strong>Best for:</strong> Medium to long-term goals, investors with moderate risk tolerance</p>
+                    </div>
+                    
+                    <div id="highRiskInvestments" class="p-4 bg-red-50 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-2 text-red-700">High Risk Investments (8-10)</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Growth stocks</li>
+                            <li>Small-cap stocks</li>
+                            <li>Emerging market investments</li>
+                            <li>Cryptocurrencies</li>
+                            <li>Early-stage AI companies</li>
+                            <li>Specialized tech ETFs</li>
+                            <li>Startup investments</li>
+                        </ul>
+                        <p class="mt-3"><strong>Potential return:</strong> 8%+ annually, but with higher volatility</p>
+                        <p><strong>Best for:</strong> Long-term goals, young investors, those with high risk tolerance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="investment-options-container">
+                <!-- Stocks/Equities -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-blue-100 text-blue-600">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Stocks/Equities</h3>
+                    <p class="mb-4">Ownership shares in companies that can grow in value and may pay dividends.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 70%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Potential for high returns</li>
+                            <li>Ownership in real companies</li>
+                            <li>Possible dividend income</li>
+                            <li>Liquidity (easy to buy/sell)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Higher volatility</li>
+                            <li>Requires research/knowledge</li>
+                            <li>Individual stocks can fail completely</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-blue-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>Markets show moderate growth potential with particular strength in technology, healthcare, and select consumer sectors.</p>
+                    </div>
+                </div>
+                
+                <!-- Bonds -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-green-100 text-green-600">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Bonds</h3>
+                    <p class="mb-4">Loans to governments or corporations that pay regular interest for a set period.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 30%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>More stable than stocks</li>
+                            <li>Regular interest payments</li>
+                            <li>Can preserve capital</li>
+                            <li>Government bonds have very low default risk</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Lower returns than stocks</li>
+                            <li>Interest rate risk</li>
+                            <li>May not keep pace with inflation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-green-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>With interest rates stabilizing in 2025, bonds have regained attractiveness, offering improved yields compared to recent years.</p>
+                    </div>
+                </div>
+                
+                <!-- ETFs vs. Mutual Funds -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-purple-100 text-purple-600">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">ETFs vs. Mutual Funds</h3>
+                    <p class="mb-4">Baskets of securities that offer instant diversification across stocks, bonds, or other assets.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 50%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Comparison:</h4>
+                        <table class="w-full">
+                            <tr>
+                                <th>Feature</th>
+                                <th>ETFs</th>
+                                <th>Mutual Funds</th>
+                            </tr>
+                            <tr>
+                                <td>Trading</td>
+                                <td>Throughout day</td>
+                                <td>End of day</td>
+                            </tr>
+                            <tr>
+                                <td>Min. Investment</td>
+                                <td>1 share</td>
+                                <td>Often higher</td>
+                            </tr>
+                            <tr>
+                                <td>Expense Ratio</td>
+                                <td>Usually lower</td>
+                                <td>Often higher</td>
+                            </tr>
+                            <tr>
+                                <td>Tax Efficiency</td>
+                                <td>More efficient</td>
+                                <td>Less efficient</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="p-3 bg-purple-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>ETFs continue to gain popularity over mutual funds due to lower fees and greater flexibility. Index funds in both categories remain excellent options for beginners.</p>
+                    </div>
+                </div>
+                
+                <!-- Real Estate/REITs -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-yellow-100 text-yellow-600">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Real Estate/REITs</h3>
+                    <p class="mb-4">Investments in properties or property-owning companies that generate rental income.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 60%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Steady income through dividends</li>
+                            <li>Potential for capital appreciation</li>
+                            <li>Tangible assets</li>
+                            <li>REITs provide real estate exposure without direct ownership</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Affected by interest rate changes</li>
+                            <li>Direct real estate can be illiquid</li>
+                            <li>Property maintenance costs</li>
+                            <li>Local market dependencies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-yellow-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>The housing market shows signs of stability after previous volatility, with REITs offering attractive yields particularly in industrial, data center, and residential sectors.</p>
+                    </div>
+                </div>
+                
+                <!-- Cryptocurrencies -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-orange-100 text-orange-600">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Cryptocurrencies</h3>
+                    <p class="mb-4">Digital or virtual currencies secured by cryptography.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 90%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Potential for high returns</li>
+                            <li>Growing institutional adoption</li>
+                            <li>Portfolio diversification</li>
+                            <li>Increasing regulatory clarity in 2025</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Extremely high volatility</li>
+                            <li>Regulatory uncertainty in some regions</li>
+                            <li>Security concerns</li>
+                            <li>Limited use cases for some cryptocurrencies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-orange-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>Cryptocurrencies have matured with better regulation and institutional involvement, but remain highly volatile. Bitcoin ETFs offer more accessible exposure for beginners.</p>
+                    </div>
+                </div>
+                
+                <!-- Renewable Energy -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-teal-100 text-teal-600">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Renewable Energy</h3>
+                    <p class="mb-4">Investments in companies focused on sustainable energy sources like solar, wind, and hydro.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 65%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Strong long-term growth potential</li>
+                            <li>Government incentives and support</li>
+                            <li>ESG (Environmental, Social, Governance) benefits</li>
+                            <li>Technological advancements reducing costs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Policy dependency</li>
+                            <li>Competition and margin pressure</li>
+                            <li>Technology risk</li>
+                            <li>Some volatility in newer companies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-teal-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>Renewable energy investments continue to grow with increasing global commitments to clean energy. Both established utilities with renewable divisions and pure-play companies offer opportunities.</p>
+                    </div>
+                </div>
+                
+                <!-- AI/Technology -->
+                <div class="card bg-white p-6">
+                    <div class="icon-container bg-indigo-100 text-indigo-600">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">AI/Technology</h3>
+                    <p class="mb-4">Investments in companies developing or implementing artificial intelligence and other advanced technologies.</p>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Risk Level:</h4>
+                        <div class="relative w-full">
+                            <div class="risk-meter"></div>
+                            <div class="risk-indicator" style="left: 80%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm mt-1">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Pros:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>Exceptional growth potential</li>
+                            <li>Transformative impact across industries</li>
+                            <li>Strong corporate investment</li>
+                            <li>Wide range of applications</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold mb-2">Cons:</h4>
+                        <ul class="list-disc pl-6">
+                            <li>High valuations in many cases</li>
+                            <li>Regulatory uncertainties</li>
+                            <li>Rapid technological change</li>
+                            <li>Intense competition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-3 bg-indigo-50 rounded-md">
+                        <h4 class="font-semibold mb-1">2025 Outlook:</h4>
+                        <p>AI remains a dominant investment theme with significant growth potential. Beyond mega-cap tech stocks, opportunities exist in specialized AI companies, semiconductor manufacturers, and traditional businesses successfully implementing AI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Strategies Section -->
+        <section id="strategies" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Simple Investment Strategies for Beginners</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">Starting Your Investment Journey</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="step-card">
+                            <h4 class="text-xl font-semibold mb-2">1. Set Clear Goals</h4>
+                            <p>Define what you're investing for: retirement, education, home purchase, or other goals, and determine your time horizon.</p>
+                        </div>
+                        <div class="step-card">
+                            <h4 class="text-xl font-semibold mb-2">2. Build an Emergency Fund</h4>
+                            <p>Before investing, establish 3-6 months of expenses in a high-yield savings account for financial security.</p>
+                        </div>
+                        <div class="step-card">
+                            <h4 class="text-xl font-semibold mb-2">3. Understand Your Risk Tolerance</h4>
+                            <p>Assess how much volatility you can emotionally and financially handle to guide your investment choices.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-6 mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">Beginner-Friendly Investment Approaches</h3>
+                    
+                    <div class="mb-6 p-5 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3">Dollar-Cost Averaging</h4>
+                        <p class="mb-3">Invest a fixed amount regularly regardless of market conditions, reducing the impact of volatility.</p>
+                        <div class="chart-container h-48">
+                            <canvas id="dcaChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-gray-50 rounded-md">
+                            <h5 class="font-semibold mb-1">How to implement:</h5>
+                            <ol class="list-decimal pl-6">
+                                <li>Choose an investment (like an index ETF)</li>
+                                <li>Decide on a fixed amount to invest (e.g., $200 monthly)</li>
+                                <li>Set up automatic transfers on a schedule</li>
+                                <li>Maintain the strategy regardless of market movements</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6 p-5 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3">Index Fund Investing</h4>
+                        <p class="mb-3">Focus on low-cost index funds or ETFs that track broad market indexes, providing instant diversification.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h5 class="font-semibold mb-2">Popular Index Options:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>S&P 500 index funds (large U.S. companies)</li>
+                                    <li>Total stock market index funds</li>
+                                    <li>International index funds</li>
+                                    <li>Bond index funds</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h5 class="font-semibold mb-2">Benefits:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Low fees (often under 0.1% annually)</li>
+                                    <li>Broad diversification</li>
+                                    <li>Simplicity and transparency</li>
+                                    <li>Historically outperforms most active strategies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6 p-5 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3">The Three-Fund Portfolio</h4>
+                        <p class="mb-3">A simple yet effective approach using just three funds for complete diversification.</p>
+                        <div class="chart-container h-64">
+                            <canvas id="threeFundChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-gray-50 rounded-md">
+                            <h5 class="font-semibold mb-1">The three components:</h5>
+                            <ol class="list-decimal pl-6">
+                                <li><strong>U.S. Total Stock Market Index Fund</strong> - For domestic stock exposure</li>
+                                <li><strong>International Stock Index Fund</strong> - For international exposure</li>
+                                <li><strong>U.S. Bond Index Fund</strong> - For fixed income/stability</li>
+                            </ol>
+                            <p class="mt-2 text-sm">Adjust the percentage allocation between these three funds based on your age, risk tolerance, and goals.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5 bg-white border border-gray-200 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3">Robo-Advisors</h4>
+                        <p class="mb-3">Digital platforms that create and manage a diversified portfolio based on your goals and risk tolerance.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h5 class="font-semibold mb-2">How They Work:</h5>
+                                <ol class="list-decimal pl-6">
+                                    <li>Answer questions about goals and risk tolerance</li>
+                                    <li>Algorithm creates a diversified portfolio</li>
+                                    <li>Automatic rebalancing and adjustments</li>
+                                    <li>Typically use low-cost ETFs</li>
+                                </ol>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h5 class="font-semibold mb-2">Benefits:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Professional management</li>
+                                    <li>Lower fees than traditional advisors</li>
+                                    <li>Automatic rebalancing</li>
+                                    <li>Tax-loss harvesting (in some cases)</li>
+                                    <li>Easy to get started with small amounts</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-50 p-5 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">Key Tips for Beginning Investors</h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Start early</strong> - Time is your greatest advantage due to compound growth</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Stay consistent</strong> - Regular investing builds wealth over time</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Keep costs low</strong> - Fees compound just like returns, but negatively</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Diversify</strong> - Don't put all your eggs in one basket</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Ignore market noise</strong> - Focus on long-term goals, not daily fluctuations</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Continue learning</strong> - Gradually build your investment knowledge</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Tax-advantaged accounts</strong> - Use retirement accounts like 401(k)s and IRAs</div>
+                        </li>
+                        <li class="flex">
+                            <div class="mr-2 text-indigo-600"><i class="fas fa-check-circle"></i></div>
+                            <div><strong>Rebalance periodically</strong> - Maintain your target asset allocation</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Management Section -->
+        <section id="risk-management" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-700">Risk Management Techniques</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">Understanding Investment Risks</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="mb-4">All investments involve some degree of risk. Understanding these risks is essential for protecting your portfolio:</p>
+                            <ul class="list-disc pl-6 mb-4">
+                                <li><strong>Market risk</strong> - General market fluctuations affecting most investments</li>
+                                <li><strong>Inflation risk</strong> - The erosion of purchasing power over time</li>
+                                <li><strong>Interest rate risk</strong> - How changing rates affect investment values</li>
+                                <li><strong>Liquidity risk</strong> - Difficulty selling an investment when needed</li>
+                                <li><strong>Concentration risk</strong> - Too much exposure to a single investment or sector</li>
+                                <li><strong>Credit/default risk</strong> - Risk of borrowers not repaying debt</li>
+                            </ul>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="riskChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-6 mb-6">
+                    <h3 class="text-2xl font-semibold mb-4">Essential Risk Management Strategies</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Diversification</h4>
+                            <p class="mb-3">Spread investments across different asset classes, sectors, geographic regions, and investment styles to reduce the impact of any single investment performing poorly.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">Implementation:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Invest across multiple asset classes (stocks, bonds, real estate, etc.)</li>
+                                    <li>Within asset classes, diversify across sectors and industries</li>
+                                    <li>Include both domestic and international investments</li>
+                                    <li>Consider index funds for instant diversification</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Asset Allocation</h4>
+                            <p class="mb-3">Determine the right mix of asset classes based on your time horizon, risk tolerance, and financial goals.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">Sample Allocations:</h5>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <p class="font-semibold">Conservative</p>
+                                        <ul class="list-disc pl-6">
+                                            <li>40% Stocks</li>
+                                            <li>50% Bonds</li>
+                                            <li>10% Cash/alternatives</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Moderate</p>
+                                        <ul class="list-disc pl-6">
+                                            <li>60% Stocks</li>
+                                            <li>35% Bonds</li>
+                                            <li>5% Cash/alternatives</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Dollar-Cost Averaging</h4>
+                            <p class="mb-3">Investing fixed amounts at regular intervals to reduce the impact of market volatility and avoid the risk of poor market timing.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">Benefits:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Lowers average cost basis during market downturns</li>
+                                    <li>Removes emotional decision-making</li>
+                                    <li>Creates disciplined investing habit</li>
+                                    <li>Works well with automatic investment plans</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Rebalancing</h4>
+                            <p class="mb-3">Periodically adjusting your portfolio back to target allocations to maintain your risk level as markets fluctuate.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">When to Rebalance:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Schedule-based: Annually or semi-annually</li>
+                                    <li>Threshold-based: When allocations drift 5-10% from targets</li>
+                                    <li>Consider tax implications when rebalancing</li>
+                                    <li>Some funds and robo-advisors rebalance automatically</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Position Sizing</h4>
+                            <p class="mb-3">Limiting how much of your portfolio is allocated to any single investment to prevent catastrophic losses.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">Guidelines:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Individual stocks: Generally no more than 5% of portfolio</li>
+                                    <li>Higher-risk investments: Smaller allocations</li>
+                                    <li>Consider company size, industry, and personal risk tolerance</li>
+                                    <li>Larger allocations may be appropriate for diversified funds</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-5">
+                            <h4 class="text-xl font-semibold mb-3">Tax-Efficient Investing</h4>
+                            <p class="mb-3">Strategically placing investments in appropriate account types to minimize tax impacts.</p>
+                            <div class="p-3 bg-gray-50 rounded-md">
+                                <h5 class="font-semibold mb-1">Strategies:</h5>
+                                <ul class="list-disc pl-6">
+                                    <li>Tax-advantaged accounts (401(k)s, IRAs) for most investments</li>
+                                    <li>Tax-efficient investments like index funds for taxable accounts</li>
+                                    <li>Municipal bonds for high tax bracket investors</li>
+                                    <li>Consider tax-loss harvesting when appropriate</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-red-50 p-5 rounded-lg mb-6">
+                    <h3 class="text-xl font-semibold mb-3 text-red-700">Common Investment Mistakes to Avoid</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <ul class="list-disc pl-6">
+                                <li><strong>Emotional decision-making</strong> - Panic selling during downturns</li>
+                                <li><strong>Chasing performance</strong> - Buying based solely on recent returns</li>
+                                <li><strong>Trying to time the market</strong> - Impossible to do consistently</li>
+                                <li><strong>Inadequate diversification</strong> - Too much in one investment</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="list-disc pl-6">
+                                <li><strong>Ignoring fees</strong> - High expenses erode returns over time</li>
+                                <li><strong>Not starting early enough</strong> - Missing compounding benefits</li>
+                                <li><strong>Frequent trading</strong> - Increases costs and taxes</li>
+                                <li><strong>Following investment "hot tips"</strong> - Often leads to poor outcomes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-50 p-5 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">Risk Management Checklist for Beginners</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I have an emergency fund (3-6 months of expenses)</label>
+                            </div>
+                            <span class="tooltiptext">Before investing, make sure you have sufficient emergency savings in a liquid account.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>My portfolio is diversified across multiple asset classes</label>
+                            </div>
+                            <span class="tooltiptext">Include stocks, bonds, and potentially other assets based on your risk tolerance.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>No single investment exceeds 5% of my portfolio</label>
+                            </div>
+                            <span class="tooltiptext">Limiting position sizes prevents catastrophic losses from a single investment.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I've aligned my investments with my time horizon</label>
+                            </div>
+                            <span class="tooltiptext">Longer time horizons allow for more equity exposure; shorter ones require more conservative allocations.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I understand the fees for all my investments</label>
+                            </div>
+                            <span class="tooltiptext">Expense ratios, transaction fees, and advisory fees all impact returns.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I have a rebalancing strategy</label>
+                            </div>
+                            <span class="tooltiptext">Decide when and how you'll rebalance your portfolio back to target allocations.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I'm prepared to stay invested during market downturns</label>
+                            </div>
+                            <span class="tooltiptext">Market volatility is normal. Having a plan helps you avoid panic selling.</span>
+                        </div>
+                        <div class="tooltip">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <label>I've optimized my investments for tax efficiency</label>
+                            </div>
+                            <span class="tooltiptext">Place tax-inefficient investments in tax-advantaged accounts when possible.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold mb-4 text-indigo-700">Your Investment Journey Starts Now</h2>
+                <p class="mb-6">Investing is a lifelong journey that begins with a single step. By understanding the basics, exploring different investment options, implementing simple strategies, and practicing sound risk management, you're well on your way to building wealth over time.</p>
+                
+                <div class="bg-indigo-50 p-5 rounded-lg mb-6">
+                    <h3 class="text-xl font-semibold mb-3">Key Takeaways</h3>
+                    <ul class="list-disc pl-6">
+                        <li>Start early and stay consistent - time is your greatest advantage</li>
+                        <li>Diversify your investments to manage risk</li>
+                        <li>Keep investment costs low to maximize returns</li>
+                        <li>Match your investment strategy to your goals and risk tolerance</li>
+                        <li>Focus on the long-term and avoid emotional decisions</li>
+                        <li>Consider starting with simple index funds or ETFs</li>
+                        <li>Regularly review and adjust your portfolio as needed</li>
+                    </ul>
+                </div>
+                
+                <div class="p-5 border border-indigo-200 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3">Next Steps</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="card p-4 bg-gray-50">
+                            <h4 class="font-semibold mb-2">1. Set Your Goals</h4>
+                            <p>Define what you're investing for and determine your time horizon for each goal.</p>
+                        </div>
+                        <div class="card p-4 bg-gray-50">
+                            <h4 class="font-semibold mb-2">2. Open an Account</h4>
+                            <p>Choose a brokerage account, IRA, or other appropriate account type to begin your investment journey.</p>
+                        </div>
+                        <div class="card p-4 bg-gray-50">
+                            <h4 class="font-semibold mb-2">3. Make Your First Investment</h4>
+                            <p>Start with a low-cost index fund or ETF that matches your risk tolerance and goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gradient-header py-8 px-6">
+        <div class="container mx-auto text-center text-white">
+            <p class="mb-2">Beginner Investment Guide 2025</p>
+            <p class="text-sm opacity-80">This guide is provided for educational purposes only and does not constitute financial advice. Always conduct your own research or consult with a financial professional before making investment decisions.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Risk slider functionality
+        const riskSlider = document.getElementById('riskSlider');
+        const lowRiskInvestments = document.getElementById('lowRiskInvestments');
+        const mediumRiskInvestments = document.getElementById('mediumRiskInvestments');
+        const highRiskInvestments = document.getElementById('highRiskInvestments');
+        
+        function updateRiskDisplay() {
+            const riskLevel = parseInt(riskSlider.value);
+            
+            // Reset all displays
+            lowRiskInvestments.style.opacity = "0.5";
+            mediumRiskInvestments.style.opacity = "0.5";
+            highRiskInvestments.style.opacity = "0.5";
+            
+            // Highlight the appropriate section
+            if (riskLevel >= 1 && riskLevel <= 3) {
+                lowRiskInvestments.style.opacity = "1";
+            } else if (riskLevel >= 4 && riskLevel <= 7) {
+                mediumRiskInvestments.style.opacity = "1";
+            } else {
+                highRiskInvestments.style.opacity = "1";
+            }
+        }
+        
+        riskSlider.addEventListener('input', updateRiskDisplay);
+        updateRiskDisplay(); // Initial call
+        
+        // Charts 
+        // Compound Interest Chart
+        const compoundCtx = document.getElementById('compoundChart').getContext('2d');
+        const compoundChart = new Chart(compoundCtx, {
+            type: 'line',
+            data: {
+                labels: ['Year 0', 'Year 5', 'Year 10', 'Year 15', 'Year 20', 'Year 25', 'Year 30'],
+                datasets: [
+                    {
+                        label: '3% Return',
+                        data: [10000, 11593, 13439, 15580, 18061, 20938, 24273],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        tension: 0.1,
+                        fill: false
+                    },
+                    {
+                        label: '7% Return',
+                        data: [10000, 14026, 19672, 27590, 38697, 54274, 76123],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        tension: 0.1,
+                        fill: false
+                    },
+                    {
+                        label: '10% Return',
+                        data: [10000, 16105, 25937, 41772, 67275, 108347, 174494],
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        tension: 0.1,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Growth of $10,000 Over 30 Years'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Market Trends Chart
+        const marketTrendsCtx = document.getElementById('marketTrends').getContext('2d');
+        const marketTrendsChart = new Chart(marketTrendsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Technology', 'Healthcare', 'Financials', 'Consumer', 'Energy', 'Utilities'],
+                datasets: [{
+                    label: 'Projected Growth 2025',
+                    data: [12, 8, 6, 5, 9, 4],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 159, 64, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Sector Growth Projections (%)'
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // DCA Chart
+        const dcaCtx = document.getElementById('dcaChart').getContext('2d');
+        const dcaChart = new Chart(dcaCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Stock Price',
+                        data: [100, 90, 95, 105, 110, 100, 95, 90, 85, 95, 105, 110],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        tension: 0.1,
+                        fill: false,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Shares Purchased',
+                        data: [2.0, 2.2, 2.1, 1.9, 1.8, 2.0, 2.1, 2.2, 2.35, 2.1, 1.9, 1.8],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderDash: [5, 5],
+                        tension: 0.1,
+                        fill: false,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Dollar-Cost Averaging Example'
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Stock Price ($)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Shares Purchased'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Three Fund Portfolio Chart
+        const threeFundCtx = document.getElementById('threeFundChart').getContext('2d');
+        const threeFundChart = new Chart(threeFundCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['U.S. Stock Market', 'International Stocks', 'U.S. Bonds'],
+                datasets: [{
+                    data: [60, 20, 20],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Sample Three-Fund Portfolio (Moderate)'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Risk Chart
+        const riskCtx = document.getElementById('riskChart').getContext('2d');
+        const riskChart = new Chart(riskCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Market Risk', 'Inflation Risk', 'Interest Rate Risk', 'Liquidity Risk', 'Concentration Risk', 'Credit Risk'],
+                datasets: [
+                    {
+                        label: 'Stocks',
+                        data: [9, 3, 5, 2, 8, 1],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(54, 162, 235, 1)'
+                    },
+                    {
+                        label: 'Bonds',
+                        data: [3, 6, 9, 4, 2, 6],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(255, 206, 86, 1)'
+                    },
+                    {
+                        label: 'Cash',
+                        data: [1, 9, 2, 1, 1, 1],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(75, 192, 192, 1)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Risk Comparison by Asset Class'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
