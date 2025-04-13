@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis 2025: Navigating the Tariff Turmoil</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navy-bg {
+            background-color: #1a2b4e;
+        }
+        .navy-text {
+            color: #1a2b4e;
+        }
+        .light-bg {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #1a2b4e 0%, #2c4c7c 100%);
+        }
+        .stock-card {
+            border-left: 4px solid;
+        }
+        .buy-border {
+            border-left-color: #10B981;
+        }
+        .sell-border {
+            border-left-color: #EF4444;
+        }
+        .hold-border {
+            border-left-color: #F59E0B;
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        .stats-card {
+            border-top: 3px solid #1a2b4e;
+        }
+        .performance-positive {
+            color: #10B981;
+        }
+        .performance-negative {
+            color: #EF4444;
+        }
+        .info-icon {
+            cursor: pointer;
+            position: relative;
+        }
+        .info-tooltip {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1;
+            width: 300px;
+            background-color: #1a2b4e;
+            color: white;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .info-icon:hover .info-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        thead {
+            background-color: #e9edf5;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f5fa;
+        }
+        .sector-bar {
+            height: 24px;
+            border-radius: 12px;
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="gradient-header text-white py-10 px-4 md:px-0">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Market Analysis 2025</h1>
+            <h2 class="text-2xl md:text-3xl font-light">Navigating the Tariff Turmoil</h2>
+            <p class="mt-4 text-lg max-w-3xl mx-auto">Expert insights and recommendations to help your portfolio weather the storm and capitalize on emerging opportunities</p>
+            <div class="flex justify-center mt-8">
+                <p class="text-sm bg-white text-gray-700 rounded-full px-4 py-1">Updated: April 13, 2025</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Market Overview Section -->
+    <section class="py-12 px-4 md:px-0">
+        <div class="container mx-auto">
+            <h2 class="text-3xl navy-text font-bold mb-6 text-center">Market Overview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Market Summary Card -->
+                <div class="card bg-white p-6 col-span-2">
+                    <h3 class="text-xl navy-text font-semibold mb-4">Current Market Landscape</h3>
+                    <p class="mb-4">The U.S. stock market is experiencing significant volatility following President Trump's sweeping tariff announcements in early April 2025. After implementing tariffs up to 145% on Chinese imports, markets experienced their worst two-day loss since the COVID-19 pandemic, losing approximately $6.6 trillion in value. However, the situation evolved rapidly with Trump announcing a 90-day pause on many "reciprocal" tariffs on April 9th, triggering a market rally of over 9%.</p>
+                    
+                    <p class="mb-4">This unprecedented volatility has created both challenges and opportunities for investors. The S&P 500 has experienced dramatic swings, with single-day movements exceeding 10% in some cases. While technology and import-heavy sectors initially bore the brunt of the sell-off, defensive sectors have shown remarkable resilience.</p>
+                    
+                    <div class="bg-gray-100 p-4 rounded-lg my-6">
+                        <h4 class="navy-text font-semibold mb-2">Key Market Indicators</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>S&P 500 down approximately 8.8% year-to-date</li>
+                            <li>Volatility index (VIX) reached highest levels since March 2020</li>
+                            <li>Bond yields spiking amid concerns about inflation</li>
+                            <li>Defensive sectors outperforming growth-oriented sectors</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Despite the current turmoil, historical data suggests that periods of extreme volatility often present excellent buying opportunities for long-term investors. The market's resilience following the announcement of tariff pauses demonstrates underlying strength in the U.S. economy and corporate earnings potential.</p>
+                </div>
+                
+                <!-- S&P 500 Performance Chart -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-4">S&P 500 Recent Performance</h3>
+                    <div class="chart-container">
+                        <canvas id="spyChart"></canvas>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="stats-card bg-gray-50 p-3 rounded">
+                            <p class="text-sm text-gray-600">YTD Change</p>
+                            <p class="text-xl font-bold performance-negative">-8.81%</p>
+                        </div>
+                        <div class="stats-card bg-gray-50 p-3 rounded">
+                            <p class="text-sm text-gray-600">1-Year Return</p>
+                            <p class="text-xl font-bold performance-positive">+4.68%</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">The S&P 500 has experienced extreme volatility following tariff announcements, with the index posting its largest single-day gain of 2025 on April 9th.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stocks to Buy Section -->
+    <section class="py-12 px-4 md:px-0 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl navy-text font-bold mb-6 text-center">Top Stocks to Buy</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8">During market turbulence, focusing on quality companies with strong fundamentals, defensive characteristics, and reasonable valuations can provide both protection and growth potential.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Defensive Stock Category -->
+                <div class="card bg-white p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full navy-bg flex items-center justify-center mr-3">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <h3 class="text-xl navy-text font-semibold">Defensive Leaders</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Stocks offering stability and consistent performance during market uncertainty.</p>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Johnson & Johnson (JNJ)</h4>
+                                <p class="text-sm text-gray-600">Healthcare</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 3.1%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Diversified healthcare giant with strong defensive characteristics and consistent dividend growth. Resilient business model offers protection during economic uncertainty.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Coca-Cola (KO)</h4>
+                                <p class="text-sm text-gray-600">Consumer Staples</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 2.9%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Consistent performer with strong brand power and global reach. Less susceptible to tariff impact with predominantly regional production facilities.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">NextEra Energy (NEE)</h4>
+                                <p class="text-sm text-gray-600">Utilities</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 2.7%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Leading renewable energy provider with regulated utility business providing stable cash flows. Well-positioned for long-term energy transition trends.</p>
+                    </div>
+                </div>
+                
+                <!-- Growth Stock Category -->
+                <div class="card bg-white p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full navy-bg flex items-center justify-center mr-3">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <h3 class="text-xl navy-text font-semibold">Growth Opportunities</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Companies positioned to deliver above-average growth despite market headwinds.</p>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Microsoft (MSFT)</h4>
+                                <p class="text-sm text-gray-600">Technology</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">AI Leader</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Diversified tech giant with strong cloud growth and AI integration. Subscription-based model provides revenue stability, while AI investments promise future growth.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Palo Alto Networks (PANW)</h4>
+                                <p class="text-sm text-gray-600">Cybersecurity</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Strong Growth</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Leading cybersecurity provider benefiting from increasing digital threats and enterprise security spending. Strong recurring revenue model with expanding margins.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Eli Lilly (LLY)</h4>
+                                <p class="text-sm text-gray-600">Healthcare</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Innovation Leader</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Pharmaceutical innovator with breakthrough treatments in diabetes and obesity. Strong pipeline and growing market share in key therapeutic areas.</p>
+                    </div>
+                </div>
+                
+                <!-- Income Stock Category -->
+                <div class="card bg-white p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full navy-bg flex items-center justify-center mr-3">
+                            <i class="fas fa-hand-holding-usd text-white"></i>
+                        </div>
+                        <h3 class="text-xl navy-text font-semibold">Income Generators</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Reliable dividend payers offering attractive yields and income growth potential.</p>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Realty Income (O)</h4>
+                                <p class="text-sm text-gray-600">Real Estate</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 6.1%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Monthly dividend payer with high-quality commercial real estate portfolio. Long-term triple-net leases provide reliable income stream with inflation protection.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Verizon (VZ)</h4>
+                                <p class="text-sm text-gray-600">Communication</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 6.7%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Telecom giant offering essential services with attractive yield. Limited international exposure reduces tariff risks, while 5G deployment provides growth catalyst.</p>
+                    </div>
+                    
+                    <div class="stock-card buy-border bg-gray-50 p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">CVS Health (CVS)</h4>
+                                <p class="text-sm text-gray-600">Healthcare</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-positive">Dividend: 3.8%</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Integrated healthcare provider with pharmacy, insurance, and clinic operations. Recent underperformance creates value opportunity with 54.8% YTD return potential.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stock Selection Criteria -->
+            <div class="card bg-white p-6">
+                <h3 class="text-xl navy-text font-semibold mb-4">Our Stock Selection Criteria</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-balance-scale text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Financial Strength</h4>
+                        </div>
+                        <p class="text-sm">Companies with solid balance sheets, low debt-to-equity ratios, and strong free cash flow generation that can weather market downturns.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-pie text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Tariff Resilience</h4>
+                        </div>
+                        <p class="text-sm">Businesses with limited exposure to international supply chains, domestic production, or pricing power to offset potential tariff impacts.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-gem text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Valuation</h4>
+                        </div>
+                        <p class="text-sm">Companies trading at reasonable multiples relative to their growth prospects, with a preference for stocks that have declined more than warranted by fundamentals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stocks to Sell/Avoid Section -->
+    <section class="py-12 px-4 md:px-0">
+        <div class="container mx-auto">
+            <h2 class="text-3xl navy-text font-bold mb-6 text-center">Stocks to Avoid or Sell</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8">In the current environment, certain companies face significant headwinds from tariffs, supply chain disruptions, or valuation concerns that warrant caution.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tariff Vulnerable Companies -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-4">Tariff-Vulnerable Companies</h3>
+                    <p class="text-gray-600 mb-4">Businesses with significant exposure to international supply chains and limited ability to pass costs to consumers.</p>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Major Consumer Electronics Manufacturers</h4>
+                                <p class="text-sm text-gray-600">Consumer Discretionary</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">High Risk</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Companies heavily reliant on Chinese manufacturing for consumer electronics face significant cost pressures and margin compression from tariffs, with limited ability to quickly relocate production.</p>
+                    </div>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">U.S. Automakers with China Exposure</h4>
+                                <p class="text-sm text-gray-600">Automotive</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">Supply Chain Risk</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Auto manufacturers with significant component sourcing from China face both input cost increases and potential retaliation in the important Chinese auto market.</p>
+                    </div>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Low-Margin Retailers</h4>
+                                <p class="text-sm text-gray-600">Retail</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">Margin Pressure</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Retailers operating on thin margins with heavy reliance on imported goods face a difficult choice between absorbing higher costs or raising prices and potentially losing sales volume.</p>
+                    </div>
+                </div>
+                
+                <!-- Overvalued/Vulnerable Companies -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-4">Valuation Concerns & Other Risks</h3>
+                    <p class="text-gray-600 mb-4">Companies with excessive valuations or specific business challenges that may underperform in the current environment.</p>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Speculative AI Companies</h4>
+                                <p class="text-sm text-gray-600">Technology</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">Excessive Valuation</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Early-stage AI companies with minimal revenue and extreme valuations are particularly vulnerable during market corrections, as investors become more discerning about profitability timelines.</p>
+                    </div>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Highly Leveraged Companies</h4>
+                                <p class="text-sm text-gray-600">Various Sectors</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">Interest Rate Risk</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Companies with excessive debt face refinancing challenges in the current elevated interest rate environment, particularly if cash flows are unstable or diminishing.</p>
+                    </div>
+                    
+                    <div class="stock-card sell-border bg-gray-50 p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold">Luxury Goods Manufacturers</h4>
+                                <p class="text-sm text-gray-600">Consumer Discretionary</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold performance-negative">Demand Concerns</p>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-2">Luxury brands with significant reliance on Chinese consumers face demand headwinds from both economic slowdown and potential consumer sentiment shifts during trade tensions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sector Analysis Section -->
+    <section class="py-12 px-4 md:px-0 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl navy-text font-bold mb-6 text-center">Sector Analysis</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8">The current market turmoil has created significant performance dispersion across sectors, with defensive industries outperforming while those with high international exposure underperform.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Sector Performance Chart -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-6">Sector Performance (YTD 2025)</h3>
+                    <div>
+                        <!-- Healthcare Sector -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Healthcare</span>
+                                <span class="font-medium performance-positive">+6.3%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-green-500 h-6 rounded-full sector-bar" style="width: 63%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Utilities Sector -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Utilities</span>
+                                <span class="font-medium performance-positive">+4.8%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-green-500 h-6 rounded-full sector-bar" style="width: 48%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Consumer Staples -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Consumer Staples</span>
+                                <span class="font-medium performance-positive">+2.1%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-green-500 h-6 rounded-full sector-bar" style="width: 21%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Energy -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Energy</span>
+                                <span class="font-medium performance-negative">-2.4%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-red-500 h-6 rounded-full sector-bar" style="width: 24%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Financials -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Financials</span>
+                                <span class="font-medium performance-negative">-5.7%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-red-500 h-6 rounded-full sector-bar" style="width: 57%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technology -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Technology</span>
+                                <span class="font-medium performance-negative">-11.3%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-red-500 h-6 rounded-full sector-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Consumer Discretionary -->
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-medium">Consumer Discretionary</span>
+                                <span class="font-medium performance-negative">-12.6%</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-6">
+                                <div class="bg-red-500 h-6 rounded-full sector-bar" style="width: 76%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sector Insights and Recommendations -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-6">Sector Insights</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-green-600 mb-2">Outperforming Sectors</h4>
+                            <ul class="space-y-3">
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Healthcare:</span> 
+                                        <span class="text-sm text-gray-700">Benefiting from defensive characteristics and growth in specialized treatments. Companies like Eli Lilly, Merck, and CVS Health are showing particular strength.</span>
+                                    </div>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Utilities:</span> 
+                                        <span class="text-sm text-gray-700">Showing resilience due to stable demand patterns and regulated returns. Renewable energy leaders like NextEra are outperforming traditional utilities.</span>
+                                    </div>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Cybersecurity:</span> 
+                                        <span class="text-sm text-gray-700">While technology broadly has struggled, cybersecurity companies are showing strength due to essential nature of their services and limited tariff exposure.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-red-600 mb-2">Underperforming Sectors</h4>
+                            <ul class="space-y-3">
+                                <li class="flex">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Consumer Discretionary:</span> 
+                                        <span class="text-sm text-gray-700">Facing pressure from both tariff impacts on input costs and concerns about consumer spending in an uncertain economic environment.</span>
+                                    </div>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Technology Hardware:</span> 
+                                        <span class="text-sm text-gray-700">Companies with complex global supply chains and significant manufacturing in China are particularly vulnerable to tariff impacts and supply disruptions.</span>
+                                    </div>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">Industrial Exporters:</span> 
+                                        <span class="text-sm text-gray-700">Manufacturers with significant export business to China are experiencing demand uncertainty and potential retaliatory tariff impacts.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded">
+                            <h4 class="font-semibold navy-text mb-2">Sector Allocation Strategy</h4>
+                            <p class="text-sm text-gray-700 mb-3">In the current environment, we recommend the following sector allocation shifts:</p>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex">
+                                    <i class="fas fa-arrow-up text-green-500 mr-2"></i>
+                                    <span><strong>Overweight:</strong> Healthcare, Utilities, Consumer Staples, Cybersecurity</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-equals text-yellow-500 mr-2"></i>
+                                    <span><strong>Neutral:</strong> Energy, Financials, Software (selective)</span>
+                                </li>
+                                <li class="flex">
+                                    <i class="fas fa-arrow-down text-red-500 mr-2"></i>
+                                    <span><strong>Underweight:</strong> Consumer Discretionary, Hardware Technology, Industrial Exporters</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Thematic Investment Opportunities -->
+            <div class="card bg-white p-6 mt-8">
+                <h3 class="text-xl navy-text font-semibold mb-4">Thematic Investment Opportunities</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-shield-alt text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Cybersecurity Focus</h4>
+                        </div>
+                        <p class="text-sm mb-2">The digital security sector has shown resilience during market volatility, with continued enterprise spending on essential protection.</p>
+                        <p class="text-sm font-medium text-blue-600">Key Players: Palo Alto Networks, CrowdStrike, Fortinet</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-pills text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Healthcare Innovation</h4>
+                        </div>
+                        <p class="text-sm mb-2">Companies developing breakthrough treatments for chronic conditions like obesity, diabetes, and cancer offer growth potential regardless of economic conditions.</p>
+                        <p class="text-sm font-medium text-blue-600">Key Players: Eli Lilly, Vertex Pharmaceuticals, Thermo Fisher Scientific</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-solar-panel text-blue-600 mr-2"></i>
+                            <h4 class="font-semibold">Renewable Energy</h4>
+                        </div>
+                        <p class="text-sm mb-2">The transition to cleaner energy sources continues despite market volatility, supported by falling costs and policy incentives.</p>
+                        <p class="text-sm font-medium text-blue-600">Key Players: NextEra Energy, Brookfield Renewable, First Solar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Outlook Section -->
+    <section class="py-12 px-4 md:px-0">
+        <div class="container mx-auto">
+            <h2 class="text-3xl navy-text font-bold mb-6 text-center">Market Outlook</h2>
+            <p class="text-center max-w-3xl mx-auto mb-8">While near-term volatility may persist, we see several factors that could shape market performance through the remainder of 2025.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- Short-term Outlook -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-4">Short-Term Outlook (3-6 Months)</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-700 mb-2">Key Factors</h4>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-chart-line text-red-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Tariff Developments:</span> 
+                                    <span class="text-sm text-gray-700">Ongoing negotiations during the 90-day pause will be critical. Markets will likely respond positively to any de-escalation and negatively to renewed tensions.</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-dollar-sign text-yellow-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Q2 Earnings Season:</span> 
+                                    <span class="text-sm text-gray-700">Corporate guidance will provide insights into the actual tariff impact on margins and supply chains. Expect significant volatility around announcements.</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-university text-blue-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Federal Reserve Policy:</span> 
+                                    <span class="text-sm text-gray-700">The Fed's response to potential inflationary pressures from tariffs will be closely watched. Interest rate path could shift if inflation rises significantly.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h4 class="font-semibold navy-text mb-2">Our Short-Term View</h4>
+                        <p class="text-sm text-gray-700 mb-3">We expect continued elevated volatility in the coming months as markets digest tariff developments and assess actual economic impacts. Defensive positioning with selective growth exposure is prudent during this period.</p>
+                        <div class="flex items-center">
+                            <span class="mr-2 text-sm font-medium">Market Sentiment:</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Cautiously Neutral</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Long-term Outlook -->
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl navy-text font-semibold mb-4">Long-Term Outlook (12-24 Months)</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-700 mb-2">Key Factors</h4>
+                        <ul class="space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-industry text-purple-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Supply Chain Restructuring:</span> 
+                                    <span class="text-sm text-gray-700">Companies will accelerate diversification away from China, benefiting alternative manufacturing hubs in Southeast Asia, Mexico, and potentially domestic production.</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-microchip text-green-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Technology Adoption:</span> 
+                                    <span class="text-sm text-gray-700">AI implementation, automation, and productivity enhancements will continue driving corporate earnings growth despite macro headwinds.</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-globe-americas text-blue-500 mt-1 mr-2"></i>
+                                <div>
+                                    <span class="font-medium">Global Economic Realignment:</span> 
+                                    <span class="text-sm text-gray-700">Shifting trade patterns may create regional economic blocks with different growth trajectories, requiring more nuanced investment approaches.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h4 class="font-semibold navy-text mb-2">Our Long-Term View</h4>
+                        <p class="text-sm text-gray-700 mb-3">Despite near-term challenges, we remain constructive on U.S. equities over the longer term. Companies will adapt to the new trade realities, with domestically-focused businesses potentially benefiting from reshoring trends.</p>
+                        <div class="flex items-center">
+                            <span class="mr-2 text-sm font-medium">Market Sentiment:</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Moderately Bullish</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Investment Strategy -->
+            <div class="card bg-white p-6">
+                <h3 class="text-xl navy-text font-semibold mb-4">Investment Strategy Recommendations</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full navy-bg flex items-center justify-center mr-2">
+                                <span class="text-white font-bold">1</span>
+                            </div>
+                            <h4 class="font-semibold">Portfolio Diversification</h4>
+                        </div>
+                        <p class="text-sm">Maintain broad diversification across sectors and asset classes. Include international exposure to regions less impacted by U.S.-China trade tensions, such as India and parts of Europe.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full navy-bg flex items-center justify-center mr-2">
+                                <span class="text-white font-bold">2</span>
+                            </div>
+                            <h4 class="font-semibold">Quality Focus</h4>
+                        </div>
+                        <p class="text-sm">Emphasize companies with strong balance sheets, pricing power, and competitive moats. These businesses are better positioned to navigate uncertain economic conditions and potential margin pressures.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded-full navy-bg flex items-center justify-center mr-2">
+                                <span class="text-white font-bold">3</span>
+                            </div>
+                            <h4 class="font-semibold">Strategic Cash Position</h4>
+                        </div>
+                        <p class="text-sm">Maintain 10-15% cash reserves to capitalize on market dislocations and attractive buying opportunities during volatility episodes. Strategic deployment during selloffs can enhance long-term returns.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-5 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 class="font-semibold navy-text mb-3">Final Thoughts</h4>
+                    <p class="text-sm text-gray-700">While the current market turmoil creates uncertainty, it's important to remember that volatility often presents opportunities for long-term investors. History has consistently shown that maintaining discipline during periods of market stress and focusing on quality companies with sustainable competitive advantages ultimately leads to successful investment outcomes.</p>
+                    <p class="text-sm text-gray-700 mt-2">We believe the current environment favors a barbell approach: defensive positions in healthcare, utilities, and consumer staples balanced with selective growth exposure in areas like cybersecurity, AI leaders, and renewable energy. This strategy provides both downside protection and participation in long-term growth themes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="navy-bg text-white py-8 px-4 md:px-0">
+        <div class="container mx-auto text-center">
+            <h3 class="text-xl font-semibold mb-4">Market Analysis Report</h3>
+            <p class="text-sm mb-4">This analysis is for informational purposes only and does not constitute investment advice. Always conduct your own research and consult with a qualified financial advisor before making investment decisions.</p>
+            <p class="text-xs">Data accurate as of April 13, 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // S&P 500 Chart Data
+            const spyCtx = document.getElementById('spyChart').getContext('2d');
+            const spyChart = new Chart(spyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mar 1', 'Mar 5', 'Mar 10', 'Mar 15', 'Mar 20', 'Mar 25', 'Mar 31', 'Apr 5', 'Apr 9', 'Apr 11'],
+                    datasets: [{
+                        label: 'S&P 500',
+                        data: [583.77, 583.06, 560.58, 562.81, 565.49, 575.46, 559.39, 505.28, 548.62, 533.94],
+                        borderColor: '#1a2b4e',
+                        backgroundColor: 'rgba(26, 43, 78, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1,
+                        pointRadius: 3,
+                        pointBackgroundColor: '#1a2b4e'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `S&P 500: $${context.raw.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Animate sector bars
+            const sectorBars = document.querySelectorAll('.sector-bar');
+            setTimeout(() => {
+                sectorBars.forEach(bar => {
+                    bar.style.width = bar.style.width;
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>
