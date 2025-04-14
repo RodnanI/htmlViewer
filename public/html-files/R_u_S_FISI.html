@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netzwerktechnik Praktikum Anleitung</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --light-gray: #ecf0f1;
+            --border-color: #ddd;
+            --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        h1 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .intro {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .toc {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .toc h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+        }
+        
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .toc a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .task {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .task:last-child {
+            border-bottom: none;
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        
+        .task-header h3 {
+            margin: 0;
+        }
+        
+        .task-content {
+            display: none;
+            padding: 1rem;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+        }
+        
+        .task-content.active {
+            display: block;
+        }
+        
+        .steps {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .tip {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .warning {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            background-color: #f8f8f8;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+        }
+        
+        .code-block {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            background-color: #f8f8f8;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .network-diagram {
+            max-width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            background-color: white;
+        }
+        
+        .diagram-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .collapsible {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            transition: 0.4s;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .active, .collapsible:hover {
+            background-color: #dde4e8;
+        }
+        
+        .collapsible:after {
+            content: '+';
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        
+        .active:after {
+            content: '-';
+        }
+        
+        .collapsible-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .dual-language {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .term {
+            font-weight: bold;
+        }
+        
+        .glossary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .glossary-table th, .glossary-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .glossary-table th {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .dual-language {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Netzwerktechnik Praktikum Anleitung</h1>
+            <p class="subtitle">Schritt-für-Schritt Anleitung für Praktikumsaufgaben</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <p>Diese Anleitung führt Sie durch die praktischen Aufgaben des Netzwerktechnik-Praktikums. Zu jeder Aufgabe finden Sie detaillierte Erklärungen, Schritte zur Durchführung sowie hilfreiche Tipps sowohl auf Deutsch als auch auf Englisch.</p>
+            <p>Die Dokumente sind als "COMPANY RESTRICTED" gekennzeichnet, da sie im Rahmen eines Firmenpraktikums verwendet werden.</p>
+        </section>
+        
+        <section class="toc">
+            <h2>Inhaltsverzeichnis (Table of Contents)</h2>
+            <ul>
+                <li><a href="#basics">1. Grundlagen der Netzwerktechnik (Network Basics)</a></li>
+                <li><a href="#direct-connection">2. Direkte Verbindung (Direct Connection)</a></li>
+                <li><a href="#indirect-connection">3. Indirekte Verbindung (Indirect Connection)</a></li>
+                <li><a href="#routing">4. Routing zwischen Netzwerken (Routing Between Networks)</a></li>
+                <li><a href="#knowledge-proof">5. Knowledge Proof (Wissensüberprüfung)</a></li>
+                <li><a href="#advanced">6. Weiterführende Aufgaben (Advanced Tasks)</a></li>
+                <li><a href="#router-config">7. Router-Konfiguration (Router Configuration)</a></li>
+                <li><a href="#commands">8. Nützliche Befehle (Useful Commands)</a></li>
+                <li><a href="#glossary">9. Glossar: Deutsch-Englisch Terminologie</a></li>
+            </ul>
+        </section>
+        
+        <section id="basics" class="section">
+            <h2>1. Grundlagen der Netzwerktechnik (Network Basics)</h2>
+            
+            <div class="task">
+                <button class="collapsible">Zahlensysteme (Number Systems)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <h3>Binär zu Dezimal (Binary to Decimal)</h3>
+                        <p>In der Netzwerktechnik ist es wichtig, zwischen Binär- und Dezimalzahlen umrechnen zu können:</p>
+                        <ul class="steps">
+                            <li><strong>00000000 = 0</strong></li>
+                            <li><strong>11111111 = 255</strong> = 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128</li>
+                            <li><strong>01000011 = 67</strong> = 1 + 2 + 64</li>
+                        </ul>
+                        
+                        <h3>Dezimal zu Binär (Decimal to Binary)</h3>
+                        <ul class="steps">
+                            <li><strong>255 = 11111111</strong> = 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128</li>
+                            <li><strong>38 = 00100110</strong> = 2 + 4 + 32</li>
+                        </ul>
+                        
+                        <div class="tip">
+                            <p><strong>Tipp:</strong> Jede Position in einer 8-Bit-Binärzahl hat einen Wert: 128, 64, 32, 16, 8, 4, 2, 1 (von links nach rechts).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task">
+                <button class="collapsible">IP-Adressen (IP Addresses)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p>IPv4-Adressen bestehen aus 32 Bit, aufgeteilt in 4 Oktette zu je 8 Bit:</p>
+                        <ul class="steps">
+                            <li><strong>Erste Adresse:</strong> 0.0.0.0</li>
+                            <li><strong>Letzte Adresse:</strong> 255.255.255.255</li>
+                            <li><strong>Beispiel:</strong> 192.168.2.1</li>
+                        </ul>
+                        
+                        <div class="diagram-container">
+                            <div class="network-diagram">
+                                <h4>IPv4 Address Format:</h4>
+                                <pre>
+185 . 107 . 80 . 231
+Oktet  Oktet  Oktet  Oktet
+
+10110001.01101011.01010000.11100111
+1 Byte = 8 Bits   1 Byte = 8 Bits   1 Byte = 8 Bits   1 Byte = 8 Bits
+              
+4 Bytes = 32 Bits
+                                </pre>
+                            </div>
+                        </div>
+                        
+                        <h3>Subnetzmakse (Subnet Mask)</h3>
+                        <p>Die Subnetzmakse definiert, welcher Teil der IP-Adresse das Netzwerk und welcher Teil den Host identifiziert:</p>
+                        <ul class="steps">
+                            <li><strong>Standardsubnetzmakse für Klasse C:</strong> 255.255.255.0 (oder /24)</li>
+                            <li>Bei dieser Maske sind die ersten 24 Bits für die Netzwerk-ID und die letzten 8 Bits für die Host-ID reserviert.</li>
+                        </ul>
+                        
+                        <div class="tip">
+                            <p><strong>Tipp:</strong> Um festzustellen, ob zwei Geräte im selben Netzwerk sind, wenden Sie die Subnetzmakse auf beide IP-Adressen an - wenn das Ergebnis gleich ist, sind sie im selben Netzwerk.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="direct-connection" class="section">
+            <h2>2. Direkte Verbindung (Direct Connection)</h2>
+            
+            <div class="task">
+                <h3>Aufgabe 1.1.1: Direkte Verbindung</h3>
+                <p>Verbindet zwei Laptops per LAN-Kabel (RJ45) miteinander und führt einen Ping zwischen den beiden Laptops durch.</p>
+                
+                <button class="collapsible">Schrittweise Anleitung (Step-by-Step Guide)</button>
+                <div class="collapsible-content">
+                    <ol class="steps">
+                        <li>Besorgt euch zwei Laptops und ein RJ45-LAN-Kabel (Netzwerkkabel).</li>
+                        <li>Verbindet beide Laptops direkt mit dem Kabel.</li>
+                        <li>Konfiguriert die IP-Adressen auf beiden Laptops:
+                            <ul>
+                                <li>Windows: Netzwerkeinstellungen → Adapteroptionen ändern → Rechtsklick auf LAN-Verbindung → Eigenschaften → Internet Protocol Version 4 (TCP/IPv4) → Eigenschaften</li>
+                                <li>Statische IP-Adressen im gleichen Netzwerk vergeben:
+                                    <br>Laptop 1: IP: 192.168.1.1, Subnetzmaske: 255.255.255.0
+                                    <br>Laptop 2: IP: 192.168.1.2, Subnetzmaske: 255.255.255.0</li>
+                            </ul>
+                        </li>
+                        <li>Öffnet die Kommandozeile (cmd) und testet die Verbindung mittels Ping:
+                            <div class="code-block">
+# Auf Laptop 1:
+ping 192.168.1.2
+
+# Auf Laptop 2:
+ping 192.168.1.1</div>
+                        </li>
+                    </ol>
+                    
+                    <div class="tip">
+                        <p><strong>Was ist ein "Ping"?</strong> Ein Ping ist ein Diagnose-Werkzeug, das ICMP Echo Request-Pakete an einen Zielhost sendet und auf Antworten wartet. Es wird verwendet, um die Erreichbarkeit eines Hosts zu testen und die Übertragungszeit zu messen.</p>
+                    </div>
+                    
+                    <div class="warning">
+                        <p><strong>Achtung:</strong> Falls der Ping nicht funktioniert, überprüft folgende Punkte:</p>
+                        <ul>
+                            <li>Sind die IP-Adressen korrekt konfiguriert?</li>
+                            <li>Ist die Windows-Firewall eventuell ein Hindernis? (ICMP könnte blockiert sein)</li>
+                            <li>Funktioniert das Netzwerkkabel? (Leuchten die LAN-LEDs?)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="indirect-connection" class="section">
+            <h2>3. Indirekte Verbindung (Indirect Connection)</h2>
+            
+            <div class="task">
+                <h3>Aufgabe 1.1.2: Indirekte Verbindung</h3>
+                <p>Schafft nun aus mehreren Laptops ein LAN. Bei diesem sollen alle Geräte miteinander kommunizieren können.</p>
+                
+                <button class="collapsible">Schrittweise Anleitung (Step-by-Step Guide)</button>
+                <div class="collapsible-content">
+                    <ol class="steps">
+                        <li>Besorgt euch einen Netzwerk-Switch als zwischengeschaltetes Gerät.</li>
+                        <li>Verbindet alle Laptops mit LAN-Kabeln mit dem Switch.</li>
+                        <li>Konfiguriert IP-Adressen auf allen Laptops im gleichen Netzwerk:
+                            <ul>
+                                <li>Laptop 1: 192.168.1.1/24</li>
+                                <li>Laptop 2: 192.168.1.2/24</li>
+                                <li>Laptop 3: 192.168.1.3/24</li>
+                                <li>usw.</li>
+                            </ul>
+                        </li>
+                        <li>Testet die Verbindung zwischen allen Geräten mit dem Ping-Befehl.</li>
+                    </ol>
+                    
+                    <div class="tip">
+                        <p><strong>Was ist ein Switch?</strong> Ein Switch ist ein Netzwerkgerät, das mehrere Geräte in einem lokalen Netzwerk (LAN) verbindet. Im Gegensatz zu einem Hub leitet ein Switch Pakete nur an den spezifischen Port weiter, an dem das Zielgerät angeschlossen ist, was die Netzwerkeffizienz verbessert.</p>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="network-diagram">
+                            <h4>Indirekte Verbindung mit Switch:</h4>
+                            <pre>
+Laptop 1 (192.168.1.1) -----+
+                            |
+Laptop 2 (192.168.1.2) -----+------ Switch -----+
+                            |                    |
+Laptop 3 (192.168.1.3) -----+                    +------ Optional: Router zum Internet
+                                                 |
+                                                 +
+                                          Weitere Geräte
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="routing" class="section">
+            <h2>4. Routing zwischen Netzwerken (Routing Between Networks)</h2>
+            
+            <div class="task">
+                <h3>Aufgabe 1.1.3: Routing</h3>
+                <p>Verbindet dieses LAN mit einem zweiten, neuen LAN. Dieses Netzwerk soll unabhängig vom anderen sein. Findet eine Möglichkeit, diese beiden Netzwerke miteinander kommunizieren zu lassen.</p>
+                
+                <button class="collapsible">Schrittweise Anleitung (Step-by-Step Guide)</button>
+                <div class="collapsible-content">
+                    <ol class="steps">
+                        <li>Erstellt ein zweites Netzwerk mit einem anderen IP-Bereich:
+                            <ul>
+                                <li>Netzwerk 1: 192.168.1.0/24</li>
+                                <li>Netzwerk 2: 192.168.2.0/24</li>
+                            </ul>
+                        </li>
+                        <li>Verbindet beide Netze zunächst mit einem Switch:
+                            <ul>
+                                <li>Konfiguriert Geräte im Netzwerk 1 mit IP-Adressen aus dem 192.168.1.0/24 Bereich</li>
+                                <li>Konfiguriert Geräte im Netzwerk 2 mit IP-Adressen aus dem 192.168.2.0/24 Bereich</li>
+                            </ul>
+                        </li>
+                        <li>Prüft: Können sich die Laptops der unterschiedlichen Netze jetzt anpingen? (Normalerweise nicht, da sie in verschiedenen Subnetzen sind)</li>
+                        <li>Router als Vermittler einrichten:
+                            <ul>
+                                <li>Verbindet den Router mit beiden Netzwerken</li>
+                                <li>Konfiguriert den Router mit je einer IP-Adresse in beiden Netzwerken:
+                                    <br>Interface 1: 192.168.1.254/24
+                                    <br>Interface 2: 192.168.2.254/24</li>
+                                <li>Aktiviert IP-Routing auf dem Router (siehe Router-Konfigurationsabschnitt)</li>
+                            </ul>
+                        </li>
+                        <li>Konfiguriert auf allen Geräten das Default-Gateway:
+                            <ul>
+                                <li>Geräte in Netzwerk 1: Gateway = 192.168.1.254</li>
+                                <li>Geräte in Netzwerk 2: Gateway = 192.168.2.254</li>
+                            </ul>
+                        </li>
+                        <li>Testet die Verbindung zwischen den Netzwerken mit Ping.</li>
+                    </ol>
+                    
+                    <div class="tip">
+                        <p><strong>Was ist ein Router?</strong> Ein Router ist ein Netzwerkgerät, das Datenpakete zwischen verschiedenen Netzwerken weiterleitet. Er arbeitet auf Schicht 3 (Netzwerkschicht) des OSI-Modells und verwendet IP-Adressen zur Weiterleitung.</p>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="network-diagram">
+                            <h4>Routing zwischen zwei Netzwerken:</h4>
+                            <pre>
+Netzwerk 1 (192.168.1.0/24)                      Netzwerk 2 (192.168.2.0/24)
++-------------------+                           +-------------------+
+|                   |                           |                   |
+| Laptop 1.1        |                           | Laptop 2.1        |
+| 192.168.1.1/24    |                           | 192.168.2.1/24    |
+| Gateway: 1.254    |                           | Gateway: 2.254    |
+|                   |                           |                   |
++--------+----------+                           +---------+---------+
+         |                                                |
++--------+----------+                           +---------+---------+
+|                   |                           |                   |
+| Laptop 1.2        |                           | Laptop 2.2        |
+| 192.168.1.2/24    |                           | 192.168.2.2/24    |
+| Gateway: 1.254    |                           | Gateway: 2.254    |
+|                   |                           |                   |
++--------+----------+                           +---------+---------+
+         |                                                |
+         |                                                |
+         |          +---------------------+               |
+         +----------| Router              |---------------+
+                    | Interface 1: 1.254  |
+                    | Interface 2: 2.254  |
+                    +---------------------+
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="knowledge-proof" class="section">
+            <h2>5. Knowledge Proof (Wissensüberprüfung)</h2>
+            
+            <div class="task">
+                <h3>Aufgabe 1.2: Knowledge Proof</h3>
+                
+                <button class="collapsible">IP-Adressberechnung (IP Address Calculation)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Was ist die letztmögliche IP-Adresse in einem Netzwerk mit der Subnetzmaske 255.255.255.0 und der Netzadresse 10.10.10.0? Was ist die erstmögliche?</p>
+                        
+                        <p><strong>Antwort:</strong></p>
+                        <ul>
+                            <li>Netzadresse (Network Address): 10.10.10.0</li>
+                            <li>Subnetzmaske (Subnet Mask): 255.255.255.0 (/24)</li>
+                            <li>Erstmögliche Host-Adresse: 10.10.10.1</li>
+                            <li>Letztmögliche Host-Adresse: 10.10.10.254</li>
+                            <li>Broadcast-Adresse: 10.10.10.255</li>
+                        </ul>
+                        
+                        <p><strong>Erklärung:</strong> Bei einer /24 Subnetzmaske sind die ersten 24 Bits (die ersten drei Oktette) für die Netzwerk-ID reserviert, und die letzten 8 Bits für die Host-ID. Die Netzadresse hat alle Host-Bits auf 0, die Broadcast-Adresse hat alle Host-Bits auf 1. Die nutzbaren Host-Adressen liegen dazwischen.</p>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Anzahl der Hosts in einem Subnetz (Number of Hosts in a Subnet)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Wie viele Hosts lassen sich in diesem Netzwerk gleichzeitig einbinden und warum?</p>
+                        
+                        <p><strong>Antwort:</strong> In einem Netzwerk mit einer /24 Subnetzmaske (255.255.255.0) können 254 Hosts eingebunden werden.</p>
+                        
+                        <p><strong>Erklärung:</strong> Bei 8 Bit für Host-Adressen gibt es theoretisch 2^8 = 256 mögliche Kombinationen. Davon müssen jedoch zwei abgezogen werden:
+                        <ul>
+                            <li>Die Netzadresse (alle Host-Bits sind 0)</li>
+                            <li>Die Broadcast-Adresse (alle Host-Bits sind 1)</li>
+                        </ul>
+                        Daher: 256 - 2 = 254 nutzbare Host-Adressen</p>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Standard-Gateway (Default Gateway)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Was ist im Regelfall das Standardgateway im Netz 192.168.2.0/24?</p>
+                        
+                        <p><strong>Antwort:</strong> Im Regelfall wird oft die erste (.1) oder letzte nutzbare Adresse (.254) als Standardgateway verwendet. In einem 192.168.2.0/24 Netzwerk wäre das typischerweise entweder 192.168.2.1 oder 192.168.2.254.</p>
+                        
+                        <p><strong>Erklärung:</strong> Es gibt keine technische Regel, welche IP-Adresse als Gateway genutzt werden muss. Allerdings ist es eine weit verbreitete Konvention, entweder die erste (192.168.2.1) oder die letzte nutzbare Adresse (192.168.2.254) im Subnetz für das Gateway zu verwenden.</p>
+                    </div>
+                </div>
+                
+                <button class="collapsible">IP-Adresskonflikte (IP Address Conflicts)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Was passiert, wenn zwei Laptops die gleiche IP-Adresse haben? Probiert es aus!</p>
+                        
+                        <p><strong>Antwort:</strong> Wenn zwei Geräte in einem Netzwerk die gleiche IP-Adresse verwenden, kommt es zu einem IP-Adresskonflikt. Dies führt zu unvorhersehbarem Verhalten der Netzwerkkommunikation für beide Geräte.</p>
+                        
+                        <p><strong>Erklärung:</strong> Typische Symptome:
+                        <ul>
+                            <li>Beide Geräte erhalten Fehlermeldungen über einen IP-Konflikt</li>
+                            <li>Intermittierende Verbindungsverluste</li>
+                            <li>Pakete werden an das falsche Gerät gesendet</li>
+                            <li>Unzuverlässige Netzwerkverbindung für beide Geräte</li>
+                        </ul>
+                        
+                        <p>In Windows erscheint normalerweise eine Benachrichtigung, die auf einen IP-Konflikt hinweist.</p>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Subnetzmasken (Subnet Masks)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Wie wirkt sich eine Anpassung der Subnetzmaske an einem der PCs, ohne Änderung an den anderen Netzwerkteilnehmern, auf die Funktion des Netzwerkes aus?</p>
+                        
+                        <p><strong>Antwort:</strong> Wenn die Subnetzmaske nur auf einem PC geändert wird, kann dies dazu führen, dass dieser PC bestimmte andere Geräte nicht mehr erreichen kann, obwohl physisch alle im selben Netzwerk verbunden sind.</p>
+                        
+                        <p><strong>Erklärung:</strong></p>
+                        <ul>
+                            <li>Eine PC bestimmt anhand seiner IP-Adresse und Subnetzmaske, ob ein Zielgerät im gleichen Subnetz liegt</li>
+                            <li>Wenn die Subnetzmaske nur auf einem PC geändert wird, ändert sich dessen Sicht des Netzwerks</li>
+                            <li>Beispiel: Mit 192.168.1.10/24 wird ein PC mit 192.168.1.20 als im lokalen Netz angesehen. Mit 192.168.1.10/16 würde auch 192.168.2.20 als im lokalen Netz angesehen werden.</li>
+                            <li>Dies kann zu Routing-Problemen führen, da der PC möglicherweise versucht, manche Pakete direkt zu senden, statt sie über das Gateway zu routen, oder umgekehrt.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="advanced" class="section">
+            <h2>6. Weiterführende Aufgaben (Advanced Tasks)</h2>
+            
+            <div class="task">
+                <h3>Aufgabe 1.3: Weiterführende Aufgaben</h3>
+                
+                <button class="collapsible">Routing-Tabellen (Routing Tables)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Was ist eine Routing-Tabelle und wie erstellt man Einträge in dieser?</p>
+                        
+                        <p><strong>Antwort:</strong> Eine Routing-Tabelle ist eine Datenstruktur, die von einem Router oder einem Gerät mit Routing-Funktionen verwendet wird, um zu bestimmen, wohin Netzwerkpakete weitergeleitet werden sollen.</p>
+                        
+                        <h4>Windows Routing-Tabelle anzeigen:</h4>
+                        <div class="code-block">route print</div>
+                        
+                        <h4>Statische Route in Windows hinzufügen:</h4>
+                        <div class="code-block">route ADD Zielnetzwerk MASK Subnetzmaske Gateway-IP</div>
+                        
+                        <h4>Beispiel:</h4>
+                        <div class="code-block">route ADD 192.168.3.0 MASK 255.255.255.0 192.168.1.254</div>
+                        
+                        <h4>Cisco Router Routing-Tabelle anzeigen:</h4>
+                        <div class="code-block">show ip route</div>
+                        
+                        <h4>Statische Route auf Cisco Router hinzufügen:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# ip route Zielnetzwerk Subnetzmaske Next-Hop-IP
+Router(config)# exit
+Router# write mem</div>
+                        
+                        <h4>Beispiel:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# ip route 192.168.3.0 255.255.255.0 192.168.2.1
+Router(config)# exit
+Router# write mem</div>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Ping-Dienste (Ping Services)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Welche Dienste werden für einen Ping benötigt?</p>
+                        
+                        <p><strong>Antwort:</strong> Ping verwendet das Internet Control Message Protocol (ICMP), insbesondere die ICMP Echo Request und Echo Reply Nachrichten.</p>
+                        
+                        <p><strong>Erklärung:</strong></p>
+                        <ul>
+                            <li>ICMP ist ein Protokoll der Netzwerkschicht (Layer 3) im OSI-Modell</li>
+                            <li>Ping sendet ein ICMP Echo Request (Typ 8) an das Zielgerät</li>
+                            <li>Das Zielgerät antwortet mit einem ICMP Echo Reply (Typ 0)</li>
+                            <li>Firewalls und Router müssen ICMP-Verkehr erlauben, damit Ping funktioniert</li>
+                            <li>Ping benötigt keine speziellen Dienste auf Anwendungsebene, wie einen Server oder Daemon</li>
+                        </ul>
+                        
+                        <div class="warning">
+                            <p><strong>Hinweis:</strong> In vielen Netzwerken werden ICMP-Nachrichten aus Sicherheitsgründen gefiltert oder blockiert, besonders an Netzwerkgrenzen.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="collapsible">DNS-Auflösung (DNS Resolution)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <p><strong>Frage:</strong> Wenn du an deinem Handy eine Website aufrufen möchtest, musst du dafür keine IP im Browser aufrufen, sondern gibst nur eine URL ein. Woher weiß der Browser welche IP gefragt ist?</p>
+                        
+                        <p><strong>Antwort:</strong> Der Browser verwendet das Domain Name System (DNS), um den Domainnamen in eine IP-Adresse aufzulösen.</p>
+                        
+                        <p><strong>Der DNS-Auflösungsprozess:</strong></p>
+                        <ol>
+                            <li>Du gibst eine URL wie "www.example.com" ein</li>
+                            <li>Der Browser prüft seinen lokalen Cache nach der IP-Adresse</li>
+                            <li>Falls nicht gefunden, fragt das Gerät beim konfigurierten DNS-Server nach</li>
+                            <li>Der DNS-Server löst den Namen auf und gibt die IP-Adresse zurück</li>
+                            <li>Der Browser stellt nun eine Verbindung zur erhaltenen IP-Adresse her</li>
+                        </ol>
+                        
+                        <p><strong>Frage:</strong> Wie nennt sich die Technik/das Protokoll die dabei eingesetzt wird?</p>
+                        
+                        <p><strong>Antwort:</strong> Die Technik nennt sich "Domain Name System" (DNS). Das Protokoll verwendet typischerweise UDP auf Port 53 für einfache Abfragen und kann auf TCP für größere Antworten oder Zonentransfers zurückgreifen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="router-config" class="section">
+            <h2>7. Router-Konfiguration (Router Configuration)</h2>
+            
+            <div class="task">
+                <h3>Router zurücksetzen und konfigurieren</h3>
+                
+                <button class="collapsible">Router zurücksetzen (Router Reset)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <ol class="steps">
+                            <li>Router ausschalten</li>
+                            <li>Den Router via COM-Port zu RJ-45 am "Console" Steckerplatz verbinden 
+                                <br><em>Einstellungen: Baud: 9600, Data-Bits: 8, Stop-Bits: 1, Parity: none, Flow-Control: none</em></li>
+                            <li>Mit Putty oder anderem Terminalprogramm auf COM1 verbinden</li>
+                            <li>Router anschalten und in den ersten 15 Sekunden STRG+Pause drücken</li>
+                            <li>Folgende Commands eingeben:
+                                <div class="code-block">confreg 0x2141
+reset</div>
+                            </li>
+                            <li>Nach Neustart des Routers bei der Abfrage, ob eine Initialkonfiguration durchgeführt werden soll, "no" eingeben</li>
+                            <li>Enter drücken</li>
+                            <li>Danach folgende Commands eingeben:
+                                <div class="code-block">en
+write erase
+y
+configure t
+config-register 0x2102
+end</div>
+                            </li>
+                            <li>Den Router neustarten</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Grundkonfiguration (Basic Configuration)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <ol class="steps">
+                            <li>Would you like to enter the initial configuration dialog? [yes/no]: <strong>yes</strong></li>
+                            <li>Would you like to enter basic management setup? [yes/no]: <strong>yes</strong></li>
+                            <li>Enter host name [Router]: <strong>&#60;dein Hostname&#62;</strong></li>
+                            <li>Enter enable secret: <strong>&#60;Dein Secret Passwort&#62;</strong></li>
+                            <li>Enter enable password: <strong>&#60;Dein Passwort&#62;</strong></li>
+                            <li>Enter virtual terminal password: <strong>&#60;Dein Virtual Terminal Passwort&#62;</strong></li>
+                            <li>Configure SNMP Network Management? [yes]: <strong>no</strong></li>
+                            <li>Enter interface name used to connect to the management network from the above interface summary: <strong>GigabitEthernetX/X</strong> (Kommt drauf an was für Interfaces der Router hat)</li>
+                            <li>Use the 100 Base-TX (RJ-45) connector? [yes]: <strong>yes</strong></li>
+                            <li>Operate in full-duplex mode? [no]: <strong>auto</strong></li>
+                            <li>Configure IP on this interface? [yes]: <strong>yes</strong></li>
+                            <li>IP address for this interface: <strong>&#60;IP-Adresse&#62;</strong></li>
+                            <li>Subnet mask for this interface [255.255.0.0]: <strong>&#60;Subnetzmaske&#62;</strong></li>
+                            <li>[0] Go to the IOS command prompt without saving this config.
+                                <br>[1] Return back to the setup without saving this config.
+                                <br>[2] Save this configuration to nvram and exit.
+                                <br>Enter your selection [2]: <strong>2</strong></li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Privilegierte Rechte & Interface-Konfiguration (Privileged Mode & Interface Configuration)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <h4>Privilegierte Rechte bekommen:</h4>
+                        <div class="code-block">
+Router> enable
+Password: <Dein Secret Passwort></div>
+                        
+                        <h4>Interface Konfiguration:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# interface GigabitEthernetX/X
+Router(config-if)# ip address <IP-Adresse> <Subnetzmaske>
+Router(config-if)# no shutdown
+Router(config-if)# exit
+Router# write mem</div>
+                        
+                        <div class="tip">
+                            <p>Das Kommando <strong>no shutdown</strong> bewirkt, dass das Interface bei einem Neustart direkt angeschaltet wird.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="collapsible">IP-Routing aktivieren & Statische Routen (Enable IP Routing & Static Routes)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <h4>IP-Routing aktivieren:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# ip routing
+Router(config)# exit
+Router# write mem</div>
+                        
+                        <h4>Statische Routen hinzufügen:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# ip route <Ziel-Netzwerk> <Subnetzmaske> <Hop-Point>
+Router(config)# exit
+Router# write mem</div>
+                        
+                        <h4>Beispiel:</h4>
+                        <div class="code-block">
+Router# config terminal
+Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.2
+Router(config)# exit
+Router# write mem</div>
+                        
+                        <h4>Nützliche Befehle zur Überprüfung:</h4>
+                        <div class="code-block">
+Router# show ip route
+Router# show running-config interface GigabitEthernetX/X</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="commands" class="section">
+            <h2>8. Nützliche Befehle (Useful Commands)</h2>
+            
+            <div class="task">
+                <button class="collapsible">Windows Befehle (Windows Commands)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <ul class="steps">
+                            <li><span class="code">ipconfig /all</span> - Zeigt detaillierte Netzwerkkonfiguration an</li>
+                            <li><span class="code">ping [IP-Adresse]</span> - Testet die Verbindung zu einem Gerät</li>
+                            <li><span class="code">tracert [IP-Adresse]</span> - Zeigt den Weg eines Pakets zum Ziel</li>
+                            <li><span class="code">netstat -an</span> - Zeigt alle aktiven Netzwerkverbindungen</li>
+                            <li><span class="code">nslookup [Domainname]</span> - Löst einen Domainnamen in eine IP-Adresse auf</li>
+                            <li><span class="code">route print</span> - Zeigt die Routing-Tabelle an</li>
+                            <li><span class="code">route add [Netzwerkadresse] mask [Subnetzmaske] [Gateway]</span> - Fügt eine statische Route hinzu</li>
+                            <li><span class="code">arp -a</span> - Zeigt die ARP-Tabelle (IP zu MAC-Adresse Zuordnung) an</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="collapsible">Cisco Router Befehle (Cisco Router Commands)</button>
+                <div class="collapsible-content">
+                    <div class="task-content active">
+                        <h4>Basis-Befehle:</h4>
+                        <ul class="steps">
+                            <li><span class="code">show running-config</span> - Zeigt die aktuelle Konfiguration</li>
+                            <li><span class="code">show ip interface brief</span> - Übersicht aller Interfaces mit IP-Adressen</li>
+                            <li><span class="code">show ip route</span> - Zeigt die Routing-Tabelle</li>
+                            <li><span class="code">ping [IP-Adresse]</span> - Testet die Verbindung zu einem Gerät</li>
+                            <li><span class="code">traceroute [IP-Adresse]</span> - Zeigt den Weg eines Pakets zum Ziel</li>
+                        </ul>
+                        
+                        <h4>Konfigurationsbefehle:</h4>
+                        <ul class="steps">
+                            <li><span class="code">enable</span> - Wechselt in den privilegierten Modus</li>
+                            <li><span class="code">configure terminal</span> - Wechselt in den Konfigurationsmodus</li>
+                            <li><span class="code">interface [Interface-Name]</span> - Konfiguriert ein bestimmtes Interface</li>
+                            <li><span class="code">ip address [IP-Adresse] [Subnetzmaske]</span> - Setzt die IP-Adresse eines Interfaces</li>
+                            <li><span class="code">no shutdown</span> - Aktiviert ein Interface</li>
+                            <li><span class="code">ip route [Zielnetzwerk] [Subnetzmaske] [Nächster Hop]</span> - Fügt eine statische Route hinzu</li>
+                            <li><span class="code">write memory</span> oder <span class="code">copy running-config startup-config</span> - Speichert die Konfiguration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="glossary" class="section">
+            <h2>9. Glossar: Deutsch-Englisch Terminologie</h2>
+            
+            <table class="glossary-table">
+                <thead>
+                    <tr>
+                        <th>Deutsch</th>
+                        <th>English</th>
+                        <th>Erklärung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Netzwerktechnik</td>
+                        <td>Network Technology</td>
+                        <td>Die Technologie zur Verbindung von Computern und anderen Geräten</td>
+                    </tr>
+                    <tr>
+                        <td>Direkte Verbindung</td>
+                        <td>Direct Connection</td>
+                        <td>Eine direkte Verbindung zwischen zwei Geräten ohne zwischengeschaltete Netzwerkgeräte</td>
+                    </tr>
+                    <tr>
+                        <td>Indirekte Verbindung</td>
+                        <td>Indirect Connection</td>
+                        <td>Eine Verbindung über Netzwerkgeräte wie Switches oder Router</td>
+                    </tr>
+                    <tr>
+                        <td>Subnetzmaske</td>
+                        <td>Subnet Mask</td>
+                        <td>Eine 32-Bit-Zahl, die angibt, welche Bits einer IP-Adresse das Netzwerk und welche den Host identifizieren</td>
+                    </tr>
+                    <tr>
+                        <td>Router</td>
+                        <td>Router</td>
+                        <td>Ein Gerät, das Datenpakete zwischen verschiedenen Netzwerken weiterleitet</td>
+                    </tr>
+                    <tr>
+                        <td>Switch</td>
+                        <td>Switch</td>
+                        <td>Ein Gerät, das Datenpakete zwischen Geräten in einem lokalen Netzwerk vermittelt</td>
+                    </tr>
+                    <tr>
+                        <td>Netzwerkadresse</td>
+                        <td>Network Address</td>
+                        <td>Die Adresse, die ein gesamtes Netzwerk identifiziert (erste Adresse im Subnetz)</td>
+                    </tr>
+                    <tr>
+                        <td>Broadcast-Adresse</td>
+                        <td>Broadcast Address</td>
+                        <td>Die Adresse, die zur Kommunikation mit allen Geräten im Netzwerk verwendet wird (letzte Adresse im Subnetz)</td>
+                    </tr>
+                    <tr>
+                        <td>Gateway</td>
+                        <td>Gateway</td>
+                        <td>Ein Gerät, das als Eingangs- und Ausgangspunkt eines Netzwerks dient</td>
+                    </tr>
+                    <tr>
+                        <td>Routing-Tabelle</td>
+                        <td>Routing Table</td>
+                        <td>Eine Tabelle, die angibt, wohin Netzwerkpakete weitergeleitet werden sollen</td>
+                    </tr>
+                    <tr>
+                        <td>IP-Adresse</td>
+                        <td>IP Address</td>
+                        <td>Eine numerische Kennung, die jedem Gerät in einem Netzwerk zugewiesen wird</td>
+                    </tr>
+                    <tr>
+                        <td>Ping</td>
+                        <td>Ping</td>
+                        <td>Ein Netzwerkwerkzeug zur Überprüfung der Erreichbarkeit eines Hosts</td>
+                    </tr>
+                    <tr>
+                        <td>DHCP</td>
+                        <td>DHCP</td>
+                        <td>Dynamic Host Configuration Protocol - Protokoll zur automatischen Zuweisung von IP-Adressen</td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td>DNS</td>
+                        <td>Domain Name System - System zur Auflösung von Domainnamen in IP-Adressen</td>
+                    </tr>
+                    <tr>
+                        <td>LAN</td>
+                        <td>LAN</td>
+                        <td>Local Area Network - Ein Netzwerk, das einen begrenzten Bereich abdeckt</td>
+                    </tr>
+                    <tr>
+                        <td>Netzwerkschnittstelle</td>
+                        <td>Network Interface</td>
+                        <td>Hardware, die ein Gerät mit einem Netzwerk verbindet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Netzwerktechnik Praktikum</p>
+            <p class="subtitle">Erstellt für Praktikanten in Deutschland</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Collapsible sections
+            var coll = document.getElementsByClassName("collapsible");
+            for (var i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+            
+            // Task headers for showing/hiding content
+            var taskHeaders = document.getElementsByClassName("task-header");
+            for (var i = 0; i < taskHeaders.length; i++) {
+                taskHeaders[i].addEventListener("click", function() {
+                    var content = this.nextElementSibling;
+                    content.classList.toggle("active");
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
