@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Clicker Tycoon</title>
+    <title>Code Clicker Tycoon v2.0</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
-        /* --- Global Styles & Theme --- */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        /* --- Global Styles & Enhanced Theme --- */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;700&display=swap');
 
         :root {
-            --bg-color: #1a1a2e; /* Dark blue/purple */
-            --primary-color: #0f3460; /* Darker blue */
-            --secondary-color: #16213e; /* Even darker blue */
-            --accent-color: #53a8b6; /* Bright cyan/blue */
-            --highlight-color: #e94560; /* Contrasting pink/red */
-            --text-color: #e0f2f7; /* Light cyan/white */
-            --font-family: 'Roboto Mono', monospace;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            --bg-gradient: linear-gradient(135deg, #10101c, #1a1a2e);
+            --primary-color: #1e1e3f; /* Slightly lighter dark blue */
+            --secondary-color: #2a2a57; /* Even lighter, for contrast panels */
+            --accent-color-1: #00e0ff; /* Bright cyan */
+            --accent-color-2: #ff00ff; /* Bright magenta */
+            --highlight-color: #ffff00; /* Yellow for emphasis */
+            --text-color: #e0f2f7;
+            --text-muted-color: #a0b8c0;
+            --success-color: #00ff80;
+            --error-color: #ff4d4d;
+            --font-primary: 'Orbitron', sans-serif; /* Title/Header font */
+            --font-secondary: 'Roboto Mono', monospace; /* Body/Data font */
+            --border-radius: 10px;
+            --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            --box-shadow-inset: inset 0 3px 8px rgba(0, 0, 0, 0.4);
+            --transition-speed: 0.3s;
         }
 
         * {
@@ -26,518 +35,927 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
+            font-family: var(--font-secondary);
+            background: var(--bg-gradient);
             color: var(--text-color);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align to top for scrolling */
+            align-items: flex-start;
             min-height: 100vh;
             padding: 20px;
-            overflow-y: scroll; /* Allow scrolling if content overflows */
+            overflow-y: scroll;
+            font-size: 15px; /* Base font size */
         }
 
         /* --- Main Game Container --- */
         .game-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Left: Clicker/Stats, Right: Store */
-            gap: 30px;
-            max-width: 1000px;
+            grid-template-columns: 275px 1fr 275px; /* Left: Stats/Save, Middle: Clicker, Right: Store */
+            gap: 25px;
+            max-width: 1400px;
             width: 100%;
-            background-color: var(--primary-color);
-            padding: 30px;
+            background-color: rgba(30, 30, 63, 0.8); /* Semi-transparent primary */
+            backdrop-filter: blur(5px);
+            padding: 25px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 224, 255, 0.2);
         }
 
-        /* --- Left Column: Clicker & Stats --- */
-        .left-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center; /* Center items horizontally */
-        }
-
-        .score-display {
-            background-color: var(--secondary-color);
-            padding: 15px 25px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            width: 100%;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .score-display h2 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
-            color: var(--accent-color);
-            word-wrap: break-word; /* Prevent overflow */
-        }
-
-        .score-display p {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        .clicker-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-        }
-
-        #main-clicker {
-            background: linear-gradient(145deg, var(--accent-color), #3a8a9a);
-            color: var(--bg-color);
-            border: none;
-            padding: 40px 20px; /* More padding for larger button */
-            border-radius: 50%; /* Make it circular */
-            font-size: 1.5em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
-            box-shadow: var(--box-shadow);
-            width: 180px; /* Fixed width */
-            height: 180px; /* Fixed height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            line-height: 1.2; /* Adjust line height for text */
-        }
-
-        #main-clicker:hover {
-            box-shadow: 0 6px 20px rgba(83, 168, 182, 0.5);
-            transform: scale(1.05);
-        }
-
-        #main-clicker:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 10px rgba(83, 168, 182, 0.4);
-        }
-
-        .click-feedback {
-            position: absolute; /* Position relative to the nearest positioned ancestor or body */
-            font-size: 1.2em;
-            color: var(--accent-color);
-            pointer-events: none; /* Don't interfere with clicks */
-            animation: fadeUp 0.7s ease-out forwards;
-            font-weight: bold;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-        }
-
-
-        .stats-display {
-            background-color: var(--secondary-color);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            width: 100%;
-            font-size: 0.95em;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        .stats-display p { margin-bottom: 5px; }
-        .stats-display span { color: var(--accent-color); font-weight: bold; }
-
-        .save-load {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .save-load button {
-             background-color: var(--secondary-color);
-             border: 1px solid var(--accent-color);
-             color: var(--accent-color);
-        }
-         .save-load button:hover {
-             background-color: var(--accent-color);
-             color: var(--secondary-color);
-         }
-
-
-        /* --- Right Column: Store --- */
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .store-section {
+        /* --- Panel Styling --- */
+        .panel {
             background-color: var(--secondary-color);
             padding: 20px;
             border-radius: var(--border-radius);
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--box-shadow-inset);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: fit-content; /* Prevent panels stretching unnecessarily */
         }
 
-        .store-section h3 {
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--accent-color);
-            padding-bottom: 5px;
+        .panel-title {
+            font-family: var(--font-primary);
+            color: var(--accent-color-1);
+            font-size: 1.4em;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 224, 255, 0.3);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .panel-title i {
+             opacity: 0.8;
         }
 
-        .store-item {
+
+        /* --- Left Panel: Stats & Save --- */
+        .left-panel {
+            grid-column: 1 / 2;
+        }
+
+        .stats-group p, .prestige-info p {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px dashed rgba(224, 242, 247, 0.2);
+            font-size: 0.9em;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(224, 242, 247, 0.1);
         }
-        .store-item:last-child {
+         .stats-group p:last-child, .prestige-info p:last-child {
             border-bottom: none;
         }
 
-        .item-info {
-            flex-grow: 1;
-            margin-right: 15px;
+        .stats-group span, .prestige-info span {
+            color: var(--accent-color-1);
+            font-weight: bold;
         }
-        .item-info p { font-size: 0.9em; }
-        .item-info .item-desc { opacity: 0.7; font-size: 0.8em; }
-        .item-info .item-stats { font-size: 0.8em; color: var(--accent-color); }
+        .prestige-info span {
+            color: var(--accent-color-2); /* Use second accent for prestige */
+        }
 
-        button.buy-button {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
+        .save-load button {
+            flex-grow: 1; /* Make buttons fill space */
+        }
+        .save-load { display: flex; gap: 10px;}
+
+        /* --- Middle Panel: Clicker & Score --- */
+        .middle-panel {
+            grid-column: 2 / 3;
+            align-items: center; /* Center content vertically */
+             position: relative; /* Needed for random event positioning */
+        }
+
+        .score-display {
+            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 100%;
+            box-shadow: var(--box-shadow-inset), 0 0 15px rgba(0, 224, 255, 0.1);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+        }
+
+        .score-display h1 {
+            font-family: var(--font-primary);
+            font-size: 3em; /* Larger score */
+            margin-bottom: 5px;
+            color: var(--text-color);
+            word-wrap: break-word;
+            line-height: 1.1;
+            background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: scoreGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes scoreGlow {
+            from { text-shadow: 0 0 5px var(--accent-color-1), 0 0 10px var(--accent-color-2); }
+            to   { text-shadow: 0 0 10px var(--accent-color-1), 0 0 15px var(--accent-color-2); }
+        }
+
+
+        .score-display p {
+            font-size: 1em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clicker-area {
+            margin-top: 20px;
+            position: relative; /* For positioning the button precisely if needed */
+        }
+
+        #main-clicker {
+            background: radial-gradient(circle, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+            color: var(--primary-color);
+            border: none;
+            padding: 0; /* Padding handled by dimensions */
+            border-radius: 50%;
+            font-size: 1.8em;
+            font-weight: bold;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 15px var(--accent-color-1), 0 0 25px var(--accent-color-2), inset 0 0 10px rgba(255,255,255,0.3);
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: 1.2;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+         #main-clicker::before { /* Pulse effect */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 224, 255, 0.5) 0%, rgba(255, 0, 255, 0.5) 100%);
+            z-index: -1;
+            animation: pulse 2s infinite ease-in-out;
+            opacity: 0.7;
+         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+
+        #main-clicker:hover {
+            box-shadow: 0 0 20px var(--accent-color-1), 0 0 35px var(--accent-color-2), inset 0 0 12px rgba(255,255,255,0.4);
+            transform: scale(1.03);
+        }
+
+        #main-clicker:active {
+            transform: scale(0.97);
+            box-shadow: 0 0 10px var(--accent-color-1), 0 0 15px var(--accent-color-2), inset 0 0 8px rgba(255,255,255,0.2);
+        }
+
+
+        /* Floating text enhancement */
+        .click-feedback {
+            position: absolute;
+            font-size: 1.5em; /* Bigger */
+            font-weight: bold;
+            pointer-events: none;
+            animation: fadeUpGrow 0.8s ease-out forwards;
+            text-shadow: 0 0 5px black; /* Make it readable */
+             /* Randomize color slightly */
+            color: hsl(var(--hue, 180), 100%, 70%);
+        }
+
+        @keyframes fadeUpGrow {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.3);
+            }
+        }
+
+        /* Random Event Object */
+        .random-event {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, var(--highlight-color), #cc0);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: #333;
+            box-shadow: 0 0 15px var(--highlight-color);
+            animation: fadeInBounce 0.5s ease-out, wobble 3s infinite ease-in-out 0.5s;
+            opacity: 0; /* Start hidden */
+        }
+         @keyframes fadeInBounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+         }
+         @keyframes wobble {
+             0%, 100% { transform: translateX(0) rotate(0deg); }
+             25% { transform: translateX(-5px) rotate(-3deg); }
+             75% { transform: translateX(5px) rotate(3deg); }
+         }
+
+
+        /* --- Right Panel: Store & Prestige --- */
+        .right-panel {
+            grid-column: 3 / 4;
+            max-height: 80vh; /* Limit height and allow scrolling */
+            overflow-y: auto;
+             /* Custom Scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color-1) var(--primary-color);
+        }
+         .right-panel::-webkit-scrollbar { width: 8px; }
+         .right-panel::-webkit-scrollbar-track { background: var(--primary-color); border-radius: 4px; }
+         .right-panel::-webkit-scrollbar-thumb { background-color: var(--accent-color-1); border-radius: 4px; border: 2px solid var(--primary-color); }
+
+
+        .store-section {
+            margin-bottom: 20px; /* Space between store sections */
+        }
+         .store-section:last-child { margin-bottom: 0; }
+
+
+        .store-item {
+            display: grid; /* Use grid for better alignment */
+            grid-template-columns: auto 1fr auto; /* Icon, Info, Button */
+            gap: 10px;
+            align-items: center;
+            padding: 12px 5px; /* More padding */
+            border-bottom: 1px solid rgba(0, 224, 255, 0.15);
+            transition: background-color var(--transition-speed) ease;
+        }
+         .store-item:last-child { border-bottom: none; }
+         .store-item:hover { background-color: rgba(0, 224, 255, 0.05); }
+
+        .item-icon {
+            font-size: 1.5em;
+            color: var(--accent-color-1);
+             width: 30px; /* Fixed width for alignment */
+             text-align: center;
+             opacity: 0.8;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .item-info .item-name { font-weight: bold; font-size: 1.05em; }
+        .item-info .item-desc { opacity: 0.7; font-size: 0.8em; }
+        .item-info .item-stats { font-size: 0.85em; color: var(--accent-color-1); }
+        .item-info .item-owned { font-size: 0.85em; color: var(--text-muted-color); }
+        .item-info .item-cost { font-weight: bold; }
+
+        .buy-button {
+            background: linear-gradient(45deg, var(--accent-color-1), var(--accent-color-2));
+            color: var(--primary-color);
             border: none;
             padding: 8px 15px;
             border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.2s ease, opacity 0.2s ease;
-            font-family: var(--font-family);
+            transition: all var(--transition-speed) ease;
+            font-family: var(--font-secondary);
             font-size: 0.9em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
-        button.buy-button:hover:not(:disabled) {
-            background-color: #6bcde5; /* Lighter accent */
+        .buy-button:hover:not(:disabled) {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--accent-color-1);
+            transform: translateY(-2px);
+             filter: brightness(1.1);
         }
 
-        button.buy-button:disabled {
-            background-color: #555; /* Greyed out */
+        .buy-button:active:not(:disabled) {
+            transform: translateY(1px);
+             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+             filter: brightness(0.9);
+        }
+
+        .buy-button:disabled {
+            background: #555;
             color: #999;
             cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.5;
+            box-shadow: none;
         }
 
+        /* Prestige Button Specific Style */
+        #prestige-button {
+            background: linear-gradient(45deg, var(--accent-color-2), var(--highlight-color));
+             color: var(--primary-color);
+             margin-top: 10px;
+             width: 100%; /* Make prestige button full width */
+             padding: 12px 15px;
+             font-size: 1.1em;
+             font-family: var(--font-primary);
+        }
+         #prestige-button:hover:not(:disabled) {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--highlight-color);
+         }
+
+
+        /* Achievements */
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 5px;
+            border-radius: 5px;
+            transition: background-color var(--transition-speed);
+            opacity: 0.6; /* Dim locked achievements */
+        }
+         .achievement.unlocked {
+             opacity: 1;
+             background-color: rgba(0, 255, 128, 0.1); /* Subtle green bg for unlocked */
+         }
+         .achievement i {
+             color: var(--highlight-color);
+             font-size: 1.2em;
+              min-width: 20px; /* Align icons */
+             text-align: center;
+         }
+         .achievement.unlocked i {
+             color: var(--success-color);
+         }
+         .ach-info { font-size: 0.85em; }
+         .ach-name { font-weight: bold; }
+         .ach-desc { opacity: 0.8; }
+
         /* --- Notification Area --- */
-         #notification-area {
+        #notification-area {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px; /* Moved to left */
             display: flex;
             flex-direction: column;
             gap: 10px;
             z-index: 1000;
-         }
+            width: 300px; /* Limit width */
+        }
 
         .notification {
-            background-color: var(--highlight-color);
+            background-color: var(--secondary-color);
             color: var(--text-color);
-            padding: 10px 15px;
+            padding: 12px 18px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             opacity: 0;
             transition: opacity 0.5s ease, transform 0.5s ease;
-            transform: translateX(100%);
-         }
+            transform: translateX(-100%);
+            border-left: 5px solid var(--accent-color-1); /* Accent border */
+            font-size: 0.95em;
+        }
+         .notification.success { border-left-color: var(--success-color); }
+         .notification.error { border-left-color: var(--error-color); }
+         .notification.prestige { border-left-color: var(--accent-color-2); }
+
 
         .notification.show {
             opacity: 1;
             transform: translateX(0);
-         }
-
+        }
 
         /* --- Responsive Design --- */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             .game-container {
-                grid-template-columns: 1fr; /* Stack columns */
+                grid-template-columns: 220px 1fr 220px; /* Slightly smaller side panels */
+                gap: 20px;
             }
-            .left-column, .right-column {
-                width: 100%;
-            }
-             #main-clicker {
-                 width: 150px;
-                 height: 150px;
-                 font-size: 1.3em;
-                 padding: 30px 15px;
-             }
+            #main-clicker { width: 180px; height: 180px; font-size: 1.6em;}
+             .panel-title { font-size: 1.2em; }
         }
-        @media (max-width: 480px) {
+
+        @media (max-width: 992px) {
+             .game-container {
+                grid-template-columns: 1fr 1fr; /* 2 columns: Clicker+Stats | Store */
+                grid-template-rows: auto auto; /* Allow rows to size automatically */
+                max-width: 700px;
+             }
+             .left-panel { grid-column: 1 / 2; grid-row: 2 / 3; } /* Stats below clicker */
+             .middle-panel { grid-column: 1 / 2; grid-row: 1 / 2; }
+             .right-panel {
+                 grid-column: 2 / 3;
+                 grid-row: 1 / 3; /* Span both rows */
+                 max-height: calc(100vh - 60px); /* Adjust max height */
+            }
+             #main-clicker { width: 160px; height: 160px; font-size: 1.4em;}
+        }
+
+        @media (max-width: 768px) {
+             body { font-size: 14px; }
+             .game-container {
+                 grid-template-columns: 1fr; /* Single column */
+                 grid-template-rows: auto auto auto; /* Stack everything */
+                 padding: 15px;
+                 max-width: 95%;
+             }
+             .left-panel { grid-column: 1 / 2; grid-row: 2 / 3; }
+             .middle-panel { grid-column: 1 / 2; grid-row: 1 / 3; }
+             .right-panel { grid-column: 1 / 2; grid-row: 3 / 4; max-height: none; overflow-y: visible; } /* Disable scrolling on mobile stack */
+
+            #main-clicker { width: 140px; height: 140px; font-size: 1.2em;}
+            .score-display h1 { font-size: 2.5em; }
+            .panel { padding: 15px; }
+             #notification-area { width: calc(100% - 40px); bottom: 10px; left: 10px; }
+        }
+
+         @media (max-width: 480px) {
              body { padding: 10px; }
-             .game-container { padding: 15px; }
-             .score-display h2 { font-size: 1.5em; }
-             button.buy-button { padding: 6px 10px; font-size: 0.8em;}
-             .item-info p { font-size: 0.85em;}
-             #main-clicker {
-                 width: 120px;
-                 height: 120px;
-                 font-size: 1.1em;
-                 padding: 20px 10px;
-             }
-              #notification-area {
-                 bottom: 10px;
-                 right: 10px;
-                 width: calc(100% - 20px);
-                 align-items: center;
-              }
-             .notification { font-size: 0.9em; }
-        }
+             .game-container { gap: 15px; }
+             .panel-title { font-size: 1.1em; }
+             .score-display h1 { font-size: 2em; }
+             #main-clicker { width: 120px; height: 120px; font-size: 1.1em;}
+             .buy-button { font-size: 0.85em; padding: 7px 12px; }
+             #prestige-button { font-size: 1em; padding: 10px 12px; }
+             .stats-group p, .prestige-info p { font-size: 0.85em; }
+             .item-icon { font-size: 1.3em; }
+             .store-item { padding: 10px 3px; }
+         }
+
+         /* Utility Class for Locked Content */
+         .locked-overlay {
+            position: relative;
+         }
+         .locked-overlay::after {
+            content: attr(data-lock-message);
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-muted-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.9em;
+            border-radius: var(--border-radius);
+            z-index: 2; /* Above content, below potential tooltips */
+            padding: 5px;
+             cursor: not-allowed;
+         }
 
     </style>
 </head>
 <body>
 
     <div class="game-container">
-        <!-- Left Column: Clicker & Stats -->
-        <div class="left-column">
+        <!-- Left Panel: Stats, Save/Load, Achievements -->
+        <div class="panel left-panel">
+            <h2 class="panel-title"><i class="fas fa-chart-line"></i> Statistics</h2>
+            <div class="stats-group">
+                <p>LoC per Click: <span id="stat-lpc">1</span></p>
+                <p>LoC per Second: <span id="stat-lps">0</span></p>
+                <p>Total LoC Earned: <span id="stat-total-loc">0</span></p>
+                <p>Manual Clicks: <span id="stat-clicks">0</span></p>
+                <p>Times Refactored: <span id="stat-prestige-count">0</span></p>
+                 <p>OP Multiplier: <span id="stat-op-multiplier">x1.00</span></p>
+            </div>
+
+            <h2 class="panel-title" style="margin-top: 20px;"><i class="fas fa-trophy"></i> Achievements</h2>
+            <div id="achievements-list" style="max-height: 200px; overflow-y: auto; padding-right: 5px;">
+                <!-- Achievements will be added here by JS -->
+            </div>
+
+             <h2 class="panel-title" style="margin-top: 20px;"><i class="fas fa-save"></i> Game Data</h2>
+             <div class="save-load">
+                <button id="save-button" class="buy-button"><i class="fas fa-save"></i> Save</button>
+                <button id="load-button" class="buy-button"><i class="fas fa-upload"></i> Load</button>
+                <button id="reset-button" class="buy-button" style="background: linear-gradient(45deg, #c00, #f66); color:white;"><i class="fas fa-trash-alt"></i> Reset</button>
+            </div>
+        </div>
+
+        <!-- Middle Panel: Score, Clicker -->
+        <div class="panel middle-panel" id="middle-panel-anchor"> <!-- Added ID for positioning random events -->
             <div class="score-display">
-                <h2 id="score">0</h2>
+                <h1 id="score">0</h1>
                 <p>Lines of Code</p>
             </div>
 
             <div class="clicker-area">
-                <button id="main-clicker">Write<br>Code</button>
-                 <!-- Click feedback elements will be added here by JS -->
+                <button id="main-clicker">WRITE<br>CODE</button>
+                <!-- Click feedback elements will be added here by JS -->
             </div>
-
-            <div class="stats-display">
-                <p>Code per click: <span id="click-power">1</span></p>
-                <p>Code per second: <span id="lines-per-second">0</span></p>
-            </div>
-
-             <div class="save-load">
-                <button id="save-button" class="buy-button">Save Progress</button>
-                <button id="load-button" class="buy-button">Load Progress</button>
-                <button id="reset-button" class="buy-button" style="background-color: var(--highlight-color); color: var(--text-color);">Reset Game</button>
-            </div>
+             <!-- Area for Random Events -->
+            <div id="random-event-container"></div>
         </div>
 
-        <!-- Right Column: Store -->
-        <div class="right-column">
-            <div class="store-section" id="upgrade-store">
-                <h3><i class="fas fa-arrow-up"></i> Click Upgrades</h3>
-                <!-- Upgrade items will be added here by JS -->
-            </div>
+        <!-- Right Panel: Store, Prestige -->
+        <div class="panel right-panel">
+             <!-- Upgrade Store -->
+             <div class="store-section" id="upgrade-store">
+                <h2 class="panel-title"><i class="fas fa-arrow-up"></i> Click Upgrades</h2>
+                <!-- Click upgrade items will be added here by JS -->
+             </div>
 
-            <div class="store-section" id="generator-store">
-                <h3><i class="fas fa-cogs"></i> Auto Coders</h3>
+             <!-- Generator Store -->
+             <div class="store-section" id="generator-store">
+                <h2 class="panel-title"><i class="fas fa-cogs"></i> Auto Coders</h2>
                 <!-- Generator items will be added here by JS -->
+             </div>
+
+             <!-- Prestige Section -->
+             <div class="store-section" id="prestige-section">
+                <h2 class="panel-title" style="color: var(--accent-color-2); border-color: rgba(255, 0, 255, 0.3);">
+                     <i class="fas fa-rocket"></i> Refactoring (Prestige)
+                 </h2>
+                <div class="prestige-info">
+                     <p>Optimization Pts (OP): <span id="prestige-points">0</span></p>
+                     <p>Next Refactor gives: <span id="prestige-gain">0</span> OP</p>
+                 </div>
+                 <button id="prestige-button" class="buy-button" disabled>
+                     Refactor Code (<span id="prestige-cost">1 M</span> LoC)
+                 </button>
+                 <div id="prestige-upgrade-store" style="margin-top: 15px;">
+                     <h3 style="font-family: var(--font-secondary); font-size: 1.1em; color: var(--accent-color-2); margin-bottom: 10px; text-align: center;">Optimization Upgrades</h3>
+                     <!-- Prestige upgrades here -->
+                 </div>
             </div>
         </div>
     </div>
 
-     <div id="notification-area">
-         <!-- Notifications will appear here -->
-     </div>
+    <!-- Notification Area -->
+    <div id="notification-area"></div>
 
     <script>
-        // --- Game State Variables ---
-        let linesOfCode = 0;
-        let linesPerClick = 1;
-        let linesPerSecond = 0;
-        let totalClicks = 0; // Example of another stat you could track
+        // --- Game State Object ---
+        let gameState = {
+            linesOfCode: 0,
+            totalLinesOfCodeEarned: 0,
+            linesPerClick: 1,
+            linesPerSecond: 0,
+            totalClicks: 0,
+            // Prestige
+            prestigePoints: 0,
+            prestigeCount: 0,
+            prestigeRequirement: 1e6, // Initial LoC needed to prestige
+            // Random Events
+            activeRandomEvent: null,
+            randomEventTimer: null,
+            // Achievements
+            achievements: {}, // Will store unlocked status by ID
+             // Settings (can be expanded)
+             lastUpdate: Date.now()
+        };
 
         // --- DOM Elements ---
         const scoreDisplay = document.getElementById('score');
         const clickerButton = document.getElementById('main-clicker');
-        const clickPowerDisplay = document.getElementById('click-power');
-        const lpsDisplay = document.getElementById('lines-per-second');
+        const middlePanelAnchor = document.getElementById('middle-panel-anchor'); // For event positioning
+        const randomEventContainer = document.getElementById('random-event-container');
+
+        // Stat Displays
+        const statLPC = document.getElementById('stat-lpc');
+        const statLPS = document.getElementById('stat-lps');
+        const statTotalLOC = document.getElementById('stat-total-loc');
+        const statClicks = document.getElementById('stat-clicks');
+        const statPrestigeCount = document.getElementById('stat-prestige-count');
+        const statOpMultiplier = document.getElementById('stat-op-multiplier'); // For prestige bonus display
+
+        // Store Sections
         const upgradeStoreDiv = document.getElementById('upgrade-store');
         const generatorStoreDiv = document.getElementById('generator-store');
-        const notificationArea = document.getElementById('notification-area');
+        const prestigeUpgradeStoreDiv = document.getElementById('prestige-upgrade-store');
+
+        // Prestige Elements
+        const prestigePointsDisplay = document.getElementById('prestige-points');
+        const prestigeGainDisplay = document.getElementById('prestige-gain');
+        const prestigeButton = document.getElementById('prestige-button');
+        const prestigeCostDisplay = document.getElementById('prestige-cost');
+
+        // Achievements List
+        const achievementsListDiv = document.getElementById('achievements-list');
+
+        // Buttons
         const saveButton = document.getElementById('save-button');
         const loadButton = document.getElementById('load-button');
         const resetButton = document.getElementById('reset-button');
+        const notificationArea = document.getElementById('notification-area');
 
-        // --- Utility Functions ---
 
-        // Format large numbers (K, M, B, T, etc.)
-        function formatNumber(num) {
+        // --- Configuration ---
+        const TICK_RATE = 100; // ms per game tick (10 times per second)
+        const SAVE_KEY = 'codeClickerTycoonSave_v2';
+        const PRESTIGE_COST_SCALING = 10; // Prestige requirement increases significantly
+        const RANDOM_EVENT_CHANCE_PER_SECOND = 0.03; // 3% chance per second
+        const RANDOM_EVENT_DURATION = 8000; // ms
+
+        // --- Formatting ---
+        const numberFormatter = new Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            maximumFractionDigits: 2
+        });
+         function formatNumber(num) {
             if (num < 1000) return num.toFixed(0);
-            const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']; // Add more if needed
-            const i = Math.floor(Math.log10(num) / 3);
-            const scaledNum = (num / Math.pow(1000, i));
-            // Show 1 decimal place if scaledNum >= 10, otherwise show 2 for better precision at lower scales
-            const precision = scaledNum >= 10 ? 1 : 2;
-            return scaledNum.toFixed(precision) + suffixes[i];
+            // Use Intl.NumberFormat for robust large number formatting
+             return numberFormatter.format(num);
         }
-
-        // Show floating "+X" text on click
-         function showClickFeedback(amount, x, y) {
-            const feedback = document.createElement('div');
-            feedback.classList.add('click-feedback');
-            feedback.textContent = `+${formatNumber(amount)}`;
-            feedback.style.left = `${x}px`;
-            feedback.style.top = `${y}px`;
-
-            document.body.appendChild(feedback); // Append to body to position absolutely
-
-            // Clean up the element after animation
-            feedback.addEventListener('animationend', () => {
-                feedback.remove();
-            });
+         function formatNumberExact(num) {
+            // For displaying exact costs when needed, or for smaller numbers
+            return num.toLocaleString('en-US');
         }
-
-        // Show notifications
-        function showNotification(message, duration = 3000) {
-             const notification = document.createElement('div');
-             notification.classList.add('notification');
-             notification.textContent = message;
-             notificationArea.appendChild(notification);
-
-             // Trigger animation
-             setTimeout(() => {
-                 notification.classList.add('show');
-             }, 10); // Small delay to allow CSS transition
-
-            // Remove notification after duration
-             setTimeout(() => {
-                notification.classList.remove('show');
-                 // Allow fade out animation before removing
-                setTimeout(() => notification.remove(), 500);
-             }, duration);
-        }
-
 
         // --- Store Item Definitions ---
 
-        // Click Upgrades
+        const upgradeTiers = {
+            basic: 0,
+            advanced: 1e6, // Unlock at 1M total LoC earned
+            ai: 1e9       // Unlock at 1B total LoC earned
+        };
+
         const clickUpgrades = [
-            { id: 'keyboard', name: 'Ergonomic Keyboard', baseCost: 15, powerIncrease: 1, owned: 0, desc: "+1 LoC/click" },
-            { id: 'mouse', name: 'Gaming Mouse', baseCost: 100, powerIncrease: 5, owned: 0, desc: "+5 LoC/click" },
-            { id: 'monitor', name: 'Dual Monitors', baseCost: 1100, powerIncrease: 25, owned: 0, desc: "+25 LoC/click" },
-            { id: 'coffee', name: 'Auto Coffee Machine', baseCost: 12000, powerIncrease: 150, owned: 0, desc: "+150 LoC/click" },
-            { id: 'ide', name: 'AI-Powered IDE', baseCost: 130000, powerIncrease: 1000, owned: 0, desc: "+1K LoC/click" },
+            // Basic Tier
+            { id: 'keyboard', name: 'Ergonomic Keyboard', baseCost: 15, powerIncrease: 1, owned: 0, desc: "+1 LoC/click", icon: 'fa-keyboard', tier: upgradeTiers.basic },
+            { id: 'mouse', name: 'Gaming Mouse', baseCost: 100, powerIncrease: 5, owned: 0, desc: "+5 LoC/click", icon: 'fa-computer-mouse', tier: upgradeTiers.basic },
+            { id: 'monitor', name: 'Dual Monitors', baseCost: 1100, powerIncrease: 25, owned: 0, desc: "+25 LoC/click", icon: 'fa-desktop', tier: upgradeTiers.basic },
+            // Advanced Tier
+            { id: 'coffee', name: 'Auto Coffee Machine', baseCost: 50000, powerIncrease: 150, owned: 0, desc: "+150 LoC/click", icon: 'fa-mug-hot', tier: upgradeTiers.advanced },
+            { id: 'ssd', name: 'NVMe SSD Drive', baseCost: 300000, powerIncrease: 800, owned: 0, desc: "+800 LoC/click", icon: 'fa-hard-drive', tier: upgradeTiers.advanced },
+            // AI Tier
+            { id: 'ide', name: 'AI-Powered IDE', baseCost: 5e6, powerIncrease: 5000, owned: 0, desc: "+5K LoC/click", icon: 'fa-brain', tier: upgradeTiers.ai },
+            { id: 'quantum', name: 'Quantum Debugger', baseCost: 1e8, powerIncrease: 30000, owned: 0, desc: "+30K LoC/click", icon: 'fa-atom', tier: upgradeTiers.ai },
         ];
 
-        // Auto Generators
         const generators = [
-            { id: 'script', name: 'Simple Script', baseCost: 50, lps: 1, owned: 0, desc: "+1 LoC/sec" },
-            { id: 'intern', name: 'Hire Intern', baseCost: 500, lps: 5, owned: 0, desc: "+5 LoC/sec" },
-            { id: 'dev', name: 'Hire Junior Dev', baseCost: 7000, lps: 25, owned: 0, desc: "+25 LoC/sec" },
-            { id: 'server', name: 'Deploy Server Cluster', baseCost: 100000, lps: 150, owned: 0, desc: "+150 LoC/sec" },
-            { id: 'ai', name: 'Develop Coding AI', baseCost: 1500000, lps: 1000, owned: 0, desc: "+1K LoC/sec" },
+            // Basic Tier
+            { id: 'script', name: 'Simple Script', baseCost: 50, lps: 0.5, owned: 0, desc: "+0.5 LoC/sec", icon: 'fa-file-code', tier: upgradeTiers.basic },
+            { id: 'intern', name: 'Hire Intern', baseCost: 600, lps: 3, owned: 0, desc: "+3 LoC/sec", icon: 'fa-user-graduate', tier: upgradeTiers.basic },
+            { id: 'dev', name: 'Hire Junior Dev', baseCost: 7000, lps: 15, owned: 0, desc: "+15 LoC/sec", icon: 'fa-user-ninja', tier: upgradeTiers.basic },
+             // Advanced Tier
+            { id: 'server', name: 'Deploy Server Rack', baseCost: 120000, lps: 80, owned: 0, desc: "+80 LoC/sec", icon: 'fa-server', tier: upgradeTiers.advanced },
+            { id: 'cloud', name: 'Cloud Computing', baseCost: 1.5e6, lps: 450, owned: 0, desc: "+450 LoC/sec", icon: 'fa-cloud', tier: upgradeTiers.advanced },
+            // AI Tier
+            { id: 'ai_coder', name: 'AI Code Generator', baseCost: 25e6, lps: 2500, owned: 0, desc: "+2.5K LoC/sec", icon: 'fa-robot', tier: upgradeTiers.ai },
+            { id: 'code_farm', name: 'Automated Code Farm', baseCost: 400e6, lps: 15000, owned: 0, desc: "+15K LoC/sec", icon: 'fa-industry', tier: upgradeTiers.ai },
         ];
 
-        // Function to calculate item cost (increases exponentially)
-        function calculateCost(baseCost, owned) {
-            return Math.floor(baseCost * Math.pow(1.15, owned));
+        const prestigeUpgrades = [
+            { id: 'op_boost_click', name: 'Optimized Clicks', baseCost: 1, costIncrease: 1.8, effect: 0.1, owned: 0, desc: "+10% base LoC/click per level", icon: 'fa-hand-pointer' },
+            { id: 'op_boost_lps', name: 'Synergistic Code', baseCost: 2, costIncrease: 2.0, effect: 0.05, owned: 0, desc: "+5% global LoC/sec per level", icon: 'fa-network-wired' },
+            { id: 'op_boost_gen_cost', name: 'Efficient Recruitment', baseCost: 5, costIncrease: 2.5, effect: 0.03, owned: 0, maxLevel: 10, desc: "Auto Coder cost -3% per level (max 30%)", icon: 'fa-tags' },
+            { id: 'op_boost_prestige', name: 'Legacy Knowledge', baseCost: 10, costIncrease: 3.0, effect: 0.05, owned: 0, desc: "+5% OP gain on Refactor per level", icon: 'fa-book-open' },
+        ];
+
+         const achievements = [
+             { id: 'ach_click_1', name: "First Keystroke", desc: "Manually click 1 time", condition: () => gameState.totalClicks >= 1, reward: 0 },
+             { id: 'ach_click_100', name: "Finger Cramps", desc: "Manually click 100 times", condition: () => gameState.totalClicks >= 100, reward: 1 },
+             { id: 'ach_loc_1k', name: "Kilo Code", desc: "Reach 1,000 LoC", condition: () => gameState.linesOfCode >= 1000, reward: 1 },
+             { id: 'ach_loc_1m', name: "Mega Code", desc: "Reach 1 Million LoC", condition: () => gameState.linesOfCode >= 1e6, reward: 5 },
+             { id: 'ach_loc_1b', name: "Giga Code", desc: "Reach 1 Billion LoC", condition: () => gameState.linesOfCode >= 1e9, reward: 25 },
+             { id: 'ach_lps_10', name: "Automation Beginner", desc: "Reach 10 LoC/sec", condition: () => calculateBaseLPS() >= 10, reward: 2 },
+             { id: 'ach_lps_1k', name: "Automation Expert", desc: "Reach 1,000 LoC/sec", condition: () => calculateBaseLPS() >= 1000, reward: 10 },
+             { id: 'ach_gen_intern', name: "First Hire", desc: "Buy an Intern", condition: () => generators.find(g => g.id === 'intern').owned > 0, reward: 1 },
+             { id: 'ach_gen_ai', name: "Rise of the Machines", desc: "Buy an AI Code Generator", condition: () => generators.find(g => g.id === 'ai_coder').owned > 0, reward: 15 },
+             { id: 'ach_prestige_1', name: "Clean Slate", desc: "Refactor code for the first time", condition: () => gameState.prestigeCount >= 1, reward: 5 },
+             { id: 'ach_prestige_5', name: "Optimization Guru", desc: "Refactor code 5 times", condition: () => gameState.prestigeCount >= 5, reward: 20 },
+         ];
+
+
+        // --- Calculation Functions ---
+
+        function calculateCost(baseCost, owned, costReductionFactor = 1) {
+            return Math.floor(baseCost * Math.pow(1.15, owned) * costReductionFactor);
         }
 
-        // --- Game Logic Functions ---
+        function calculatePrestigeUpgradeCost(baseCost, owned, costIncrease) {
+             // Prestige costs often increase more sharply
+             return Math.ceil(baseCost * Math.pow(costIncrease, owned));
+        }
 
-        // Update the main score display
+         // Calculate base LPS before global multipliers
+        function calculateBaseLPS() {
+            return generators.reduce((total, gen) => total + (gen.lps * gen.owned), 0);
+        }
+
+         // Calculate base LPC before global multipliers
+        function calculateBaseLPC() {
+             const baseClickPowerFromUpgrades = clickUpgrades.reduce((total, upg) => total + (upg.powerIncrease * upg.owned), 0);
+             const prestigeClickBoostLevel = prestigeUpgrades.find(p => p.id === 'op_boost_click').owned;
+             const prestigeClickBoost = 1 + (prestigeUpgrades.find(p => p.id === 'op_boost_click').effect * prestigeClickBoostLevel);
+             return (1 + baseClickPowerFromUpgrades) * prestigeClickBoost; // Base 1 click + upgrades, then boosted by prestige
+        }
+
+         function calculateTotalLPS() {
+             const baseLPS = calculateBaseLPS();
+             const prestigeLPSBoostLevel = prestigeUpgrades.find(p => p.id === 'op_boost_lps').owned;
+             const prestigeLPSBoost = 1 + (prestigeUpgrades.find(p => p.id === 'op_boost_lps').effect * prestigeLPSBoostLevel);
+             return baseLPS * prestigeLPSBoost;
+         }
+
+         function calculateTotalLPC() {
+             // Currently, only base LPC calculation is affected by prestige directly
+             // You could add another prestige upgrade for a *global* click multiplier if desired
+             return calculateBaseLPC();
+         }
+
+        function calculatePrestigeGain() {
+            // Formula based on total lines of code earned - adjust as needed for balance
+            // Using log10 makes it scale slower at higher numbers
+            const gain = Math.floor(5 * Math.pow(Math.log10(gameState.totalLinesOfCodeEarned / 1e5 + 1), 2));
+
+            // Apply prestige gain boost
+            const prestigeGainBoostLevel = prestigeUpgrades.find(p => p.id === 'op_boost_prestige').owned;
+            const prestigeGainMultiplier = 1 + (prestigeUpgrades.find(p => p.id === 'op_boost_prestige').effect * prestigeGainBoostLevel);
+
+            return Math.max(0, Math.floor(gain * prestigeGainMultiplier)); // Ensure it's not negative
+        }
+
+        function getGeneratorCostReduction() {
+            const level = prestigeUpgrades.find(p => p.id === 'op_boost_gen_cost').owned;
+            const effectPerLevel = prestigeUpgrades.find(p => p.id === 'op_boost_gen_cost').effect;
+            return Math.max(0.1, 1 - (level * effectPerLevel)); // Ensure cost doesn't go below 10%
+        }
+
+        // --- Update UI Functions ---
+
         function updateScoreDisplay() {
-            scoreDisplay.textContent = formatNumber(linesOfCode);
+            scoreDisplay.textContent = formatNumber(gameState.linesOfCode);
+            document.title = `${formatNumber(gameState.linesOfCode)} LoC - Code Clicker Tycoon`; // Update tab title
         }
 
-        // Update stats display (LPC, LPS)
         function updateStatsDisplay() {
-            clickPowerDisplay.textContent = formatNumber(linesPerClick);
-            lpsDisplay.textContent = formatNumber(linesPerSecond);
+            gameState.linesPerClick = calculateTotalLPC();
+            gameState.linesPerSecond = calculateTotalLPS();
+
+            statLPC.textContent = formatNumber(gameState.linesPerClick);
+            statLPS.textContent = formatNumber(gameState.linesPerSecond);
+            statTotalLOC.textContent = formatNumber(gameState.totalLinesOfCodeEarned);
+            statClicks.textContent = formatNumberExact(gameState.totalClicks);
+            statPrestigeCount.textContent = gameState.prestigeCount;
+
+             // Example: Displaying a prestige multiplier effect if relevant
+             const prestigeLPSBoostLevel = prestigeUpgrades.find(p => p.id === 'op_boost_lps').owned;
+             const prestigeLPSBoost = 1 + (prestigeUpgrades.find(p => p.id === 'op_boost_lps').effect * prestigeLPSBoostLevel);
+             statOpMultiplier.textContent = `LPS x${prestigeLPSBoost.toFixed(2)}`;
+
         }
 
-        // Recalculate total Lines Per Second based on owned generators
-        function recalculateLPS() {
-            linesPerSecond = 0;
-            generators.forEach(gen => {
-                linesPerSecond += gen.lps * gen.owned;
-            });
-            updateStatsDisplay();
+        function updatePrestigeDisplay() {
+            const currentPrestigeGain = calculatePrestigeGain();
+            prestigePointsDisplay.textContent = formatNumberExact(gameState.prestigePoints);
+            prestigeGainDisplay.textContent = formatNumberExact(currentPrestigeGain);
+            prestigeCostDisplay.textContent = formatNumber(gameState.prestigeRequirement);
+            prestigeButton.disabled = gameState.linesOfCode < gameState.prestigeRequirement;
+
+             // Update Prestige Upgrade buttons
+             prestigeUpgrades.forEach(pupg => {
+                const button = document.getElementById(`buy-${pupg.id}`);
+                const costElement = document.getElementById(`cost-${pupg.id}`);
+                const ownedElement = document.getElementById(`owned-${pupg.id}`);
+                const effectElement = document.getElementById(`effect-${pupg.id}`); // To show current effect
+
+                 if (button && costElement && ownedElement) {
+                     const cost = calculatePrestigeUpgradeCost(pupg.baseCost, pupg.owned, pupg.costIncrease);
+                     costElement.textContent = formatNumberExact(cost) + " OP";
+                     ownedElement.textContent = pupg.owned + (pupg.maxLevel ? `/${pupg.maxLevel}` : '');
+                     button.disabled = gameState.prestigePoints < cost || (pupg.maxLevel && pupg.owned >= pupg.maxLevel);
+
+                     // Update dynamic effect display if element exists
+                     if (effectElement) {
+                         let currentEffectDesc = "";
+                         if (pupg.id === 'op_boost_click') currentEffectDesc = `+${(pupg.effect * pupg.owned * 100).toFixed(0)}% base click`;
+                         else if (pupg.id === 'op_boost_lps') currentEffectDesc = `+${(pupg.effect * pupg.owned * 100).toFixed(0)}% global LPS`;
+                         else if (pupg.id === 'op_boost_gen_cost') currentEffectDesc = `-${(pupg.effect * pupg.owned * 100).toFixed(0)}% Gen Cost`;
+                         else if (pupg.id === 'op_boost_prestige') currentEffectDesc = `+${(pupg.effect * pupg.owned * 100).toFixed(0)}% OP Gain`;
+                         effectElement.textContent = currentEffectDesc;
+                     }
+                 }
+             });
         }
 
-        // Recalculate total Lines Per Click based on owned upgrades
-         function recalculateLPC() {
-            linesPerClick = 1; // Start with base click power
-            clickUpgrades.forEach(upg => {
-                linesPerClick += upg.powerIncrease * upg.owned;
-            });
-            updateStatsDisplay();
-        }
+        function updateStoreButtons() {
+             const genCostReduction = getGeneratorCostReduction();
 
-        // Update the enabled/disabled state of all store buttons
-        function updateButtonStates() {
-            const allItems = [...clickUpgrades, ...generators];
-            allItems.forEach(item => {
+             // Update Click Upgrades
+             clickUpgrades.forEach(item => {
+                 const button = document.getElementById(`buy-${item.id}`);
+                 const costElement = document.getElementById(`cost-${item.id}`);
+                 const itemDiv = document.getElementById(`store-item-${item.id}`);
+                 if (!itemDiv) return; // Skip if not rendered yet
+
+                 const currentCost = calculateCost(item.baseCost, item.owned);
+                 const canAfford = gameState.linesOfCode >= currentCost;
+                 const isUnlocked = gameState.totalLinesOfCodeEarned >= item.tier;
+
+                 itemDiv.classList.toggle('locked-overlay', !isUnlocked);
+                 itemDiv.setAttribute('data-lock-message', isUnlocked ? '' : `Requires ${formatNumber(item.tier)} total LoC`);
+
+                 if (button && costElement) {
+                     button.disabled = !canAfford || !isUnlocked;
+                     costElement.textContent = formatNumber(currentCost);
+                 }
+                 const ownedElement = document.getElementById(`owned-${item.id}`);
+                 if (ownedElement) ownedElement.textContent = item.owned;
+             });
+
+             // Update Generators
+             generators.forEach(item => {
                 const button = document.getElementById(`buy-${item.id}`);
-                if (button) {
-                    const currentCost = calculateCost(item.baseCost, item.owned);
-                    button.disabled = linesOfCode < currentCost;
-                    // Update cost display on button or nearby element
-                    const costElement = document.getElementById(`cost-${item.id}`);
-                    if(costElement) costElement.textContent = formatNumber(currentCost);
-                    const ownedElement = document.getElementById(`owned-${item.id}`);
-                     if(ownedElement) ownedElement.textContent = item.owned;
-                }
-            });
+                const costElement = document.getElementById(`cost-${item.id}`);
+                 const itemDiv = document.getElementById(`store-item-${item.id}`);
+                 if (!itemDiv) return;
+
+                 const currentCost = calculateCost(item.baseCost, item.owned, genCostReduction);
+                 const canAfford = gameState.linesOfCode >= currentCost;
+                 const isUnlocked = gameState.totalLinesOfCodeEarned >= item.tier;
+
+                 itemDiv.classList.toggle('locked-overlay', !isUnlocked);
+                 itemDiv.setAttribute('data-lock-message', isUnlocked ? '' : `Requires ${formatNumber(item.tier)} total LoC`);
+
+                 if (button && costElement) {
+                     button.disabled = !canAfford || !isUnlocked;
+                     costElement.textContent = formatNumber(currentCost);
+                 }
+                 const ownedElement = document.getElementById(`owned-${item.id}`);
+                 if (ownedElement) ownedElement.textContent = item.owned;
+             });
+         }
+
+        function updateAchievements() {
+             achievements.forEach(ach => {
+                 const achElement = document.getElementById(`ach-${ach.id}`);
+                 if (!achElement) return; // Might not be populated yet
+
+                 const wasUnlocked = gameState.achievements[ach.id];
+                 const isNowUnlocked = !wasUnlocked && ach.condition();
+
+                 if (isNowUnlocked) {
+                     gameState.achievements[ach.id] = true;
+                     achElement.classList.add('unlocked');
+                     showNotification(`${ach.name} Unlocked! ${ach.reward > 0 ? '(+' + ach.reward + ' OP)' : ''}`, 'success', 4000);
+                     if (ach.reward > 0) {
+                         gameState.prestigePoints += ach.reward;
+                         updatePrestigeDisplay(); // Update OP display immediately
+                     }
+                 }
+                  // Ensure correct class state even if not newly unlocked (e.g., on load)
+                  achElement.classList.toggle('unlocked', gameState.achievements[ach.id]);
+             });
         }
 
-        // Buy a click upgrade
-        function buyClickUpgrade(id) {
-            const upgrade = clickUpgrades.find(upg => upg.id === id);
-            if (!upgrade) return;
-
-            const cost = calculateCost(upgrade.baseCost, upgrade.owned);
-            if (linesOfCode >= cost) {
-                linesOfCode -= cost;
-                upgrade.owned++;
-                recalculateLPC(); // Update click power
-                updateScoreDisplay();
-                updateButtonStates(); // Updates cost and button state
-                // Optionally update the specific item display if needed beyond button state/cost
-                // console.log(`Bought ${upgrade.name}. Owned: ${upgrade.owned}`);
-            }
-        }
-
-        // Buy a generator
-        function buyGenerator(id) {
-            const generator = generators.find(gen => gen.id === id);
-            if (!generator) return;
-
-            const cost = calculateCost(generator.baseCost, generator.owned);
-            if (linesOfCode >= cost) {
-                linesOfCode -= cost;
-                generator.owned++;
-                recalculateLPS(); // Update lines per second
-                updateScoreDisplay();
-                updateButtonStates(); // Updates cost and button state
-                // console.log(`Bought ${generator.name}. Owned: ${generator.owned}`);
-            }
-        }
+         // Combined UI update function
+         function updateUI() {
+             updateScoreDisplay();
+             updateStatsDisplay();
+             updatePrestigeDisplay();
+             updateStoreButtons();
+             updateAchievements(); // Check achievements frequently
+         }
 
         // --- Store Population ---
-        function populateStore() {
-            // Clear existing items first
-            upgradeStoreDiv.innerHTML = '<h3><i class="fas fa-arrow-up"></i> Click Upgrades</h3>'; // Keep header
-            generatorStoreDiv.innerHTML = '<h3><i class="fas fa-cogs"></i> Auto Coders</h3>'; // Keep header
+        function populateStores() {
+            // Clear existing items
+            upgradeStoreDiv.innerHTML = '<h2 class="panel-title"><i class="fas fa-arrow-up"></i> Click Upgrades</h2>';
+            generatorStoreDiv.innerHTML = '<h2 class="panel-title"><i class="fas fa-cogs"></i> Auto Coders</h2>';
+            prestigeUpgradeStoreDiv.innerHTML = '<h3 style="font-family: var(--font-secondary); font-size: 1.1em; color: var(--accent-color-2); margin-bottom: 10px; text-align: center;">Optimization Upgrades</h3>';
+             achievementsListDiv.innerHTML = ''; // Clear achievements list
+
+            const genCostReduction = getGeneratorCostReduction();
 
             // Populate Click Upgrades
-             clickUpgrades.forEach(upg => {
+            clickUpgrades.forEach(upg => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('store-item');
+                 itemDiv.id = `store-item-${upg.id}`; // Add ID for locking overlay
+                const cost = calculateCost(upg.baseCost, upg.owned);
+                const isUnlocked = gameState.totalLinesOfCodeEarned >= upg.tier;
                 itemDiv.innerHTML = `
+                    <div class="item-icon"><i class="fas ${upg.icon || 'fa-question'}"></i></div>
                     <div class="item-info">
-                        <p>${upg.name} (<span id="owned-${upg.id}">${upg.owned}</span>)</p>
-                        <p class="item-desc">${upg.desc}</p>
-                        <p class="item-stats">Cost: <span id="cost-${upg.id}">${formatNumber(calculateCost(upg.baseCost, upg.owned))}</span> LoC</p>
+                        <span class="item-name">${upg.name}</span>
+                        <span class="item-desc">${upg.desc}</span>
+                        <span class="item-stats">Cost: <span class="item-cost" id="cost-${upg.id}">${formatNumber(cost)}</span> LoC</span>
+                        <span class="item-owned">Owned: <span id="owned-${upg.id}">${upg.owned}</span></span>
                     </div>
-                    <button id="buy-${upg.id}" class="buy-button">Buy</button>
+                    <button id="buy-${upg.id}" class="buy-button" title="Buy ${upg.name}">Buy</button>
                 `;
+                 // Set initial locked state
+                 itemDiv.classList.toggle('locked-overlay', !isUnlocked);
+                 itemDiv.setAttribute('data-lock-message', isUnlocked ? '' : `Requires ${formatNumber(upg.tier)} total LoC`);
+
                 upgradeStoreDiv.appendChild(itemDiv);
                 document.getElementById(`buy-${upg.id}`).addEventListener('click', () => buyClickUpgrade(upg.id));
             });
@@ -546,169 +964,507 @@
             generators.forEach(gen => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('store-item');
-                 itemDiv.innerHTML = `
-                    <div class="item-info">
-                        <p>${gen.name} (<span id="owned-${gen.id}">${gen.owned}</span>)</p>
-                        <p class="item-desc">${gen.desc}</p>
-                         <p class="item-stats">Cost: <span id="cost-${gen.id}">${formatNumber(calculateCost(gen.baseCost, gen.owned))}</span> LoC</p>
+                 itemDiv.id = `store-item-${gen.id}`;
+                const cost = calculateCost(gen.baseCost, gen.owned, genCostReduction);
+                 const isUnlocked = gameState.totalLinesOfCodeEarned >= gen.tier;
+                itemDiv.innerHTML = `
+                     <div class="item-icon"><i class="fas ${gen.icon || 'fa-question'}"></i></div>
+                     <div class="item-info">
+                        <span class="item-name">${gen.name}</span>
+                        <span class="item-desc">${gen.desc}</span>
+                        <span class="item-stats">Cost: <span class="item-cost" id="cost-${gen.id}">${formatNumber(cost)}</span> LoC</span>
+                        <span class="item-owned">Owned: <span id="owned-${gen.id}">${gen.owned}</span></span>
                     </div>
-                    <button id="buy-${gen.id}" class="buy-button">Buy</button>
+                    <button id="buy-${gen.id}" class="buy-button" title="Buy ${gen.name}">Buy</button>
                 `;
+                 itemDiv.classList.toggle('locked-overlay', !isUnlocked);
+                 itemDiv.setAttribute('data-lock-message', isUnlocked ? '' : `Requires ${formatNumber(gen.tier)} total LoC`);
+
                 generatorStoreDiv.appendChild(itemDiv);
                 document.getElementById(`buy-${gen.id}`).addEventListener('click', () => buyGenerator(gen.id));
             });
+
+             // Populate Prestige Upgrades
+             prestigeUpgrades.forEach(pupg => {
+                 const itemDiv = document.createElement('div');
+                 itemDiv.classList.add('store-item');
+                 const cost = calculatePrestigeUpgradeCost(pupg.baseCost, pupg.owned, pupg.costIncrease);
+                 itemDiv.innerHTML = `
+                    <div class="item-icon" style="color: var(--accent-color-2);"><i class="fas ${pupg.icon || 'fa-star'}"></i></div>
+                    <div class="item-info">
+                        <span class="item-name">${pupg.name}</span>
+                        <span class="item-desc">${pupg.desc}</span>
+                        <span class="item-stats" style="color: var(--accent-color-2);">Cost: <span class="item-cost" id="cost-${pupg.id}">${formatNumberExact(cost)} OP</span></span>
+                         <span class="item-owned">Level: <span id="owned-${pupg.id}">${pupg.owned}${pupg.maxLevel ? `/${pupg.maxLevel}` : ''}</span></span>
+                         <span class="item-stats" style="font-size: 0.8em; opacity: 0.8;" id="effect-${pupg.id}"></span> <!-- Placeholder for effect display -->
+                    </div>
+                    <button id="buy-${pupg.id}" class="buy-button" title="Buy ${pupg.name}" style="background: linear-gradient(45deg, var(--accent-color-2), #f8f); color: #111;">Buy OP</button>
+                 `;
+                 prestigeUpgradeStoreDiv.appendChild(itemDiv);
+                 document.getElementById(`buy-${pupg.id}`).addEventListener('click', () => buyPrestigeUpgrade(pupg.id));
+             });
+
+             // Populate Achievements List
+             achievements.forEach(ach => {
+                 const achDiv = document.createElement('div');
+                 achDiv.classList.add('achievement');
+                 achDiv.id = `ach-${ach.id}`;
+                 achDiv.title = `${ach.desc}${ach.reward > 0 ? ` (Reward: ${ach.reward} OP)` : ''}`;
+                 achDiv.innerHTML = `
+                    <i class="fas ${gameState.achievements[ach.id] ? 'fa-check-circle' : 'fa-circle'}"></i>
+                    <div class="ach-info">
+                        <span class="ach-name">${ach.name}</span>
+                        <!-- <span class="ach-desc">${ach.desc}</span> --> <!-- Description shown on hover via title -->
+                    </div>
+                 `;
+                 achDiv.classList.toggle('unlocked', gameState.achievements[ach.id]); // Set initial state
+                 achievementsListDiv.appendChild(achDiv);
+             });
+        }
+
+        // --- Game Logic Functions ---
+
+        function buyItem(itemArray, itemId, costFunc, costReduction = 1) {
+            const item = itemArray.find(i => i.id === itemId);
+            if (!item) return false;
+
+             // Check unlock tier
+             if (gameState.totalLinesOfCodeEarned < item.tier) {
+                 showNotification("Item not yet researched!", "error");
+                 return false;
+             }
+
+            const cost = costFunc(item.baseCost, item.owned, costReduction);
+            if (gameState.linesOfCode >= cost) {
+                gameState.linesOfCode -= cost;
+                item.owned++;
+                // No need to update score/stats here, game loop and updateUI handle it
+                return true; // Indicate successful purchase
+            }
+            return false;
+        }
+
+        function buyClickUpgrade(id) {
+            if (buyItem(clickUpgrades, id, calculateCost)) {
+                updateUI(); // Update immediately after purchase
+            }
+        }
+
+        function buyGenerator(id) {
+            const costReduction = getGeneratorCostReduction();
+            if (buyItem(generators, id, calculateCost, costReduction)) {
+                updateUI();
+            }
+        }
+
+        function buyPrestigeUpgrade(id) {
+            const upgrade = prestigeUpgrades.find(upg => upg.id === id);
+            if (!upgrade) return;
+             if (upgrade.maxLevel && upgrade.owned >= upgrade.maxLevel) return; // Already max level
+
+            const cost = calculatePrestigeUpgradeCost(upgrade.baseCost, upgrade.owned, upgrade.costIncrease);
+            if (gameState.prestigePoints >= cost) {
+                gameState.prestigePoints -= cost;
+                upgrade.owned++;
+                populateStores(); // Repopulate to reflect cost changes & owned counts
+                updateUI(); // Recalculate stats and update displays
+                 showNotification(`Upgraded ${upgrade.name} to Level ${upgrade.owned}!`, 'prestige');
+            }
+        }
+
+         function showClickFeedback(amount, x, y) {
+             const feedback = document.createElement('div');
+             feedback.classList.add('click-feedback');
+             feedback.textContent = `+${formatNumber(amount)}`;
+
+             // Position near cursor, slightly offset
+             feedback.style.left = `${x - 15}px`;
+             feedback.style.top = `${y - 30}px`;
+
+             // Randomize color slightly around cyan/magenta
+             const hue = Math.random() > 0.5 ? (180 + Math.random() * 20 - 10) : (300 + Math.random() * 20 - 10);
+             feedback.style.setProperty('--hue', hue);
+
+
+             document.body.appendChild(feedback); // Append to body for absolute positioning
+
+             feedback.addEventListener('animationend', () => feedback.remove());
+         }
+
+        function showNotification(message, type = 'info', duration = 3000) {
+             const notification = document.createElement('div');
+             notification.classList.add('notification', type); // type can be 'info', 'success', 'error', 'prestige'
+             notification.textContent = message;
+             notificationArea.appendChild(notification);
+
+             // Trigger animation
+             setTimeout(() => notification.classList.add('show'), 10);
+
+             // Remove notification
+             setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 500); // Remove from DOM after fade out
+             }, duration);
         }
 
 
-        // --- Event Listeners ---
+        // --- Prestige Logic ---
+        function canPrestige() {
+             return gameState.linesOfCode >= gameState.prestigeRequirement;
+        }
 
-        // Main clicker button event
-        clickerButton.addEventListener('click', (event) => {
-            const clickValue = linesPerClick;
-            linesOfCode += clickValue;
-            totalClicks++;
-            updateScoreDisplay();
-            updateButtonStates();
-
-            // Show click feedback at cursor position
-            showClickFeedback(clickValue, event.clientX, event.clientY);
-        });
-
-        // Save game state to localStorage
-        saveButton.addEventListener('click', () => {
-            const gameState = {
-                linesOfCode,
-                linesPerClick,
-                linesPerSecond,
-                totalClicks,
-                clickUpgradesOwned: clickUpgrades.map(u => ({ id: u.id, owned: u.owned })),
-                generatorsOwned: generators.map(g => ({ id: g.id, owned: g.owned }))
-            };
-            localStorage.setItem('codeClickerSave', JSON.stringify(gameState));
-            console.log('Game Saved!');
-            showNotification('Game Saved!');
-        });
-
-        // Load game state from localStorage
-         loadButton.addEventListener('click', () => {
-            const savedState = localStorage.getItem('codeClickerSave');
-            if (savedState) {
-                try {
-                    const gameState = JSON.parse(savedState);
-
-                    linesOfCode = gameState.linesOfCode || 0;
-                    // Recalculate LPC and LPS based on loaded owned counts instead of loading the values directly
-                    // linesPerClick = gameState.linesPerClick || 1; // Don't load directly
-                    // linesPerSecond = gameState.linesPerSecond || 0; // Don't load directly
-                    totalClicks = gameState.totalClicks || 0;
-
-
-                    // Update owned counts from saved data
-                    if (gameState.clickUpgradesOwned) {
-                        gameState.clickUpgradesOwned.forEach(savedUpg => {
-                            const gameUpg = clickUpgrades.find(u => u.id === savedUpg.id);
-                            if (gameUpg) gameUpg.owned = savedUpg.owned;
-                        });
-                    } else {
-                         // If old save format without owned array, reset owned counts
-                        clickUpgrades.forEach(u => u.owned = 0);
-                    }
-
-                    if (gameState.generatorsOwned) {
-                         gameState.generatorsOwned.forEach(savedGen => {
-                            const gameGen = generators.find(g => g.id === savedGen.id);
-                             if (gameGen) gameGen.owned = savedGen.owned;
-                        });
-                    } else {
-                         // If old save format without owned array, reset owned counts
-                        generators.forEach(g => g.owned = 0);
-                    }
-
-
-                    // Recalculate stats based on new owned counts
-                    recalculateLPC();
-                    recalculateLPS();
-
-                    // Update UI
-                    populateStore(); // Repopulate to show correct owned counts and costs
-                    updateScoreDisplay();
-                    updateStatsDisplay(); // Already called by recalculate funcs, but good practice
-                    updateButtonStates();
-
-                    console.log('Game Loaded!');
-                    showNotification('Game Loaded!');
-                } catch (error) {
-                    console.error("Failed to load game state:", error);
-                    showNotification('Error loading save data!', 5000);
-                     // Optionally reset to default state here
-                    // resetGameConfirm();
-                }
-
-            } else {
-                console.log('No save data found.');
-                showNotification('No save data found.');
+        function doPrestige() {
+            if (!canPrestige()) {
+                showNotification("Not enough LoC to Refactor!", "error");
+                return;
             }
-        });
 
-        // Reset game confirmation and action
-        resetButton.addEventListener('click', () => {
-            if (confirm("Are you sure you want to reset all progress? This cannot be undone!")) {
-                resetGameConfirm();
-            }
-        });
+            const pointsGained = calculatePrestigeGain();
+            gameState.prestigePoints += pointsGained;
+            gameState.prestigeCount++;
 
-        function resetGameConfirm() {
-             // Clear local storage
-             localStorage.removeItem('codeClickerSave');
+            // Reset core progress
+            gameState.linesOfCode = 0;
+            // Keep totalLinesOfCodeEarned for unlocks/scaling
+            gameState.linesPerClick = 1; // Will be recalculated based on prestige upgrades
+            gameState.linesPerSecond = 0;// Will be recalculated
+            gameState.totalClicks = 0; // Reset session clicks
 
-            // Reset game variables
-            linesOfCode = 0;
-            linesPerClick = 1;
-            linesPerSecond = 0;
-            totalClicks = 0;
+            // Reset owned counts of standard upgrades/generators
             clickUpgrades.forEach(upg => upg.owned = 0);
             generators.forEach(gen => gen.owned = 0);
 
-            // Update UI
-            recalculateLPC(); // Will set LPC to base 1
-            recalculateLPS(); // Will set LPS to 0
-            populateStore(); // Reset store display
-            updateScoreDisplay();
-            updateStatsDisplay();
-            updateButtonStates();
+             // Increase prestige requirement
+             gameState.prestigeRequirement *= PRESTIGE_COST_SCALING;
 
-             console.log('Game Reset.');
-            showNotification('Game Reset!');
+            // Update UI completely
+             populateStores(); // Reset store displays and costs
+             updateUI(); // Update all stats, buttons, etc.
+
+            showNotification(`Refactor complete! Gained ${formatNumberExact(pointsGained)} OP.`, 'prestige', 5000);
+             checkAllAchievements(); // Check for prestige achievements
         }
+
+        // --- Random Event Logic ---
+        function spawnRandomEvent() {
+             if (gameState.activeRandomEvent) return; // Only one at a time
+
+            const eventType = Math.random() < 0.7 ? 'loc_bonus' : 'click_boost'; // 70% LoC, 30% Click boost
+
+             const eventElement = document.createElement('div');
+             eventElement.classList.add('random-event');
+             eventElement.style.position = 'absolute'; // Position relative to middle panel
+
+             // Random position within the middle panel (avoiding edges)
+             const panelRect = middlePanelAnchor.getBoundingClientRect();
+             const buttonRect = clickerButton.getBoundingClientRect();
+             const spawnPadding = 80; // Min distance from edges and button
+
+             let randomX, randomY, attempts = 0;
+             do {
+                 randomX = Math.random() * (panelRect.width - eventElement.offsetWidth - spawnPadding * 2) + spawnPadding;
+                 randomY = Math.random() * (panelRect.height - eventElement.offsetHeight - spawnPadding * 2) + spawnPadding;
+                 attempts++;
+                 // Crude check to avoid spawning directly on the button area
+                 const isOverlappingButton =
+                     randomX < (buttonRect.left - panelRect.left + buttonRect.width) &&
+                     randomX + eventElement.offsetWidth > (buttonRect.left - panelRect.left) &&
+                     randomY < (buttonRect.top - panelRect.top + buttonRect.height) &&
+                     randomY + eventElement.offsetHeight > (buttonRect.top - panelRect.top);
+
+                 if (!isOverlappingButton || attempts > 20) break; // Prevent infinite loop if panel is small
+
+             } while(true);
+
+
+             eventElement.style.left = `${randomX}px`;
+             eventElement.style.top = `${randomY}px`;
+
+            if (eventType === 'loc_bonus') {
+                eventElement.innerHTML = '<i class="fas fa-dollar-sign"></i>';
+                eventElement.title = "Quick Code Snippet! Click for bonus LoC.";
+                 eventElement.onclick = () => {
+                     const bonus = Math.max(10, gameState.linesPerSecond * 15 + gameState.linesPerClick * 10); // 15 sec of LPS + 10 clicks
+                     gameState.linesOfCode += bonus;
+                     gameState.totalLinesOfCodeEarned += bonus;
+                     showClickFeedback(bonus, randomX + panelRect.left, randomY + panelRect.top);
+                     clearRandomEvent(true); // true = clicked successfully
+                 };
+            } else { // click_boost
+                eventElement.innerHTML = '<i class="fas fa-bolt"></i>';
+                eventElement.title = "Sudden Inspiration! Click for a temporary click boost.";
+                 eventElement.onclick = () => {
+                    applyTemporaryBoost('click', 2, 10000); // Double click power for 10 seconds
+                     clearRandomEvent(true);
+                 };
+            }
+
+             randomEventContainer.appendChild(eventElement);
+             gameState.activeRandomEvent = eventElement;
+
+             // Set timer to remove if not clicked
+             gameState.randomEventTimer = setTimeout(() => clearRandomEvent(false), RANDOM_EVENT_DURATION);
+        }
+
+        function clearRandomEvent(clicked = false) {
+            if (gameState.activeRandomEvent) {
+                if (!clicked) {
+                    gameState.activeRandomEvent.style.opacity = '0'; // Fade out if missed
+                    setTimeout(() => gameState.activeRandomEvent.remove(), 500);
+                } else {
+                     gameState.activeRandomEvent.remove(); // Remove instantly if clicked
+                }
+            }
+             if (gameState.randomEventTimer) clearTimeout(gameState.randomEventTimer);
+             gameState.activeRandomEvent = null;
+             gameState.randomEventTimer = null;
+        }
+
+        let temporaryBoosts = {}; // { type: { multiplier: M, endTime: T } }
+
+        function applyTemporaryBoost(type, multiplier, duration) {
+            const endTime = Date.now() + duration;
+            temporaryBoosts[type] = { multiplier, endTime };
+            showNotification(`${type === 'click' ? 'Click Power' : 'LPS'} Boost Active! (x${multiplier} for ${duration/1000}s)`, 'success');
+             updateUI(); // Recalculate stats with boost
+        }
+
+        function checkTemporaryBoosts() {
+            let boostsChanged = false;
+            const now = Date.now();
+            for (const type in temporaryBoosts) {
+                if (now >= temporaryBoosts[type].endTime) {
+                    delete temporaryBoosts[type];
+                    boostsChanged = true;
+                     showNotification(`${type === 'click' ? 'Click Power' : 'LPS'} Boost Expired.`, 'info');
+                }
+            }
+            if (boostsChanged) {
+                updateUI(); // Recalculate stats if a boost expired
+            }
+        }
+
+
+        // --- Save/Load/Reset ---
+        function saveGame() {
+            try {
+                // Consolidate owned counts into save data
+                gameState.clickUpgradesOwned = clickUpgrades.map(u => ({ id: u.id, owned: u.owned }));
+                gameState.generatorsOwned = generators.map(g => ({ id: g.id, owned: g.owned }));
+                gameState.prestigeUpgradesOwned = prestigeUpgrades.map(p => ({ id: p.id, owned: p.owned }));
+                // Achievements state is already in gameState.achievements
+
+                 gameState.lastUpdate = Date.now(); // Store save time
+
+                localStorage.setItem(SAVE_KEY, JSON.stringify(gameState));
+                showNotification('Game Saved!', 'success');
+            } catch (error) {
+                console.error("Error saving game:", error);
+                showNotification('Failed to save game!', 'error');
+            }
+        }
+
+        function loadGame() {
+             const savedData = localStorage.getItem(SAVE_KEY);
+             if (!savedData) {
+                 showNotification('No save data found.');
+                 return false; // Indicate no save was loaded
+             }
+
+             try {
+                 const loadedState = JSON.parse(savedData);
+
+                 // Carefully merge loaded data into current gameState object
+                 // This helps if new properties are added later, they get default values
+                 for (const key in gameState) {
+                     if (loadedState.hasOwnProperty(key) && key !== 'clickUpgradesOwned' && key !== 'generatorsOwned' && key !== 'prestigeUpgradesOwned') {
+                         gameState[key] = loadedState[key];
+                     }
+                 }
+
+                 // Restore owned counts from arrays in loaded state
+                 if (loadedState.clickUpgradesOwned) {
+                     loadedState.clickUpgradesOwned.forEach(savedUpg => {
+                         const gameUpg = clickUpgrades.find(u => u.id === savedUpg.id);
+                         if (gameUpg) gameUpg.owned = savedUpg.owned;
+                     });
+                 }
+                 if (loadedState.generatorsOwned) {
+                     loadedState.generatorsOwned.forEach(savedGen => {
+                         const gameGen = generators.find(g => g.id === savedGen.id);
+                         if (gameGen) gameGen.owned = savedGen.owned;
+                     });
+                 }
+                if (loadedState.prestigeUpgradesOwned) {
+                     loadedState.prestigeUpgradesOwned.forEach(savedPupg => {
+                         const gamePupg = prestigeUpgrades.find(p => p.id === savedPupg.id);
+                         if (gamePupg) gamePupg.owned = savedPupg.owned;
+                     });
+                 } else {
+                    // Handle old saves without prestige upgrades
+                    prestigeUpgrades.forEach(p => p.owned = 0);
+                 }
+
+                 // Restore achievements (ensure it's an object)
+                 gameState.achievements = typeof loadedState.achievements === 'object' ? loadedState.achievements : {};
+
+
+                // Calculate offline progress if applicable
+                 const now = Date.now();
+                 const timeOffline = Math.max(0, now - (gameState.lastUpdate || now)) / 1000; // seconds offline
+                 if (timeOffline > 10) { // Only calculate if offline for > 10 seconds
+                     const offlineLPS = calculateTotalLPS(); // Use recalculated LPS based on loaded state
+                     // Limit offline gains (e.g., max 8 hours worth) to prevent exploits
+                     const maxOfflineTime = 8 * 60 * 60;
+                     const effectiveOfflineTime = Math.min(timeOffline, maxOfflineTime);
+                     const offlineGains = offlineLPS * effectiveOfflineTime;
+
+                     if (offlineGains > 0) {
+                         gameState.linesOfCode += offlineGains;
+                         gameState.totalLinesOfCodeEarned += offlineGains;
+                         showNotification(`Welcome back! Earned ${formatNumber(offlineGains)} LoC while offline.`, 'info', 5000);
+                     }
+                 }
+
+
+                 populateStores(); // Repopulate with loaded data
+                 updateUI(); // Update all displays based on loaded state
+                 showNotification('Game Loaded!', 'success');
+                 return true; // Indicate success
+
+             } catch (error) {
+                 console.error("Failed to load game state:", error);
+                 showNotification('Error loading save data! Resetting may be needed.', 'error', 5000);
+                 resetGameConfirm(false); // Reset without confirmation on load error
+                 return false; // Indicate failure
+             }
+        }
+
+        function resetGameConfirm(confirmNeeded = true) {
+            if (confirmNeeded && !confirm("Are you sure you want to reset ALL progress? This includes Prestige and Achievements and cannot be undone!")) {
+                return;
+            }
+
+            // Clear local storage
+            localStorage.removeItem(SAVE_KEY);
+
+            // Reset game state object to initial values
+            gameState = {
+                linesOfCode: 0,
+                totalLinesOfCodeEarned: 0,
+                linesPerClick: 1,
+                linesPerSecond: 0,
+                totalClicks: 0,
+                prestigePoints: 0,
+                prestigeCount: 0,
+                 prestigeRequirement: 1e6, // Reset prestige requirement
+                activeRandomEvent: null,
+                randomEventTimer: null,
+                achievements: {},
+                 lastUpdate: Date.now()
+            };
+
+            // Reset owned counts in the definitions
+            clickUpgrades.forEach(upg => upg.owned = 0);
+            generators.forEach(gen => gen.owned = 0);
+            prestigeUpgrades.forEach(pupg => pupg.owned = 0);
+
+            // Update UI completely
+             populateStores();
+             updateUI();
+
+             showNotification('Game Reset!', 'error');
+        }
+
 
         // --- Game Loop ---
         function gameLoop() {
-            const codeGenerated = linesPerSecond / 10; // Generate fraction per tick for smoother updates
-            linesOfCode += codeGenerated;
-            updateScoreDisplay();
-            updateButtonStates(); // Check if new items become affordable
+             const now = Date.now();
+             const deltaTime = (now - gameState.lastUpdate) / 1000; // Time since last tick in seconds
+
+             // Generate LoC based on LPS
+             const codeGenerated = gameState.linesPerSecond * deltaTime;
+             if (codeGenerated > 0) {
+                 gameState.linesOfCode += codeGenerated;
+                 gameState.totalLinesOfCodeEarned += codeGenerated;
+             }
+
+             // Check for Random Event Spawn
+             if (!gameState.activeRandomEvent && Math.random() < RANDOM_EVENT_CHANCE_PER_SECOND * deltaTime) {
+                 spawnRandomEvent();
+             }
+
+             // Check for expired boosts
+             checkTemporaryBoosts();
+
+             // Update UI (throttled updates could be added later if performance becomes an issue)
+             updateUI();
+
+             gameState.lastUpdate = now;
         }
 
         // --- Initialization ---
         function initializeGame() {
-            console.log('Initializing Code Clicker Tycoon...');
-            // Attempt to load saved game first
-            loadButton.click(); // Trigger load on page start
+            console.log('Initializing Code Clicker Tycoon v2.0...');
+             if (!loadGame()) {
+                 // If loading failed or no save exists, populate with defaults
+                 populateStores();
+                 updateUI(); // Set initial UI state
+             }
+             checkAllAchievements(); // Initial check
 
-             // If no save was loaded (or failed), populate store with defaults
-            if (linesOfCode === 0 && totalClicks === 0) { // Basic check if game is fresh
-                populateStore();
-                updateScoreDisplay();
-                updateStatsDisplay();
-                updateButtonStates();
-            }
-             // Start the game loop (runs every 100ms for 10 updates per second)
-             setInterval(gameLoop, 100);
-             console.log('Game Initialized.');
+             // Start the game loop
+             setInterval(gameLoop, TICK_RATE);
+
+            // Auto-save every 60 seconds
+             setInterval(saveGame, 60000);
+
+             console.log('Game Initialized and Running.');
         }
 
+        // --- Event Listeners ---
+        clickerButton.addEventListener('click', (event) => {
+            const clickValue = gameState.linesPerClick;
+            gameState.linesOfCode += clickValue;
+            gameState.totalLinesOfCodeEarned += clickValue;
+            gameState.totalClicks++;
+
+            // Show click feedback
+            showClickFeedback(clickValue, event.clientX, event.clientY);
+
+            // Update necessary UI elements immediately after click
+            updateScoreDisplay();
+            updateStoreButtons(); // Check affordability immediately
+            updatePrestigeDisplay(); // Update gain display
+             checkAllAchievements(); // Check click/LoC achievements
+        });
+
+        saveButton.addEventListener('click', saveGame);
+        loadButton.addEventListener('click', loadGame);
+        resetButton.addEventListener('click', () => resetGameConfirm(true));
+        prestigeButton.addEventListener('click', doPrestige);
+
+         // Add a listener to save before closing the tab (might not always work perfectly)
+        window.addEventListener('beforeunload', saveGame);
+
+         // Helper to check all achievements (useful on load/prestige)
+         function checkAllAchievements() {
+            achievements.forEach(ach => {
+                const achElement = document.getElementById(`ach-${ach.id}`);
+                if (achElement && !gameState.achievements[ach.id] && ach.condition()) {
+                    gameState.achievements[ach.id] = true;
+                    achElement.classList.add('unlocked');
+                    const icon = achElement.querySelector('i');
+                    if (icon) icon.className = 'fas fa-check-circle'; // Update icon immediately
+                    // Don't show notification/reward here, let updateAchievements handle it
+                }
+            });
+             // Trigger full updateAchievements to handle rewards/notifications if any were newly unlocked
+            updateAchievements();
+         }
+
+
         // --- Start the game ---
-        // Use DOMContentLoaded to ensure the DOM is ready before running scripts
         document.addEventListener('DOMContentLoaded', initializeGame);
 
     </script>
