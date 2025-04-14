@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Clicker Tycoon</title>
+    <style>
+        /* --- Global Styles & Theme --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #1a1a2e; /* Dark blue/purple */
+            --primary-color: #0f3460; /* Darker blue */
+            --secondary-color: #16213e; /* Even darker blue */
+            --accent-color: #53a8b6; /* Bright cyan/blue */
+            --highlight-color: #e94560; /* Contrasting pink/red */
+            --text-color: #e0f2f7; /* Light cyan/white */
+            --font-family: 'Roboto Mono', monospace;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for scrolling */
+            min-height: 100vh;
+            padding: 20px;
+            overflow-y: scroll; /* Allow scrolling if content overflows */
+        }
+
+        /* --- Main Game Container --- */
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Left: Clicker/Stats, Right: Store */
+            gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--primary-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* --- Left Column: Clicker & Stats --- */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center; /* Center items horizontally */
+        }
+
+        .score-display {
+            background-color: var(--secondary-color);
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 100%;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-display h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+            word-wrap: break-word; /* Prevent overflow */
+        }
+
+        .score-display p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .clicker-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        #main-clicker {
+            background: linear-gradient(145deg, var(--accent-color), #3a8a9a);
+            color: var(--bg-color);
+            border: none;
+            padding: 40px 20px; /* More padding for larger button */
+            border-radius: 50%; /* Make it circular */
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: var(--box-shadow);
+            width: 180px; /* Fixed width */
+            height: 180px; /* Fixed height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: 1.2; /* Adjust line height for text */
+        }
+
+        #main-clicker:hover {
+            box-shadow: 0 6px 20px rgba(83, 168, 182, 0.5);
+            transform: scale(1.05);
+        }
+
+        #main-clicker:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(83, 168, 182, 0.4);
+        }
+
+        .click-feedback {
+            position: absolute; /* Position relative to the nearest positioned ancestor or body */
+            font-size: 1.2em;
+            color: var(--accent-color);
+            pointer-events: none; /* Don't interfere with clicks */
+            animation: fadeUp 0.7s ease-out forwards;
+            font-weight: bold;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+        }
+
+
+        .stats-display {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            width: 100%;
+            font-size: 0.95em;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .stats-display p { margin-bottom: 5px; }
+        .stats-display span { color: var(--accent-color); font-weight: bold; }
+
+        .save-load {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .save-load button {
+             background-color: var(--secondary-color);
+             border: 1px solid var(--accent-color);
+             color: var(--accent-color);
+        }
+         .save-load button:hover {
+             background-color: var(--accent-color);
+             color: var(--secondary-color);
+         }
+
+
+        /* --- Right Column: Store --- */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .store-section {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .store-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        .store-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(224, 242, 247, 0.2);
+        }
+        .store-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        .item-info p { font-size: 0.9em; }
+        .item-info .item-desc { opacity: 0.7; font-size: 0.8em; }
+        .item-info .item-stats { font-size: 0.8em; color: var(--accent-color); }
+
+        button.buy-button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            font-family: var(--font-family);
+            font-size: 0.9em;
+        }
+
+        button.buy-button:hover:not(:disabled) {
+            background-color: #6bcde5; /* Lighter accent */
+        }
+
+        button.buy-button:disabled {
+            background-color: #555; /* Greyed out */
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* --- Notification Area --- */
+         #notification-area {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+         }
+
+        .notification {
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateX(100%);
+         }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+         }
+
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: 1fr; /* Stack columns */
+            }
+            .left-column, .right-column {
+                width: 100%;
+            }
+             #main-clicker {
+                 width: 150px;
+                 height: 150px;
+                 font-size: 1.3em;
+                 padding: 30px 15px;
+             }
+        }
+        @media (max-width: 480px) {
+             body { padding: 10px; }
+             .game-container { padding: 15px; }
+             .score-display h2 { font-size: 1.5em; }
+             button.buy-button { padding: 6px 10px; font-size: 0.8em;}
+             .item-info p { font-size: 0.85em;}
+             #main-clicker {
+                 width: 120px;
+                 height: 120px;
+                 font-size: 1.1em;
+                 padding: 20px 10px;
+             }
+              #notification-area {
+                 bottom: 10px;
+                 right: 10px;
+                 width: calc(100% - 20px);
+                 align-items: center;
+              }
+             .notification { font-size: 0.9em; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- Left Column: Clicker & Stats -->
+        <div class="left-column">
+            <div class="score-display">
+                <h2 id="score">0</h2>
+                <p>Lines of Code</p>
+            </div>
+
+            <div class="clicker-area">
+                <button id="main-clicker">Write<br>Code</button>
+                 <!-- Click feedback elements will be added here by JS -->
+            </div>
+
+            <div class="stats-display">
+                <p>Code per click: <span id="click-power">1</span></p>
+                <p>Code per second: <span id="lines-per-second">0</span></p>
+            </div>
+
+             <div class="save-load">
+                <button id="save-button" class="buy-button">Save Progress</button>
+                <button id="load-button" class="buy-button">Load Progress</button>
+                <button id="reset-button" class="buy-button" style="background-color: var(--highlight-color); color: var(--text-color);">Reset Game</button>
+            </div>
+        </div>
+
+        <!-- Right Column: Store -->
+        <div class="right-column">
+            <div class="store-section" id="upgrade-store">
+                <h3><i class="fas fa-arrow-up"></i> Click Upgrades</h3>
+                <!-- Upgrade items will be added here by JS -->
+            </div>
+
+            <div class="store-section" id="generator-store">
+                <h3><i class="fas fa-cogs"></i> Auto Coders</h3>
+                <!-- Generator items will be added here by JS -->
+            </div>
+        </div>
+    </div>
+
+     <div id="notification-area">
+         <!-- Notifications will appear here -->
+     </div>
+
+    <script>
+        // --- Game State Variables ---
+        let linesOfCode = 0;
+        let linesPerClick = 1;
+        let linesPerSecond = 0;
+        let totalClicks = 0; // Example of another stat you could track
+
+        // --- DOM Elements ---
+        const scoreDisplay = document.getElementById('score');
+        const clickerButton = document.getElementById('main-clicker');
+        const clickPowerDisplay = document.getElementById('click-power');
+        const lpsDisplay = document.getElementById('lines-per-second');
+        const upgradeStoreDiv = document.getElementById('upgrade-store');
+        const generatorStoreDiv = document.getElementById('generator-store');
+        const notificationArea = document.getElementById('notification-area');
+        const saveButton = document.getElementById('save-button');
+        const loadButton = document.getElementById('load-button');
+        const resetButton = document.getElementById('reset-button');
+
+        // --- Utility Functions ---
+
+        // Format large numbers (K, M, B, T, etc.)
+        function formatNumber(num) {
+            if (num < 1000) return num.toFixed(0);
+            const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']; // Add more if needed
+            const i = Math.floor(Math.log10(num) / 3);
+            const scaledNum = (num / Math.pow(1000, i));
+            // Show 1 decimal place if scaledNum >= 10, otherwise show 2 for better precision at lower scales
+            const precision = scaledNum >= 10 ? 1 : 2;
+            return scaledNum.toFixed(precision) + suffixes[i];
+        }
+
+        // Show floating "+X" text on click
+         function showClickFeedback(amount, x, y) {
+            const feedback = document.createElement('div');
+            feedback.classList.add('click-feedback');
+            feedback.textContent = `+${formatNumber(amount)}`;
+            feedback.style.left = `${x}px`;
+            feedback.style.top = `${y}px`;
+
+            document.body.appendChild(feedback); // Append to body to position absolutely
+
+            // Clean up the element after animation
+            feedback.addEventListener('animationend', () => {
+                feedback.remove();
+            });
+        }
+
+        // Show notifications
+        function showNotification(message, duration = 3000) {
+             const notification = document.createElement('div');
+             notification.classList.add('notification');
+             notification.textContent = message;
+             notificationArea.appendChild(notification);
+
+             // Trigger animation
+             setTimeout(() => {
+                 notification.classList.add('show');
+             }, 10); // Small delay to allow CSS transition
+
+            // Remove notification after duration
+             setTimeout(() => {
+                notification.classList.remove('show');
+                 // Allow fade out animation before removing
+                setTimeout(() => notification.remove(), 500);
+             }, duration);
+        }
+
+
+        // --- Store Item Definitions ---
+
+        // Click Upgrades
+        const clickUpgrades = [
+            { id: 'keyboard', name: 'Ergonomic Keyboard', baseCost: 15, powerIncrease: 1, owned: 0, desc: "+1 LoC/click" },
+            { id: 'mouse', name: 'Gaming Mouse', baseCost: 100, powerIncrease: 5, owned: 0, desc: "+5 LoC/click" },
+            { id: 'monitor', name: 'Dual Monitors', baseCost: 1100, powerIncrease: 25, owned: 0, desc: "+25 LoC/click" },
+            { id: 'coffee', name: 'Auto Coffee Machine', baseCost: 12000, powerIncrease: 150, owned: 0, desc: "+150 LoC/click" },
+            { id: 'ide', name: 'AI-Powered IDE', baseCost: 130000, powerIncrease: 1000, owned: 0, desc: "+1K LoC/click" },
+        ];
+
+        // Auto Generators
+        const generators = [
+            { id: 'script', name: 'Simple Script', baseCost: 50, lps: 1, owned: 0, desc: "+1 LoC/sec" },
+            { id: 'intern', name: 'Hire Intern', baseCost: 500, lps: 5, owned: 0, desc: "+5 LoC/sec" },
+            { id: 'dev', name: 'Hire Junior Dev', baseCost: 7000, lps: 25, owned: 0, desc: "+25 LoC/sec" },
+            { id: 'server', name: 'Deploy Server Cluster', baseCost: 100000, lps: 150, owned: 0, desc: "+150 LoC/sec" },
+            { id: 'ai', name: 'Develop Coding AI', baseCost: 1500000, lps: 1000, owned: 0, desc: "+1K LoC/sec" },
+        ];
+
+        // Function to calculate item cost (increases exponentially)
+        function calculateCost(baseCost, owned) {
+            return Math.floor(baseCost * Math.pow(1.15, owned));
+        }
+
+        // --- Game Logic Functions ---
+
+        // Update the main score display
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = formatNumber(linesOfCode);
+        }
+
+        // Update stats display (LPC, LPS)
+        function updateStatsDisplay() {
+            clickPowerDisplay.textContent = formatNumber(linesPerClick);
+            lpsDisplay.textContent = formatNumber(linesPerSecond);
+        }
+
+        // Recalculate total Lines Per Second based on owned generators
+        function recalculateLPS() {
+            linesPerSecond = 0;
+            generators.forEach(gen => {
+                linesPerSecond += gen.lps * gen.owned;
+            });
+            updateStatsDisplay();
+        }
+
+        // Recalculate total Lines Per Click based on owned upgrades
+         function recalculateLPC() {
+            linesPerClick = 1; // Start with base click power
+            clickUpgrades.forEach(upg => {
+                linesPerClick += upg.powerIncrease * upg.owned;
+            });
+            updateStatsDisplay();
+        }
+
+        // Update the enabled/disabled state of all store buttons
+        function updateButtonStates() {
+            const allItems = [...clickUpgrades, ...generators];
+            allItems.forEach(item => {
+                const button = document.getElementById(`buy-${item.id}`);
+                if (button) {
+                    const currentCost = calculateCost(item.baseCost, item.owned);
+                    button.disabled = linesOfCode < currentCost;
+                    // Update cost display on button or nearby element
+                    const costElement = document.getElementById(`cost-${item.id}`);
+                    if(costElement) costElement.textContent = formatNumber(currentCost);
+                    const ownedElement = document.getElementById(`owned-${item.id}`);
+                     if(ownedElement) ownedElement.textContent = item.owned;
+                }
+            });
+        }
+
+        // Buy a click upgrade
+        function buyClickUpgrade(id) {
+            const upgrade = clickUpgrades.find(upg => upg.id === id);
+            if (!upgrade) return;
+
+            const cost = calculateCost(upgrade.baseCost, upgrade.owned);
+            if (linesOfCode >= cost) {
+                linesOfCode -= cost;
+                upgrade.owned++;
+                recalculateLPC(); // Update click power
+                updateScoreDisplay();
+                updateButtonStates(); // Updates cost and button state
+                // Optionally update the specific item display if needed beyond button state/cost
+                // console.log(`Bought ${upgrade.name}. Owned: ${upgrade.owned}`);
+            }
+        }
+
+        // Buy a generator
+        function buyGenerator(id) {
+            const generator = generators.find(gen => gen.id === id);
+            if (!generator) return;
+
+            const cost = calculateCost(generator.baseCost, generator.owned);
+            if (linesOfCode >= cost) {
+                linesOfCode -= cost;
+                generator.owned++;
+                recalculateLPS(); // Update lines per second
+                updateScoreDisplay();
+                updateButtonStates(); // Updates cost and button state
+                // console.log(`Bought ${generator.name}. Owned: ${generator.owned}`);
+            }
+        }
+
+        // --- Store Population ---
+        function populateStore() {
+            // Clear existing items first
+            upgradeStoreDiv.innerHTML = '<h3><i class="fas fa-arrow-up"></i> Click Upgrades</h3>'; // Keep header
+            generatorStoreDiv.innerHTML = '<h3><i class="fas fa-cogs"></i> Auto Coders</h3>'; // Keep header
+
+            // Populate Click Upgrades
+             clickUpgrades.forEach(upg => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('store-item');
+                itemDiv.innerHTML = `
+                    <div class="item-info">
+                        <p>${upg.name} (<span id="owned-${upg.id}">${upg.owned}</span>)</p>
+                        <p class="item-desc">${upg.desc}</p>
+                        <p class="item-stats">Cost: <span id="cost-${upg.id}">${formatNumber(calculateCost(upg.baseCost, upg.owned))}</span> LoC</p>
+                    </div>
+                    <button id="buy-${upg.id}" class="buy-button">Buy</button>
+                `;
+                upgradeStoreDiv.appendChild(itemDiv);
+                document.getElementById(`buy-${upg.id}`).addEventListener('click', () => buyClickUpgrade(upg.id));
+            });
+
+            // Populate Generators
+            generators.forEach(gen => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('store-item');
+                 itemDiv.innerHTML = `
+                    <div class="item-info">
+                        <p>${gen.name} (<span id="owned-${gen.id}">${gen.owned}</span>)</p>
+                        <p class="item-desc">${gen.desc}</p>
+                         <p class="item-stats">Cost: <span id="cost-${gen.id}">${formatNumber(calculateCost(gen.baseCost, gen.owned))}</span> LoC</p>
+                    </div>
+                    <button id="buy-${gen.id}" class="buy-button">Buy</button>
+                `;
+                generatorStoreDiv.appendChild(itemDiv);
+                document.getElementById(`buy-${gen.id}`).addEventListener('click', () => buyGenerator(gen.id));
+            });
+        }
+
+
+        // --- Event Listeners ---
+
+        // Main clicker button event
+        clickerButton.addEventListener('click', (event) => {
+            const clickValue = linesPerClick;
+            linesOfCode += clickValue;
+            totalClicks++;
+            updateScoreDisplay();
+            updateButtonStates();
+
+            // Show click feedback at cursor position
+            showClickFeedback(clickValue, event.clientX, event.clientY);
+        });
+
+        // Save game state to localStorage
+        saveButton.addEventListener('click', () => {
+            const gameState = {
+                linesOfCode,
+                linesPerClick,
+                linesPerSecond,
+                totalClicks,
+                clickUpgradesOwned: clickUpgrades.map(u => ({ id: u.id, owned: u.owned })),
+                generatorsOwned: generators.map(g => ({ id: g.id, owned: g.owned }))
+            };
+            localStorage.setItem('codeClickerSave', JSON.stringify(gameState));
+            console.log('Game Saved!');
+            showNotification('Game Saved!');
+        });
+
+        // Load game state from localStorage
+         loadButton.addEventListener('click', () => {
+            const savedState = localStorage.getItem('codeClickerSave');
+            if (savedState) {
+                try {
+                    const gameState = JSON.parse(savedState);
+
+                    linesOfCode = gameState.linesOfCode || 0;
+                    // Recalculate LPC and LPS based on loaded owned counts instead of loading the values directly
+                    // linesPerClick = gameState.linesPerClick || 1; // Don't load directly
+                    // linesPerSecond = gameState.linesPerSecond || 0; // Don't load directly
+                    totalClicks = gameState.totalClicks || 0;
+
+
+                    // Update owned counts from saved data
+                    if (gameState.clickUpgradesOwned) {
+                        gameState.clickUpgradesOwned.forEach(savedUpg => {
+                            const gameUpg = clickUpgrades.find(u => u.id === savedUpg.id);
+                            if (gameUpg) gameUpg.owned = savedUpg.owned;
+                        });
+                    } else {
+                         // If old save format without owned array, reset owned counts
+                        clickUpgrades.forEach(u => u.owned = 0);
+                    }
+
+                    if (gameState.generatorsOwned) {
+                         gameState.generatorsOwned.forEach(savedGen => {
+                            const gameGen = generators.find(g => g.id === savedGen.id);
+                             if (gameGen) gameGen.owned = savedGen.owned;
+                        });
+                    } else {
+                         // If old save format without owned array, reset owned counts
+                        generators.forEach(g => g.owned = 0);
+                    }
+
+
+                    // Recalculate stats based on new owned counts
+                    recalculateLPC();
+                    recalculateLPS();
+
+                    // Update UI
+                    populateStore(); // Repopulate to show correct owned counts and costs
+                    updateScoreDisplay();
+                    updateStatsDisplay(); // Already called by recalculate funcs, but good practice
+                    updateButtonStates();
+
+                    console.log('Game Loaded!');
+                    showNotification('Game Loaded!');
+                } catch (error) {
+                    console.error("Failed to load game state:", error);
+                    showNotification('Error loading save data!', 5000);
+                     // Optionally reset to default state here
+                    // resetGameConfirm();
+                }
+
+            } else {
+                console.log('No save data found.');
+                showNotification('No save data found.');
+            }
+        });
+
+        // Reset game confirmation and action
+        resetButton.addEventListener('click', () => {
+            if (confirm("Are you sure you want to reset all progress? This cannot be undone!")) {
+                resetGameConfirm();
+            }
+        });
+
+        function resetGameConfirm() {
+             // Clear local storage
+             localStorage.removeItem('codeClickerSave');
+
+            // Reset game variables
+            linesOfCode = 0;
+            linesPerClick = 1;
+            linesPerSecond = 0;
+            totalClicks = 0;
+            clickUpgrades.forEach(upg => upg.owned = 0);
+            generators.forEach(gen => gen.owned = 0);
+
+            // Update UI
+            recalculateLPC(); // Will set LPC to base 1
+            recalculateLPS(); // Will set LPS to 0
+            populateStore(); // Reset store display
+            updateScoreDisplay();
+            updateStatsDisplay();
+            updateButtonStates();
+
+             console.log('Game Reset.');
+            showNotification('Game Reset!');
+        }
+
+        // --- Game Loop ---
+        function gameLoop() {
+            const codeGenerated = linesPerSecond / 10; // Generate fraction per tick for smoother updates
+            linesOfCode += codeGenerated;
+            updateScoreDisplay();
+            updateButtonStates(); // Check if new items become affordable
+        }
+
+        // --- Initialization ---
+        function initializeGame() {
+            console.log('Initializing Code Clicker Tycoon...');
+            // Attempt to load saved game first
+            loadButton.click(); // Trigger load on page start
+
+             // If no save was loaded (or failed), populate store with defaults
+            if (linesOfCode === 0 && totalClicks === 0) { // Basic check if game is fresh
+                populateStore();
+                updateScoreDisplay();
+                updateStatsDisplay();
+                updateButtonStates();
+            }
+             // Start the game loop (runs every 100ms for 10 updates per second)
+             setInterval(gameLoop, 100);
+             console.log('Game Initialized.');
+        }
+
+        // --- Start the game ---
+        // Use DOMContentLoaded to ensure the DOM is ready before running scripts
+        document.addEventListener('DOMContentLoaded', initializeGame);
+
+    </script>
+
+</body>
+</html>
