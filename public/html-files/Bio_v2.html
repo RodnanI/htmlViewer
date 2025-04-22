@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biologie Klausur - Genetik & Evolution</title>
+    <title>Biologie Klausurvorbereitung: Genetik und Evolution</title>
     <style>
         :root {
-            --primary-color: #1a5276;
-            --secondary-color: #d4e6f1;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --border-color: #ddd;
+            --primary-color: #2a7d2e;
+            --secondary-color: #3fa796;
+            --accent-color: #f8cb66;
+            --dark-color: #333;
+            --light-color: #f5f5f5;
+            --success-color: #5cb85c;
+            --warning-color: #f0ad4e;
+            --danger-color: #d9534f;
         }
         
         * {
@@ -23,139 +25,184 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: #fff;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            padding-top: 60px;
         }
         
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
             text-align: center;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background-color: var(--secondary-color);
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 20px;
+            color: white;
+            transition: transform 0.3s ease;
+            z-index: 999;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        nav.collapsed {
+            transform: translateX(-230px);
+        }
+        
+        .nav-toggle {
+            position: fixed;
+            top: 70px;
+            left: 250px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-toggle.collapsed {
+            transform: translateX(-230px);
+        }
+        
+        nav ul {
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        nav h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+        
+        main {
+            margin-left: 250px;
+            padding: 20px;
+            max-width: 1200px;
+            transition: margin-left 0.3s ease;
+        }
+        
+        main.expanded {
+            margin-left: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         h1, h2, h3, h4 {
-            margin-bottom: 15px;
             color: var(--primary-color);
+            margin-bottom: 1rem;
         }
         
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
         }
         
         h2 {
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 5px;
-            margin-top: 30px;
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
         }
         
         h3 {
-            font-size: 1.4rem;
-            margin-top: 25px;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         h4 {
-            font-size: 1.2rem;
-            margin-top: 20px;
+            font-size: 1.25rem;
+            margin-top: 1.25rem;
         }
         
-        p, ul, ol {
-            margin-bottom: 15px;
+        p {
+            margin-bottom: 1rem;
         }
         
         ul, ol {
-            padding-left: 30px;
+            margin-left: 20px;
+            margin-bottom: 1rem;
         }
         
-        .card {
-            background-color: var(--light-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
+        .info-box, .warning-box, .tip-box {
+            padding: 15px;
+            margin-bottom: 20px;
             border-radius: 5px;
-            margin-bottom: 20px;
+            position: relative;
         }
         
-        .important {
-            background-color: #ffecb3;
-            border-left: 4px solid #f39c12;
-            padding: 10px 15px;
-            margin-bottom: 15px;
+        .info-box {
+            background-color: #d1ecf1;
+            border-left: 5px solid #0c5460;
         }
         
-        .definition {
-            background-color: var(--secondary-color);
-            border-left: 4px solid var(--accent-color);
-            padding: 10px 15px;
-            margin-bottom: 15px;
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #856404;
         }
         
-        .table-container {
-            overflow-x: auto;
-            margin-bottom: 20px;
+        .tip-box {
+            background-color: #d4edda;
+            border-left: 5px solid #155724;
         }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        
-        th, td {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            text-align: left;
-        }
-        
-        th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        tr:nth-child(even) {
-            background-color: var(--light-bg);
-        }
-        
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        
-        .tab-button {
-            background-color: var(--light-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px 15px;
-            cursor: pointer;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .tab-button.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 0 0 5px 5px;
-        }
-        
-        .tab-content.active {
+        .info-box::before, .warning-box::before, .tip-box::before {
+            font-weight: bold;
             display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-box::before {
+            content: "Information";
+        }
+        
+        .warning-box::before {
+            content: "Achtung";
+        }
+        
+        .tip-box::before {
+            content: "Tipp";
         }
         
         .flex-container {
             display: flex;
+            justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 20px;
@@ -166,605 +213,1614 @@
             min-width: 300px;
         }
         
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 15px auto;
-            border-radius: 5px;
-        }
-        
-        .caption {
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-        
-        .quiz-container {
-            background-color: var(--light-bg);
-            padding: 20px;
-            border-radius: 5px;
+        .table-container {
+            overflow-x: auto;
             margin-bottom: 20px;
         }
         
-        .quiz-question {
-            margin-bottom: 15px;
-            font-weight: bold;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
         
-        .quiz-options {
-            list-style-type: none;
-            padding-left: 0;
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         
-        .quiz-option {
-            padding: 10px;
-            margin-bottom: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .quiz-option:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .quiz-option.selected {
-            background-color: var(--accent-color);
+        th {
+            background-color: var(--primary-color);
             color: white;
         }
         
-        .quiz-option.correct {
-            background-color: #aed581;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
         
-        .quiz-option.incorrect {
-            background-color: #ff8a80;
+        tr:hover {
+            background-color: #ddd;
         }
         
-        .quiz-feedback {
+        .img-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .caption {
+            font-style: italic;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .quiz-container {
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        
+        .feedback {
             margin-top: 10px;
             padding: 10px;
             border-radius: 5px;
             display: none;
         }
         
-        .quiz-feedback.correct {
-            background-color: #c8e6c9;
-            color: #2e7d32;
-            display: block;
+        .feedback.correct {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
         }
         
-        .quiz-feedback.incorrect {
-            background-color: #ffcdd2;
-            color: #c62828;
-            display: block;
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
         }
         
-        .quiz-btn {
+        button {
             background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            transition: background-color 0.3s;
         }
         
-        .quiz-btn:hover {
-            background-color: var(--accent-color);
+        button:hover {
+            background-color: #1e5e21;
         }
         
-        .quiz-result {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .flex-item {
-                min-width: 100%;
-            }
-        }
-
-        .toggle-content {
-            display: none;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-top: 5px;
-            background-color: #f9f9f9;
-        }
-
-        .toggle-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px 0;
-        }
-
-        .toggle-btn:hover {
-            background-color: var(--accent-color);
-        }
-
-        .punnett {
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        .punnett th, .punnett td {
-            width: 25%;
-            height: 60px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .punnett th {
-            background-color: #d4e6f1;
-        }
-
-        .step-list {
-            counter-reset: step-counter;
-            list-style-type: none;
-            padding-left: 10px;
-        }
-        
-        .step-list li {
-            position: relative;
-            padding-left: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .step-list li::before {
-            content: counter(step-counter);
-            counter-increment: step-counter;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 30px;
-            height: 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-        }
-
-        /* DNA Animation */
-        .dna-container {
+        .flashcard {
+            perspective: 1000px;
             height: 200px;
-            position: relative;
-            overflow: hidden;
-            margin: 20px 0;
+            margin-bottom: 20px;
+            cursor: pointer;
         }
-
-        .dna-helix {
+        
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
             position: absolute;
-            top: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .flashcard-front {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .flashcard-back {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            transform: rotateY(180deg);
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary-color);
+            cursor: help;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
-            height: 100%;
-            width: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            animation: rotate 10s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
         }
-
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Specific diagram styles */
+        .punnet-square {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1px;
+            margin: 20px auto;
+            max-width: 300px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .punnet-cell {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        
+        .punnet-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .dna-structure {
+            position: relative;
+            height: 300px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+        
+        .dna-strand {
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        
         .base-pair {
-            width: 100%;
+            position: absolute;
+            width: 100px;
             height: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             justify-content: space-between;
-            position: relative;
         }
-
-        .base-pair::before {
-            content: '';
+        
+        .base {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .adenine { background-color: #3498db; }
+        .thymine { background-color: #e74c3c; }
+        .guanine { background-color: #2ecc71; }
+        .cytosine { background-color: #f39c12; }
+        
+        .connection {
             position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
             height: 2px;
-            background-color: #555;
+            background-color: #333;
+            top: 50%;
             transform: translateY(-50%);
         }
-
-        .base {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-
-        .adenine { background-color: #7FC97F; }
-        .thymine { background-color: #BEAED4; }
-        .guanine { background-color: #FDC086; }
-        .cytosine { background-color: #FFFF99; }
-
-        @keyframes rotate {
-            0% {
-                transform: translateX(-50%) rotateY(0deg);
-            }
-            100% {
-                transform: translateX(-50%) rotateY(360deg);
-            }
-        }
-
-        /* Tree diagram */
-        .tree {
-            margin: 20px 0;
-        }
-
-        .tree ul {
-            padding-left: 20px;
+        
+        .gel-electrophoresis {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 20px auto;
+            background-color: #e0f7fa;
             position: relative;
-        }
-
-        .tree li {
-            list-style-type: none;
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .tree li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            border-left: 2px solid #999;
-            height: 100%;
-            width: 1px;
-        }
-
-        .tree li::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 12px;
-            border-top: 2px solid #999;
-            width: 25px;
-            height: 1px;
-        }
-
-        .tree li:last-child::before {
-            height: 12px;
-        }
-
-        .tree-node {
-            padding: 5px 10px;
-            background-color: #d4e6f1;
-            border: 1px solid #1a5276;
-            display: inline-block;
+            border: 2px solid #333;
             border-radius: 5px;
+            overflow: hidden;
         }
-
-        /* Print styles */
-        @media print {
-            body {
-                font-size: 12pt;
+        
+        .gel-lane {
+            position: absolute;
+            width: 40px;
+            height: 100%;
+            background-color: #b2ebf2;
+            top: 0;
+        }
+        
+        .dna-fragment {
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding: 10px;
+                transform: none;
             }
             
-            .no-print {
+            nav.collapsed {
+                transform: none;
+            }
+            
+            .nav-toggle {
                 display: none;
             }
             
-            h1 {
-                font-size: 20pt;
+            main {
+                margin-left: 0;
+                padding: 10px;
             }
             
-            h2 {
-                font-size: 16pt;
+            main.expanded {
+                margin-left: 0;
             }
             
-            h3 {
-                font-size: 14pt;
+            .timeline::after {
+                left: 31px;
             }
             
-            .card, .quiz-container, .tabs {
-                break-inside: avoid;
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Biologie Klausur 2025 - Genetik und Evolution</h1>
-        <p>Umfassende Lernübersicht für die 2. Klausur am 30.04.2025</p>
+        <h1>Biologie Klausurvorbereitung: Genetik und Evolution</h1>
     </header>
-
-    <div class="tabs no-print">
-        <button class="tab-button active" onclick="openTab(event, 'tab1')">Überblick</button>
-        <button class="tab-button" onclick="openTab(event, 'tab2')">Genetische Information</button>
-        <button class="tab-button" onclick="openTab(event, 'tab3')">Genetik & Krankheiten</button>
-        <button class="tab-button" onclick="openTab(event, 'tab4')">Evolution</button>
-        <button class="tab-button" onclick="openTab(event, 'tab5')">Quiz</button>
-    </div>
-
-    <div id="tab1" class="tab-content active">
-        <h2>Übersicht der Klausurthemen</h2>
-        <div class="important">
-            <p><strong>Klausurdauer:</strong> 80 Minuten</p>
-            <p><strong>Datum:</strong> 30.04.2025</p>
-        </div>
-
-        <h3>Hauptthemen</h3>
-        <ol>
-            <li><strong>Weitergabe genetischer Information</strong>
-                <ul>
-                    <li>Mendelsche Regeln</li>
-                    <li>Mono- und dihybride Erbgänge</li>
-                    <li>Dominanz, Rezessivität, Kodominanz</li>
-                    <li>Blutgruppensysteme</li>
-                </ul>
-            </li>
-            <li><strong>Genetik menschlicher Erkrankungen und DNA-Analytik</strong>
-                <ul>
-                    <li>Erbgänge genetisch bedingter Krankheiten</li>
-                    <li>Stammbaumanalysen</li>
-                    <li>Genetische Diagnostik und Familienberatung</li>
-                    <li>DNA-Analytik und ethische Aspekte</li>
-                </ul>
-            </li>
-            <li><strong>Evolution - Evolutionsforschung</strong>
-                <ul>
-                    <li>Homologien als Evolutionsbelege</li>
-                    <li>Stammbäume und phylogenetische Systematik</li>
-                    <li>Artbildung und Artbegriff</li>
-                </ul>
-            </li>
-        </ol>
-
-        <h3>Fokus auf Kompetenzen</h3>
+    
+    <button class="nav-toggle">≡</button>
+    
+    <nav>
+        <h3>Inhaltsverzeichnis</h3>
         <ul>
-            <li>Genotypen und Phänotypen vorhersagen können</li>
-            <li>Stammbäume analysieren und interpretieren</li>
-            <li>Methoden der DNA-Analytik verstehen und anwenden</li>
-            <li>Ethische Bewertungen wissenschaftlich begründen</li>
-            <li>Evolutionäre Zusammenhänge erkennen und erklären</li>
+            <li><a href="#intro">Einleitung</a></li>
+            <li><a href="#genetics">1. Weitergabe genetischer Information</a>
+                <ul>
+                    <li><a href="#mendel">Mendelsche Regeln</a></li>
+                    <li><a href="#alleles">Allelbegriff</a></li>
+                    <li><a href="#dominant-recessive">Dominante und rezessive Genwirkung</a></li>
+                    <li><a href="#incomplete-dominance">Unvollständige Dominanz</a></li>
+                    <li><a href="#codominance">Kodominanz (AB0-System)</a></li>
+                    <li><a href="#punnet">Kreuzungsquadrate erstellen</a></li>
+                </ul>
+            </li>
+            <li><a href="#human-genetics">2. Genetik menschlicher Erkrankungen</a>
+                <ul>
+                    <li><a href="#inheritance-patterns">Erbgänge genetischer Erkrankungen</a></li>
+                    <li><a href="#family-tree">Familienstammbaum-Analyse</a></li>
+                    <li><a href="#genetic-counseling">Genetische Beratung</a></li>
+                    <li><a href="#dna-analysis">DNA-Analytik</a></li>
+                    <li><a href="#ethics">Ethische Bewertung</a></li>
+                </ul>
+            </li>
+            <li><a href="#evolution">3. Evolutionsforschung</a>
+                <ul>
+                    <li><a href="#homology">Homologien als Evolutionsbelege</a></li>
+                    <li><a href="#analogy">Exkurs: Analogie</a></li>
+                    <li><a href="#phylogeny">Stammesgeschichte und Natürliches System</a></li>
+                    <li><a href="#phylogenetic-trees">Stammbäume analysieren und erstellen</a></li>
+                    <li><a href="#species-concept">Morphologischer Artbegriff</a></li>
+                </ul>
+            </li>
+            <li><a href="#core-knowledge">4. Grundwissen</a>
+                <ul>
+                    <li><a href="#genomic-mutations">Genommutationen: Trisomie 21</a></li>
+                    <li><a href="#karyogram">Auswertung von Karyogrammen</a></li>
+                </ul>
+            </li>
+            <li><a href="#quiz">Selbsttest</a></li>
         </ul>
-
-        <div class="definition">
-            <p>Diese Übersicht hilft dir, deine Vorbereitung zu strukturieren. Nutze die Tabs oben, um zu den einzelnen Themenbereichen zu navigieren und dein Wissen zu vertiefen.</p>
-        </div>
-    </div>
-
-    <div id="tab2" class="tab-content">
-        <h2>1. Weitergabe genetischer Information</h2>
-
-        <h3>Mendelsche Regeln</h3>
-        <div class="definition">
-            <p>Gregor Mendel (1822-1884) gilt als Begründer der Genetik. Durch Kreuzungsexperimente mit Erbsenpflanzen entdeckte er grundlegende Gesetzmäßigkeiten der Vererbung.</p>
-        </div>
-
-        <h4>Die drei Mendelschen Regeln:</h4>
-        <div class="card">
-            <h4>1. Uniformitätsregel (1. Mendelsche Regel)</h4>
-            <p>Bei der Kreuzung von reinerbigen Individuen, die sich in einem Merkmal unterscheiden, sind alle Nachkommen der F1-Generation einheitlich (uniform) und gleichen dem dominanten Elternteil.</p>
-            
-            <h4>2. Spaltungsregel (2. Mendelsche Regel)</h4>
-            <p>Bei der Kreuzung der einheitlichen F1-Generation untereinander spalten sich die Merkmale in der F2-Generation im Verhältnis 3:1 (dominant:rezessiv) auf.</p>
-            
-            <h4>3. Unabhängigkeitsregel (3. Mendelsche Regel)</h4>
-            <p>Bei der Vererbung mehrerer Gene werden diese unabhängig voneinander weitergegeben. Die Aufspaltung der Merkmale in der F2-Generation erfolgt im Verhältnis 9:3:3:1.</p>
-        </div>
-
-        <button class="toggle-btn" onclick="toggleContent('monohybrid-example')">Beispiel: Monohybrider Erbgang zeigen</button>
-        <div id="monohybrid-example" class="toggle-content">
-            <h4>Monohybrider Erbgang am Beispiel der Blütenfarbe bei Erbsen</h4>
-            <p>Angenommen, R steht für rote Blütenfarbe (dominant) und r für weiße Blütenfarbe (rezessiv):</p>
-            
-            <h5>P-Generation:</h5>
-            <p>RR (reinerbig rot) × rr (reinerbig weiß)</p>
-            
-            <h5>Gameten:</h5>
-            <p>R, R (vom roten Elternteil) und r, r (vom weißen Elternteil)</p>
-            
-            <h5>F1-Generation:</h5>
-            <p>Alle Nachkommen haben den Genotyp Rr und den Phänotyp rot blühend</p>
-            
-            <h5>F2-Generation (Rr × Rr):</h5>
-            <table class="punnett">
-                <tr>
-                    <th></th>
-                    <th>R</th>
-                    <th>r</th>
-                </tr>
-                <tr>
-                    <th>R</th>
-                    <td>RR</td>
-                    <td>Rr</td>
-                </tr>
-                <tr>
-                    <th>r</th>
-                    <td>Rr</td>
-                    <td>rr</td>
-                </tr>
-            </table>
-            
-            <p>Genotypen-Verhältnis: 1 RR : 2 Rr : 1 rr</p>
-            <p>Phänotypen-Verhältnis: 3 rot : 1 weiß</p>
-        </div>
-
-        <button class="toggle-btn" onclick="toggleContent('dihybrid-example')">Beispiel: Dihybrider Erbgang zeigen</button>
-        <div id="dihybrid-example" class="toggle-content">
-            <h4>Dihybrider Erbgang am Beispiel von Samenform und Samenfarbe</h4>
-            <p>R steht für runde Samen (dominant), r für runzlige Samen (rezessiv)<br>
-            G steht für gelbe Samen (dominant), g für grüne Samen (rezessiv)</p>
-            
-            <h5>P-Generation:</h5>
-            <p>RRGG (rund, gelb) × rrgg (runzlig, grün)</p>
-            
-            <h5>F1-Generation:</h5>
-            <p>Alle Nachkommen haben den Genotyp RrGg und den Phänotyp rund, gelb</p>
-            
-            <h5>F2-Generation (RrGg × RrGg):</h5>
-            <p>Für die 16 möglichen Kombinationen ergibt sich:</p>
-            <ul>
-                <li>9/16 rund, gelb (R_G_)</li>
-                <li>3/16 rund, grün (R_gg)</li>
-                <li>3/16 runzlig, gelb (rrG_)</li>
-                <li>1/16 runzlig, grün (rrgg)</li>
-            </ul>
-            <p>Dies entspricht dem Verhältnis 9:3:3:1.</p>
-        </div>
-
-        <h3>Genwirkung und Allelbegriffe</h3>
-        <div class="flex-container">
-            <div class="flex-item">
-                <h4>Allelbegriffe</h4>
-                <ul>
-                    <li><strong>Gen:</strong> Erblicher Faktor, der für die Ausprägung eines Merkmals sorgt</li>
-                    <li><strong>Allel:</strong> Eine von mehreren alternativen Ausprägungen desselben Gens</li>
-                    <li><strong>Homozygot:</strong> Reinerbig - beide Allele eines Genpaars sind identisch (AA oder aa)</li>
-                    <li><strong>Heterozygot:</strong> Mischerbig - die Allele eines Genpaars sind unterschiedlich (Aa)</li>
-                    <li><strong>Genotyp:</strong> Genetische Information eines Individuums</li>
-                    <li><strong>Phänotyp:</strong> Äußeres Erscheinungsbild eines Individuums</li>
-                </ul>
+    </nav>
+    
+    <main>
+        <section id="intro">
+            <h2>Einleitung</h2>
+            <p>Diese interaktive Lernübersicht hilft dir bei der Vorbereitung auf deine Biologie-Klausur zu den Themen Genetik und Evolution. Sie enthält alle wichtigen Inhalte gemäß des Lehrplans und bietet dir nützliche Informationen, Beispiele und Übungen.</p>
+            <div class="info-box">
+                Die Klausur dauert 80 Minuten und umfasst die Themen Weitergabe genetischer Information, Genetik menschlicher Erkrankungen, DNA-Analytik und Evolutionsforschung.
             </div>
-            <div class="flex-item">
-                <h4>Arten der Genwirkung</h4>
-                <ul>
-                    <li><strong>Dominante Genwirkung:</strong> Ein Allel (A) unterdrückt die Wirkung des anderen Allels (a) vollständig</li>
-                    <li><strong>Rezessive Genwirkung:</strong> Die Wirkung eines Allels (a) wird von einem dominanten Allel (A) unterdrückt</li>
-                    <li><strong>Unvollständige Dominanz:</strong> Der heterozygote Phänotyp (Aa) liegt zwischen den homozygoten Phänotypen (AA und aa)</li>
-                    <li><strong>Kodominanz:</strong> Beide Allele (A und B) werden gleichzeitig im Phänotyp ausgeprägt</li>
-                </ul>
+            <div class="tip-box">
+                Nutze die Navigation auf der linken Seite, um schnell zu den verschiedenen Themenbereichen zu springen. Du kannst die Navigation auch einklappen, um mehr Platz zum Lesen zu haben.
             </div>
-        </div>
+        </section>
 
-        <h3>Beispielsysteme für verschiedene Genwirkungen</h3>
-        
-        <h4>Blutgruppensysteme</h4>
-        <div class="card">
-            <h5>AB0-System (Kodominanz)</h5>
-            <p>Drei Allele bestimmen die Blutgruppe: I<sup>A</sup>, I<sup>B</sup> und i</p>
+        <section id="genetics">
+            <h2>1. Weitergabe genetischer Information</h2>
+            
+            <h3 id="mendel">Mendelsche Regeln</h3>
+            <p>Gregor Mendel (1822-1884) führte Kreuzungsexperimente mit Erbsenpflanzen durch und entdeckte dabei grundlegende Vererbungsregeln. Seine Arbeiten bilden die Basis der klassischen Genetik.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>1. Mendelsche Regel (Uniformitätsregel)</h4>
+                    <p>Kreuzt man zwei reinerbige (homozygote) Individuen, die sich in einem Merkmal unterscheiden, sind alle Nachkommen der F<sub>1</sub>-Generation phänotypisch und genotypisch gleich (uniform).</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="1. Mendelsche Regel">
+                        <div class="caption">Uniformität in der F<sub>1</sub>-Generation</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>2. Mendelsche Regel (Spaltungsregel)</h4>
+                    <p>Bei der Kreuzung von Individuen der F<sub>1</sub>-Generation treten in der F<sub>2</sub>-Generation die Merkmale der Eltern im Verhältnis 3:1 wieder auf (bei dominant-rezessiven Erbgängen).</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="2. Mendelsche Regel">
+                        <div class="caption">Aufspaltung in der F<sub>2</sub>-Generation</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>3. Mendelsche Regel (Unabhängigkeitsregel)</h4>
+                    <p>Bei der Vererbung mehrerer Gene werden die Allele unabhängig voneinander an die Nachkommen weitergegeben. Diese Regel gilt nur für Gene, die auf verschiedenen Chromosomen liegen oder weit voneinander entfernt sind.</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="3. Mendelsche Regel">
+                        <div class="caption">Unabhängige Vererbung zweier Merkmale</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Statistischer Charakter der Vererbung</h4>
+                    <p>Die Mendelschen Regeln beschreiben Wahrscheinlichkeiten. Die tatsächlichen Zahlenverhältnisse können bei kleinen Nachkommenzahlen vom theoretischen Wert abweichen. Je größer die Anzahl der Nachkommen ist, desto näher kommen die beobachteten Verhältnisse an die theoretischen Werte heran.</p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Kreuzung</th>
+                                <th>Theoretisches Verhältnis</th>
+                                <th>Kleiner Wurf (4 Nachkommen)</th>
+                                <th>Großer Wurf (1000 Nachkommen)</th>
+                            </tr>
+                            <tr>
+                                <td>Aa × Aa</td>
+                                <td>3:1 (75% : 25%)</td>
+                                <td>3:1 oder 2:2 oder 4:0 etc.</td>
+                                <td>~750:~250</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 id="alleles">Allelbegriff</h3>
+            <p>Allele sind alternative Formen eines Gens, die an einem bestimmten Ort (Locus) auf einem Chromosom vorkommen können.</p>
             <ul>
-                <li>Blutgruppe A: I<sup>A</sup>I<sup>A</sup> oder I<sup>A</sup>i</li>
-                <li>Blutgruppe B: I<sup>B</sup>I<sup>B</sup> oder I<sup>B</sup>i</li>
-                <li>Blutgruppe AB: I<sup>A</sup>I<sup>B</sup> (Kodominanz)</li>
-                <li>Blutgruppe 0: ii</li>
+                <li><strong>Gen:</strong> Ein Abschnitt der DNA, der die Information für ein bestimmtes Merkmal oder Protein trägt.</li>
+                <li><strong>Allel:</strong> Eine spezifische Variante eines Gens.</li>
+                <li><strong>Homozygot:</strong> Beide Allele eines Gens sind identisch (z.B. AA oder aa).</li>
+                <li><strong>Heterozygot:</strong> Die beiden Allele eines Gens sind unterschiedlich (z.B. Aa).</li>
+                <li><strong>Genotyp:</strong> Die genetische Ausstattung eines Individuums (z.B. AA, Aa, aa).</li>
+                <li><strong>Phänotyp:</strong> Die äußere Erscheinung oder beobachtbare Merkmalsausprägung.</li>
             </ul>
             
-            <h5>Rhesus-System (Dominanz)</h5>
-            <p>Der Rhesusfaktor wird dominant vererbt:</p>
+            <h3 id="dominant-recessive">Dominante und rezessive Genwirkung</h3>
+            <p>Bei einem dominant-rezessiven Erbgang bestimmt das dominante Allel den Phänotyp, wenn es in heterozygoter Form vorliegt.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Dominantes Allel</h4>
+                    <p>Ein dominantes Allel setzt sich in der Merkmalsausprägung durch, auch wenn es nur einmal vorhanden ist. Es wird üblicherweise mit einem Großbuchstaben dargestellt (z.B. A).</p>
+                    <p><strong>Beispiel:</strong> Braune Augenfarbe (B) ist dominant gegenüber blauer Augenfarbe (b).</p>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Rezessives Allel</h4>
+                    <p>Ein rezessives Allel kommt in der Merkmalsausprägung nur zur Geltung, wenn es homozygot vorliegt. Es wird üblicherweise mit einem Kleinbuchstaben dargestellt (z.B. a).</p>
+                    <p><strong>Beispiel:</strong> Blaue Augenfarbe (b) ist rezessiv gegenüber brauner Augenfarbe (B).</p>
+                </div>
+            </div>
+            
+            <h4>Rhesus-System</h4>
+            <p>Das Rhesus-System ist ein wichtiges Beispiel für dominante und rezessive Genwirkung beim Menschen:</p>
             <ul>
-                <li>Rhesus-positiv: D_ (DD oder Dd)</li>
-                <li>Rhesus-negativ: dd</li>
+                <li>Das dominante Allel D führt zum Rhesus-positiven Phänotyp (Rh+).</li>
+                <li>Das rezessive Allel d führt nur in homozygoter Form (dd) zum Rhesus-negativen Phänotyp (Rh-).</li>
+                <li>Genotypen DD und Dd zeigen den Phänotyp Rh+, nur dd zeigt Rh-.</li>
             </ul>
-            <p>Medizinische Bedeutung bei Schwangerschaften: Eine Rhesus-negative Mutter kann Antikörper gegen das D-Antigen eines Rhesus-positiven Kindes bilden, was bei einer weiteren Schwangerschaft mit einem Rhesus-positiven Kind zu Komplikationen führen kann.</p>
-        </div>
-
-        <h4>Weitere Beispiele</h4>
-        <div class="table-container">
-            <table>
-                <tr>
-                    <th>Genwirkung</th>
-                    <th>Beispiel</th>
-                    <th>Merkmalsausprägung</th>
-                </tr>
-                <tr>
-                    <td>Dominante Genwirkung</td>
-                    <td>Erbsenblütenfarbe</td>
-                    <td>Rot (R) dominiert über weiß (r)</td>
-                </tr>
-                <tr>
-                    <td>Unvollständige Dominanz</td>
-                    <td>Wunderblume</td>
-                    <td>Rot (RR), Rosa (Rr), Weiß (rr)</td>
-                </tr>
-                <tr>
-                    <td>Kodominanz</td>
-                    <td>AB0-Blutgruppe</td>
-                    <td>A und B erscheinen gemeinsam bei AB</td>
-                </tr>
-                <tr>
-                    <td>Letale Allele</td>
-                    <td>Gelbfaktor bei Mäusen</td>
-                    <td>YY ist letal, Yy gelb, yy agouti</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="important">
-            <h4>Statistischer Charakter der Vererbung</h4>
-            <p>Die Mendelschen Zahlenverhältnisse stellen <strong>statistische Erwartungswerte</strong> dar. Bei einer kleinen Anzahl von Nachkommen können die tatsächlichen Verhältnisse davon abweichen. Erst bei großen Zahlen nähern sich die beobachteten Werte den theoretischen Verhältnissen an.</p>
-        </div>
-        
-        <h3>Genkopplung und Chromosomentheorie</h3>
-        <p>Die 3. Mendelsche Regel (Unabhängigkeitsregel) gilt nur für Gene, die auf verschiedenen Chromosomen liegen. Gene, die auf demselben Chromosom liegen, werden gekoppelt vererbt. Diese Genkopplung kann durch Crossing-over während der Meiose teilweise aufgehoben werden.</p>
-        
-        <div class="definition">
-            <h4>Chromosomentheorie der Vererbung</h4>
-            <p>Diese von Sutton und Boveri entwickelte Theorie besagt:</p>
+            
+            <div class="warning-box">
+                Wenn eine Rhesus-negative Mutter (dd) ein Rhesus-positives Kind (Dd) erwartet, kann es zu einer Rhesus-Unverträglichkeit kommen. Dies ist besonders gefährlich bei weiteren Schwangerschaften, da die Mutter Antikörper gegen den Rhesus-Faktor des Kindes bilden kann.
+            </div>
+            
+            <h3 id="incomplete-dominance">Unvollständige Dominanz</h3>
+            <p>Bei der unvollständigen Dominanz (auch intermediärer Erbgang genannt) zeigen heterozygote Individuen einen Phänotyp, der zwischen den beiden homozygoten Phänotypen liegt.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <p><strong>Beispiel:</strong> Blütenfarbe bei der Wunderblume (Mirabilis jalapa)</p>
+                    <ul>
+                        <li>Homozygot RR: rote Blüten</li>
+                        <li>Heterozygot Rr: rosa Blüten</li>
+                        <li>Homozygot rr: weiße Blüten</li>
+                    </ul>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="Unvollständige Dominanz bei Wunderblumen">
+                        <div class="caption">Unvollständige Dominanz bei der Blütenfarbe der Wunderblume</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Kreuzungsergebnisse bei unvollständiger Dominanz</h4>
+                    <p>Bei der Kreuzung heterozygot rosa blühender Pflanzen (Rr) untereinander ergibt sich in der F<sub>2</sub>-Generation folgendes Verhältnis:</p>
+                    <ul>
+                        <li>1/4 der Nachkommen sind homozygot rot (RR)</li>
+                        <li>2/4 der Nachkommen sind heterozygot rosa (Rr)</li>
+                        <li>1/4 der Nachkommen sind homozygot weiß (rr)</li>
+                    </ul>
+                    <p>Phänotypisches Verhältnis in der F<sub>2</sub>-Generation: 1:2:1 (rot:rosa:weiß)</p>
+                </div>
+            </div>
+            
+            <h3 id="codominance">Kodominanz (AB0-System)</h3>
+            <p>Bei der Kodominanz kommen beide Allele eines Gens gleichzeitig zur Ausprägung, wenn sie in heterozygoter Form vorliegen.</p>
+            
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Blutgruppe</th>
+                        <th>Genotyp</th>
+                        <th>Antigene auf Erythrozyten</th>
+                        <th>Antikörper im Plasma</th>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td>I<sup>A</sup>I<sup>A</sup> oder I<sup>A</sup>i</td>
+                        <td>A</td>
+                        <td>Anti-B</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>I<sup>B</sup>I<sup>B</sup> oder I<sup>B</sup>i</td>
+                        <td>B</td>
+                        <td>Anti-A</td>
+                    </tr>
+                    <tr>
+                        <td>AB</td>
+                        <td>I<sup>A</sup>I<sup>B</sup></td>
+                        <td>A und B</td>
+                        <td>keine</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>ii</td>
+                        <td>keine</td>
+                        <td>Anti-A und Anti-B</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <p>Beim AB0-System gibt es drei Allele des gleichen Gens:</p>
             <ul>
-                <li>Gene befinden sich linear angeordnet auf Chromosomen</li>
-                <li>Homologe Chromosomen trennen sich bei der Meiose</li>
-                <li>Die Verteilung der Chromosomen erfolgt zufällig</li>
-                <li>Gene auf demselben Chromosom werden gekoppelt vererbt</li>
-                <li>Crossing-over ermöglicht den Austausch zwischen homologen Chromosomen</li>
+                <li>I<sup>A</sup>: codiert für Antigen A</li>
+                <li>I<sup>B</sup>: codiert für Antigen B</li>
+                <li>i: codiert für kein Antigen</li>
             </ul>
-        </div>
+            
+            <p>Die Allele I<sup>A</sup> und I<sup>B</sup> sind kodominant zueinander, d.h. in einer Person mit dem Genotyp I<sup>A</sup>I<sup>B</sup> werden beide Antigene (A und B) exprimiert. Beide Allele sind jedoch dominant gegenüber dem Allel i.</p>
+            
+            <div class="info-box">
+                Das AB0-System ist besonders wichtig für Bluttransfusionen. Eine Person mit Blutgruppe A kann Blut von A und 0 empfangen, eine Person mit Blutgruppe B kann Blut von B und 0 empfangen, eine Person mit Blutgruppe AB kann Blut von allen Gruppen empfangen (Universalempfänger), und eine Person mit Blutgruppe 0 kann nur Blut von 0 empfangen, aber an alle Gruppen spenden (Universalspender).
+            </div>
+            
+            <h3 id="punnet">Kreuzungsquadrate erstellen</h3>
+            <p>Ein Kreuzungsquadrat (auch Punnet-Quadrat genannt) ist ein hilfreiches Werkzeug, um die möglichen Genotypen der Nachkommen einer Kreuzung zu bestimmen.</p>
+            
+            <h4>Monohybrider Erbgang (ein Merkmal)</h4>
+            <p>Beispiel: Kreuzung zweier heterozygoter Individuen (Aa × Aa)</p>
+            
+            <div class="punnet-square">
+                <div class="punnet-cell punnet-header"></div>
+                <div class="punnet-cell punnet-header">A</div>
+                <div class="punnet-cell punnet-header">a</div>
+                <div class="punnet-cell punnet-header">A</div>
+                <div class="punnet-cell">AA</div>
+                <div class="punnet-cell">Aa</div>
+                <div class="punnet-cell punnet-header">a</div>
+                <div class="punnet-cell">Aa</div>
+                <div class="punnet-cell">aa</div>
+            </div>
+            
+            <p>Ergebnis: 1 AA : 2 Aa : 1 aa (Genotypen-Verhältnis)</p>
+            <p>Bei dominant-rezessivem Erbgang: 3 dominant : 1 rezessiv (Phänotypen-Verhältnis)</p>
+            
+            <h4>Dihybrider Erbgang (zwei Merkmale)</h4>
+            <p>Beispiel: Kreuzung zweier doppelt-heterozygoter Individuen (AaBb × AaBb)</p>
+            
+            <div class="card">
+                <div class="card-header">Vorgehen bei der Erstellung eines Kreuzungsquadrats:</div>
+                <div class="card-body">
+                    <ol>
+                        <li>Bestimme die möglichen Gameten (Keimzellen) beider Eltern.</li>
+                        <li>Erstelle eine Tabelle mit den Gameten eines Elternteils in der ersten Zeile und den Gameten des anderen Elternteils in der ersten Spalte.</li>
+                        <li>Fülle die Felder mit den möglichen Kombinationen der Gameten aus.</li>
+                        <li>Zähle die verschiedenen Genotypen und berechne das Verhältnis.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <p>Mögliche Gameten: AB, Ab, aB, ab</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>AB</th>
+                        <th>Ab</th>
+                        <th>aB</th>
+                        <th>ab</th>
+                    </tr>
+                    <tr>
+                        <th>AB</th>
+                        <td>AABB</td>
+                        <td>AABb</td>
+                        <td>AaBB</td>
+                        <td>AaBb</td>
+                    </tr>
+                    <tr>
+                        <th>Ab</th>
+                        <td>AABb</td>
+                        <td>AAbb</td>
+                        <td>AaBb</td>
+                        <td>Aabb</td>
+                    </tr>
+                    <tr>
+                        <th>aB</th>
+                        <td>AaBB</td>
+                        <td>AaBb</td>
+                        <td>aaBB</td>
+                        <td>aaBb</td>
+                    </tr>
+                    <tr>
+                        <th>ab</th>
+                        <td>AaBb</td>
+                        <td>Aabb</td>
+                        <td>aaBb</td>
+                        <td>aabb</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <p>Ergebnis: 9:3:3:1 (Phänotypen-Verhältnis bei zwei unabhängigen dominant-rezessiven Merkmalen)</p>
+        </section>
+
+        <section id="human-genetics">
+            <h2>2. Genetik menschlicher Erkrankungen und DNA-Analytik</h2>
+            
+            <h3 id="inheritance-patterns">Erbgänge genetischer bedingter Krankheiten</h3>
+            <p>Genetisch bedingte Krankheiten werden nach verschiedenen Mustern vererbt. Die wichtigsten Erbgänge sind:</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Autosomal-dominanter Erbgang</h4>
+                    <ul>
+                        <li>Ein defektes dominantes Allel reicht aus, um die Krankheit auszulösen.</li>
+                        <li>Betroffene sind in der Regel heterozygot (Aa).</li>
+                        <li>Die Krankheit tritt in jeder Generation auf.</li>
+                        <li>Männer und Frauen sind gleichermaßen betroffen.</li>
+                        <li>Jedes Kind eines betroffenen Elternteils hat eine 50%-Chance, die Krankheit zu erben.</li>
+                        <li><strong>Beispiele:</strong> Huntington-Krankheit, Marfan-Syndrom, familiäre Hypercholesterinämie</li>
+                    </ul>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Autosomal-rezessiver Erbgang</h4>
+                    <ul>
+                        <li>Beide Allele müssen defekt sein (aa), um die Krankheit auszulösen.</li>
+                        <li>Heterozygote (Aa) sind gesunde Überträger (Konduktoren).</li>
+                        <li>Die Krankheit kann Generationen überspringen.</li>
+                        <li>Männer und Frauen sind gleichermaßen betroffen.</li>
+                        <li>Bei zwei heterozygoten Eltern (Aa × Aa) hat jedes Kind eine 25%-Chance, die Krankheit zu erben.</li>
+                        <li><strong>Beispiele:</strong> Mukoviszidose, Phenylketonurie, Albinismus</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>X-chromosomal-rezessiver Erbgang</h4>
+                    <ul>
+                        <li>Das defekte Allel liegt auf dem X-Chromosom.</li>
+                        <li>Männer haben nur ein X-Chromosom und sind daher bei einem defekten Allel (X<sup>a</sup>Y) betroffen.</li>
+                        <li>Frauen haben zwei X-Chromosomen und sind nur betroffen, wenn beide Allele defekt sind (X<sup>a</sup>X<sup>a</sup>).</li>
+                        <li>Heterozygote Frauen (X<sup>A</sup>X<sup>a</sup>) sind gesunde Überträgerinnen.</li>
+                        <li>Männer sind häufiger betroffen als Frauen.</li>
+                        <li>Ein betroffener Mann vererbt das defekte Allel an alle seine Töchter, aber an keinen seiner Söhne.</li>
+                        <li><strong>Beispiele:</strong> Hämophilie A, Rot-Grün-Blindheit, Duchenne-Muskeldystrophie</li>
+                    </ul>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>X-chromosomal-dominanter Erbgang</h4>
+                    <ul>
+                        <li>Das defekte dominante Allel liegt auf dem X-Chromosom.</li>
+                        <li>Sowohl Männer (X<sup>A</sup>Y) als auch heterozygote Frauen (X<sup>A</sup>X<sup>a</sup>) sind betroffen.</li>
+                        <li>Frauen sind häufiger betroffen als Männer.</li>
+                        <li>Betroffene Männer vererben das defekte Allel an alle ihre Töchter, aber an keinen ihrer Söhne.</li>
+                        <li><strong>Beispiele:</strong> Vitamin-D-resistente Rachitis, Rett-Syndrom</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 id="family-tree">Familienstammbaum-Analyse</h3>
+            <p>Die Analyse von Familienstammbäumen ist ein wichtiges Werkzeug in der Humangenetik, um Erbgänge zu identifizieren und Wahrscheinlichkeiten für das Auftreten genetisch bedingter Krankheiten zu berechnen.</p>
+            
+            <h4>Stammbaum-Symbole</h4>
+            <div class="img-container">
+                <img src="https://api.placeholder.com/600x300" alt="Stammbaum-Symbole">
+                <div class="caption">Standardsymbole für die Darstellung von Familienstammbäumen</div>
+            </div>
+            
+            <h4>Vorgehen bei der Stammbaum-Analyse</h4>
+            <ol>
+                <li><strong>Übersicht erhalten:</strong> Den Aufbau des Stammbaums verstehen und die Symbole und Verbindungen interpretieren.</li>
+                <li><strong>Dominanten von rezessiven Erbgängen unterscheiden:</strong>
+                    <ul>
+                        <li>Wenn zwei phänotypisch gesunde Eltern ein krankes Kind bekommen → rezessiver Erbgang</li>
+                        <li>Wenn zwei phänotypisch kranke Eltern ein gesundes Kind bekommen → dominanter Erbgang</li>
+                    </ul>
+                </li>
+                <li><strong>Autosomale von gonosomalen Erbgängen unterscheiden:</strong>
+                    <ul>
+                        <li>Wenn Söhne und Töchter gleichermaßen betroffen sind → autosomaler Erbgang</li>
+                        <li>Wenn vor allem Männer betroffen sind → X-chromosomal-rezessiver Erbgang</li>
+                        <li>Wenn ein betroffener Vater das Merkmal an alle seine Töchter, aber an keinen seiner Söhne weitergibt → X-chromosomaler Erbgang</li>
+                    </ul>
+                </li>
+                <li><strong>Genotypen ermitteln:</strong> Den Individuen im Stammbaum mögliche Genotypen zuordnen.</li>
+                <li><strong>Entscheidung begründen:</strong> Die Entscheidung für einen bestimmten Erbgang mit Personenkonstellationen aus dem Stammbaum belegen.</li>
+            </ol>
+            
+            <div class="card">
+                <div class="card-header">Beispiel: Stammbaum einer Familie mit Rot-Grün-Blindheit</div>
+                <div class="card-body">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/500x300" alt="Stammbaum Rot-Grün-Blindheit">
+                    </div>
+                    <p><strong>Analyse:</strong></p>
+                    <ul>
+                        <li>Vorwiegend Männer sind betroffen (5, 10) → Hinweis auf X-chromosomalen Erbgang</li>
+                        <li>Gesunde Eltern (6, 7) bekommen ein krankes Kind (10) → Hinweis auf rezessiven Erbgang</li>
+                        <li>Betroffener Vater (5) hat ausschließlich gesunde Kinder → Hinweis auf X-chromosomalen Erbgang, da er sein X-Chromosom nur an seine Töchter vererbt</li>
+                        <li><strong>Schlussfolgerung:</strong> X-chromosomal-rezessiver Erbgang</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 id="genetic-counseling">Genetische Familienberatung</h3>
+            <p>Die genetische Beratung umfasst verschiedene Methoden, um Menschen bei Fragen zu genetisch bedingten Erkrankungen zu unterstützen.</p>
+            
+            <h4>Stammbaumanalyse</h4>
+            <p>Die Stammbaumanalyse dient der Erörterung des familiären Hintergrunds, dem Ableiten des Vererbungsmodus und der Risikoabschätzung für die Vererbung genetisch bedingter Merkmale oder Erkrankungen.</p>
+            
+            <h4>Heterozygotentest</h4>
+            <p>Der Heterozygotentest dient der Früherkennung von rezessiven, genetisch bedingten Krankheiten und ermittelt, ob eine Person ein Konduktor (Überträger) ist.</p>
+            <p><strong>Beispiel:</strong> Bei der Phenylketonurie (PKU) wird der Phenylalanin-Belastungstest durchgeführt, um heterozygote Träger zu identifizieren. Nach Verabreichung von Phenylalanin wird der Anstieg der Phenylalaninkonzentration im Blut gemessen. Heterozygote zeigen einen höheren und länger anhaltenden Anstieg als Personen ohne defektes Allel.</p>
+            
+            <h4>Pränataldiagnostik (PND)</h4>
+            <p>Die Pränataldiagnostik umfasst Untersuchungen mit dem Ziel, Entwicklungsstörungen, genetisch bedingte Krankheiten oder Chromosomenanomalien beim ungeborenen Kind frühzeitig zu erkennen oder auszuschließen.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Nicht-invasive Methoden:</h4>
+                    <ul>
+                        <li><strong>Ultraschalluntersuchung:</strong> Bildgebende Untersuchung zur Beurteilung der kindlichen Entwicklung und zum Erkennen von Fehlbildungen.</li>
+                        <li><strong>Nackentransparenzmessung:</strong> Ultraschalluntersuchung zwischen der 11. und 14. Schwangerschaftswoche zur Risikoabschätzung für Chromosomenanomalien.</li>
+                        <li><strong>Ersttrimester-Screening:</strong> Kombination aus Ultraschalluntersuchung und Bluttest zur Risikoabschätzung für Trisomien.</li>
+                        <li><strong>Nicht-invasiver Pränataltest (NIPT):</strong> Bluttest, bei dem zellfreie DNA des Fetus im mütterlichen Blut analysiert wird, um Trisomien zu erkennen.</li>
+                    </ul>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Invasive Methoden:</h4>
+                    <ul>
+                        <li><strong>Chorionzottenbiopsie:</strong> Entnahme von Gewebe aus der Plazenta zwischen der 11. und 14. Schwangerschaftswoche.</li>
+                        <li><strong>Amniozentese (Fruchtwasserpunktion):</strong> Entnahme von Fruchtwasser ab der 16. Schwangerschaftswoche.</li>
+                        <li><strong>Nabelschnurpunktion (Cordozentese):</strong> Entnahme von kindlichem Blut aus der Nabelschnur ab der 18. Schwangerschaftswoche.</li>
+                    </ul>
+                    <div class="warning-box">
+                        Invasive Methoden bergen ein geringes Risiko (ca. 0,5-1%) für eine Fehlgeburt.
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Präimplantationsdiagnostik (PID)</h4>
+            <p>Bei der Präimplantationsdiagnostik werden Embryonen nach einer künstlichen Befruchtung genetisch untersucht, bevor sie in die Gebärmutter eingesetzt werden. In Deutschland ist die PID nur unter strengen Voraussetzungen erlaubt, wenn ein hohes Risiko für eine schwerwiegende genetisch bedingte Erkrankung besteht.</p>
+            
+            <div class="info-box">
+                Die Entscheidung für oder gegen pränatale Diagnostik und mögliche Konsequenzen (z.B. Schwangerschaftsabbruch) sind ethisch komplexe Fragen, die individuell und unter Berücksichtigung verschiedener Werte und Perspektiven betrachtet werden müssen.
+            </div>
+            
+            <h3 id="dna-analysis">DNA-Analytik</h3>
+            <p>Die DNA-Analytik umfasst verschiedene Verfahren zur Untersuchung der DNA und zur Identifizierung genetischer Varianten.</p>
+            
+            <h4>Gelelektrophorese</h4>
+            <p>Die Gelelektrophorese ist ein Verfahren zur Trennung von DNA-Fragmenten nach ihrer Größe. Die negativ geladene DNA wandert im elektrischen Feld zur positiv geladenen Anode, wobei kleinere Fragmente schneller durch das Gel wandern als größere.</p>
+            
+            <div class="img-container">
+                <img src="https://api.placeholder.com/500x300" alt="Gelelektrophorese">
+                <div class="caption">Prinzip der Gelelektrophorese</div>
+            </div>
+            
+            <h4>Genetischer Fingerabdruck</h4>
+            <p>Der genetische Fingerabdruck (auch DNA-Profiling genannt) ist eine Methode zur Identifizierung von Personen anhand ihrer DNA. Er basiert auf der Analyse von hochvariablen DNA-Abschnitten, den sogenannten STRs (Short Tandem Repeats).</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Vorgehensweise:</h4>
+                    <ol>
+                        <li>Extraktion der DNA aus einer Probe (z.B. Blut, Speichel, Haare)</li>
+                        <li>Vervielfältigung bestimmter DNA-Abschnitte mittels PCR</li>
+                        <li>Auftrennung der DNA-Fragmente mittels Kapillarelektrophorese</li>
+                        <li>Analyse des erhaltenen DNA-Profils</li>
+                    </ol>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Anwendungen:</h4>
+                    <ul>
+                        <li>Kriminalistik (Täteridentifizierung, Spurenanalyse)</li>
+                        <li>Abstammungsnachweise (Vaterschaftstests)</li>
+                        <li>Identifizierung von Unfallopfern oder Kriegstoten</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h4>DNA-Sequenzierung</h4>
+            <p>Die DNA-Sequenzierung ist eine Methode zur Bestimmung der genauen Abfolge der Nukleotide (A, T, G, C) in einem DNA-Abschnitt.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Kettenabbruchmethode nach Sanger:</h4>
+                    <ol>
+                        <li>Vervielfältigung der DNA mittels PCR</li>
+                        <li>Verwendung von fluoreszenzmarkierten Abbruchnukleotiden (ddNTPs)</li>
+                        <li>Trennung der entstehenden DNA-Fragmente mittels Kapillarelektrophorese</li>
+                        <li>Detektion der Fluoreszenzfarbstoffe und Bestimmung der Basensequenz</li>
+                    </ol>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Next-Generation-Sequencing (NGS):</h4>
+                    <p>Moderne Hochdurchsatzverfahren, die die parallele Sequenzierung vieler DNA-Abschnitte ermöglichen. Sie werden für die Analyse ganzer Genome oder gezielter Genabschnitte verwendet.</p>
+                </div>
+            </div>
+            
+            <h4>Gentests</h4>
+            <p>Gentests sind Untersuchungen, bei denen die DNA eines Menschen auf bestimmte Genveränderungen (Mutationen) untersucht wird.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Arten von Gentests:</h4>
+                    <ul>
+                        <li><strong>Diagnostische Gentests:</strong> Zur Bestätigung einer klinischen Diagnose</li>
+                        <li><strong>Prädiktive Gentests:</strong> Zur Vorhersage des Risikos, an einer bestimmten Krankheit zu erkranken</li>
+                        <li><strong>Pharmakogenetische Tests:</strong> Zur Vorhersage der Wirksamkeit und Verträglichkeit von Medikamenten</li>
+                        <li><strong>Trägerschaftstests:</strong> Zur Identifizierung von Überträgern rezessiver Erbkrankheiten</li>
+                    </ul>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Beispiele für Gentests:</h4>
+                    <ul>
+                        <li><strong>BRCA1/2-Test:</strong> Zur Abschätzung des Risikos für Brust- und Eierstockkrebs</li>
+                        <li><strong>Test auf Trisomie 21:</strong> Zur pränatalen Diagnostik des Down-Syndroms</li>
+                        <li><strong>Huntington-Test:</strong> Zur Vorhersage der neurodegenerativen Huntington-Krankheit</li>
+                        <li><strong>Test auf Mukoviszidose-Mutationen:</strong> Zur Identifizierung von Trägern der Mukoviszidose</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 id="ethics">Ethische Bewertung</h3>
+            <p>Die DNA-Analytik und genetische Untersuchungen werfen wichtige ethische Fragen auf, die bei der Bewertung berücksichtigt werden müssen.</p>
+            
+            <h4>Methode zur ethischen Bewertung</h4>
+            <ol>
+                <li><strong>Ethisches Dilemma identifizieren:</strong> Widersprüchliche Werte oder Handlungsoptionen erkennen.</li>
+                <li><strong>Argumente sammeln:</strong>
+                    <ul>
+                        <li><strong>Deskriptive Prämisse:</strong> Faktische Aussage (Was ist der Fall?)</li>
+                        <li><strong>Normative Prämisse:</strong> Wertbasierte Aussage (Was sollte der Fall sein?)</li>
+                        <li><strong>Conclusio:</strong> Schlussfolgerung (Welche Handlung folgt daraus?)</li>
+                    </ul>
+                </li>
+                <li><strong>Werteprofil erstellen:</strong> Relevante Werte identifizieren (z.B. Autonomie, Wohlergehen, Gerechtigkeit, Nicht-Schaden).</li>
+                <li><strong>Werte hierarchisieren:</strong> Die Werte nach ihrer Bedeutung in der spezifischen Situation ordnen.</li>
+                <li><strong>Persönliches Fazit ziehen:</strong> Eine begründete Entscheidung treffen.</li>
+            </ol>
+            
+            <div class="card">
+                <div class="card-header">Beispiel: Ethische Bewertung eines prädiktiven Gentests auf die Huntington-Krankheit</div>
+                <div class="card-body">
+                    <p><strong>Dilemma:</strong> Eine junge Frau, deren Vater an der Huntington-Krankheit erkrankt ist, überlegt, ob sie einen Gentest machen lassen soll, um zu erfahren, ob sie das Gen geerbt hat.</p>
+                    
+                    <h4>Argumente für den Test:</h4>
+                    <ul>
+                        <li><strong>Deskriptive Prämisse:</strong> Die Huntington-Krankheit ist unheilbar und bricht typischerweise im mittleren Lebensalter aus.</li>
+                        <li><strong>Normative Prämisse:</strong> Menschen haben ein Recht auf Wissen über ihre eigene genetische Ausstattung.</li>
+                        <li><strong>Conclusio:</strong> Die Frau sollte den Test durchführen lassen, um Gewissheit zu haben und ihr Leben entsprechend planen zu können.</li>
+                    </ul>
+                    
+                    <h4>Argumente gegen den Test:</h4>
+                    <ul>
+                        <li><strong>Deskriptive Prämisse:</strong> Es gibt keine Therapie für die Huntington-Krankheit.</li>
+                        <li><strong>Normative Prämisse:</strong> Wissen kann auch belasten und die Lebensqualität mindern.</li>
+                        <li><strong>Conclusio:</strong> Die Frau sollte den Test nicht durchführen lassen, da das Wissen um eine zukünftige Erkrankung ihre Lebensqualität beeinträchtigen könnte.</li>
+                    </ul>
+                    
+                    <h4>Relevante Werte:</h4>
+                    <ul>
+                        <li><strong>Autonomie:</strong> Die Selbstbestimmung und Entscheidungsfreiheit der Person</li>
+                        <li><strong>Recht auf Wissen:</strong> Das Recht, Informationen über die eigene Gesundheit zu erhalten</li>
+                        <li><strong>Recht auf Nicht-Wissen:</strong> Das Recht, bestimmte Informationen nicht zu erfahren</li>
+                        <li><strong>Wohlergehen:</strong> Die Lebensqualität und das psychische Wohlbefinden</li>
+                        <li><strong>Verantwortung gegenüber anderen:</strong> Die Auswirkungen auf Familienangehörige und potenzielle Nachkommen</li>
+                    </ul>
+                    
+                    <p><strong>Persönliches Fazit:</strong> Nach Abwägung aller Argumente und Werte könnte die Entscheidung je nach individueller Gewichtung unterschiedlich ausfallen. Eine mögliche begründete Entscheidung wäre, dass die Frau den Test durchführen lassen sollte, wenn ihr das Recht auf Wissen und die autonome Lebensplanung wichtiger sind als das potenzielle psychische Leid bei einem positiven Testergebnis.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="evolution">
+            <h2>3. Evolutionsforschung</h2>
+            
+            <h3 id="homology">Homologien als Belege für die Evolution</h3>
+            <p>Homologien sind Ähnlichkeiten zwischen Organismen, die auf eine gemeinsame Abstammung zurückzuführen sind. Sie sind wichtige Belege für die Evolution.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Morphologische und anatomische Homologien</h4>
+                    <p>Homologe Organe haben den gleichen evolutionären Ursprung und weisen einen gemeinsamen Grundbauplan auf, auch wenn sie unterschiedliche Funktionen haben können.</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Homologe Strukturen bei Wirbeltieren">
+                        <div class="caption">Homologe Strukturen der Vorderextremitäten bei verschiedenen Wirbeltieren</div>
+                    </div>
+                    <p><strong>Beispiel:</strong> Die Vorderextremitäten von Mensch, Katze, Vogel, Wal und Fledermaus weisen trotz unterschiedlicher Funktionen (Greifen, Laufen, Fliegen, Schwimmen) den gleichen Grundbauplan mit Oberarmknochen, Elle, Speiche, Handwurzelknochen und Fingerknochen auf.</p>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Molekulare Homologien</h4>
+                    <p>Auf molekularer Ebene finden sich Homologien in Form ähnlicher DNA-Sequenzen, Aminosäuresequenzen von Proteinen oder biochemischer Prozesse.</p>
+                    <p><strong>Beispiele:</strong></p>
+                    <ul>
+                        <li>Die Aminosäuresequenz des Proteins Cytochrom c ist bei eng verwandten Arten sehr ähnlich und unterscheidet sich bei entfernter verwandten Arten stärker.</li>
+                        <li>Die Grundprozesse der Proteinbiosynthese (Transkription, Translation) laufen bei allen Lebewesen nach dem gleichen Prinzip ab.</li>
+                        <li>Das genetische Material aller Lebewesen besteht aus DNA oder RNA und verwendet den gleichen genetischen Code.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h4>Kriterien für Homologie</h4>
+            <ul>
+                <li><strong>Kriterium der Lage:</strong> Homologe Strukturen nehmen im Bauplan verschiedener Organismen die gleiche Position ein.</li>
+                <li><strong>Kriterium der spezifischen Qualität:</strong> Homologe Strukturen stimmen in vielen Einzelmerkmalen überein.</li>
+                <li><strong>Kriterium der Stetigkeit:</strong> Homologe Strukturen lassen sich durch Zwischenformen verknüpfen.</li>
+            </ul>
+            
+            <h3 id="analogy">Exkurs: Analogie</h3>
+            <p>Im Gegensatz zu Homologien handelt es sich bei Analogien um Ähnlichkeiten, die nicht auf gemeinsame Abstammung zurückzuführen sind, sondern durch konvergente Evolution entstanden sind.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Konvergente Evolution</h4>
+                    <p>Konvergente Evolution bezeichnet die unabhängige Entwicklung ähnlicher Merkmale bei nicht näher verwandten Organismen als Anpassung an ähnliche Umweltbedingungen.</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Konvergente Evolution">
+                        <div class="caption">Konvergente Evolution: Flügel bei Vögeln, Fledermäusen und Insekten</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Beispiele für Analogien</h4>
+                    <ul>
+                        <li>Flügel bei Vögeln, Fledermäusen und Insekten</li>
+                        <li>Stromlinienförmige Körperform bei Fischen, Delfinen und Pinguinen</li>
+                        <li>Sukkulenter Wuchs bei Kakteen (Amerika) und Euphorbien (Afrika)</li>
+                        <li>Augen bei Wirbeltieren und Tintenfischen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                Analogien sind keine Belege für Verwandtschaft, sondern für die Anpassung an ähnliche Umweltbedingungen durch natürliche Selektion. Sie zeigen, dass ähnliche Probleme in der Evolution oft zu ähnlichen Lösungen führen.
+            </div>
+            
+            <h3 id="phylogeny">Stammesgeschichte und Natürliches System</h3>
+            <p>Die Stammesgeschichte (Phylogenese) beschreibt die Entwicklung der Lebewesen im Laufe der Evolution. Das Natürliche System ist eine Klassifikation der Lebewesen aufgrund ihrer evolutionären Verwandtschaft.</p>
+            
+            <h4>Grundbegriffe</h4>
+            <ul>
+                <li><strong>Phylogenese:</strong> Die Stammesgeschichte der Lebewesen.</li>
+                <li><strong>Taxon:</strong> Eine systematische Einheit in der biologischen Systematik (z.B. Art, Gattung, Familie).</li>
+                <li><strong>Monophyletische Gruppe:</strong> Eine Gruppe von Organismen, die alle Nachkommen eines gemeinsamen Vorfahren umfasst.</li>
+                <li><strong>Plesiomorphie:</strong> Ursprüngliches (urtümliches) Merkmal, das bereits bei einer frühen Stammart auftrat und bei allen Nachkommen vorhanden ist.</li>
+                <li><strong>Apomorphie:</strong> Abgeleitetes Merkmal, das erstmals bei einer bestimmten Stammart auftrat und nur bei deren Nachkommen vorkommt.</li>
+            </ul>
+            
+            <div class="img-container">
+                <img src="https://api.placeholder.com/600x400" alt="Stammbaum des Lebens">
+                <div class="caption">Vereinfachter Stammbaum des Lebens</div>
+            </div>
+            
+            <h3 id="phylogenetic-trees">Stammbäume analysieren und erstellen</h3>
+            <p>Stammbäume sind grafische Darstellungen der evolutionären Beziehungen zwischen verschiedenen Arten oder Gruppen von Organismen.</p>
+            
+            <h4>Arten von Stammbäumen</h4>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Kladogramm</h4>
+                    <p>Ein Kladogramm zeigt die Verwandtschaftsbeziehungen zwischen verschiedenen Gruppen von Organismen auf der Grundlage von gemeinsamen abgeleiteten Merkmalen (Apomorphien).</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Kladogramm">
+                        <div class="caption">Beispiel eines Kladogramms</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Phylogenetischer Stammbaum</h4>
+                    <p>Ein phylogenetischer Stammbaum zeigt zusätzlich zu den Verwandtschaftsbeziehungen auch die zeitliche Dimension der Evolution.</p>
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Phylogenetischer Stammbaum">
+                        <div class="caption">Beispiel eines phylogenetischen Stammbaums</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Vorgehen bei der Erstellung eines Stammbaums</h4>
+            <ol>
+                <li><strong>Auswahl der zu untersuchenden Arten (Innengruppe)</strong></li>
+                <li><strong>Festlegung einer Außengruppe</strong> (eine Art oder Gruppe, die sich früher von der Entwicklungslinie abgespalten hat als die Innengruppe)</li>
+                <li><strong>Erstellung einer Merkmalstabelle</strong> mit plesiomorphen und apomorphen Merkmalen</li>
+                <li><strong>Bestimmung von Synapomorphien</strong> (gemeinsame abgeleitete Merkmale, die auf einen gemeinsamen Vorfahren hindeuten)</li>
+                <li><strong>Konstruktion des Stammbaums</strong> auf Basis der Synapomorphien</li>
+            </ol>
+            
+            <div class="card">
+                <div class="card-header">Beispiel: Kladogramm der Wirbeltiere</div>
+                <div class="card-body">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/600x400" alt="Kladogramm der Wirbeltiere">
+                    </div>
+                    <p><strong>Interpretation:</strong></p>
+                    <ul>
+                        <li>Die Schleimaale bilden die Außengruppe.</li>
+                        <li>Alle anderen Wirbeltiere besitzen Kiefer, ein abgeleitetes Merkmal gegenüber den Schleimäalen.</li>
+                        <li>Salamander, Eidechsen, Krokodile, Tauben, Mäuse und Schimpansen besitzen Lungen, ein gemeinsames abgeleitetes Merkmal gegenüber den Fischen.</li>
+                        <li>Eidechsen, Krokodile, Tauben, Mäuse und Schimpansen besitzen Krallen oder Nägel, ein gemeinsames abgeleitetes Merkmal gegenüber den Amphibien.</li>
+                        <li>Fische und Schleimäale sind nicht näher miteinander verwandt als Fische mit anderen Wirbeltieren.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h4>Methoden zur Rekonstruktion der Stammesgeschichte</h4>
+            <p>Neben dem Vergleich morphologischer Merkmale gibt es moderne molekularbiologische Methoden zur Rekonstruktion der Stammesgeschichte:</p>
+            <ul>
+                <li><strong>DNA-DNA-Hybridisierung:</strong> Messung des Grads der Übereinstimmung zwischen DNA-Strängen verschiedener Arten.</li>
+                <li><strong>DNA-Sequenzvergleich:</strong> Direkter Vergleich der Nukleotidsequenzen in bestimmten DNA-Abschnitten.</li>
+                <li><strong>Aminosäuresequenzvergleich:</strong> Vergleich der Aminosäuresequenzen von Proteinen (z.B. Cytochrom c, Hämoglobin).</li>
+                <li><strong>Molekulare Uhr:</strong> Methode zur Abschätzung des Zeitpunkts der Aufspaltung zweier Arten basierend auf der Rate von Mutationen in bestimmten DNA-Abschnitten oder Proteinen.</li>
+            </ul>
+            
+            <h3 id="species-concept">Morphologischer Artbegriff und Probleme</h3>
+            <p>Der morphologische Artbegriff definiert eine Art als Gruppe von Individuen, die sich in ihren morphologischen (äußeren) Merkmalen ähneln und sich von anderen Gruppen unterscheiden.</p>
+            
+            <h4>Definition des morphologischen Artbegriffs</h4>
+            <p>Nach dem morphologischen Artbegriff gehören Individuen zu einer Art, wenn sie sich in bestimmten morphologischen Merkmalen gleichen oder ähneln (z.B. Körperbau, Färbung, Skelettmerkmale).</p>
+            
+            <h4>Probleme des morphologischen Artbegriffs</h4>
+            <ul>
+                <li><strong>Sexualdimorphismus:</strong> Männchen und Weibchen einer Art können sehr unterschiedlich aussehen (z.B. Pfau).</li>
+                <li><strong>Polymorphismus:</strong> Innerhalb einer Art können verschiedene Morphen auftreten (z.B. verschiedene Färbungen bei Schnecken).</li>
+                <li><strong>Kryptische Arten:</strong> Äußerlich identische Arten, die sich aber genetisch unterscheiden und nicht miteinander fortpflanzen können.</li>
+                <li><strong>Saisonaler Dimorphismus:</strong> Individuen einer Art können je nach Jahreszeit unterschiedlich aussehen (z.B. Sommerfell/Winterfell).</li>
+                <li><strong>Altersstadien:</strong> Juvenile und adulte Individuen einer Art können sehr unterschiedlich aussehen.</li>
+                <li><strong>Konvergente Evolution:</strong> Nicht verwandte Arten können aufgrund ähnlicher Umweltanpassungen ähnlich aussehen.</li>
+            </ul>
+            
+            <div class="info-box">
+                Aufgrund dieser Probleme wird in der modernen Biologie häufig der biologische Artbegriff verwendet, der eine Art als Fortpflanzungsgemeinschaft definiert: Individuen gehören zu einer Art, wenn sie sich unter natürlichen Bedingungen miteinander fortpflanzen und fruchtbare Nachkommen hervorbringen können.
+            </div>
+            
+            <h4>Beispiele für Probleme des morphologischen Artbegriffs</h4>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="Sexualdimorphismus beim Pfau">
+                        <div class="caption">Sexualdimorphismus beim Pfau</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/300x200" alt="Polymorphismus bei Hainbänderschnecken">
+                        <div class="caption">Polymorphismus bei Hainbänderschnecken</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="core-knowledge">
+            <h2>4. Grundwissen</h2>
+            
+            <h3 id="genomic-mutations">Genommutationen: Trisomie 21</h3>
+            <p>Genommutationen betreffen die Anzahl der Chromosomen und können entweder ganze Chromosomensätze (Polyploidie) oder einzelne Chromosomen (Aneuploidie) betreffen.</p>
+            
+            <h4>Trisomie 21 (Down-Syndrom)</h4>
+            <p>Trisomie 21, auch als Down-Syndrom bekannt, ist eine numerische Chromosomenaberration, bei der das Chromosom 21 dreifach statt zweifach vorliegt.</p>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <h4>Ursachen der Trisomie 21</h4>
+                    <p>Die häufigste Ursache für Trisomie 21 ist das sogenannte Non-Disjunction (Nicht-Trennung) während der Meiose:</p>
+                    <ol>
+                        <li><strong>Non-Disjunction in der Meiose I:</strong> Homologe Chromosomen trennen sich nicht während der ersten meiotischen Teilung.</li>
+                        <li><strong>Non-Disjunction in der Meiose II:</strong> Schwesterchromatiden trennen sich nicht während der zweiten meiotischen Teilung.</li>
+                    </ol>
+                    <p>Das Risiko für Trisomie 21 steigt mit dem Alter der Mutter an, insbesondere ab 35 Jahren.</p>
+                </div>
+                
+                <div class="flex-item">
+                    <h4>Folgen der Trisomie 21</h4>
+                    <p>Menschen mit Down-Syndrom zeigen typische körperliche Merkmale und haben oft gesundheitliche Probleme:</p>
+                    <ul>
+                        <li>Charakteristische Gesichtszüge (Epikanthusfalte, flaches Gesichtsprofil)</li>
+                        <li>Muskelhypotonie (verringerte Muskelspannung)</li>
+                        <li>Kleinwuchs</li>
+                        <li>Geistige Beeinträchtigung unterschiedlichen Ausmaßes</li>
+                        <li>Häufig Herzfehler und andere Organfehlbildungen</li>
+                        <li>Erhöhtes Risiko für bestimmte Erkrankungen (z.B. Leukämie, Alzheimer)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="img-container">
+                <img src="https://api.placeholder.com/600x300" alt="Non-Disjunction während der Meiose">
+                <div class="caption">Non-Disjunction während der Meiose I und II</div>
+            </div>
+            
+            <h3 id="karyogram">Auswertung von Karyogrammen</h3>
+            <p>Ein Karyogramm ist eine systematische Darstellung der Chromosomen einer Zelle, sortiert nach Größe und Position des Zentromers.</p>
+            
+            <h4>Erstellung eines Karyogramms</h4>
+            <ol>
+                <li>Gewinnung von Zellen (z.B. Blutlymphozyten)</li>
+                <li>Stimulierung der Zellteilung und Arretierung in der Metaphase</li>
+                <li>Fixierung und Färbung der Chromosomen</li>
+                <li>Mikroskopische Aufnahme und Sortierung der Chromosomen</li>
+            </ol>
+            
+            <h4>Auswertung eines Karyogramms</h4>
+            <p>Bei der Auswertung eines Karyogramms werden folgende Aspekte untersucht:</p>
+            <ul>
+                <li>Anzahl der Chromosomen (normal: 46 beim Menschen)</li>
+                <li>Geschlechtschromosomen (XX bei Frauen, XY bei Männern)</li>
+                <li>Strukturelle Anomalien (Deletionen, Translokationen, Inversionen)</li>
+                <li>Numerische Anomalien (Trisomien, Monosomien)</li>
+            </ul>
+            
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Normales männliches Karyogramm">
+                        <div class="caption">Normales männliches Karyogramm (46,XY)</div>
+                    </div>
+                </div>
+                
+                <div class="flex-item">
+                    <div class="img-container">
+                        <img src="https://api.placeholder.com/400x300" alt="Karyogramm mit Trisomie 21">
+                        <div class="caption">Karyogramm mit Trisomie 21 (47,XX,+21)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Beispiel: Auswertung eines Karyogramms</div>
+                <div class="card-body">
+                    <p>In einem Karyogramm werden 47 Chromosomen gezählt, darunter zwei X-Chromosomen und ein Y-Chromosom. Welche Anomalie liegt vor?</p>
+                    <p><strong>Auswertung:</strong></p>
+                    <ul>
+                        <li>47 Chromosomen statt der normalen 46 → numerische Aberration</li>
+                        <li>Zwei X-Chromosomen und ein Y-Chromosom → Klinefelter-Syndrom (47,XXY)</li>
+                        <li>Diese Anomalie entsteht durch Non-Disjunction während der Meiose bei einem der Elternteile</li>
+                        <li>Betroffene sind männlich, oft mit unterentwickelten sekundären Geschlechtsmerkmalen und Unfruchtbarkeit</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz">
+            <h2>Selbsttest</h2>
+            
+            <div class="quiz-container">
+                <div class="question" id="q1">1. Welche der folgenden Aussagen beschreibt die 2. Mendelsche Regel (Spaltungsregel) korrekt?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Bei der Kreuzung zweier reinerbiger Individuen mit unterschiedlichen Merkmalsausprägungen sind alle Nachkommen der F<sub>1</sub>-Generation einheitlich.</div>
+                    <div class="option" data-correct="true">Bei der Kreuzung zweier heterozygoter Individuen treten in der F<sub>2</sub>-Generation die Merkmale im Verhältnis 3:1 auf.</div>
+                    <div class="option" data-correct="false">Gene auf verschiedenen Chromosomen werden unabhängig voneinander vererbt.</div>
+                    <div class="option" data-correct="false">Dominante Allele setzen sich immer gegenüber rezessiven Allelen durch.</div>
+                </div>
+                <div class="feedback" id="feedback1"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q2">2. Eine gesunde Frau, deren Vater farbenblind war, heiratet einen gesunden Mann. Welche Aussage zur Wahrscheinlichkeit, farbenblinde Kinder zu bekommen, ist korrekt?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Alle Söhne werden farbenblind sein.</div>
+                    <div class="option" data-correct="false">Alle Töchter werden Überträgerinnen sein.</div>
+                    <div class="option" data-correct="true">50% der Söhne werden farbenblind sein.</div>
+                    <div class="option" data-correct="false">50% der Töchter werden farbenblind sein.</div>
+                </div>
+                <div class="feedback" id="feedback2"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q3">3. Welche der folgenden Methoden der Pränataldiagnostik ist nicht-invasiv?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Amniozentese</div>
+                    <div class="option" data-correct="false">Chorionzottenbiopsie</div>
+                    <div class="option" data-correct="true">Nicht-invasiver Pränataltest (NIPT)</div>
+                    <div class="option" data-correct="false">Nabelschnurpunktion</div>
+                </div>
+                <div class="feedback" id="feedback3"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q4">4. Was ist die häufigste Ursache für Trisomie 21?</div>
+                <div class="options">
+                    <div class="option" data-correct="true">Non-Disjunction während der Meiose</div>
+                    <div class="option" data-correct="false">Translokation eines Teils von Chromosom 21 auf ein anderes Chromosom</div>
+                    <div class="option" data-correct="false">Deletion eines Teils von Chromosom 21</div>
+                    <div class="option" data-correct="false">Inversion eines Teils von Chromosom 21</div>
+                </div>
+                <div class="feedback" id="feedback4"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q5">5. Welche Aussage zu Homologien ist korrekt?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Homologe Organe haben immer die gleiche Funktion.</div>
+                    <div class="option" data-correct="false">Homologien entstehen durch konvergente Evolution.</div>
+                    <div class="option" data-correct="true">Homologien sind Ähnlichkeiten, die auf einen gemeinsamen Vorfahren zurückzuführen sind.</div>
+                    <div class="option" data-correct="false">Homologien können nur auf morphologischer Ebene nachgewiesen werden.</div>
+                </div>
+                <div class="feedback" id="feedback5"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q6">6. Welche der folgenden Blutgruppen kann Blut der Gruppe 0 empfangen?</div>
+                <div class="options">
+                    <div class="option" data-correct="true">Alle Blutgruppen (A, B, AB, 0)</div>
+                    <div class="option" data-correct="false">Nur Blutgruppe 0</div>
+                    <div class="option" data-correct="false">Nur Blutgruppen A und AB</div>
+                    <div class="option" data-correct="false">Nur Blutgruppe AB</div>
+                </div>
+                <div class="feedback" id="feedback6"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q7">7. Welcher Vererbungsmodus liegt vor, wenn eine genetisch bedingte Krankheit in jeder Generation auftritt und Männer und Frauen gleichermaßen betroffen sind?</div>
+                <div class="options">
+                    <div class="option" data-correct="true">Autosomal-dominanter Erbgang</div>
+                    <div class="option" data-correct="false">Autosomal-rezessiver Erbgang</div>
+                    <div class="option" data-correct="false">X-chromosomal-dominanter Erbgang</div>
+                    <div class="option" data-correct="false">X-chromosomal-rezessiver Erbgang</div>
+                </div>
+                <div class="feedback" id="feedback7"></div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="q8">8. Was ist der Unterschied zwischen einem Kladogramm und einem phylogenetischen Stammbaum?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Ein Kladogramm zeigt nur ausgestorbene Arten, während ein phylogenetischer Stammbaum nur rezente Arten zeigt.</div>
+                    <div class="option" data-correct="false">Ein Kladogramm ist immer horizontal, während ein phylogenetischer Stammbaum immer vertikal ist.</div>
+                    <div class="option" data-correct="true">Ein Kladogramm zeigt nur die Verwandtschaftsbeziehungen, während ein phylogenetischer Stammbaum auch die zeitliche Dimension berücksichtigt.</div>
+                    <div class="option" data-correct="false">Es gibt keinen Unterschied, beide Begriffe bezeichnen dasselbe.</div>
+                </div>
+                <div class="feedback" id="feedback8"></div>
+            </div>
+            
+            <button id="check-answers">Antworten überprüfen</button>
+        </section>
         
-        <div class="dna-container">
-            <div class="dna-helix">
-                <div class="base-pair">
-                    <div class="base adenine"></div>
-                    <div class="base thymine"></div>
-                </div>
-                <div class="base-pair">
-                    <div class="base cytosine"></div>
-                    <div class="base guanine"></div>
-                </div>
-                <div class="base-pair">
-                    <div class="base guanine"></div>
-                    <div class="base cytosine"></div>
-                </div>
-                <div class="base-pair">
-                    <div class="base thymine"></div>
-                    <div class="base adenine"></div>
-                </div>
-                <div class="base-pair">
-                    <div class="base adenine"></div>
-                    <div class="base thymine"></div>
+        <section id="flashcards">
+            <h2>Lernkarten</h2>
+            <p>Klicke auf die Karten, um sie umzudrehen.</p>
+            
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>1. Mendelsche Regel</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Uniformitätsregel: Bei der Kreuzung zweier reinerbiger Individuen mit unterschiedlichen Merkmalsausprägungen sind alle Nachkommen der F<sub>1</sub>-Generation phänotypisch und genotypisch gleich.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-    </div>
-
-    <div id="tab3" class="tab-content">
-        <h2>2. Genetik menschlicher Erkrankungen und DNA-Analytik</h2>
-
-        <h3>Erbgänge genetisch bedingter Krankheiten</h3>
-        <div class="flex-container">
-            <div class="flex-item card">
-                <h4>Autosomal-dominanter Erbgang</h4>
-                <ul>
-                    <li>Das Merkmal tritt in jeder Generation auf</li>
-                    <li>Männer und Frauen sind gleich häufig betroffen</li>
-                    <li>Heterozygote Merkmalsträger geben das Merkmal mit 50% Wahrscheinlichkeit weiter</li>
-                    <li>Beispiele: Chorea Huntington, Marfan-Syndrom, Polydaktylie</li>
-                </ul>
+            
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>2. Mendelsche Regel</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Spaltungsregel: Bei der Kreuzung von Individuen der F<sub>1</sub>-Generation spalten sich die Merkmale in der F<sub>2</sub>-Generation im Verhältnis 3:1 (dominant:rezessiv) wieder auf.</p>
+                    </div>
+                </div>
             </div>
-            <div class="flex-item card">
-                <h4>Autosomal-rezessiver Erbgang</h4>
-                <ul>
-                    <li>Das Merkmal kann Generationen überspringen</li>
-                    <li>Männer und Frauen sind gleich häufig betroffen</li>
-                    <li>Betroffene haben meist gesunde Eltern, die heterozygote Träger sind</li>
-                    <li>Beispiele: Mukoviszidose, Phenylketonurie, Albinismus</li>
-                </ul>
+            
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>3. Mendelsche Regel</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Unabhängigkeitsregel: Bei der Vererbung mehrerer Gene werden die Allele unabhängig voneinander an die Nachkommen weitergegeben (gilt nur für Gene auf verschiedenen Chromosomen oder weit voneinander entfernt).</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="flex-container">
-            <div class="flex-item card">
+            
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>Homologie vs. Analogie</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p><strong>Homologie:</strong> Ähnlichkeit aufgrund gemeinsamer Abstammung (z.B. Vorderextremitäten von Wirbeltieren)</p>
+                        <p><strong>Analogie:</strong> Ähnlichkeit aufgrund ähnlicher Anpassung ohne gemeinsame Abstammung (z.B. Flügel von Vögeln und Insekten)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>AB0-System</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Drei Allele: I<sup>A</sup>, I<sup>B</sup>, i</p>
+                        <p>Kodominanz zwischen I<sup>A</sup> und I<sup>B</sup>, beide dominant gegenüber i</p>
+                        <p>Blutgruppe A: I<sup>A</sup>I<sup>A</sup> oder I<sup>A</sup>i</p>
+                        <p>Blutgruppe B: I<sup>B</sup>I<sup>B</sup> oder I<sup>B</sup>i</p>
+                        <p>Blutgruppe AB: I<sup>A</sup>I<sup>B</sup></p>
+                        <p>Blutgruppe 0: ii</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="summary">
+            <h2>Zusammenfassung</h2>
+            <p>Diese Lernübersicht hat dir einen Überblick über die wichtigsten Themen für deine Biologie-Klausur gegeben:</p>
+            <ul>
+                <li><strong>Weitergabe genetischer Information:</strong> Mendelsche Regeln, Allelbegriff, dominante und rezessive Genwirkung, unvollständige Dominanz, Kodominanz (AB0-System)</li>
+                <li><strong>Genetik menschlicher Erkrankungen:</strong> Erbgänge genetischer Erkrankungen, Familienstammbaum-Analyse, genetische Beratung, DNA-Analytik, ethische Bewertung</li>
+                <li><strong>Evolutionsforschung:</strong> Homologien als Evolutionsbelege, Analogie, Stammesgeschichte und Natürliches System, Stammbäume, morphologischer Artbegriff</li>
+                <li><strong>Grundwissen:</strong> Genommutationen (Trisomie 21), Auswertung von Karyogrammen</li>
+            </ul>
+            <p>Viel Erfolg bei deiner Klausur!</p>
+        </section>
+    </main>
+    
+    <script>
+        // Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('nav');
+        const main = document.querySelector('main');
+        
+        navToggle.addEventListener('click', function() {
+            nav.classList.toggle('collapsed');
+            main.classList.toggle('expanded');
+            navToggle.classList.toggle('collapsed');
+        });
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Quiz Functionality
+        const checkAnswersButton = document.getElementById('check-answers');
+        
+        checkAnswersButton.addEventListener('click', function() {
+            let score = 0;
+            const totalQuestions = document.querySelectorAll('.question').length;
+            
+            document.querySelectorAll('.options').forEach((optionGroup, index) => {
+                const questionNumber = index + 1;
+                const selectedOption = optionGroup.querySelector('.option.selected');
+                const feedbackElement = document.getElementById(`feedback${questionNumber}`);
+                
+                if (selectedOption) {
+                    const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                    
+                    if (isCorrect) {
+                        selectedOption.classList.add('correct');
+                        feedbackElement.textContent = 'Richtig!';
+                        feedbackElement.classList.add('correct');
+                        score++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        feedbackElement.textContent = 'Falsch. Versuche es noch einmal.';
+                        feedbackElement.classList.add('incorrect');
+                    }
+                } else {
+                    feedbackElement.textContent = 'Bitte wähle eine Antwort aus.';
+                    feedbackElement.classList.add('incorrect');
+                }
+                
+                feedbackElement.style.display = 'block';
+            });
+            
+            alert(`Du hast ${score} von ${totalQuestions} Fragen richtig beantwortet!`);
+        });
+        
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options in the same group
+                const optionGroup = this.parentElement;
+                optionGroup.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Hide feedback
+                const questionElement = optionGroup.previousElementSibling;
+                const questionId = questionElement.id;
+                const feedbackElement = document.getElementById(`feedback${questionId.substring(1)}`);
+                feedbackElement.style.display = 'none';
+                feedbackElement.classList.remove('correct', 'incorrect');
+            });
+        });
+        
+        // Flashcard Functionality
+        document.querySelectorAll('.flashcard').forEach(flashcard => {
+            flashcard.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+        });
+    </script>
+</body>
+</html>
