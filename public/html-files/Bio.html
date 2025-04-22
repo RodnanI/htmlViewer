@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernhilfe Biologie Klausur</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3; /* Dunkelblau */
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            background-color: #e7f1ff; /* Hellblau */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        nav li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #0056b3;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        strong, b {
+            color: #004085; /* Etwas dunkleres Blau */
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .definition {
+            background-color: #f9f9f9;
+            border-left: 4px solid #0056b3;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .beispiel {
+            background-color: #e9f7ef; /* Hellgrün */
+            border-left: 4px solid #155724; /* Dunkelgrün */
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warnung {
+            background-color: #fff3cd; /* Hellgelb */
+            border-left: 4px solid #856404; /* Dunkelgelb */
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .ethik-schritt {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .quiz-container {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .quiz-question {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .quiz-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .quiz-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* Für Diagramm-Beschreibungen */
+        .diagramm-beschreibung {
+             font-style: italic;
+             color: #555;
+             margin-top: 5px;
+             margin-bottom: 15px;
+             padding-left: 15px;
+             border-left: 3px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lernhilfe Biologie Klausur (Genetik & Evolution)</h1>
+
+        <nav>
+            <ul>
+                <li><a href="#gen-info">1. Genetische Information</a></li>
+                <li><a href="#humangenetik">2. Humangenetik & DNA-Analytik</a></li>
+                <li><a href="#evolution">3. Evolution</a></li>
+                <li><a href="#grundwissen">4. Grundwissen</a></li>
+                <li><a href="#quiz">5. Quiz</a></li>
+            </ul>
+        </nav>
+
+        <section id="gen-info">
+            <h2>1. Weitergabe genetischer Information</h2>
+
+            <h3>1.1 Erbgänge und Mendelsche Regeln</h3>
+            <p>Die klassische Genetik basiert auf den Beobachtungen Gregor Mendels.</p>
+
+            <div class="definition">
+                <ul>
+                    <li><b>Genotyp:</b> Die Gesamtheit der Erbanlagen (Allele) eines Organismus.</li>
+                    <li><b>Phänotyp:</b> Das äußere Erscheinungsbild eines Organismus, Ergebnis des Genotyps und von Umwelteinflüssen.</li>
+                    <li><b>Allel:</b> Eine spezifische Ausprägungsform eines Gens (z.B. Allel für rote oder weiße Blütenfarbe).</li>
+                    <li><b>Homozygot:</b> Reinerbig; ein Individuum besitzt zwei identische Allele für ein bestimmtes Merkmal (z.B. AA oder aa).</li>
+                    <li><b>Heterozygot:</b> Mischerbig; ein Individuum besitzt zwei unterschiedliche Allele für ein bestimmtes Merkmal (z.B. Aa).</li>
+                    <li><b>Dominant:</b> Ein Allel setzt sich im Phänotyp gegenüber einem anderen (rezessiven) Allel durch. (Symbol: Großbuchstabe, z.B. A)</li>
+                    <li><b>Rezessiv:</b> Ein Allel tritt im Phänotyp nur in Erscheinung, wenn kein dominantes Allel vorhanden ist (also nur bei Homozygotie, z.B. aa). (Symbol: Kleinbuchstabe, z.B. a)</li>
+                    <li><b>Parentalgeneration (P):</b> Elterngeneration.</li>
+                    <li><b>Filialgeneration (F1, F2):</b> Tochtergenerationen.</li>
+                </ul>
+            </div>
+
+            <h4>Monohybrider Erbgang</h4>
+            <p>Untersuchung der Vererbung <b>eines</b> Merkmals.</p>
+            <ul>
+                <li><b>1. Mendelsche Regel (Uniformitätsregel):</b> Kreuzt man zwei homozygote Individuen, die sich in einem Merkmal unterscheiden (z.B. AA x aa), so sind alle Nachkommen der F1-Generation im betrachteten Merkmal genotypisch (Aa) und phänotypisch (Merkmal von A) gleich (uniform).</li>
+                <li><b>2. Mendelsche Regel (Spaltungsregel):</b> Kreuzt man die heterozygoten Individuen der F1-Generation untereinander (Aa x Aa), so spalten sich die Nachkommen der F2-Generation in bestimmten Zahlenverhältnissen auf:
+                    <ul>
+                        <li>Genotypisch: 1 AA : 2 Aa : 1 aa</li>
+                        <li>Phänotypisch (bei dominant-rezessiv): 3 (dominant) : 1 (rezessiv)</li>
+                    </ul>
+                </li>
+            </ul>
+             <div class="diagramm-beschreibung">
+                Zur Vorhersage dient das <strong>Punnett-Quadrat</strong> (auch Kombinationsquadrat): Die möglichen Keimzellen (Gameten) der Eltern werden an den Rändern aufgetragen, die inneren Felder zeigen die möglichen Genotypen der Nachkommen.
+            </div>
+
+            <h4>Dihybrider Erbgang</h4>
+            <p>Untersuchung der Vererbung <b>zweier</b> Merkmale gleichzeitig.</p>
+            <ul>
+                <li><b>3. Mendelsche Regel (Unabhängigkeits-/Neukombinationsregel):</b> Kreuzt man Individuen, die sich in zwei (oder mehr) Merkmalen homozygot unterscheiden, so werden die jeweiligen Allele unabhängig voneinander vererbt und können neu kombiniert werden (gilt nur, wenn die Gene auf unterschiedlichen Chromosomen liegen oder weit genug voneinander entfernt sind = keine Genkopplung).
+                    <ul>
+                        <li>In der F2 treten neben den elterlichen Phänotypen auch neue Kombinationen auf.</li>
+                        <li>Bei Kreuzung von diheterozygoten Individuen (z.B. AaBb x AaBb) ergibt sich in der F2 ein phänotypisches Verhältnis von <b>9 : 3 : 3 : 1</b> (bei dominant-rezessiver Vererbung beider Merkmale).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Statistischer Charakter der Vererbung</h4>
+            <p>Die Mendelschen Regeln beschreiben Wahrscheinlichkeiten. Die tatsächlichen Verhältnisse bei einer Kreuzung entsprechen den theoretischen Erwartungen umso besser, je größer die Zahl der Nachkommen ist. Bei kleinen Nachkommenzahlen können die Ergebnisse stark abweichen.</p>
+
+            <h3>1.2 Abweichungen von Mendel</h3>
+            <ul>
+                <li><b>Unvollständige Dominanz (Intermediärer Erbgang):</b> Das heterozygote Individuum (Aa) zeigt einen Phänotyp, der eine Mischform zwischen den beiden homozygoten Phänotypen (AA und aa) darstellt. Beispiel: Rote (AA) x Weiße (aa) Wunderblumen -> Rosa (Aa) F1. Die F2 spaltet sich dann phänotypisch im Verhältnis 1 (rot) : 2 (rosa) : 1 (weiß).</li>
+                <li><b>Kodominanz:</b> Beide Allele eines Gens wirken sich im heterozygoten Zustand (Aa) unabhängig voneinander und vollständig auf den Phänotyp aus. Beide Merkmale werden nebeneinander ausgeprägt.
+                    <div class="beispiel">
+                        <b>AB0-Blutgruppensystem:</b>
+                        <ul>
+                            <li>Allele: I<sup>A</sup> (codiert für Antigen A), I<sup>B</sup> (codiert für Antigen B), i (codiert für kein Antigen).</li>
+                            <li>I<sup>A</sup> und I<sup>B</sup> sind dominant gegenüber i.</li>
+                            <li>I<sup>A</sup> und I<sup>B</sup> sind kodominant zueinander.</li>
+                            <li>Mögliche Genotypen und Phänotypen:
+                                <ul>
+                                    <li>AA oder Ai -> Blutgruppe A</li>
+                                    <li>BB oder Bi -> Blutgruppe B</li>
+                                    <li>AB -> Blutgruppe AB (Kodominanz!)</li>
+                                    <li>ii -> Blutgruppe 0</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><b>Rhesus-System:</b>
+                    <ul>
+                        <li>Vereinfacht betrachtet: Ein Gen mit zwei Allelen: D (Rh-positiv) und d (Rh-negativ).</li>
+                        <li>D ist dominant über d.</li>
+                        <li>Genotypen: DD, Dd -> Phänotyp Rh-positiv; Genotyp dd -> Phänotyp Rh-negativ.</li>
+                        <li>Relevanz bei Schwangerschaft (Rhesus-Unverträglichkeit) und Bluttransfusionen.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section id="humangenetik">
+            <h2>2. Genetik menschlicher Erkrankungen und DNA-Analytik</h2>
+
+            <h3>2.1 Analyse von Erbgängen beim Menschen</h3>
+            <p>Da Kreuzungsexperimente beim Menschen nicht möglich sind, nutzt man die <b>Familienstammbaumanalyse</b>.</p>
+            <div class="diagramm-beschreibung">
+                <strong>Stammbaumsymbole:</strong> Quadrat = männlich, Kreis = weiblich. Ausgefülltes Symbol = Merkmalsträger (erkrankt), leeres Symbol = nicht betroffen. Verbindungslinie zwischen Quadrat und Kreis = Partnerschaft. Linien nach unten = Nachkommen. Römische Ziffern = Generationen, arabische Ziffern = Individuen innerhalb einer Generation.
+            </div>
+
+            <h4>Typische Erbgangmuster:</h4>
+            <ul>
+                <li><b>Autosomal-dominant:</b>
+                    <ul>
+                        <li>Merkmal tritt in jeder Generation auf.</li>
+                        <li>Betroffene haben meist mindestens ein betroffenes Elternteil.</li>
+                        <li>Gesunde Eltern haben nur gesunde Kinder.</li>
+                        <li>Männer und Frauen sind etwa gleich häufig betroffen.</li>
+                        <li>Beispiel: Chorea Huntington, Marfan-Syndrom, Polydaktylie.</li>
+                    </ul>
+                </li>
+                <li><b>Autosomal-rezessiv:</b>
+                    <ul>
+                        <li>Merkmal tritt nicht zwangsläufig in jeder Generation auf (kann Generationen überspringen).</li>
+                        <li>Betroffene können gesunde Eltern haben (diese sind dann heterozygote Überträger/Konduktoren).</li>
+                        <li>Sind beide Eltern betroffen, sind alle Kinder betroffen.</li>
+                        <li>Männer und Frauen sind etwa gleich häufig betroffen.</li>
+                        <li>Erhöhte Wahrscheinlichkeit bei Verwandtenehen.</li>
+                        <li>Beispiel: Mukoviszidose, Phenylketonurie (PKU), Albinismus.</li>
+                    </ul>
+                </li>
+                <li><b>X-chromosomal-rezessiv:</b>
+                    <ul>
+                        <li>Überwiegend Männer betroffen.</li>
+                        <li>Betroffene Männer erben das defekte Allel von ihrer Mutter (oft Konduktorin).</li>
+                        <li>Ein betroffener Mann gibt das Allel an alle seine Töchter weiter (werden Konduktorinnen), aber an keinen seiner Söhne.</li>
+                        <li>Frauen sind nur betroffen, wenn Vater betroffen und Mutter Konduktorin oder betroffen ist (selten).</li>
+                        <li>Kann Generationen überspringen (über Konduktorinnen).</li>
+                        <li>Beispiel: Rot-Grün-Sehschwäche, Hämophilie (Bluterkrankheit).</li>
+                    </ul>
+                </li>
+                <li><s>X-chromosomal-dominant:</s> (seltener, oft spezifische Muster, z.B. betroffener Vater hat nur betroffene Töchter)</li>
+            </ul>
+            <p>Die Stammbaumanalyse erlaubt es, Wahrscheinlichkeiten für das Auftreten von Krankheiten bei Nachkommen zu berechnen (oft unter Verwendung von Punnett-Quadraten).</p>
+
+            <h3>2.2 Methoden der genetischen Familienberatung</h3>
+            <p>Ziel ist es, Personen oder Paare über genetische Risiken aufzuklären und bei Entscheidungen zu unterstützen.</p>
+            <ol>
+                <li><b>Stammbaumanalyse:</b> (siehe oben)
+                    <ul>
+                        <li>Vorteil: Nicht-invasiv, relativ einfach.</li>
+                        <li>Nachteil: Benötigt Informationen über mehrere Generationen, bei Neumutationen oder unvollständiger Penetranz schwierig.</li>
+                    </ul>
+                </li>
+                <li><b>Heterozygotentest:</b>
+                    <ul>
+                        <li>Untersuchung gesunder Personen auf das Vorhandensein eines rezessiven Krankheitsallels (ob sie Konduktoren sind).</li>
+                        <li>Wichtig bei rezessiven Erbkrankheiten, wenn z.B. in der Familie Fälle bekannt sind.</li>
+                        <li>Kann biochemisch (z.B. Enzymaktivität bei PKU) oder molekulargenetisch (DNA-Analyse) erfolgen.</li>
+                        <li>Vorteil: Direkter Nachweis des Allels.</li>
+                        <li>Nachteil: Nur für bekannte Mutationen sinnvoll, ethische Fragen (Wissen über Trägerstatus).</li>
+                    </ul>
+                </li>
+                <li><b>Pränataldiagnostik (PND):</b>
+                    <ul>
+                        <li>Untersuchung des ungeborenen Kindes auf genetische Defekte oder Fehlbildungen während der Schwangerschaft.</li>
+                        <li><b>Nicht-invasive Methoden:</b> Ultraschall, Bluttests der Mutter (z.B. Ersttrimester-Screening, NIPT - Nicht-invasiver Pränataltest auf z.B. Trisomien durch Analyse fetaler DNA im mütterlichen Blut).
+                            <ul><li>Vorteil: Kein oder geringes Risiko für den Fetus.</li><li>Nachteil: Oft nur Risikoabschätzung, keine definitive Diagnose (außer NIPT für bestimmte Chromosomenanomalien).</li></ul>
+                        </li>
+                        <li><b>Invasive Methoden:</b> Chorionzottenbiopsie (Entnahme von Plazentagewebe), Amniozentese (Fruchtwasseruntersuchung), Chordozentese (Nabelschnurpunktion). Aus den gewonnenen fetalen Zellen können Chromosomenanalysen (Karyogramm) oder DNA-Analysen gemacht werden.
+                            <ul><li>Vorteil: Ermöglichen definitive Diagnosen.</li><li>Nachteil: Geringes, aber vorhandenes Fehlgeburtsrisiko.</li></ul>
+                        </li>
+                        <li>Ethische Dimension: Recht auf Nichtwissen, mögliche Konsequenz eines Schwangerschaftsabbruchs, Selektionsdruck.</li>
+                    </ul>
+                </li>
+                 <li><s>Präimplantationsdiagnostik (PID):</s> (Nicht explizit in der Übersicht, aber verwandt) Untersuchung von Embryonen nach künstlicher Befruchtung vor dem Einsetzen in die Gebärmutter.</li>
+            </ol>
+
+            <h3>2.3 DNA-Analytik und ihre Bedeutung</h3>
+            <p>Methoden zur Untersuchung der DNA für medizinische Diagnostik, Forschung, Forensik etc.</p>
+            <ul>
+                <li><b>Gelelektrophorese:</b>
+                    <ul>
+                        <li>Trennverfahren für Moleküle (DNA, RNA, Proteine) nach Größe und Ladung in einem elektrischen Feld.</li>
+                        <li>DNA-Fragmente (z.B. nach Behandlung mit Restriktionsenzymen oder PCR) sind negativ geladen und wandern im Gel (z.B. Agarose) zum Pluspol.</li>
+                        <li>Kleinere Fragmente wandern schneller/weiter als große.</li>
+                        <li>Sichtbarmachung der Banden z.B. durch Anfärbung (Ethidiumbromid) unter UV-Licht.</li>
+                        <li>Anwendung: Größenbestimmung von DNA-Fragmenten, genetischer Fingerabdruck, DNA-Sequenzierung (früher).</li>
+                         <div class="diagramm-beschreibung">
+                            Stell dir eine Gelplatte mit Taschen am oberen (negativen) Ende vor. In die Taschen werden DNA-Proben gefüllt. Nach Anlegen einer Spannung wandern die DNA-Fragmente nach unten (zum positiven Pol), wobei kürzere Fragmente weiter wandern als längere. Eine Spur enthält oft einen Größenstandard (Marker) mit Fragmenten bekannter Länge zum Vergleich.
+                        </div>
+                    </ul>
+                </li>
+                <li><b>Genetischer Fingerabdruck:</b>
+                    <ul>
+                        <li>Identifizierung von Individuen anhand einzigartiger DNA-Merkmale.</li>
+                        <li>Basiert heute meist auf der Analyse von <b>Short Tandem Repeats (STRs)</b>: Kurze DNA-Sequenzen (2-7 Basenpaare), die sich im Genom oft wiederholen.</li>
+                        <li>Die <i>Anzahl</i> der Wiederholungen an bestimmten Genorten (Loci) ist individuell sehr variabel (polymorph).</li>
+                        <li>Ablauf: DNA-Isolierung -> PCR-Vervielfältigung mehrerer STR-Loci -> Gelelektrophorese (heute meist Kapillarelektrophorese mit Fluoreszenzmarkierung) zur Bestimmung der Fragmentlängen (-> Anzahl der Repeats) -> Erstellung eines individuellen Profils.</li>
+                        <li>Anwendung: Forensik (Täteridentifizierung, Spurenzuordnung), Vaterschaftstests.</li>
+                    </ul>
+                </li>
+                <li><b>DNA-Sequenzierung:</b>
+                    <ul>
+                        <li>Bestimmung der exakten Basenabfolge (A, T, C, G) eines DNA-Abschnitts.</li>
+                        <li><b>Kettenabbruchmethode nach Sanger:</b> Klassische Methode. DNA wird synthetisiert, bricht aber gezielt nach Einbau modifizierter Nukleotide (Didesoxynukleotide, ddNTPs) ab. Für jede Base (A, T, C, G) wird ein separater Ansatz mit dem entsprechenden ddNTP durchgeführt. Auftrennung der unterschiedlich langen Fragmente per Gelelektrophorese -> Ablesen der Sequenz. Heute oft automatisiert mit Fluoreszenzmarkierung.</li>
+                        <li><b>Next-Generation Sequencing (NGS):</b> Moderne Hochdurchsatzverfahren, die Millionen von Sequenzierungsreaktionen parallel ermöglichen (schneller, günstiger für große Datenmengen).</li>
+                        <li>Anwendung: Diagnose genetischer Krankheiten (Identifizierung von Mutationen), Forschung, personalisierte Medizin, Phylogenie (siehe Evolution).</li>
+                    </ul>
+                </li>
+                <li><b>Gentests:</b> Analyse der DNA einer Person zur Feststellung von Krankheitsdispositionen, Trägerstatus oder zur Diagnose. Können diagnostisch (bei Krankheitsverdacht) oder prädiktiv (Risikoabschätzung für zukünftige Erkrankungen) sein.</li>
+            </ul>
+
+            <h3>2.4 Ethische Bewertung der DNA-Analytik</h3>
+            <p>DNA-Analysen werfen komplexe ethische Fragen auf.</p>
+            <div class="warnung">
+                <b>Struktur der ethischen Bewertung (Beispielhaft):</b>
+                <ol>
+                    <li><b>Ethisches Dilemma benennen:</b> Beschreibung der Situation, in der verschiedene moralische Werte oder Prinzipien miteinander in Konflikt geraten (z.B. Recht auf Wissen vs. Recht auf Nichtwissen bei prädiktiven Gentests; Datenschutz vs. Strafverfolgung bei DNA-Datenbanken).</li>
+                    <li><b>Argumente sammeln und darstellen:</b>
+                        <ul>
+                            <li>Pro-Argumente für eine Handlungsoption.</li>
+                            <li>Kontra-Argumente für diese Handlungsoption (bzw. Pro-Argumente für die alternative Option).</li>
+                            <li>Jedes Argument sollte idealerweise bestehen aus:
+                                <ul>
+                                    <li><b>Deskriptive Prämisse:</b> Sachliche Aussage, Beschreibung der Fakten (z.B. "Ein Gentest kann das Risiko für Brustkrebs aufzeigen.").</li>
+                                    <li><b>Normative Prämisse:</b> Werturteil, moralisches Prinzip (z.B. "Man sollte Maßnahmen zur Gesundheitsvorsorge ergreifen.").</li>
+                                    <li><b>Conclusio (Schlussfolgerung):</b> Die aus den Prämissen abgeleitete Handlungsempfehlung (z.B. "Daher sollte man den Gentest machen, um Vorsorge treffen zu können.").</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><b>Wertepool identifizieren:</b> Welche grundlegenden Werte stehen hinter den Argumenten? (z.B. Autonomie, Selbstbestimmung, Nichtschädigung, Fürsorge, Gerechtigkeit, Gesundheit, Sicherheit, Datenschutz).</li>
+                    <li><b>Hierarchisierung der Werte:</b> Begründete Abwägung, welche Werte in der konkreten Dilemma-Situation als wichtiger erachtet werden. Dies ist oft der Kern der ethischen Diskussion.</li>
+                    <li><b>Persönliches Fazit / Urteil:</b> Eine begründete persönliche Entscheidung für eine Handlungsoption unter Berücksichtigung der vorherigen Schritte.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="evolution">
+            <h2>3. Evolution – Evolutionsforschung</h2>
+
+            <h3>3.1 Belege für die Evolution</h3>
+            <ul>
+                <li><b>Homologie:</b> Ähnlichkeit von Merkmalen bei verschiedenen Arten aufgrund gemeinsamer Abstammung. Der Grundbauplan ist gleich, die Funktion kann aber unterschiedlich sein (divergente Entwicklung).
+                    <ul>
+                        <li><b>Homologiekriterien:</b>
+                            <ol>
+                                <li><b>Kriterium der Lage:</b> Strukturen sind homolog, wenn sie im Körpergefüge die gleiche Lage einnehmen (z.B. Vorderextremitäten der Wirbeltiere: Oberarm, Unterarm, Handwurzel...).</li>
+                                <li><b>Kriterium der spezifischen Qualität:</b> Komplex gebaute Strukturen sind homolog, wenn sie in vielen Einzelmerkmalen übereinstimmen (z.B. Aufbau eines Haifischzahns und eines menschlichen Zahns).</li>
+                                <li><b>Kriterium der Stetigkeit (Kontinuität):</b> Unterschiedliche Strukturen sind homolog, wenn sie durch Zwischenformen/Übergänge miteinander verbunden werden können (erkennbar aus Embryonalentwicklung oder Fossilien).</li>
+                            </ol>
+                        </li>
+                         <div class="beispiel">Homologie: Flügel der Fledermaus, Grabbein des Maulwurfs, Flosse des Wals – alle basieren auf dem Grundbauplan der Wirbeltier-Vorderextremität.</div>
+                    </ul>
+                </li>
+                <li><b>Analogie:</b> Ähnlichkeit von Merkmalen bei verschiedenen Arten aufgrund ähnlicher Umweltbedingungen und Selektionsdrücke, <i>nicht</i> aufgrund gemeinsamer Abstammung. Der Grundbauplan ist verschieden, die Funktion ist aber ähnlich (konvergente Entwicklung).
+                     <div class="beispiel">Analogie: Flügel von Insekten und Vögeln; Grabbeine von Maulwurf (Säuger) und Maulwurfsgrille (Insekt).</div>
+                </li>
+                 <li><b>Rudimente:</b> Zurückgebildete Organe, die bei Vorfahren eine Funktion hatten (z.B. Rest der Nickhaut im Augenwinkel des Menschen).</li>
+                 <li><b>Atavismen:</b> Wiederauftreten von Merkmalen, die bei Vorfahren ausgebildet waren, aber bei der aktuellen Art normalerweise unterdrückt sind (z.B. überzählige Brustwarzen beim Menschen).</li>
+                 <li><b>Molekulare Homologien:</b> Vergleich von DNA-Sequenzen oder Aminosäuresequenzen von Proteinen (z.B. Cytochrom c). Je ähnlicher die Sequenzen, desto näher die Verwandtschaft.</li>
+            </ul>
+
+            <h3>3.2 Stammesgeschichte und Systematik</h3>
+            <ul>
+                 <li><b>Phylogenetik:</b> Erforschung der Stammesgeschichte und der Verwandtschaftsbeziehungen von Lebewesen.</li>
+                 <li><b>Systematik:</b> Einteilung (Klassifizierung) der Lebewesen in ein hierarchisches System (Reich, Stamm, Klasse, Ordnung, Familie, Gattung, Art) aufgrund ihrer Verwandtschaft. Ziel ist ein <b>natürliches System</b>, das die tatsächlichen Abstammungsverhältnisse widerspiegelt.</li>
+                 <li><b>Stammbaum (Phylogenetischer Baum, Dendrogramm):</b> Grafische Darstellung der Verwandtschaftsbeziehungen.
+                     <ul>
+                         <li><b>Wurzel:</b> Gemeinsamer Vorfahre aller dargestellten Taxa.</li>
+                         <li><b>Äste (Linien):</b> Abstammungslinien.</li>
+                         <li><b>Knoten (Verzweigungspunkte):</b> Letzter gemeinsamer Vorfahre der von dort abzweigenden Linien; repräsentiert einen Artbildungsprozess.</li>
+                         <li><b>Endpunkte der Äste:</b> Rezente (heute lebende) oder fossile Taxa (Arten, Gruppen).</li>
+                         <li>Die Nähe der Verzweigungspunkte zeigt den Grad der Verwandtschaft an.</li>
+                    </ul>
+                </li>
+                <li><b>Kladogramm:</b> Spezielle Form eines Stammbaums, die nur die Verzweigungsmuster (Verwandtschaftsverhältnisse) darstellt. Die Astlängen haben keine Bedeutung (keine Zeitachse). Basiert auf der Analyse abgeleiteter Merkmale (Apomorphien).</li>
+                 <div class="diagramm-beschreibung">
+                    Stell dir Linien vor, die sich verzweigen. Jede Verzweigung bedeutet eine Aufspaltung von einer Vorfahrenart in neue Linien. Gruppen, die einen jüngeren gemeinsamen Knotenpunkt haben, sind näher miteinander verwandt.
+                 </div>
+                <li><b>Monophyletische Gruppe (Klade):</b> Eine geschlossene Abstammungsgemeinschaft; umfasst einen gemeinsamen Vorfahren und <i>alle</i> seine Nachfahren. Nur monophyletische Gruppen gelten als natürliche Einheiten in der modernen Systematik.</li>
+                <li><b>Plesiomorphie:</b> Ursprüngliches Merkmal; war bereits beim Vorfahren vorhanden und ist in der betrachteten Gruppe (oder Teilen davon) unverändert erhalten geblieben.</li>
+                <li><b>Apomorphie:</b> Abgeleitetes Merkmal; ist in der Stammesgeschichte neu entstanden und kennzeichnet eine monophyletische Gruppe gegenüber anderen Gruppen.
+                    <ul>
+                        <li><b>Autapomorphie:</b> Apomorphes Merkmal, das nur bei <i>einem</i> Taxon auftritt.</li>
+                        <li><b>Synapomorphie:</b> Apomorphes Merkmal, das bei <i>zwei oder mehr</i> Taxa auftritt und auf einen gemeinsamen Vorfahren zurückgeht (wichtig für die Begründung monophyletischer Gruppen).</li>
+                    </ul>
+                </li>
+                 <li><b>Stammbaum des Lebens:</b> Gesamtstammbaum aller Lebewesen, zeigt die Aufspaltung in die drei Domänen (Bacteria, Archaea, Eukarya) und deren weitere Verzweigungen.</li>
+            </ul>
+
+            <h3>3.3 Artbegriffe</h3>
+            <ul>
+                 <li><b>Morphologischer Artbegriff:</b> Eine Art ist eine Gruppe von Lebewesen, die in allen wesentlichen äußeren Merkmalen untereinander und mit ihren Nachkommen übereinstimmen.
+                    <ul>
+                         <li><b>Probleme:</b> Subjektivität ("wesentliche" Merkmale?), Sexualdimorphismus (Männchen/Weibchen sehen unterschiedlich aus), Polymorphismus (unterschiedliche Formen innerhalb einer Art), kryptische Arten (sehen gleich aus, sind aber reproduktiv isoliert), Fossilien schwer einzuordnen.</li>
+                    </ul>
+                 </li>
+                 <li><s>Biologischer Artbegriff:</s> (Nicht explizit in der Übersicht, aber wichtig) Eine Art ist eine Gruppe von Lebewesen, die sich untereinander tatsächlich oder potenziell kreuzen können und fruchtbare Nachkommen hervorbringen, und die von anderen solchen Gruppen reproduktiv isoliert sind. (Problem: Nicht anwendbar auf Fossilien, asexuelle Organismen).</li>
+            </ul>
+        </section>
+
+        <section id="grundwissen">
+            <h2>4. Grundwissen</h2>
+
+             <h3>4.1 Neukombination und Veränderung genetischer Information</h3>
+            <p>Grundlage für genetische Variabilität und Evolution.</p>
+            <ul>
+                 <li><b>Mutation:</b> Spontane oder induzierte Veränderung des Erbguts.
+                     <ul>
+                         <li><b>Genmutation:</b> Änderung einzelner Gene (z.B. Punktmutation).</li>
+                         <li><b>Chromosomenmutation:</b> Änderung der Struktur von Chromosomen (Deletion, Duplikation, Inversion, Translokation).</li>
+                         <li><b>Genommutation:</b> Änderung der Anzahl der Chromosomen (Aneuploidie) oder ganzer Chromosomensätze (Polyploidie).</li>
+                     </ul>
+                 </li>
+                 <li><b>Rekombination:</b> Neuanordnung von Allelen während der Meiose.
+                     <ul>
+                         <li><b>Interchromosomale Rekombination:</b> Zufällige Verteilung der homologen Chromosomen väterlicher und mütterlicher Herkunft in der Anaphase I.</li>
+                         <li><b>Intrachromosomale Rekombination (Crossing-over):</b> Stückaustausch zwischen Nicht-Schwesterchromatiden homologer Chromosomen in der Prophase I.</li>
+                     </ul>
+                 </li>
+            </ul>
+
+            <h3>4.2 Genommutationen: Trisomie 21</h3>
+            <ul>
+                <li><b>Numerische Chromosomenaberration (Aneuploidie):</b> Ein oder mehrere Chromosomen liegen nicht in der üblichen Anzahl vor (z.B. 3 statt 2 = Trisomie; 1 statt 2 = Monosomie).</li>
+                <li><b>Trisomie 21 (Down-Syndrom):</b> Das Chromosom 21 liegt dreifach statt zweifach vor (Gesamtzahl: 47 Chromosomen).</li>
+                <li><b>Ursache:</b> Meist eine <b>Non-Disjunction</b> (Nichttrennung) der homologen Chromosomen 21 während der Anaphase I der Meiose oder (seltener) der Schwesterchromatiden während der Anaphase II bei der Bildung der Keimzellen (Eizelle oder Spermium). Führt zu Keimzellen mit 24 bzw. 22 Chromosomen.</li>
+                <li><b>Folgen:</b> Charakteristische körperliche Merkmale, kognitive Beeinträchtigungen unterschiedlichen Ausmaßes, oft Herzfehler und andere organische Probleme. Das Risiko steigt mit dem Alter der Mutter.</li>
+                <li><b>Karyogramm:</b> Geordnete Darstellung aller Chromosomen einer Zelle. Chromosomen werden nach Größe, Form (Lage des Centromers) und Bandenmuster sortiert und paarweise angeordnet.
+                    <ul>
+                        <li><b>Auswertung:</b> Überprüfung der Anzahl (normal 46) und Struktur aller Chromosomen. Bei Trisomie 21 sieht man drei statt zwei Chromosomen 21. Geschlechtschromosomen (XX für weiblich, XY für männlich) werden separat dargestellt. Schreibweise: z.B. 47,XX,+21 (weiblich mit Trisomie 21) oder 47,XY,+21 (männlich mit Trisomie 21).</li>
+                    </ul>
+                     <div class="diagramm-beschreibung">
+                        Ein Karyogramm zeigt Bilder der Chromosomen, geordnet in Paaren von 1 bis 22 (Autosomen, nach abnehmender Größe) und den Geschlechtschromosomen (XX oder XY). Bei Trisomie 21 ist das Chromosom 21 dreimal abgebildet.
+                     </div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="quiz">
+            <h2>5. Kleines Quiz zur Selbstüberprüfung</h2>
+            <div class="quiz-container">
+                <div id="quiz-content">
+                    </div>
+                <button id="quiz-next">Nächste Frage / Quiz starten</button>
+                <div id="quiz-score" style="margin-top: 15px;"></div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Welche Mendelsche Regel beschreibt die Aufspaltung der Merkmale in der F2-Generation bei einem monohybriden Erbgang?",
+                options: ["Uniformitätsregel", "Spaltungsregel", "Unabhängigkeitsregel", "Kodominanzregel"],
+                answer: "Spaltungsregel"
+            },
+            {
+                question: "Welches phänotypische Verhältnis erwartet man in der F2-Generation eines dihybriden Erbgangs bei unabhängiger Vererbung und Dominanz beider Merkmale?",
+                options: ["3:1", "1:2:1", "9:3:3:1", "1:1:1:1"],
+                answer: "9:3:3:1"
+            },
+            {
+                question: "Beim AB0-Blutgruppensystem sind die Allele IA und IB zueinander...",
+                options: ["dominant", "rezessiv", "kodominant", "intermediär"],
+                answer: "kodominant"
+            },
+            {
+                question: "Eine Krankheit tritt nur auf, wenn beide Allele defekt sind. Männer und Frauen sind gleich häufig betroffen. Es handelt sich wahrscheinlich um einen ... Erbgang.",
+                options: ["autosomal-dominanten", "autosomal-rezessiven", "X-chromosomal-rezessiven", "X-chromosomal-dominanten"],
+                answer: "autosomal-rezessiven"
+            },
+            {
+                question: "Welche Methode der Pränataldiagnostik birgt ein geringes Fehlgeburtsrisiko?",
+                options: ["Ultraschall", "NIPT", "Amniozentese", "Ersttrimester-Screening"],
+                answer: "Amniozentese" // Invasive Methoden bergen Risiko
+            },
+             {
+                question: "Wofür steht STR im Kontext des genetischen Fingerabdrucks?",
+                options: ["Single Target Reaction", "Short Tandem Repeat", "Specific Transcription Region", "Sequence Tag Resource"],
+                answer: "Short Tandem Repeat"
+            },
+            {
+                question: "Die Flügel einer Fledermaus und die Flügel eines Schmetterlings sind bezüglich ihrer Funktion ähnlich, haben aber einen unterschiedlichen Grundbauplan. Dies ist ein Beispiel für:",
+                options: ["Homologie", "Analogie", "Rudiment", "Atavismus"],
+                answer: "Analogie"
+            },
+            {
+                question: "Ein neu entstandenes, abgeleitetes Merkmal, das eine monophyletische Gruppe kennzeichnet, nennt man:",
+                options: ["Plesiomorphie", "Apomorphie", "Analogie", "Homoplasie"],
+                answer: "Apomorphie"
+            },
+             {
+                question: "Was ist die häufigste Ursache für Trisomie 21?",
+                options: ["Genmutation", "Crossing-over Fehler", "Non-Disjunction in der Meiose", "Deletion auf Chromosom 21"],
+                answer: "Non-Disjunction in der Meiose"
+            },
+             {
+                question: "Was bezeichnet man als Karyogramm?",
+                options: ["Eine Darstellung der Basensequenz eines Gens", "Eine geordnete Darstellung aller Chromosomen einer Zelle", "Ein Stammbaum über mehrere Generationen", "Das Ergebnis einer Gelelektrophorese"],
+                answer: "Eine geordnete Darstellung aller Chromosomen einer Zelle"
+            }
+        ];
+
+        let currentQuestionIndex = -1;
+        let score = 0;
+
+        const quizContentEl = document.getElementById('quiz-content');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizNextButton = document.getElementById('quiz-next');
+
+        function loadQuestion() {
+            currentQuestionIndex++;
+            quizContentEl.innerHTML = ''; // Clear previous question
+
+            if (currentQuestionIndex >= quizData.length) {
+                quizContentEl.innerHTML = `<p>Quiz beendet!</p>`;
+                quizScoreEl.textContent = `Dein Ergebnis: ${score} von ${quizData.length} richtig.`;
+                quizNextButton.textContent = 'Quiz neu starten';
+                currentQuestionIndex = -1; // Reset for restart
+                score = 0;
+                return;
+            }
+
+            const currentQuestion = quizData[currentQuestionIndex];
+            quizNextButton.textContent = 'Nächste Frage';
+            quizScoreEl.textContent = `Frage ${currentQuestionIndex + 1} von ${quizData.length}`;
+
+            const questionEl = document.createElement('div');
+            questionEl.className = 'quiz-question';
+            questionEl.textContent = currentQuestion.question;
+            quizContentEl.appendChild(questionEl);
+
+            const optionsEl = document.createElement('div');
+            optionsEl.className = 'quiz-options';
+
+            currentQuestion.options.forEach(option => {
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'quizOption';
+                input.value = option;
+                input.addEventListener('change', checkAnswer); // Check answer on change
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(` ${option}`));
+                optionsEl.appendChild(label);
+            });
+
+            quizContentEl.appendChild(optionsEl);
+
+            const feedbackEl = document.createElement('div');
+            feedbackEl.id = 'quiz-feedback-' + currentQuestionIndex;
+            feedbackEl.className = 'quiz-feedback';
+            quizContentEl.appendChild(feedbackEl);
+        }
+
+        function checkAnswer(event) {
+            const selectedOption = event.target.value;
+            const currentQuestion = quizData[currentQuestionIndex];
+            const feedbackEl = document.getElementById('quiz-feedback-' + currentQuestionIndex);
+
+            // Disable further changes for this question
+            const radios = quizContentEl.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.disabled = true);
+
+            if (selectedOption === currentQuestion.answer) {
+                feedbackEl.textContent = 'Richtig!';
+                feedbackEl.className = 'quiz-feedback correct';
+                score++;
+            } else {
+                feedbackEl.textContent = `Falsch. Die richtige Antwort ist: ${currentQuestion.answer}`;
+                feedbackEl.className = 'quiz-feedback incorrect';
+            }
+             quizScoreEl.textContent = `Frage ${currentQuestionIndex + 1} von ${quizData.length} (Aktueller Punktestand: ${score})`;
+        }
+
+        quizNextButton.addEventListener('click', loadQuestion);
+
+        // Initial call to display the first question or start button
+         quizNextButton.textContent = 'Quiz starten';
+         quizScoreEl.textContent = `Bereit? Klicke auf "Quiz starten".`;
+
+
+    </script>
+
+</body>
+</html>
