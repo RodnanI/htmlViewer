@@ -32,7 +32,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1800px;
             margin: 0 auto;
             background: var(--card-bg);
             padding: 30px;
@@ -94,7 +94,7 @@
             color: var(--accent-color);
         }
 
-        .features-list {
+        .features-list, .materials-list, .buildings-list, .analysis-list {
             padding-left: 20px;
         }
 
@@ -102,23 +102,21 @@
             margin-bottom: 5px;
         }
 
-        .materials-list {
-            padding-left: 20px;
-        }
-
         .materials-list li {
             color: #16a085;
             margin-bottom: 3px;
-        }
-
-        .buildings-list {
-            padding-left: 20px;
         }
 
         .buildings-list li {
             color: #2c3e50;
             margin-bottom: 8px;
             line-height: 1.4;
+        }
+
+        .analysis-list li {
+            color: #c0392b;
+            margin-bottom: 5px;
+            font-weight: 500;
         }
 
         .architect {
@@ -133,37 +131,6 @@
         .year {
             color: #7f8c8d;
             font-style: italic;
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            color: var(--accent-color);
-            border-bottom: 1px dotted var(--accent-color);
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.85em;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
         }
 
         @media (max-width: 768px) {
@@ -204,6 +171,7 @@
                         <th>Merkmale</th>
                         <th>Materialien</th>
                         <th>Bekannte Werke</th>
+                        <th>Analysehinweise</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -233,10 +201,127 @@
                                 <li><span class="architect">Peter Behrens:</span> <span class="building-name">AEG Turbinenhalle Berlin</span> <span class="year">(1908-1909)</span></li>
                             </ul>
                         </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Sichtbare Konstruktion betonen</li>
+                                <li>Auf technische Details achten</li>
+                                <li>Minimale Ornamentik hervorheben</li>
+                                <li>Materialgerechtigkeit analysieren</li>
+                                <li>Kubische Grundformen erkennen</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="expressionismus">
+                        <td class="epoch-cell">Expressionismus</td>
+                        <td>ca. 1910-1925</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Emotionale Architektur</li>
+                                <li>Dramatische Formen</li>
+                                <li>Organische Gestaltung</li>
+                                <li>Symbolische Bedeutung</li>
+                                <li>Skulpturale Elemente</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Beton</li>
+                                <li>Backstein</li>
+                                <li>Glas</li>
+                                <li>Stahl</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Erich Mendelsohn:</span> <span class="building-name">Einsteinturm Potsdam</span> <span class="year">(1919-1921)</span></li>
+                                <li><span class="architect">Hans Poelzig:</span> <span class="building-name">Großes Schauspielhaus Berlin</span> <span class="year">(1919)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Emotionale Wirkung beschreiben</li>
+                                <li>Dynamische Formensprache analysieren</li>
+                                <li>Skulpturale Qualitäten herausarbeiten</li>
+                                <li>Licht-Schatten-Spiel beachten</li>
+                                <li>Symbolik und Metaphern deuten</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="bauhaus">
+                        <td class="epoch-cell">Bauhaus</td>
+                        <td>1919-1933</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Form follows function</li>
+                                <li>Keine Ornamente</li>
+                                <li>Industrielle Ästhetik</li>
+                                <li>Gesamtkunstwerk</li>
+                                <li>Sachlichkeit</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Stahl</li>
+                                <li>Glas</li>
+                                <li>Beton</li>
+                                <li>Industriematerialien</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Walter Gropius:</span> <span class="building-name">Bauhaus Dessau</span> <span class="year">(1925-1926)</span></li>
+                                <li><span class="architect">Gropius/Meyer:</span> <span class="building-name">Fagus-Werk</span> <span class="year">(1910-1914)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Funktionale Gliederung erkennen</li>
+                                <li>Transparenz und Leichtigkeit</li>
+                                <li>Asymmetrische Komposition beachten</li>
+                                <li>Farbkonzept analysieren</li>
+                                <li>Industrielle Ästhetik hervorheben</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="funktionalismus">
+                        <td class="epoch-cell">Funktionalismus</td>
+                        <td>ca. 1920-1960</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Funktion bestimmt Form</li>
+                                <li>Verzicht auf Dekoration</li>
+                                <li>Rationaler Entwurf</li>
+                                <li>Effizienz</li>
+                                <li>Standardisierung</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Beton</li>
+                                <li>Stahl</li>
+                                <li>Glas</li>
+                                <li>Vorfabrizierte Elemente</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Ernst May:</span> <span class="building-name">Neues Frankfurt</span> <span class="year">(1925-1930)</span></li>
+                                <li><span class="architect">J.J.P. Oud:</span> <span class="building-name">Kiefhoek Siedlung Rotterdam</span> <span class="year">(1925-1930)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Zweckbestimmung herausarbeiten</li>
+                                <li>Funktionale Zonierung erkennen</li>
+                                <li>Standardisierung beachten</li>
+                                <li>Wirtschaftlichkeit analysieren</li>
+                                <li>Soziale Aspekte einbeziehen</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr data-epoch="international-style">
-                        <td class="epoch-cell">International Style</td>
-                        <td>1920er-1930er</td>
+                        <td class="epoch-cell">Rationalismus/International Style</td>
+                        <td>1920er-1970er</td>
                         <td>
                             <ul class="features-list">
                                 <li>Klare geometrische Formen</li>
@@ -257,6 +342,51 @@
                             <ul class="buildings-list">
                                 <li><span class="architect">Le Corbusier:</span> <span class="building-name">Villa Savoye</span> <span class="year">(1929)</span></li>
                                 <li><span class="architect">Mies van der Rohe:</span> <span class="building-name">Barcelona Pavillon</span> <span class="year">(1929)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>5 Punkte Le Corbusiers prüfen</li>
+                                <li>Horizontale Fensterbänder beachten</li>
+                                <li>Stützsystem analysieren</li>
+                                <li>Freie Grundrissgestaltung erkennen</li>
+                                <li>Dachgarten/Flachdach thematisieren</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="organische-architektur">
+                        <td class="epoch-cell">Organische Architektur</td>
+                        <td>20. Jahrhundert</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Integration in die Natur</li>
+                                <li>Fließende Formen</li>
+                                <li>Natürliche Materialien</li>
+                                <li>Verbindung Innen/Außen</li>
+                                <li>Individualität</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Naturstein</li>
+                                <li>Holz</li>
+                                <li>Glas</li>
+                                <li>Lokale Materialien</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Fallingwater</span> <span class="year">(1935)</span></li>
+                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Guggenheim Museum New York</span> <span class="year">(1959)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Landschaftsintegration beschreiben</li>
+                                <li>Materialverwendung aus Umgebung</li>
+                                <li>Fließende Raumübergänge</li>
+                                <li>Horizontale Ausrichtung beachten</li>
+                                <li>Naturmetaphern analysieren</li>
                             </ul>
                         </td>
                     </tr>
@@ -285,31 +415,49 @@
                                 <li><span class="architect">Ernő Goldfinger:</span> <span class="building-name">Trellick Tower London</span> <span class="year">(1972)</span></li>
                             </ul>
                         </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Betonoberflächen analysieren</li>
+                                <li>Massivität und Schwere betonen</li>
+                                <li>Monumentalität beschreiben</li>
+                                <li>Strukturelle Ehrlichkeit erkennen</li>
+                                <li>Soziale Funktion thematisieren</li>
+                            </ul>
+                        </td>
                     </tr>
-                    <tr data-epoch="dekonstruktivismus">
-                        <td class="epoch-cell">Dekonstruktivismus</td>
-                        <td>1980er-heute</td>
+                    <tr data-epoch="antirationale-architektur">
+                        <td class="epoch-cell">Antirationale Architektur</td>
+                        <td>1960er-1980er</td>
                         <td>
                             <ul class="features-list">
-                                <li>Fragmentierung</li>
-                                <li>Asymmetrie</li>
-                                <li>Unvorhersehbarkeit</li>
-                                <li>Schiefe Ebenen</li>
-                                <li>Zersplitterte Formen</li>
+                                <li>Gegen strenge Rationalität</li>
+                                <li>Organische Formen</li>
+                                <li>Expressive Gestaltung</li>
+                                <li>Individualität</li>
+                                <li>Farbenfroh</li>
                             </ul>
                         </td>
                         <td>
                             <ul class="materials-list">
-                                <li>Stahl</li>
-                                <li>Glas</li>
-                                <li>Beton</li>
-                                <li>Titanzink</li>
+                                <li>Diverse Materialien</li>
+                                <li>Recycelte Materialien</li>
+                                <li>Experimentell</li>
+                                <li>Naturmaterialien</li>
                             </ul>
                         </td>
                         <td>
                             <ul class="buildings-list">
-                                <li><span class="architect">Frank O. Gehry:</span> <span class="building-name">Guggenheim Museum Bilbao</span> <span class="year">(1997)</span></li>
-                                <li><span class="architect">Zaha Hadid:</span> <span class="building-name">Phaeno Wolfsburg</span> <span class="year">(2005)</span></li>
+                                <li><span class="architect">Friedensreich Hundertwasser:</span> <span class="building-name">Hundertwasserhaus Wien</span> <span class="year">(1983-1985)</span></li>
+                                <li><span class="architect">Bruce Goff:</span> <span class="building-name">Bavinger House</span> <span class="year">(1950-1955)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Regelbrüche identifizieren</li>
+                                <li>Farbkonzept analysieren</li>
+                                <li>Individuelle Gestaltung betonen</li>
+                                <li>Kritik am Rationalismus erkennen</li>
+                                <li>Spielerische Elemente beschreiben</li>
                             </ul>
                         </td>
                     </tr>
@@ -339,31 +487,85 @@
                                 <li><span class="architect">Norman Foster:</span> <span class="building-name">HSBC Gebäude Hongkong</span> <span class="year">(1985)</span></li>
                             </ul>
                         </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Technische Systeme beschreiben</li>
+                                <li>Farbcodierung analysieren</li>
+                                <li>Inside-out-Prinzip erkennen</li>
+                                <li>Flexibilität und Modularität</li>
+                                <li>Maschinenhaftigkeit thematisieren</li>
+                            </ul>
+                        </td>
                     </tr>
-                    <tr data-epoch="organische-architektur">
-                        <td class="epoch-cell">Organische Architektur</td>
-                        <td>20. Jahrhundert</td>
+                    <tr data-epoch="neuer-brutalismus">
+                        <td class="epoch-cell">Neuer Brutalismus</td>
+                        <td>1980er-heute</td>
                         <td>
                             <ul class="features-list">
-                                <li>Integration in die Natur</li>
-                                <li>Fließende Formen</li>
-                                <li>Natürliche Materialien</li>
-                                <li>Verbindung Innen/Außen</li>
-                                <li>Individualität</li>
+                                <li>Weiterentwicklung des Brutalismus</li>
+                                <li>Mehr Farbe und Textur</li>
+                                <li>Moderne Materialien</li>
+                                <li>Experimentelle Formen</li>
+                                <li>Nachhaltigkeit</li>
                             </ul>
                         </td>
                         <td>
                             <ul class="materials-list">
-                                <li>Naturstein</li>
-                                <li>Holz</li>
-                                <li>Glas</li>
-                                <li>Lokale Materialien</li>
+                                <li>Sichtbeton</li>
+                                <li>Cor-Ten-Stahl</li>
+                                <li>Moderne Verbundwerkstoffe</li>
+                                <li>Recycelte Materialien</li>
                             </ul>
                         </td>
                         <td>
                             <ul class="buildings-list">
-                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Fallingwater</span> <span class="year">(1935)</span></li>
-                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Guggenheim Museum New York</span> <span class="year">(1959)</span></li>
+                                <li><span class="architect">Peter Zumthor:</span> <span class="building-name">Kunsthaus Bregenz</span> <span class="year">(1997)</span></li>
+                                <li><span class="architect">Tadao Ando:</span> <span class="building-name">Church of Light</span> <span class="year">(1989)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Weiterentwicklung herausarbeiten</li>
+                                <li>Materialpoesie analysieren</li>
+                                <li>Atmosphäre beschreiben</li>
+                                <li>Lichtführung beachten</li>
+                                <li>Sensible Kontextualisierung</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="dekonstruktivismus">
+                        <td class="epoch-cell">Dekonstruktivismus</td>
+                        <td>1980er-heute</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Fragmentierung</li>
+                                <li>Asymmetrie</li>
+                                <li>Unvorhersehbarkeit</li>
+                                <li>Schiefe Ebenen</li>
+                                <li>Zersplitterte Formen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Stahl</li>
+                                <li>Glas</li>
+                                <li>Beton</li>
+                                <li>Titanzink</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Frank O. Gehry:</span> <span class="building-name">Guggenheim Museum Bilbao</span> <span class="year">(1997)</span></li>
+                                <li><span class="architect">Zaha Hadid:</span> <span class="building-name">Phaeno Wolfsburg</span> <span class="year">(2005)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="analysis-list">
+                                <li>Zerlegung der Form analysieren</li>
+                                <li>Bewegungsdynamik beschreiben</li>
+                                <li>Instabilität thematisieren</li>
+                                <li>Multiple Perspektiven beachten</li>
+                                <li>Digitale Entwurfsprozesse erkennen</li>
                             </ul>
                         </td>
                     </tr>
