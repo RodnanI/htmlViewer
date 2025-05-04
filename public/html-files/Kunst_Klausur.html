@@ -14,6 +14,27 @@
             --card-bg: #ffffff;
             --border-color: #bdc3c7;
             --hover-color: #f5f7fa;
+            --analysis-color: #c0392b;
+            --materials-color: #16a085;
+            --architect-color: #8e44ad;
+            --building-color: #27ae60;
+            --year-color: #7f8c8d;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ecf0f1;
+            --secondary-color: #374151;
+            --accent-color: #60a5fa;
+            --text-color: #e5e7eb;
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --border-color: #374151;
+            --hover-color: #374151;
+            --analysis-color: #f87171;
+            --materials-color: #34d399;
+            --architect-color: #a78bfa;
+            --building-color: #4ade80;
+            --year-color: #9ca3af;
         }
 
         * {
@@ -29,6 +50,7 @@
             background-color: var(--bg-color);
             padding: 20px;
             min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
         .container {
@@ -59,7 +81,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background: white;
+            background: var(--card-bg);
         }
 
         th, td {
@@ -80,9 +102,25 @@
             z-index: 10;
         }
 
+        th:first-child {
+            border-top-left-radius: 4px;
+        }
+        
+        th:last-child {
+            border-top-right-radius: 4px;
+        }
+
         tr:hover {
             background-color: var(--hover-color);
             transition: background-color 0.3s ease;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 4px;
+        }
+        
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 4px;
         }
 
         td {
@@ -103,7 +141,7 @@
         }
 
         .materials-list li {
-            color: #16a085;
+            color: var(--materials-color);
             margin-bottom: 3px;
         }
 
@@ -114,23 +152,67 @@
         }
 
         .analysis-list li {
-            color: #c0392b;
+            color: var(--analysis-color);
             margin-bottom: 5px;
             font-weight: 500;
         }
 
         .architect {
             font-weight: 600;
-            color: #8e44ad;
+            color: var(--architect-color);
         }
 
         .building-name {
-            color: #27ae60;
+            color: var(--building-color);
         }
 
         .year {
-            color: #7f8c8d;
+            color: var(--year-color);
             font-style: italic;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .moon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon {
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -159,6 +241,14 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 17.5C9.51472 17.5 7.5 15.4853 7.5 13C7.5 10.5147 9.51472 8.5 12 8.5C14.4853 8.5 16.5 10.5147 16.5 13C16.5 15.4853 14.4853 17.5 12 17.5ZM12 7C8.68629 7 6 9.68629 6 13C6 16.3137 8.68629 19 12 19C15.3137 19 18 16.3137 18 13C18 9.68629 15.3137 7 12 7ZM12 1V4M12 20V23M3.515 4.929L5.636 7.05M18.364 19.778L20.485 21.899M1 12H4M20 12H23M3.515 19.071L5.636 16.95M18.364 7.222L20.485 5.101" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.7519 15.0019C20.597 15.4844 19.3296 15.75 18 15.75C12.6152 15.75 8.25 11.3848 8.25 6C8.25 4.67044 8.51562 3.40301 8.99806 2.24814C5.47566 3.71802 3 7.19483 3 11.25C3 16.6348 7.36522 21 12.75 21C16.8052 21 20.282 18.5243 21.7519 15.0019Z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
     <div class="container">
         <h1>Architekturstile - Lernübersicht</h1>
         
@@ -576,6 +666,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Dark Mode Toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use system preference
+            const currentTheme = localStorage.getItem('theme') || 
+                               (prefersDarkScheme.matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+            
+            // Listen for system theme changes
+            prefersDarkScheme.addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    document.documentElement.setAttribute('data-theme', 
+                        e.matches ? 'dark' : 'light');
+                }
+            });
+            
             // Füge Hover-Effekt für Zeilen hinzu
             const rows = document.querySelectorAll('tbody tr');
             
