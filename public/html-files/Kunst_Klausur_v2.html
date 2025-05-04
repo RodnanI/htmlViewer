@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architektur-Epochen Übersicht</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --table-header-bg: #f5f5f5;
+            --table-border: #e0e0e0;
+            --table-stripe: #fafafa;
+            --toggle-bg: #e0e0e0;
+            --toggle-thumb: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --table-header-bg: #2d2d2d;
+            --table-border: #404040;
+            --table-stripe: #242424;
+            --toggle-bg: #404040;
+            --toggle-thumb: #808080;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .toggle-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: 0.4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--toggle-thumb);
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border: 1px solid var(--table-border);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-stripe);
+        }
+
+        .epoch-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .period {
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .work-title {
+            font-weight: 500;
+        }
+
+        .architect {
+            opacity: 0.8;
+        }
+
+        .year {
+            opacity: 0.7;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Expandable table styles */
+        .expandable {
+            display: none;
+        }
+
+        table.expanded .expandable {
+            display: table-cell;
+        }
+
+        .table-container {
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .expand-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 1;
+        }
+
+        .expand-button:hover {
+            background-color: rgba(127, 127, 127, 0.1);
+        }
+
+        .expand-button::after {
+            content: '▶';
+            font-size: 10px;
+            color: var(--text-color);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease;
+            opacity: 0.2;
+        }
+
+        .expand-button:hover::after {
+            opacity: 0.5;
+        }
+
+        .table-container.expanded .expand-button::after {
+            transform: translate(-50%, -50%) rotate(180deg);
+        }
+
+        @media (max-width: 1200px) {
+            body {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            table.expanded .expandable {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            th, td {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .toggle-label {
+                display: none;
+            }
+            
+            table.expanded .expandable {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <span class="toggle-label">Dunkel</span>
+        <label class="toggle-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="container">
+        <h1>Architektur-Epochen Übersicht</h1>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Epoche</th>
+                        <th>Zeitraum</th>
+                        <th>Merkmale</th>
+                        <th class="expandable">Materialien</th>
+                        <th class="expandable">Bekannte Werke</th>
+                        <th>Analyseansätze</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="epoch-name">Frührationalismus</span></td>
+                        <td><span class="period">1900-1920</span></td>
+                        <td>Ablehnung von Dekoration und Ornamentik, extreme Klarheit, maximale Sparsamkeit, Betonung der Konstruktion, technische Neuerungen</td>
+                        <td class="expandable">Stahl, Beton, Glas, Aluminium, Marmorverkleidung</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Postsparkassenamt Wien</span><br><span class="architect">Otto Wagner</span> <span class="year">(1904-1906)</span></li>
+                                <li><span class="work-title">AEG Turbinenhalle Berlin</span><br><span class="architect">Peter Behrens</span> <span class="year">(1908-1909)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Betone die revolutionäre Abkehr vom Jugendstil-Ornament<br>
+                            • Analysiere die strukturelle Ehrlichkeit und Materialwahrheit<br>
+                            • Hebe technische Innovationen hervor (z.B. Marmorverkleidung mit Aluminiumbolzen)<br>
+                            • Verbinde mit Otto Wagners Zitat "Etwas Unpraktisches kann nie schön sein"<br>
+                            • Diskutiere den Übergang zur Moderne und industriellen Ästhetik<br>
+                            • Erwähne den Einfluss auf spätere Architekten des International Style
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Expressionismus</span></td>
+                        <td><span class="period">1910-1925</span></td>
+                        <td>Expressive Formen, dynamische Strukturen, kristalline Motive, emotionale Wirkung</td>
+                        <td class="expandable">Backstein, Glas, Stahlbeton</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Einsteinturm Potsdam</span><br><span class="architect">Erich Mendelsohn</span> <span class="year">(1921)</span></li>
+                                <li><span class="work-title">Chilehaus Hamburg</span><br><span class="architect">Fritz Höger</span> <span class="year">(1924)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Fokussiere auf die emotionale Wirkung und dramatische Formgebung<br>
+                            • Analysiere skulpturale, kristalline Formen als Reaktion auf Krieg/Krise<br>
+                            • Betone die Dynamik und Bewegung in der Architektur<br>
+                            • Vergleiche mit expressionistischer Kunst (z.B. Die Brücke)<br>
+                            • Diskutiere die Vision einer neuen Gesellschaft durch Architektur<br>
+                            • Hebe die plastische Durchformung des Baukörpers hervor
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Bauhaus</span></td>
+                        <td><span class="period">1919-1933</span></td>
+                        <td>Form follows function, kubische Formen, Asymmetrie, Transparenz, industrielle Ästhetik</td>
+                        <td class="expandable">Stahl, Glas, Beton, industrielle Werkstoffe</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Bauhaus Dessau</span><br><span class="architect">Walter Gropius</span> <span class="year">(1925-1926)</span></li>
+                                <li><span class="work-title">Meisterhäuser Dessau</span><br><span class="architect">Walter Gropius</span> <span class="year">(1925-1926)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Erkläre das Gesamtkunstwerk-Konzept und die Verbindung von Kunst/Handwerk<br>
+                            • Analysiere die asymmetrische Komposition und funktionale Gliederung<br>
+                            • Betone die Vorhangfassade als revolutionäre Konstruktion<br>
+                            • Diskutiere die pädagogische Funktion der Architektur<br>
+                            • Verbinde mit Bauhaus-Manifest und industrieller Produktion<br>
+                            • Hebe die Transparenz und offene Raumgestaltung hervor
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Funktionalismus</span></td>
+                        <td><span class="period">1920-1940</span></td>
+                        <td>Funktionalität vor Ästhetik, keine Ornamente, rationale Gestaltung, soziale Aspekte</td>
+                        <td class="expandable">Stahlbeton, Glas, Stahl</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Weißenhofsiedlung Stuttgart</span><br><span class="architect">Verschiedene Architekten</span> <span class="year">(1927)</span></li>
+                                <li><span class="work-title">Van Nelle Fabrik Rotterdam</span><br><span class="architect">Brinkman & Van der Vlugt</span> <span class="year">(1931)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Betone "form follows function" als Leitprinzip<br>
+                            • Analysiere die soziale Dimension (Neues Wohnen, Existenzminimum)<br>
+                            • Diskutiere die Rationalisierung des Bauens und Standardisierung<br>
+                            • Hebe die Ablehnung jeglicher Dekoration hervor<br>
+                            • Verbinde mit industrieller Produktion und Massengesellschaft<br>
+                            • Erkläre die funktionale Zonierung und effiziente Raumnutzung
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Rationalismus/International Style</span></td>
+                        <td><span class="period">1920er-1970er Jahre</span></td>
+                        <td>Klare geometrische Formen, Flachdächer, große Fensterflächen, offene Grundrisse, keine Ornamentik</td>
+                        <td class="expandable">Beton, Glas, Stahl</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Villa Savoye</span><br><span class="architect">Le Corbusier</span> <span class="year">(1929)</span></li>
+                                <li><span class="work-title">Barcelona Pavillon</span><br><span class="architect">Ludwig Mies van der Rohe</span> <span class="year">(1929)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Analysiere Le Corbusiers "5 Punkte": Pilotis, Dachgarten, freier Grundriss, Langfenster, freie Fassade<br>
+                            • Diskutiere die "Wohnmaschine" und Promenade architecturale<br>
+                            • Bei Mies: Betone "Less is more" und fließende Räume<br>
+                            • Erkläre die universelle Formensprache und internationale Verbreitung<br>
+                            • Hebe die Skelettbauweise und Trennung von Struktur/Hülle hervor<br>
+                            • Verbinde mit Maschinenästhetik und Moderne
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Organische Architektur</span></td>
+                        <td><span class="period">Ab 1930er Jahre</span></td>
+                        <td>Integration in die Natur, fließende Formen, harmonische Verbindung zur Umgebung, natürliche Materialien</td>
+                        <td class="expandable">Naturstein, Holz, Glas, lokale Materialien</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Fallingwater</span><br><span class="architect">Frank Lloyd Wright</span> <span class="year">(1935)</span></li>
+                                <li><span class="work-title">Guggenheim Museum New York</span><br><span class="architect">Frank Lloyd Wright</span> <span class="year">(1959)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Betone die harmonische Integration in die Natur<br>
+                            • Analysiere die Verwendung lokaler Materialien und Naturstein<br>
+                            • Diskutiere Wrights Philosophie: "Building with nature, not against it"<br>
+                            • Hebe die fließenden Räume und Innen-Außen-Beziehung hervor<br>
+                            • Erkläre die horizontale Betonung und Präriehäuser-Tradition<br>
+                            • Beim Guggenheim: Analysiere die Spiralform als organisches Prinzip
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Brutalismus</span></td>
+                        <td><span class="period">1950er-1970er Jahre</span></td>
+                        <td>Roher Sichtbeton (béton brut), massive Formen, monumentale Erscheinung, Funktionalität, kantige Strukturen</td>
+                        <td class="expandable">Sichtbeton, Glas, Stahl</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Unité d'Habitation Marseille</span><br><span class="architect">Le Corbusier</span> <span class="year">(1952)</span></li>
+                                <li><span class="work-title">Trellick Tower London</span><br><span class="architect">Ernő Goldfinger</span> <span class="year">(1972)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Erkläre den Begriff "béton brut" und die Materialästhetik<br>
+                            • Analysiere die monumentale, skulpturale Wirkung<br>
+                            • Diskutiere die soziale Utopie und "vertikale Gartenstadt"<br>
+                            • Hebe die Ehrlichkeit der Konstruktion hervor<br>
+                            • Betone die funktionale Komplexität (Stadt im Gebäude)<br>
+                            • Verbinde mit Nachkriegskontext und Wiederaufbau
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Antirationale Architektur</span></td>
+                        <td><span class="period">1960er-1980er Jahre</span></td>
+                        <td>Ablehnung strenger Funktionalität, spielerische Elemente, unkonventionelle Formen, Individualität</td>
+                        <td class="expandable">Vielfältige Materialien, oft unkonventionell eingesetzt</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Hundertwasserhaus Wien</span><br><span class="architect">Friedensreich Hundertwasser</span> <span class="year">(1985)</span></li>
+                                <li><span class="work-title">Piazza d'Italia New Orleans</span><br><span class="architect">Charles Moore</span> <span class="year">(1978)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Betone die Ablehnung des rechten Winkels und gerader Linien<br>
+                            • Analysiere die individuelle, künstlerische Gestaltung<br>
+                            • Diskutiere die Kritik am Funktionalismus und Rationalismus<br>
+                            • Hebe die Integration von Natur (Baummieter) hervor<br>
+                            • Erkläre die Betonung von Farbe und Dekoration<br>
+                            • Verbinde mit Postmoderne und Rückkehr zur Individualität
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">High-Tech Architektur</span></td>
+                        <td><span class="period">Ab 1970er Jahre</span></td>
+                        <td>Technische Elemente außen sichtbar, Transparenz, Modularität, Maschinenästhetik, farbkodierte Systeme</td>
+                        <td class="expandable">Glas, Stahl, Aluminium, moderne Hightech-Materialien</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Centre Pompidou Paris</span><br><span class="architect">Renzo Piano & Richard Rogers</span> <span class="year">(1977)</span></li>
+                                <li><span class="work-title">HSBC Building Hongkong</span><br><span class="architect">Norman Foster</span> <span class="year">(1985)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Analysiere die "Inside-Out"-Architektur mit außenliegender Technik<br>
+                            • Erkläre die Farbcodierung der technischen Systeme<br>
+                            • Betone die Flexibilität und Multifunktionalität der Räume<br>
+                            • Diskutiere die Maschinenästhetik und Technologiebegeisterung<br>
+                            • Hebe die strukturelle Expressivität hervor<br>
+                            • Verbinde mit städtebaulichem Kontext und Demokratisierung der Kultur
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Neuer Brutalismus</span></td>
+                        <td><span class="period">1950er-1960er Jahre</span></td>
+                        <td>Betonung der Materialien "as found", ethische Komponente, Ehrlichkeit der Konstruktion</td>
+                        <td class="expandable">Rohstoffe unverkleidet, Sichtbeton, Stahl, Glas</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Hunstanton School</span><br><span class="architect">Alison & Peter Smithson</span> <span class="year">(1954)</span></li>
+                                <li><span class="work-title">Yale Art and Architecture Building</span><br><span class="architect">Paul Rudolph</span> <span class="year">(1963)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Erkläre den ethischen Ansatz: "as found" Materialien<br>
+                            • Betone die radikale Ehrlichkeit der Konstruktion<br>
+                            • Diskutiere die Kritik am späten International Style<br>
+                            • Analysiere die sichtbaren technischen Installationen<br>
+                            • Hebe die sozialen Aspekte und Nutzerorientierung hervor<br>
+                            • Verbinde mit Reyner Banhams "New Brutalism" Manifest
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="epoch-name">Dekonstruktivismus</span></td>
+                        <td><span class="period">Ab 1980er Jahre</span></td>
+                        <td>Fragmentierung, Asymmetrie, Unvorhersehbarkeit, dynamische Schrägen, Durchdringungen, skulpturaler Aspekt</td>
+                        <td class="expandable">Titanzink, Glas, Stahl, moderne Materialien, innovative Konstruktionstechniken</td>
+                        <td class="expandable">
+                            <ul>
+                                <li><span class="work-title">Guggenheim Museum Bilbao</span><br><span class="architect">Frank O. Gehry</span> <span class="year">(1997)</span></li>
+                                <li><span class="work-title">Phaeno Wolfsburg</span><br><span class="architect">Zaha Hadid</span> <span class="year">(2005)</span></li>
+                            </ul>
+                        </td>
+                        <td>
+                            • Erkläre die philosophische Basis (Derridas Dekonstruktion)<br>
+                            • Analysiere die Fragmentierung und Destabilisierung der Form<br>
+                            • Hebe die CAD-gestützten, komplexen Geometrien hervor<br>
+                            • Diskutiere den "Bilbao-Effekt" und Stadtmarketing<br>
+                            • Betone die Ablehnung traditioneller Ordnungsprinzipien<br>
+                            • Analysiere die skulpturale, dynamische Raumwirkung
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="expand-button"></div>
+        </div>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        toggle.checked = savedTheme === 'dark';
+        
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Expandable table functionality
+        const tableContainer = document.querySelector('.table-container');
+        const expandButton = document.querySelector('.expand-button');
+        const table = document.querySelector('table');
+
+        expandButton.addEventListener('click', function() {
+            tableContainer.classList.toggle('expanded');
+            table.classList.toggle('expanded');
+        });
+    </script>
+</body>
+</html>
