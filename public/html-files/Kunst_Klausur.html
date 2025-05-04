@@ -110,11 +110,6 @@
             border-top-right-radius: 4px;
         }
 
-        tr:hover {
-            background-color: var(--hover-color);
-            transition: background-color 0.3s ease;
-        }
-
         tr:last-child td:first-child {
             border-bottom-left-radius: 4px;
         }
@@ -691,9 +686,6 @@
                         e.matches ? 'dark' : 'light');
                 }
             });
-            
-            // Füge Hover-Effekt für Zeilen hinzu
-            const rows = document.querySelectorAll('tbody tr');
             
             rows.forEach(row => {
                 row.addEventListener('mouseenter', function() {
