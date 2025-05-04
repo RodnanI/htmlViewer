@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architekturstile - Lernübersicht</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --bg-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --border-color: #bdc3c7;
+            --hover-color: #f5f7fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 0 -10px;
+            padding: 0 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr:hover {
+            background-color: var(--hover-color);
+            transition: background-color 0.3s ease;
+        }
+
+        td {
+            font-size: 0.95em;
+        }
+
+        .epoch-cell {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .features-list {
+            padding-left: 20px;
+        }
+
+        .features-list li {
+            margin-bottom: 5px;
+        }
+
+        .materials-list {
+            padding-left: 20px;
+        }
+
+        .materials-list li {
+            color: #16a085;
+            margin-bottom: 3px;
+        }
+
+        .buildings-list {
+            padding-left: 20px;
+        }
+
+        .buildings-list li {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .architect {
+            font-weight: 600;
+            color: #8e44ad;
+        }
+
+        .building-name {
+            color: #27ae60;
+        }
+
+        .year {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: var(--accent-color);
+            border-bottom: 1px dotted var(--accent-color);
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85em;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.1);
+            transition: background-color 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Architekturstile - Lernübersicht</h1>
+        
+        <div class="table-responsive">
+            <table id="architecture-table">
+                <thead>
+                    <tr>
+                        <th>Epoche/Stil</th>
+                        <th>Zeitraum</th>
+                        <th>Merkmale</th>
+                        <th>Materialien</th>
+                        <th>Bekannte Werke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-epoch="fruehrationalismus">
+                        <td class="epoch-cell">Frührationalismus</td>
+                        <td>ca. 1900-1920</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Extreme Klarheit</li>
+                                <li>Verzicht auf Dekoration</li>
+                                <li>Betonung der Konstruktion</li>
+                                <li>Funktionalität</li>
+                                <li>Technische Neuerungen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Stahl</li>
+                                <li>Beton</li>
+                                <li>Glas</li>
+                                <li>Aluminium</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Otto Wagner:</span> <span class="building-name">Postsparkassenamt Wien</span> <span class="year">(1904-1906)</span></li>
+                                <li><span class="architect">Peter Behrens:</span> <span class="building-name">AEG Turbinenhalle Berlin</span> <span class="year">(1908-1909)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="international-style">
+                        <td class="epoch-cell">International Style</td>
+                        <td>1920er-1930er</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Klare geometrische Formen</li>
+                                <li>Flachdächer</li>
+                                <li>Große Fensterflächen</li>
+                                <li>Offene Grundrisse</li>
+                                <li>Verzicht auf Ornamente</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Beton</li>
+                                <li>Glas</li>
+                                <li>Stahl</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Le Corbusier:</span> <span class="building-name">Villa Savoye</span> <span class="year">(1929)</span></li>
+                                <li><span class="architect">Mies van der Rohe:</span> <span class="building-name">Barcelona Pavillon</span> <span class="year">(1929)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="brutalismus">
+                        <td class="epoch-cell">Brutalismus</td>
+                        <td>1950er-1970er</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Roher Sichtbeton</li>
+                                <li>Massive Formen</li>
+                                <li>Klobige Erscheinung</li>
+                                <li>Betonung von Funktionalität</li>
+                                <li>Sichtbare Konstruktion</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Unbehandelter Beton</li>
+                                <li>Glas</li>
+                                <li>Stahl</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Le Corbusier:</span> <span class="building-name">Unité d'Habitation Marseille</span> <span class="year">(1952)</span></li>
+                                <li><span class="architect">Ernő Goldfinger:</span> <span class="building-name">Trellick Tower London</span> <span class="year">(1972)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="dekonstruktivismus">
+                        <td class="epoch-cell">Dekonstruktivismus</td>
+                        <td>1980er-heute</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Fragmentierung</li>
+                                <li>Asymmetrie</li>
+                                <li>Unvorhersehbarkeit</li>
+                                <li>Schiefe Ebenen</li>
+                                <li>Zersplitterte Formen</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Stahl</li>
+                                <li>Glas</li>
+                                <li>Beton</li>
+                                <li>Titanzink</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Frank O. Gehry:</span> <span class="building-name">Guggenheim Museum Bilbao</span> <span class="year">(1997)</span></li>
+                                <li><span class="architect">Zaha Hadid:</span> <span class="building-name">Phaeno Wolfsburg</span> <span class="year">(2005)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="high-tech">
+                        <td class="epoch-cell">High-Tech-Architektur</td>
+                        <td>1970er-heute</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Sichtbare Technik</li>
+                                <li>Farbcodierung der Systeme</li>
+                                <li>Transparenz</li>
+                                <li>Maschinenästhetik</li>
+                                <li>Modularität</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Stahl</li>
+                                <li>Glas</li>
+                                <li>Aluminium</li>
+                                <li>Hightech-Materialien</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Renzo Piano/Richard Rogers:</span> <span class="building-name">Centre Pompidou</span> <span class="year">(1977)</span></li>
+                                <li><span class="architect">Norman Foster:</span> <span class="building-name">HSBC Gebäude Hongkong</span> <span class="year">(1985)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr data-epoch="organische-architektur">
+                        <td class="epoch-cell">Organische Architektur</td>
+                        <td>20. Jahrhundert</td>
+                        <td>
+                            <ul class="features-list">
+                                <li>Integration in die Natur</li>
+                                <li>Fließende Formen</li>
+                                <li>Natürliche Materialien</li>
+                                <li>Verbindung Innen/Außen</li>
+                                <li>Individualität</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="materials-list">
+                                <li>Naturstein</li>
+                                <li>Holz</li>
+                                <li>Glas</li>
+                                <li>Lokale Materialien</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="buildings-list">
+                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Fallingwater</span> <span class="year">(1935)</span></li>
+                                <li><span class="architect">Frank Lloyd Wright:</span> <span class="building-name">Guggenheim Museum New York</span> <span class="year">(1959)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Füge Hover-Effekt für Zeilen hinzu
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.classList.add('highlight');
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.classList.remove('highlight');
+                });
+            });
+
+            // Klick-Event für Zeilen
+            rows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Entferne alle anderen Highlights
+                    rows.forEach(r => r.classList.remove('highlight'));
+                    // Highlight die angeklickte Zeile
+                    this.classList.add('highlight');
+                });
+            });
+
+            // Smooth Scrolling für internen Anker
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
