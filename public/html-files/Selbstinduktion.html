@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physik Lernzettel: Selbstinduktion</title>
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css">
+    <!-- KaTeX JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.js"></script>
+    <!-- KaTeX Auto-render Extension -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4dabf7;
+            --secondary-color: #228be6;
+            --accent-color: #ff6b6b;
+            --dark-bg: #212529;
+            --darker-bg: #121212;
+            --medium-bg: #343a40;
+            --light-bg: #495057;
+            --text-color: #e9ecef;
+            --light-text: #f8f9fa;
+            --muted-text: #adb5bd;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--darker-bg);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--dark-bg);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        
+        header {
+            background-color: var(--medium-bg);
+            color: var(--light-text);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--primary-color);
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-top: 5px;
+            color: var(--muted-text);
+        }
+        
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--medium-bg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 20px;
+        }
+        
+        .formula-box {
+            background-color: rgba(73, 80, 87, 0.5);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example {
+            background-color: rgba(32, 84, 123, 0.4);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .important {
+            background-color: rgba(163, 50, 50, 0.3);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .note {
+            background-color: rgba(73, 80, 87, 0.4);
+            border-left: 4px solid var(--muted-text);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9em;
+        }
+        
+        .interactive {
+            background-color: rgba(32, 104, 100, 0.25);
+            border: 1px solid #2d8e84;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .interactive h3 {
+            color: #2fcbbb;
+            margin-top: 0;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            color: var(--light-text);
+        }
+        
+        .tab-container {
+            border: 1px solid var(--light-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            background-color: var(--dark-bg);
+        }
+        
+        .tab-button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 16px;
+            color: var(--muted-text);
+        }
+        
+        .tab-button:hover {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+        
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border-top: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--dark-bg);
+            color: var(--muted-text);
+            border-radius: 0 0 8px 8px;
+            border-top: 2px solid var(--light-bg);
+        }
+
+        /* Animation für Visualisierung */
+        @keyframes currentFlow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .current-path {
+            stroke-dasharray: 20;
+            animation: currentFlow 3s linear infinite;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Selbstinduktion</h1>
+            <div class="subtitle">Grundlagen, Gesetze und Anwendungen</div>
+        </header>
+
+        <section id="introduction">
+            <h2>1. Einführung zur Selbstinduktion</h2>
+            <p>Die <strong>Selbstinduktion</strong> ist ein elektromagnetisches Phänomen, bei dem eine zeitliche Änderung des elektrischen Stroms in einem Leiter eine induzierte Spannung im selben Leiter erzeugt. Dieses Phänomen basiert auf dem Faradayschen Induktionsgesetz und ist grundlegend für das Verständnis von Induktivitäten (Spulen).</p>
+            
+            <div class="important">
+                <h3>Definition:</h3>
+                <p>Selbstinduktion tritt auf, wenn ein sich ändernder Strom in einem Leiter ein Magnetfeld erzeugt, das wiederum eine entgegengesetzte Spannung im selben Leiter induziert.</p>
+            </div>
+        </section>
+
+        <section id="fundamental-principles">
+            <h2>2. Grundlegende Prinzipien</h2>
+            
+            <h3>2.1 Faradaysches Induktionsgesetz</h3>
+            <p>Das Faradaysche Induktionsgesetz besagt, dass die induzierte Spannung proportional zur Änderungsrate des magnetischen Flusses ist:</p>
+            <div class="formula-box">
+                $$U_{ind} = -\frac{d\Phi}{dt}$$
+                <p>Wobei \(\Phi\) der magnetische Fluss und \(\frac{d\Phi}{dt}\) dessen zeitliche Änderung ist.</p>
+            </div>
+            
+            <h3>2.2 Magnetischer Fluss</h3>
+            <p>Der magnetische Fluss durch eine Leiterschleife ist definiert als:</p>
+            <div class="formula-box">
+                $$\Phi = \int \vec{B} \cdot d\vec{A}$$
+                <p>Wobei \(\vec{B}\) die magnetische Flussdichte und \(d\vec{A}\) das Flächenelement ist.</p>
+            </div>
+            
+            <h3>2.3 Lenzsche Regel</h3>
+            <p>Die Lenzsche Regel beschreibt die Richtung der induzierten Spannung:</p>
+            <div class="important">
+                <p>Die induzierte Spannung wirkt so, dass sie der Ursache ihrer Entstehung entgegenwirkt.</p>
+            </div>
+            <p>Bei der Selbstinduktion bedeutet dies, dass die induzierte Spannung der Stromänderung entgegenwirkt, die sie verursacht hat.</p>
+        </section>
+
+        <section id="inductance">
+            <h2>3. Induktivität</h2>
+            
+            <h3>3.1 Definition der Induktivität</h3>
+            <p>Die Induktivität \(L\) ist eine Eigenschaft eines Leiters, die angibt, wie stark eine Stromänderung eine Gegenspannung induziert:</p>
+            <div class="formula-box">
+                $$U_{ind} = -L \cdot \frac{dI}{dt}$$
+                <p>Wobei \(U_{ind}\) die induzierte Spannung, \(L\) die Induktivität und \(\frac{dI}{dt}\) die zeitliche Änderung des Stroms ist.</p>
+            </div>
+            
+            <h3>3.2 Einheit der Induktivität</h3>
+            <div class="note">
+                <p>Die SI-Einheit der Induktivität ist das <strong>Henry (H)</strong>:</p>
+                <p>1 Henry = 1 Volt · Sekunde / Ampere = 1 Vs/A</p>
+            </div>
+            
+            <h3>3.3 Induktivität einer Spule</h3>
+            <p>Für eine lange Zylinderspule (Solenoid) mit \(N\) Windungen, Querschnittsfläche \(A\) und Länge \(l\) gilt:</p>
+            <div class="formula-box">
+                $$L = \frac{\mu_0 \cdot \mu_r \cdot N^2 \cdot A}{l}$$
+                <p>Wobei \(\mu_0\) die magnetische Feldkonstante und \(\mu_r\) die relative Permeabilität des Kernmaterials ist.</p>
+            </div>
+            
+            <div class="example">
+                <h3>Beispiel:</h3>
+                <p>Eine Luftspule mit 200 Windungen, einem Querschnitt von 5 cm² und einer Länge von 10 cm hat eine Induktivität von:</p>
+                $$L = \frac{4\pi \cdot 10^{-7} \text{ H/m} \cdot 1 \cdot (200)^2 \cdot 5 \cdot 10^{-4} \text{ m}^2}{0.1 \text{ m}} \approx 0.25 \text{ mH}$$
+            </div>
+        </section>
+
+        <section id="energy">
+            <h2>4. Energie im Magnetfeld</h2>
+            
+            <p>Die in einer Induktivität gespeicherte Energie ist:</p>
+            <div class="formula-box">
+                $$E = \frac{1}{2} L I^2$$
+            </div>
+            
+            <div class="note">
+                <p>Diese Formel zeigt, dass die Energie quadratisch mit dem Strom ansteigt und direkt proportional zur Induktivität ist.</p>
+            </div>
+        </section>
+
+        <section id="time-behavior">
+            <h2>5. Zeitliches Verhalten</h2>
+            
+            <h3>5.1 Einschaltvorgang (RL-Kreis)</h3>
+            <p>Beim Einschalten einer Gleichspannung \(U_0\) an einem RL-Kreis wächst der Strom nach:</p>
+            <div class="formula-box">
+                $$I(t) = \frac{U_0}{R}(1-e^{-\frac{R}{L}t})$$
+                <p>Mit der Zeitkonstante \(\tau = \frac{L}{R}\).</p>
+            </div>
+            
+            <h3>5.2 Ausschaltvorgang</h3>
+            <p>Beim Ausschalten einer Gleichspannung fällt der Strom nach:</p>
+            <div class="formula-box">
+                $$I(t) = I_0 \cdot e^{-\frac{R}{L}t}$$
+            </div>
+            
+            <div class="interactive">
+                <h3>RL-Kreis Verhalten</h3>
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'einschaltvorgang')">Einschaltvorgang</button>
+                        <button class="tab-button" onclick="openTab(event, 'ausschaltvorgang')">Ausschaltvorgang</button>
+                    </div>
+                    
+                    <div id="einschaltvorgang" class="tab-content" style="display: block;">
+                        <svg width="400" height="200" viewBox="0 0 400 200">
+                            <path d="M 50 150 L 350 150" stroke="black" stroke-width="2"/>
+                            <path d="M 50 50 L 50 150" stroke="black" stroke-width="2"/>
+                            
+                            <!-- Ein-Kurve -->
+                            <path d="M 50 150 Q 100 150 150 100 Q 200 50 350 50" stroke="blue" stroke-width="2" fill="none"/>
+                            
+                            <!-- Asymptote -->
+                            <path d="M 50 50 L 350 50" stroke="red" stroke-width="1" stroke-dasharray="5,5"/>
+                            
+                            <!-- Beschriftungen -->
+                            <text x="20" y="50" text-anchor="middle">I₀</text>
+                            <text x="20" y="150" text-anchor="middle">0</text>
+                            <text x="50" y="170" text-anchor="middle">0</text>
+                            <text x="150" y="170" text-anchor="middle">τ</text>
+                            <text x="250" y="170" text-anchor="middle">2τ</text>
+                            <text x="350" y="170" text-anchor="middle">3τ</text>
+                            <text x="200" y="30" text-anchor="middle" font-weight="bold">Einschaltvorgang</text>
+                        </svg>
+                        <p>Bei t = τ erreicht der Strom etwa 63% seines Endwerts.</p>
+                        <p>Nach t = 5τ hat der Strom praktisch seinen Endwert erreicht (> 99%).</p>
+                    </div>
+                    
+                    <div id="ausschaltvorgang" class="tab-content">
+                        <svg width="400" height="200" viewBox="0 0 400 200">
+                            <path d="M 50 150 L 350 150" stroke="black" stroke-width="2"/>
+                            <path d="M 50 50 L 50 150" stroke="black" stroke-width="2"/>
+                            
+                            <!-- Aus-Kurve -->
+                            <path d="M 50 50 Q 100 50 150 80 Q 200 120 350 150" stroke="blue" stroke-width="2" fill="none"/>
+                            
+                            <!-- Beschriftungen -->
+                            <text x="20" y="50" text-anchor="middle">I₀</text>
+                            <text x="20" y="150" text-anchor="middle">0</text>
+                            <text x="50" y="170" text-anchor="middle">0</text>
+                            <text x="150" y="170" text-anchor="middle">τ</text>
+                            <text x="250" y="170" text-anchor="middle">2τ</text>
+                            <text x="350" y="170" text-anchor="middle">3τ</text>
+                            <text x="200" y="30" text-anchor="middle" font-weight="bold">Ausschaltvorgang</text>
+                        </svg>
+                        <p>Bei t = τ ist der Strom auf etwa 37% seines Anfangswerts gefallen.</p>
+                        <p>Nach t = 5τ ist der Strom praktisch auf Null abgefallen (< 1%).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="applications">
+            <h2>6. Anwendungen der Selbstinduktion</h2>
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="openTab(event, 'app-transformator')">Transformator</button>
+                    <button class="tab-button" onclick="openTab(event, 'app-filter')">Filter</button>
+                    <button class="tab-button" onclick="openTab(event, 'app-schwingkreis')">Schwingkreis</button>
+                </div>
+                
+                <div id="app-transformator" class="tab-content" style="display: block;">
+                    <h3>Transformator</h3>
+                    <p>Ein Transformator nutzt die gegenseitige Induktion zwischen zwei Spulen, um Wechselspannung zu transformieren. Die Selbstinduktion jeder einzelnen Spule ist ein wesentlicher Parameter für die Berechnung.</p>
+                    <div class="formula-box">
+                        $$\frac{U_1}{U_2} = \frac{N_1}{N_2} = \frac{I_2}{I_1}$$
+                        <p>Wobei \(U_1, U_2\) die Spannungen, \(N_1, N_2\) die Windungszahlen und \(I_1, I_2\) die Ströme in der Primär- bzw. Sekundärspule sind.</p>
+                    </div>
+                </div>
+                
+                <div id="app-filter" class="tab-content">
+                    <h3>Filter und Drosselspulen</h3>
+                    <p>Die induktive Reaktanz einer Spule ist frequenzabhängig:</p>
+                    <div class="formula-box">
+                        $$X_L = \omega L = 2\pi f L$$
+                    </div>
+                    <p>Das macht Spulen zu idealen Komponenten für Frequenzfilter, die hohe Frequenzen blockieren und niedrige durchlassen (Tiefpass).</p>
+                </div>
+                
+                <div id="app-schwingkreis" class="tab-content">
+                    <h3>LC-Schwingkreis</h3>
+                    <p>Ein LC-Schwingkreis besteht aus einer Induktivität und einem Kondensator. Die Resonanzfrequenz beträgt:</p>
+                    <div class="formula-box">
+                        $$f = \frac{1}{2\pi\sqrt{LC}}$$
+                    </div>
+                    <p>LC-Schwingkreise werden in Oszillatoren, Filtern und Abstimmkreisen verwendet.</p>
+                    <svg width="300" height="150" viewBox="0 0 300 150">
+                        <!-- Spule -->
+                        <path d="M 50 75 C 60 50, 70 100, 80 75 C 90 50, 100 100, 110 75 C 120 50, 130 100, 140 75 C 150 50, 160 100, 170 75" stroke="black" stroke-width="2" fill="none"/>
+                        
+                        <!-- Kondensator -->
+                        <line x1="200" y1="50" x2="200" y2="100" stroke="black" stroke-width="2"/>
+                        <line x1="220" y1="50" x2="220" y2="100" stroke="black" stroke-width="2"/>
+                        
+                        <!-- Verbindungen -->
+                        <line x1="170" y1="75" x2="200" y2="75" stroke="black" stroke-width="2"/>
+                        <line x1="220" y1="75" x2="250" y2="75" stroke="black" stroke-width="2"/>
+                        <path d="M 250 75 C 270 75, 270 120, 50 120 C 30 120, 30 75, 50 75" stroke="black" stroke-width="2" fill="none"/>
+                        
+                        <!-- Stromfluss Animation -->
+                        <path d="M 50 75 C 60 50, 70 100, 80 75 C 90 50, 100 100, 110 75 C 120 50, 130 100, 140 75 C 150 50, 160 100, 170 75" stroke="blue" stroke-width="2" fill="none" class="current-path"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="problems">
+            <h2>7. Aufgaben zur Selbstinduktion</h2>
+            
+            <div class="interactive">
+                <h3>Übungsaufgabe 1:</h3>
+                <p>Eine Spule mit der Induktivität L = 50 mH wird an eine Gleichspannung von 12 V angeschlossen. Der Widerstand der Spule beträgt 10 Ω. Berechne:</p>
+                <ol>
+                    <li>Die Zeitkonstante τ des RL-Kreises</li>
+                    <li>Den maximalen Strom nach vollständigem Einschaltvorgang</li>
+                    <li>Die Zeit, nach der der Strom 99% des Maximalwertes erreicht hat</li>
+                </ol>
+                <button onclick="toggleSolution('solution1')">Lösung anzeigen/verbergen</button>
+                <div id="solution1" class="hidden">
+                    <h4>Lösung:</h4>
+                    <p>a) Die Zeitkonstante τ = L/R = 50 mH / 10 Ω = 5 ms</p>
+                    <p>b) Der maximale Strom I = U/R = 12 V / 10 Ω = 1,2 A</p>
+                    <p>c) Für 99% des Maximalstroms gilt: I(t) = 0,99 · 1,2 A = 1,188 A</p>
+                    <p>Einsetzen in die Gleichung: 1,188 = 1,2 · (1 - e<sup>-t/0,005</sup>)</p>
+                    <p>Lösen nach t: t = -0,005 · ln(1 - 0,99) ≈ 0,023 s = 23 ms</p>
+                </div>
+            </div>
+            
+            <div class="interactive">
+                <h3>Übungsaufgabe 2:</h3>
+                <p>Eine Spule mit 500 Windungen und einer Querschnittsfläche von 4 cm² hat eine Länge von 5 cm. Der Kern besteht aus Eisen mit μ<sub>r</sub> = 5000. Berechne die Induktivität der Spule und die gespeicherte Energie bei einem Strom von 0,5 A.</p>
+                <button onclick="toggleSolution('solution2')">Lösung anzeigen/verbergen</button>
+                <div id="solution2" class="hidden">
+                    <h4>Lösung:</h4>
+                    <p>a) Die Induktivität berechnet sich nach:</p>
+                    <p>L = (μ<sub>0</sub> · μ<sub>r</sub> · N² · A) / l</p>
+                    <p>L = (4π · 10<sup>-7</sup> H/m · 5000 · 500² · 4 · 10<sup>-4</sup> m²) / 0,05 m ≈ 6,28 H</p>
+                    <p>b) Die gespeicherte Energie:</p>
+                    <p>E = (1/2) · L · I² = 0,5 · 6,28 H · (0,5 A)² = 0,785 J</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="summary">
+            <h2>8. Zusammenfassung</h2>
+            
+            <div class="important">
+                <h3>Wichtige Formeln:</h3>
+                <ul>
+                    <li>Induzierte Spannung: \(U_{ind} = -L \cdot \frac{dI}{dt}\)</li>
+                    <li>Induktivität einer Spule: \(L = \frac{\mu_0 \cdot \mu_r \cdot N^2 \cdot A}{l}\)</li>
+                    <li>Gespeicherte Energie: \(E = \frac{1}{2} L I^2\)</li>
+                    <li>Zeitkonstante: \(\tau = \frac{L}{R}\)</li>
+                    <li>Induktive Reaktanz: \(X_L = 2\pi f L\)</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <h3>Merksätze:</h3>
+                <ul>
+                    <li>Eine Induktivität wirkt einer Stromänderung entgegen (Lenzsche Regel).</li>
+                    <li>Eine Spule lässt sich als Tiefpass für elektrische Signale verwenden.</li>
+                    <li>Die Induktivität einer Spule steigt quadratisch mit der Windungszahl.</li>
+                    <li>Eine Spule stellt bei Gleichstrom einen einfachen ohmschen Widerstand dar.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Physik Lernzettel - Selbstinduktion</p>
+        </footer>
+    </div>
+
+    <script>
+        // KaTeX Auto-Render Initialisierung
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ]
+            });
+        });
+        
+        // Tab-Funktionalität
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            
+            // Alle Tab-Inhalte ausblenden
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            // Alle Tab-Buttons deaktivieren
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            
+            // Aktuellen Tab anzeigen und Button aktivieren
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Lösung anzeigen/ausblenden
+        function toggleSolution(id) {
+            var solution = document.getElementById(id);
+            if (solution.classList.contains("hidden")) {
+                solution.classList.remove("hidden");
+                solution.classList.add("visible");
+            } else {
+                solution.classList.remove("visible");
+                solution.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
