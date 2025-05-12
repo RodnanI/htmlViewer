@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethik-Theorien</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #252525;
+            --text-color: #f0f0f0;
+            --accent-color: #64ffda;
+            --secondary-color: #505050;
+            --border-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 10px;
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 0 15px;
+        }
+        
+        header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            flex-grow: 1;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .concept-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .concept {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .concept:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .concept-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            color: var(--accent-color);
+        }
+        
+        .definition {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        
+        .highlight {
+            font-style: italic;
+            padding: 0 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ethische Theorien</h1>
+        </header>
+
+        <div class="grid">
+            <!-- Quantitativer Utilitarismus -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Quantitativer Utilitarismus</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Begründer</div>
+                        <div class="definition">Jeremy Bentham (1748-1832)</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Prinzip der Nützlichkeit</div>
+                        <div class="definition">Eine Handlung ist moralisch richtig, wenn ihre Folgen für das Wohlergehen aller Betroffenen optimal sind.</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Teilprinzipien</div>
+                        <div class="definition">• <span class="highlight">Konsequenzprinzip:</span> Nur Folgen zählen</div>
+                        <div class="definition">• <span class="highlight">Hedonistisches Prinzip:</span> Lust gut, Leid schlecht</div>
+                        <div class="definition">• <span class="highlight">Nutzenprinzip:</span> Maximierung des Glücks</div>
+                        <div class="definition">• <span class="highlight">Sozialprinzip:</span> Glück aller Betroffenen</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Hedonistisches Kalkül</div>
+                        <div class="definition">Bewertung nach: Intensität, Dauer, Gewissheit, Folgen</div>
+                        <div class="definition">Bilanzierung von Lust und Leid aller Betroffenen</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualitativer Utilitarismus -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Qualitativer Utilitarismus</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Vertreter</div>
+                        <div class="definition">John Stuart Mill (1806-1873)</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Kerngedanke</div>
+                        <div class="definition">Unterscheidung zwischen höheren (geistigen) und niederen (körperlichen) Freuden</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Qualitätskriterium</div>
+                        <div class="definition">Von zwei Freuden ist die höherwertig, die von allen, die beide erfahren haben, bevorzugt wird.</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Zentrales Zitat</div>
+                        <div class="definition">"Es ist besser, ein unzufriedener Mensch zu sein als ein zufriedenes Schwein."</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Unterschied zu Bentham</div>
+                        <div class="definition">Nicht nur Quantität, sondern vor allem Qualität der Freude ist entscheidend.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Präferenz-Utilitarismus -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Präferenz-Utilitarismus</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Vertreter</div>
+                        <div class="definition">Peter Singer (geb. 1946)</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Grundkonzept</div>
+                        <div class="definition">Nicht Glück, sondern Präferenzen oder Interessen sind entscheidend.</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Gleiche Interessenabwägung</div>
+                        <div class="definition">Allen ähnlichen Interessen der von Handlungen Betroffenen gleiches Gewicht geben</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Empfindungsfähigkeit</div>
+                        <div class="definition">Grundvoraussetzung, um überhaupt Interessen haben zu können</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Person vs. Mensch</div>
+                        <div class="definition"><span class="highlight">Person:</span> Selbstbewusst, zukunftsorientiert</div>
+                        <div class="definition"><span class="highlight">Homo sapiens:</span> Biologische Zugehörigkeit</div>
+                        <div class="definition">Tötung einer Person verletzt mehr Präferenzen als die eines nicht-personalen Wesens</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kritik am Utilitarismus -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Kritik am Utilitarismus</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Richard Purtill</div>
+                        <div class="definition">Utilitarismus kann zu Tyrannei und Missachtung individueller Rechte führen ("Prinz Peters Entdeckung")</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Robert Spaemann</div>
+                        <div class="definition">• Komplexität der Folgen unüberschaubar</div>
+                        <div class="definition">• Auslieferung an Experten</div>
+                        <div class="definition">• Würde der Person wird negiert</div>
+                        <div class="definition">• Manche Handlungen sind ohne Ansehung der Folgen immer falsch</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Herbert Marcuse</div>
+                        <div class="definition">Unterscheidung "wahre" und "falsche" Bedürfnisse</div>
+                        <div class="definition">"Euphorie im Unglück" durch manipulierte Bedürfnisse</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Weitere Kritikpunkte</div>
+                        <div class="definition">• Minderheitenrechte gefährdet</div>
+                        <div class="definition">• Überforderung durch Folgenbetrachtung</div>
+                        <div class="definition">• Messbarkeit von Glück fraglich</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diskursethik -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Diskursethik</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Vertreter</div>
+                        <div class="definition">Jürgen Habermas (geb. 1929), Karl-Otto Apel</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Diskurs</div>
+                        <div class="definition">Strukturierter, systematischer sprachlicher Austausch von Argumenten</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Ideale Sprechsituation</div>
+                        <div class="definition">Kommunikation ohne Verzerrung durch Zwänge oder äußere Einwirkungen</div>
+                        <div class="definition">• Gleiches Recht zu sprechen</div>
+                        <div class="definition">• Gleiches Recht, Behauptungen aufzustellen</div>
+                        <div class="definition">• Gleiches Recht, Gefühle auszudrücken</div>
+                        <div class="definition">• Gleiches Recht, zu fordern und zu verbieten</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Kritik (Weinrich)</div>
+                        <div class="definition">"Diktatur des Sitzfleisches" – fehlende Mechanismen zur Beendigung des Diskurses</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Kritik (Wunderlich)</div>
+                        <div class="definition">Ideale Symmetrie nicht immer erreichbar (Erziehung, Fachwissen, Aufklärung)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verantwortungsethik -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Verantwortungsethik</h2>
+                </div>
+                
+                <div class="concept-container">
+                    <div class="concept">
+                        <div class="concept-title">Vertreter</div>
+                        <div class="definition">Hans Jonas (1903-1993)</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Grundgedanke</div>
+                        <div class="definition">"Der Mensch ist das einzige Wesen, das Verantwortung haben kann."</div>
+                        <div class="definition">Mit wachsender technologischer Macht wächst die Verantwortung</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Nah- und Fernethik</div>
+                        <div class="definition"><span class="highlight">Nahethik:</span> Unmittelbare Folgen zwischen Menschen</div>
+                        <div class="definition"><span class="highlight">Fernethik:</span> Langzeitfolgen für Mensch und Natur</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Grundlegung einer Zukunftsethik</div>
+                        <div class="definition">1. Maximierung des Wissens um Folgen (Sachwissen)</div>
+                        <div class="definition">2. Erarbeitung des Wissens, was sein darf (Wertwissen)</div>
+                    </div>
+                    
+                    <div class="concept">
+                        <div class="concept-title">Heuristik der Furcht</div>
+                        <div class="definition">"In dubio pro malo" – im Zweifel der schlechteren Prognose Vorrang geben</div>
+                        <div class="definition">Angesichts der Risiken ist Vorsicht wichtiger als Wagemut</div>
+                        <div class="definition">Forderung nach einer neuen Bescheidenheit in Konsum und Lebensführung</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
