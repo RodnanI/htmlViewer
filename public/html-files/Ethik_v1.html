@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethische Theorien – Lernübersicht</title>
+    <style>
+        :root {
+            --primary-color: #1d1d1d;
+            --secondary-color: #5e9eff;
+            --accent-color: #ffa94d;
+            --light-color: #333333;
+            --dark-color: #0f0f0f;
+            --text-color: #e0e0e0;
+            --bg-color: #1d1d1d;
+            --card-bg: #242424;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .theory-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+        
+        .key-concepts {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .key-concepts h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .key-concepts ul {
+            padding-left: 1.5rem;
+        }
+        
+        .key-concepts li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .examples {
+            margin: 1.5rem 0;
+        }
+        
+        .example-box {
+            background-color: #333333;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .figure {
+            font-style: italic;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid #555;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #444;
+        }
+        
+        .comparison-table tr:nth-child(odd) {
+            background-color: #3a3a3a;
+        }
+        
+        .pros-cons {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .pros, .cons {
+            flex: 1;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .pros {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .cons {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .pros h4, .cons h4 {
+            margin-bottom: 0.75rem;
+            color: #f0f0f0;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 1rem;
+            background-color: #3a3a3a;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            left: 0.5rem;
+            top: 0.5rem;
+            color: #666;
+            font-family: Georgia, serif;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .pros-cons {
+                flex-direction: column;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ethische Theorien – Lernübersicht</h1>
+            <p>Eine Zusammenfassung wichtiger ethischer Ansätze und ihrer Anwendung</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Quantitativer Utilitarismus -->
+        <div class="theory-card">
+            <h2>1. Quantitativer Utilitarismus</h2>
+            <p>Der quantitative Utilitarismus, auch als Handlungsutilitarismus bezeichnet, wurde von Jeremy Bentham (1748-1832) begründet. Dieser Ansatz verfolgt das Prinzip der Nützlichkeit oder das Prinzip des größten Glücks für die größtmögliche Anzahl der Betroffenen.</p>
+            
+            <div class="key-concepts">
+                <h4>Kernkonzepte:</h4>
+                <ul>
+                    <li><strong>Prinzip der Nützlichkeit:</strong> Eine Handlung ist moralisch richtig, wenn ihre Tendenz, das Glück zu vermehren, größer ist als jede andere mögliche Tendenz, es zu vermindern.</li>
+                    <li><strong>Hedonistisches Kalkül:</strong> Eine Methode zur exakten Feststellung des moralischen Werts einer Handlung durch Berechnung von Freude und Leid.</li>
+                    <li><strong>Quantität entscheidend:</strong> Die Menge an Freude/Leid bestimmt den moralischen Wert einer Handlung.</li>
+                    <li><strong>Konsequentialismus:</strong> Die Folgen einer Handlung bestimmen ihren moralischen Wert, nicht die Absicht oder Motivation.</li>
+                </ul>
+            </div>
+            
+            <p>Nach Bentham sollte eine Handlung nach folgenden Kriterien bewertet werden:</p>
+            <ul>
+                <li>Die Intensität der erzeugten Freude oder des Leids</li>
+                <li>Die Dauer der Empfindungen</li>
+                <li>Die Gewissheit oder Ungewissheit der Folgen</li>
+                <li>Die Anzahl der betroffenen Personen</li>
+            </ul>
+            
+            <p>Beim hedonistischen Kalkül werden für jede betroffene Person die Werte aller Freuden und Leiden addiert, um eine Glücksbilanz zu erstellen. Die Gesamtsumme aller individuellen Bilanzen ergibt dann den moralischen Wert der Handlung.</p>
+            
+            <div class="quote">
+                "Unter dem Prinzip der Nützlichkeit ist ein Prinzip zu verstehen, das schlechthin jede Handlung in dem Maß billigt oder missbilligt, wie ihr die Tendenz innezuwohnen scheint, das Glück der Gruppe, deren Interesse infrage steht, zu vermehren oder zu vermindern." — Jeremy Bentham
+            </div>
+            
+            <h3>Alltagsbeispiele für den quantitativen Utilitarismus:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Staudammbau</span>
+                    <p>Ein Staudamm soll gebaut werden, der 1000 Menschen mit Elektrizität versorgen wird, jedoch müssen 50 Familien umgesiedelt werden. Nach dem quantitativen Utilitarismus wäre diese Maßnahme moralisch richtig, wenn der Nutzen (Stromversorgung für 1000 Menschen) das Leid (Umsiedlung von 50 Familien) überwiegt.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Verteilung knapper Medikamente</span>
+                    <p>In einer Pandemie steht nur eine begrenzte Anzahl von Medikamenten zur Verfügung. Nach dem quantitativen Utilitarismus sollten diese so verteilt werden, dass möglichst viele Leben gerettet werden, unabhängig vom Alter oder sozialen Status der Patienten.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Organspende-Dilemma</span>
+                    <p>Ein gesunder Patient kommt zur Routineuntersuchung ins Krankenhaus. Gleichzeitig warten fünf Menschen dringend auf Organspenden. Der quantitative Utilitarismus könnte nahelegen, dass es moralisch richtig wäre, den einen Patienten zu opfern, um fünf andere zu retten. Dieses Beispiel zeigt jedoch auch die Problematik des reinen Nutzenkalküls.</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Stärken</h4>
+                    <ul>
+                        <li>Klarer mathematischer Ansatz zur Bewertung moralischer Entscheidungen</li>
+                        <li>Berücksichtigt die Interessen aller Betroffenen</li>
+                        <li>Konzentriert sich auf reale Konsequenzen statt auf abstrakte Regeln</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Schwächen</h4>
+                    <ul>
+                        <li>Vernachlässigung von Minderheitenrechten</li>
+                        <li>Schwierigkeit, alle Folgen einer Handlung vorherzusehen und zu berechnen</li>
+                        <li>Keine Berücksichtigung der Qualität verschiedener Freuden</li>
+                        <li>Potenzielle Rechtfertigung unmoralischer Handlungen, wenn sie zum "größten Glück" führen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Qualitativer Utilitarismus -->
+        <div class="theory-card">
+            <h2>2. Qualitativer Utilitarismus</h2>
+            <p>Der qualitative Utilitarismus wurde von John Stuart Mill (1806-1873) entwickelt als Weiterentwicklung und Kritik am quantitativen Utilitarismus Benthams. Mill argumentierte, dass nicht alle Arten von Freude oder Glück gleichwertig sind und führte eine qualitative Dimension in die utilitaristische Ethik ein.</p>
+            
+            <div class="key-concepts">
+                <h4>Kernkonzepte:</h4>
+                <ul>
+                    <li><strong>Qualität über Quantität:</strong> Nicht nur die Menge an Glück zählt, sondern auch dessen Qualität.</li>
+                    <li><strong>Höhere und niedere Freuden:</strong> Geistige, intellektuelle und moralische Freuden sind wertvoller als körperliche Vergnügen.</li>
+                    <li><strong>Kompetentes Urteil:</strong> Menschen, die beide Arten von Freuden kennen, ziehen höhere Freuden vor.</li>
+                    <li><strong>Menschenwürde:</strong> Berücksichtigung der besonderen Qualität menschlicher Erfahrungen.</li>
+                </ul>
+            </div>
+            
+            <p>Mill unterscheidet zwischen "höheren" und "niederen" Freuden. Höhere Freuden umfassen intellektuelle, moralische und ästhetische Erfahrungen, während niedere Freuden hauptsächlich körperliche Vergnügen betreffen. Nach Mill ist es "besser, ein unzufriedener Mensch zu sein als ein zufriedenes Schwein; besser ein unzufriedener Sokrates als ein zufriedener Narr."</p>
+            
+            <p>Um zu bestimmen, welche Freuden wertvoller sind, schlägt Mill ein Kompetenzkriterium vor: Von zwei Freuden ist diejenige wünschenswerter, die von Menschen, die beide erfahren haben, entschieden bevorzugt wird.</p>
+            
+            <div class="quote">
+                "Es ist besser, ein unzufriedener Mensch zu sein als ein zufriedenes Schwein; besser ein unzufriedener Sokrates als ein zufriedener Narr. Und wenn der Narr oder das Schwein anderer Ansicht sind, dann deshalb, weil sie nur die eine Seite der Angelegenheit kennen. Die andere Partei hingegen kennt beide Seiten." — John Stuart Mill
+            </div>
+            
+            <h3>Alltagsbeispiele für den qualitativen Utilitarismus:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Bildungsinvestitionen</span>
+                    <p>Eine Gemeinde muss entscheiden, ob sie Geld für ein neues Einkaufszentrum oder für eine Bibliothek und Kulturzentrum ausgibt. Nach Mills qualitativem Utilitarismus wäre die Investition in Bildung und Kultur vorzuziehen, da sie höherwertige geistige Freuden fördert, auch wenn vielleicht weniger Menschen davon unmittelbar profitieren als vom Einkaufszentrum.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Arbeits-Freizeit-Balance</span>
+                    <p>Eine Person steht vor der Wahl, einen gut bezahlten, aber geistig wenig anregenden Job anzunehmen oder einen schlechter bezahlten Job, der intellektuell herausfordernd ist und sinnstiftend wirkt. Nach Mill wäre die zweite Option vorzuziehen, da sie höhere geistige Freuden ermöglicht, auch wenn sie materiell weniger Wohlstand bringt.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Bildschirmzeit vs. Lesen</span>
+                    <p>Eltern überlegen, ob sie ihren Kindern mehr Bildschirmzeit erlauben oder sie zum Lesen von Büchern motivieren sollen. Nach Mills Ansatz wäre das Lesen zu bevorzugen, da es höhere geistige Freuden vermittelt und zur persönlichen Entwicklung beiträgt, auch wenn die Kinder zunächst mehr Vergnügen an digitalen Medien finden mögen.</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Stärken</h4>
+                    <ul>
+                        <li>Berücksichtigt die besondere Qualität menschlicher Erfahrungen</li>
+                        <li>Verhindert die Reduktion von Glück auf rein quantitative Faktoren</li>
+                        <li>Rechtfertigt Investitionen in Bildung, Kunst und Kultur</li>
+                        <li>Vermeidet einige problematische Konsequenzen des rein quantitativen Utilitarismus</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Schwächen</h4>
+                    <ul>
+                        <li>Potenzielle Elitäre Tendenzen - bevorzugt Hochkultur über populäre Vergnügen</li>
+                        <li>Schwierige objektive Bestimmung der Qualität von Freuden</li>
+                        <li>Problematisches Kompetenzkriterium - wer sind die kompetenten Richter?</li>
+                        <li>Risiko der Bevormundung - "Wir wissen besser, was gut für dich ist"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Präferenzutilitarismus -->
+        <div class="theory-card">
+            <h2>3. Präferenzutilitarismus</h2>
+            <p>Der Präferenzutilitarismus ist eine moderne Form des Utilitarismus, die vor allem von Peter Singer (geb. 1946) vertreten wird. Dieser Ansatz beurteilt Handlungen nicht nach ihrem Beitrag zu Glück oder Lust, sondern danach, inwieweit sie die Präferenzen oder Interessen der Betroffenen erfüllen.</p>
+            
+            <div class="key-concepts">
+                <h4>Kernkonzepte:</h4>
+                <ul>
+                    <li><strong>Interessen statt Glück:</strong> Bewertung von Handlungen nach ihrer Fähigkeit, Präferenzen zu erfüllen.</li>
+                    <li><strong>Prinzip der gleichen Interessenabwägung:</strong> Ähnliche Interessen aller Betroffenen verdienen gleiches Gewicht.</li>
+                    <li><strong>Empfindungsfähigkeit als Kriterium:</strong> Alle empfindungsfähigen Wesen haben Interessen, die berücksichtigt werden müssen.</li>
+                    <li><strong>Person vs. Mitglied der Spezies Homo sapiens:</strong> Unterscheidung zwischen biologischer Zugehörigkeit und moralisch relevanten Eigenschaften.</li>
+                </ul>
+            </div>
+            
+            <p>Singer definiert eine "Person" nicht biologisch, sondern durch Eigenschaften wie Selbstbewusstsein, Zukunftsbezug und die Fähigkeit, zukunftsorientierte Wünsche zu haben. Dies führt zu einer kontroversen Unterscheidung zwischen "Mitgliedern der Spezies Homo sapiens" und "Personen" – wobei letztere einen besonderen moralischen Status genießen.</p>
+            
+            <p>Der Präferenzutilitarismus erweitert die moralische Gemeinschaft auf alle empfindungsfähigen Wesen, da die Fähigkeit zu leiden oder sich zu freuen als Grundvoraussetzung für Interessen gilt. Dies führt zu einer starken Berücksichtigung tierischer Interessen.</p>
+            
+            <div class="quote">
+                "Das Wesentliche am Prinzip der gleichen Interessenabwägung besteht darin, dass wir in unseren moralischen Überlegungen den ähnlichen Interessen all derer, die von unseren Handlungen betroffen sind, gleiches Gewicht geben." — Peter Singer
+            </div>
+            
+            <h3>Alltagsbeispiele für den Präferenzutilitarismus:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Vegetarische/vegane Ernährung</span>
+                    <p>Ein Präferenzutilitarist würde argumentieren, dass das Interesse eines Tieres, nicht zu leiden, mehr wiegt als das Interesse eines Menschen am Geschmack von Fleisch. Nach diesem Ansatz wäre eine vegetarische oder vegane Ernährung moralisch geboten, da sie weniger Gesamtleid verursacht und die Interessen empfindungsfähiger Wesen berücksichtigt.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Patientenverfügung</span>
+                    <p>Bei einer bewusstlosen Patientin mit einer Patientenverfügung, die lebensverlängernde Maßnahmen ablehnt, würde ein Präferenzutilitarist argumentieren, dass die zuvor geäußerten Präferenzen der Patientin respektiert werden sollten, auch wenn Familienangehörige anderer Meinung sind, da es um die Erfüllung der autonomen Präferenzen der Person geht.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Entwicklungshilfe</span>
+                    <p>Ein Präferenzutilitarist würde argumentieren, dass wir moralisch verpflichtet sind, einen Teil unseres Einkommens für wirkungsvolle Entwicklungshilfe zu spenden, da die Interessen armer Menschen in fernen Ländern genauso zählen wie unsere eigenen und damit eine größere Anzahl von Präferenzen erfüllt werden können.</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Stärken</h4>
+                    <ul>
+                        <li>Berücksichtigt Autonomie und individuelle Präferenzen</li>
+                        <li>Erweitert den moralischen Kreis auf nichtmenschliche Lebewesen</li>
+                        <li>Vermeidet Paternalismus durch Respekt für individuelle Entscheidungen</li>
+                        <li>Kann komplexere moralische Situationen abbilden als reine Lust-/Unlustkalkulation</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Schwächen</h4>
+                    <ul>
+                        <li>Kontroverse Unterscheidung zwischen "Person" und "Mitglied der Spezies Homo sapiens"</li>
+                        <li>Schwierigkeiten bei der Bestimmung der Präferenzen nicht-kommunikationsfähiger Wesen</li>
+                        <li>Risiko der Missachtung langfristiger Interessen zugunsten kurzfristiger Präferenzen</li>
+                        <li>Kontroverse Schlussfolgerungen z.B. zur Euthanasie schwerstbehinderter Neugeborener</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kritik am Utilitarismus -->
+        <div class="theory-card">
+            <h2>4. Kritik am Utilitarismus</h2>
+            <p>Die utilitaristischen Theorien wurden aus verschiedenen Richtungen kritisiert. Neben internen Debatten zwischen Vertretern verschiedener utilitaristischer Ansätze gibt es grundsätzliche Kritikpunkte, die das utilitaristische Grundprinzip in Frage stellen.</p>
+            
+            <div class="key-concepts">
+                <h4>Hauptkritikpunkte:</h4>
+                <ul>
+                    <li><strong>Unberechenbarkeit der Folgen:</strong> Die Komplexität und Undurchschaubarkeit langfristiger Handlungsfolgen macht moralische Urteile praktisch unmöglich.</li>
+                    <li><strong>Gerechtigkeit und Minderheitenrechte:</strong> Utilitarismus kann die Rechte von Minderheiten vernachlässigen, wenn deren Opfer zum "größeren Wohl" beitragen.</li>
+                    <li><strong>Expertentum:</strong> Sittliche Urteile werden Experten ausgeliefert, die vermeintlich besser berechnen können, was zum größten Glück führt.</li>
+                    <li><strong>Manipulierbarkeit von Glück:</strong> Falsche Bedürfnisse können erzeugt und manipuliert werden.</li>
+                    <li><strong>Fehlende absolute Grenzen:</strong> Keine Handlung, selbst Mord, ist prinzipiell ausgeschlossen, wenn sie zum größten Glück führt.</li>
+                </ul>
+            </div>
+            
+            <h3>Kritische Ansätze:</h3>
+            
+            <p><strong>Richard Purtill:</strong> In seiner Parabel "Prinz Peters Entdeckung des Utilitarismus" zeigt Purtill, wie der utilitaristische Ansatz zu totalitären Tendenzen führen kann. Prinz Peter, der Utilitarist geworden ist, bricht Versprechen, errichtet "Glückskommissionen" und ordnet die Tötung von Menschen mit "Leid verursachenden Eigenschaften" an.</p>
+            
+            <p><strong>Robert Spaemann:</strong> Kritisiert den Utilitarismus aufgrund der Undurchschaubarkeit langfristiger Folgen und der Auslagerung ethischer Urteile an Experten. Er betont, dass es Handlungsweisen gibt, die ohne Ansehung der Umstände immer schlecht sind, weil sie die Würde der Person verletzen.</p>
+            
+            <p><strong>Herbert Marcuse:</strong> Kritisiert aus Sicht der Kritischen Theorie die manipulierten "falschen Bedürfnisse" in Konsumgesellschaften. Diese Bedürfnisse dienen der Festigung bestehender Herrschaftsverhältnisse und der Unterdrückung. Marcuse unterscheidet zwischen "wahren" und "falschen" Bedürfnissen und kritisiert damit die utilitaristische Annahme, dass jede Bedürfnisbefriedigung gut sei.</p>
+            
+            <div class="quote">
+                "Wir tappen, was die Gesamtheit der Folgen betrifft, immer im Dunkeln. [...] Jedes Verbrechen wäre gerechtfertigt, wenn der, der es begeht, dabei einen Zweck verfolgt, der dieses Mittel 'heiligt'." — Robert Spaemann
+            </div>
+            
+            <h3>Alltagsbeispiele für Kritik am Utilitarismus:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Justizfall mit unschuldigem Angeklagten</span>
+                    <p>In einer aufgeheizten Situation nach einem schrecklichen Verbrechen könnte ein utilitaristischer Richter versucht sein, einen Unschuldigen zu verurteilen, wenn dies die Bevölkerung beruhigt und größeres Chaos verhindert. Die Kritik: Ein gerechtes Justizsystem darf niemals wissentlich Unschuldige bestrafen, unabhängig von den Konsequenzen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Konsumwerbung und Wegwerfgesellschaft</span>
+                    <p>Werbung erzeugt künstliche Bedürfnisse, deren Befriedigung kurzfristig Freude bereitet, langfristig aber zur Umweltzerstörung und Ressourcenverschwendung führt. Die Kritik: Der Utilitarismus berücksichtigt nicht, dass manche Bedürfnisse manipuliert sind und ihre Befriedigung nicht zu wirklichem Wohlbefinden führt.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Umgang mit Minderheiten</span>
+                    <p>Eine Stadt plant den Bau einer Autobahn durch ein historisches Viertel, in dem eine kulturelle Minderheit lebt. Die Mehrheit der Stadtbewohner profitiert von besserer Verkehrsanbindung. Die Kritik: Der Utilitarismus kann den besonderen Wert kultureller Identität und Minderheitenrechte nicht angemessen erfassen und würde zu deren Opferung für das "größere Wohl" tendieren.</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Berechtigte Kritikpunkte</h4>
+                    <ul>
+                        <li>Verdeutlichung der Grenzen folgenorientierter Ethik</li>
+                        <li>Schutz von Grundrechten und Menschenwürde</li>
+                        <li>Verhinderung totalitärer Tendenzen im Namen des "größten Glücks"</li>
+                        <li>Berücksichtigung der Qualität von Bedürfnissen und Wünschen</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Grenzen der Kritik</h4>
+                    <ul>
+                        <li>Alternative Ethikansätze haben eigene Schwächen</li>
+                        <li>Konsequenzen von Handlungen bleiben relevante moralische Faktoren</li>
+                        <li>Utilitaristische Theorien haben sich weiterentwickelt, um Kritik zu adressieren</li>
+                        <li>Praktische Anwendbarkeit des Utilitarismus in vielen Alltagssituationen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Diskursethik -->
+        <div class="theory-card">
+            <h2>5. Diskursethik</h2>
+            <p>Die Diskursethik wurde in der zweiten Hälfte des 20. Jahrhunderts vor allem von den deutschen Philosophen Jürgen Habermas und Karl-Otto Apel entwickelt. Sie versucht, ethische Normen durch rationale Argumentation in einem idealen Diskurs zu begründen.</p>
+            
+            <div class="key-concepts">
+                <h4>Kernkonzepte:</h4>
+                <ul>
+                    <li><strong>Ideale Sprechsituation:</strong> Ein Diskurs ohne Verzerrungen durch Macht oder Zwänge.</li>
+                    <li><strong>Gleichberechtigte Teilnahme:</strong> Alle potenziellen Teilnehmer müssen die gleiche Chance haben, am Diskurs teilzunehmen.</li>
+                    <li><strong>Wahrhaftigkeit:</strong> Teilnehmer müssen ihre Einstellungen, Gefühle und Intentionen authentisch zum Ausdruck bringen können.</li>
+                    <li><strong>Vernünftiger Konsens:</strong> Nur ein Konsens, der unter Bedingungen der idealen Sprechsituation erzielt wurde, gilt als moralisch richtig.</li>
+                </ul>
+            </div>
+            
+            <p>Nach Habermas gibt es vier wesentliche Bedingungen für eine ideale Sprechsituation:</p>
+            <ol>
+                <li>Alle potenziellen Teilnehmer müssen die gleiche Chance haben, kommunikative Sprechakte zu verwenden.</li>
+                <li>Alle Diskursteilnehmer müssen die gleiche Chance haben, Behauptungen aufzustellen, zu begründen oder zu widerlegen.</li>
+                <li>Alle Teilnehmer müssen die gleiche Chance haben, ihre Einstellungen, Gefühle und Intentionen zum Ausdruck zu bringen.</li>
+                <li>Alle Teilnehmer müssen die gleiche Chance haben, zu befehlen, sich zu widersetzen, zu erlauben und zu verbieten.</li>
+            </ol>
+            
+            <p>Die Diskursethik betrachtet diese ideale Sprechsituation als einen regulativen Maßstab, an dem faktische Diskurse gemessen werden können. Jeder faktisch erzielte Konsens kann daraufhin überprüft werden, ob er unter Bedingungen einer idealen Sprechsituation zustande gekommen wäre.</p>
+            
+            <div class="quote">
+                "Die ideale Sprechsituation ist weder ein empirisches Phänomen noch bloßes Konstrukt, sondern eine in Diskursen unvermeidliche, reziprok vorgenommene Unterstellung." — Jürgen Habermas
+            </div>
+            
+            <h3>Alltagsbeispiele für die Diskursethik:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Schulklassenrat</span>
+                    <p>In einem Schulklassenrat diskutieren die Schülerinnen und Schüler über Regeln für den Klassenraum. Nach den Prinzipien der Diskursethik sollten alle gleichermaßen zu Wort kommen können, unabhängig von ihrer Beliebtheit oder ihrem Status. Die Lehrkraft sollte ihre Autoritätsposition zurücknehmen und nur als Moderator fungieren, um eine möglichst ideale Sprechsituation zu ermöglichen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Betriebsversammlung</span>
+                    <p>Bei einer Betriebsversammlung geht es um die Einführung von Homeoffice-Regelungen. Nach der Diskursethik sollten alle Betroffenen – vom Management bis zur Reinigungskraft – ihre Perspektiven einbringen können, ohne Angst vor negativen Konsequenzen haben zu müssen. Nur ein unter solchen Bedingungen erzielter Konsens wäre moralisch legitim.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Familiäre Urlaubsplanung</span>
+                    <p>Eine Familie plant ihren gemeinsamen Urlaub. Nach diskursethischen Prinzipien sollten auch die Kinder gleichberechtigt an der Entscheidung beteiligt sein und ihre Wünsche äußern können. Die Entscheidung sollte nicht durch elterliche Autorität, sondern durch Austausch von Argumenten und gemeinsame Abwägung getroffen werden.</p>
+                </div>
+            </div>
+            
+            <h3>Kritik an der Diskursethik:</h3>
+            
+            <p><strong>Harald Weinrich</strong> kritisiert in "Die Diktatur des Sitzfleisches" die praktische Umsetzbarkeit der Diskursethik. Er argumentiert, dass ein Diskurs ohne Autoritäten, vorgegebene Fragestellungen oder Zeitdruck niemals zu einem Ende kommen würde und zur "Diktatur des Sitzfleisches" führen müsste.</p>
+            
+            <p><strong>Dieter Wunderlich</strong> betont, dass die vollständige Symmetrie in Kommunikationsprozessen utopisch sei und weist auf Grenzen hin:</p>
+            <ul>
+                <li>Im Erziehungsprozess sei Asymmetrie unvermeidlich, da Kinder bestimmte Fähigkeiten erst erlernen müssen.</li>
+                <li>Bei fachlicher Expertise gibt es natürliche Unterschiede im Wissensstand.</li>
+                <li>Nicht alle Kommunikation könne verbal erfolgen.</li>
+            </ul>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Stärken</h4>
+                    <ul>
+                        <li>Berücksichtigung aller Betroffenen und ihrer Perspektiven</li>
+                        <li>Ablehnung von Machtstrukturen in ethischen Entscheidungsprozessen</li>
+                        <li>Prozeduraler Ansatz, der kulturübergreifend anwendbar ist</li>
+                        <li>Fördert demokratische und respektvolle Auseinandersetzung</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Schwächen</h4>
+                    <ul>
+                        <li>Praktische Umsetzbarkeit der idealen Sprechsituation fraglich</li>
+                        <li>Zeitliche und psychische Grenzen der Diskursteilnehmer</li>
+                        <li>Asymmetrien in Wissen und Kommunikationsfähigkeit nicht vollständig aufhebbar</li>
+                        <li>Risiko des endlosen Diskutierens ohne Entscheidung</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Verantwortungsethik -->
+        <div class="theory-card">
+            <h2>6. Verantwortungsethik</h2>
+            <p>Die Verantwortungsethik wurde maßgeblich von Hans Jonas (1903-1993) in seinem Werk "Das Prinzip Verantwortung" (1979) entwickelt. Angesichts der technologischen Entwicklung und der daraus resultierenden Fähigkeit des Menschen, die Natur und zukünftige Generationen in beispiellosem Ausmaß zu beeinflussen, fordert Jonas eine neue Ethik der Zukunftsverantwortung.</p>
+            
+            <div class="key-concepts">
+                <h4>Kernkonzepte:</h4>
+                <ul>
+                    <li><strong>Ausweitung der Verantwortung:</strong> Proportional zur Macht des Menschen wächst seine Verantwortung.</li>
+                    <li><strong>Fernethik statt Nahethik:</strong> Ethik muss räumlich und zeitlich entfernte Auswirkungen berücksichtigen.</li>
+                    <li><strong>In dubio pro malo:</strong> Im Zweifel sollte der schlechteren Prognose Gehör geschenkt werden.</li>
+                    <li><strong>Heuristik der Furcht:</strong> Die Furcht vor möglichen katastrophalen Folgen als Erkenntnisprinzip.</li>
+                    <li><strong>Neue Bescheidenheit:</strong> Forderung nach Mäßigung in Technologieeinsatz und Konsum.</li>
+                </ul>
+            </div>
+            
+            <p>Jonas argumentiert, dass der technologische Fortschritt dem Menschen eine nie dagewesene Macht gegeben hat, die Umwelt und zukünftige Generationen zu beeinflussen. Traditionelle Ethikansätze reichen nicht aus, weil sie sich hauptsächlich auf unmittelbare zwischenmenschliche Beziehungen konzentrieren (Nahethik). Stattdessen fordert Jonas eine Fernethik, die auch weit entfernte und zukünftige Auswirkungen menschlichen Handelns berücksichtigt.</p>
+            
+            <p>Ein zentraler Aspekt von Jonas' Ethik ist das Vorsichtsprinzip ("in dubio pro malo"), nach dem im Zweifelsfall der schlechteren Prognose Vorrang gegeben werden sollte. Dies bezeichnet er als "Heuristik der Furcht": Die Furcht vor möglichen katastrophalen Folgen soll uns vor selbstzerstörerischen Handlungen bewahren.</p>
+            
+            <div class="quote">
+                "Der Mensch ist das einzige uns bekannte Wesen, das Verantwortung haben kann. Indem er sie haben kann, hat er sie." — Hans Jonas
+            </div>
+            
+            <h3>Alltagsbeispiele für die Verantwortungsethik:</h3>
+            
+            <div class="examples">
+                <div class="example-box">
+                    <span class="example-title">Beispiel 1: Umgang mit Atomenergie</span>
+                    <p>Die Atomenergie bietet kurzfristige Vorteile (CO2-arme Energieerzeugung), birgt aber langfristige Risiken (Unfälle, Atommüllproblematik). Nach Jonas' Verantwortungsethik wäre aufgrund der potenziell katastrophalen Folgen und der Belastung kommender Generationen Vorsicht geboten. Die "Heuristik der Furcht" würde nahelegen, auf sichere Alternativen zu setzen, auch wenn diese kurzfristig teurer oder weniger effizient erscheinen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 2: Konsum- und Lebensstilentscheidungen</span>
+                    <p>Ein Konsument überlegt, ob er ein neues Smartphone kaufen sollte, obwohl sein altes noch funktioniert. Die Verantwortungsethik würde zur Berücksichtigung der ökologischen Folgen (Ressourcenverbrauch, Elektronikschrott) auffordern und zur "neuen Bescheidenheit" mahnen. Die Entscheidung wäre also nicht nur nach persönlichen Wünschen, sondern auch nach langfristigen Umweltauswirkungen zu treffen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <span class="example-title">Beispiel 3: Genehmigung neuer Technologien</span>
+                    <p>Eine Behörde muss über die Zulassung einer neuen Gentechnologie entscheiden. Nach Jonas' Prinzip "in dubio pro malo" wäre es geboten, auch unwahrscheinliche Risiken ernsthaft zu prüfen und im Zweifel die Technologie erst zuzulassen, wenn ihre Unbedenklichkeit nachgewiesen ist – nicht umgekehrt. Die Beweislast läge bei den Befürwortern der neuen Technologie.</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Stärken</h4>
+                    <ul>
+                        <li>Berücksichtigung langfristiger und weitreichender Folgen technologischen Handelns</li>
+                        <li>Einbeziehung der natürlichen Umwelt und künftiger Generationen in die ethische Betrachtung</li>
+                        <li>Vorsichtsprinzip als Schutz vor irreversiblen Schäden</li>
+                        <li>Forderung nach mehr Bescheidenheit angesichts begrenzter Ressourcen</li>
+                    </ul>
+                </div>
+                
+                <div class="cons">
+                    <h4>Schwächen</h4>
+                    <ul>
+                        <li>Risiko übertriebener Vorsicht, die Fortschritt und Innovation hemmen könnte</li>
+                        <li>Schwierigkeit, zwischen berechtigter Vorsicht und übertriebenen Ängsten zu unterscheiden</li>
+                        <li>Unklare Abwägung zwischen gegenwärtigen und zukünftigen Interessen</li>
+                        <li>Potenzielle Rechtfertigung autoritärer Maßnahmen im Namen der Zukunftsverantwortung</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vergleichstabelle -->
+        <h2>Vergleich der ethischen Theorien</h2>
+        
+        <table class="comparison-table">
+            <tr>
+                <th>Ethische Theorie</th>
+                <th>Hauptvertreter</th>
+                <th>Kernprinzip</th>
+                <th>Entscheidungskriterium</th>
+                <th>Stärken</th>
+                <th>Schwächen</th>
+            </tr>
+            <tr>
+                <td>Quantitativer Utilitarismus</td>
+                <td>Jeremy Bentham</td>
+                <td>Prinzip der Nützlichkeit</td>
+                <td>Maximierung des Gesamtglücks (quantitativ)</td>
+                <td>Klare Berechnung, Berücksichtigung aller Betroffenen</td>
+                <td>Vernachlässigung von Minderheitenrechten, keine Qualitätsunterschiede</td>
+            </tr>
+            <tr>
+                <td>Qualitativer Utilitarismus</td>
+                <td>John Stuart Mill</td>
+                <td>Qualität über Quantität</td>
+                <td>Wert höherer geistiger Freuden</td>
+                <td>Berücksichtigung menschlicher Würde, Kultur und Bildung</td>
+                <td>Elitäre Tendenzen, schwierige Qualitätsbestimmung</td>
+            </tr>
+            <tr>
+                <td>Präferenzutilitarismus</td>
+                <td>Peter Singer</td>
+                <td>Gleiche Interessenabwägung</td>
+                <td>Erfüllung von Präferenzen</td>
+                <td>Respekt für Autonomie, Einbeziehung nichtmenschlicher Lebewesen</td>
+                <td>Kontroverse Personenbegriff, Schwierigkeit der Präferenzermittlung</td>
+            </tr>
+            <tr>
+                <td>Diskursethik</td>
+                <td>Jürgen Habermas, Karl-Otto Apel</td>
+                <td>Ideale Sprechsituation</td>
+                <td>Vernünftiger Konsens</td>
+                <td>Demokratisch, kulturübergreifend, berücksichtigt alle Betroffenen</td>
+                <td>Praktische Umsetzbarkeit fraglich, Risiko endloser Diskussionen</td>
+            </tr>
+            <tr>
+                <td>Verantwortungsethik</td>
+                <td>Hans Jonas</td>
+                <td>Prinzip Verantwortung</td>
+                <td>In dubio pro malo (im Zweifel für das Schlechtere)</td>
+                <td>Berücksichtigung von Zukunft und Umwelt, Vorsichtsprinzip</td>
+                <td>Potenzielle Innovationshemmung, schwierige Risikoabwägung</td>
+            </tr>
+        </table>
+        
+        <h2>Fazit</h2>
+        <p>Die verschiedenen ethischen Theorien bieten jeweils unterschiedliche Perspektiven und Lösungsansätze für moralische Probleme. Während der Utilitarismus in seinen verschiedenen Ausprägungen auf die Konsequenzen von Handlungen fokussiert, betont die Diskursethik den Prozess der ethischen Urteilsfindung, und die Verantwortungsethik richtet den Blick besonders auf zukünftige Generationen und die Umwelt.</p>
+        
+        <p>In der praktischen Anwendung kann es sinnvoll sein, Elemente verschiedener Theorien zu kombinieren, um zu ausgewogenen ethischen Urteilen zu gelangen. So könnte man etwa die utilitaristische Folgenorientierung mit diskursethischen Verfahren und der verantwortungsethischen Vorsicht verbinden.</p>
+        
+        <p>Letztlich bleibt die Ethik ein offenes Feld, in dem verschiedene Perspektiven miteinander im Wettstreit stehen und in dem das kritische Nachdenken über moralische Fragen wichtiger ist als das Festhalten an einer einzigen Theorie.</p>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 Ethische Theorien – Lernübersicht | Erstellt auf Basis der Lehrmaterialien zu Ethik</p>
+    </div>
+</body>
+</html>
