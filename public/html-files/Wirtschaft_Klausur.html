@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernübersicht: Wirtschaft & Recht</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #252525;
+            --bg-tertiary: #303030;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #808080;
+            --accent: #7289da;
+            --accent-hover: #6272b0;
+            --border: #3a3a3a;
+            --success: #56b56a;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--bg-secondary);
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #7289da, #a791f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+        
+        .content {
+            margin-top: 40px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            color: var(--accent);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background-color: var(--bg-tertiary);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .highlight-box {
+            background-color: var(--bg-tertiary);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box h4 {
+            margin-top: 0;
+        }
+        
+        .highlight-box.example {
+            border-left-color: var(--info);
+        }
+        
+        .highlight-box.pro-contra {
+            border-left-color: var(--success);
+        }
+        
+        .highlight-box.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag.pro {
+            background-color: rgba(86, 181, 106, 0.2);
+            color: var(--success);
+        }
+        
+        .tag.contra {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .tab.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .nav-container {
+            background-color: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            overflow-x: auto;
+            padding: 10px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-link {
+            padding: 10px 15px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            white-space: nowrap;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .nav-link.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: rgba(114, 137, 218, 0.1);
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .code-block {
+            background-color: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: var(--border);
+            margin: 40px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ausführliche Lernübersicht: Wirtschaft & Recht</h1>
+            <p>Klausur 20.05.2025</p>
+        </div>
+    </header>
+    
+    <div class="nav-container">
+        <div class="container">
+            <div class="nav">
+                <a href="#wirtschaft" class="nav-link">Wirtschaftliche Grundlagen</a>
+                <a href="#recht" class="nav-link">Rechtliche Grundlagen</a>
+                <a href="#formulierungen" class="nav-link">Wichtige Formulierungen</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container content">
+        <section id="wirtschaft">
+            <h2>TEIL I: WIRTSCHAFTLICHE GRUNDLAGEN (50%)</h2>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <h3 class="section-title">Wirtschaftskonzepte: Nachfrage- vs. Angebotsorientierte Wirtschaftspolitik</h3>
+                </div>
+                
+                <h4>1.1 Nachfrageorientierte Wirtschaftspolitik (Keynesianismus)</h4>
+                <p><strong>Begründer</strong>: John Maynard Keynes (1883-1946)</p>
+                <p><strong>Grundidee</strong>: Der Staat soll aktiv in den Wirtschaftskreislauf eingreifen, besonders in Krisenzeiten</p>
+                <p><strong>Kernelemente</strong>:</p>
+                <ul>
+                    <li>Antizyklische Fiskalpolitik: "Bei Abschwung expansiv, bei Aufschwung restriktiv"</li>
+                    <li>Deficit Spending: In Rezessionen mehr ausgeben als einnehmen</li>
+                    <li>Surplus Saving: In Boom-Phasen sparen und Schulden tilgen</li>
+                    <li>Kurzfristige Orientierung: Schnelle Wirkung auf Konjunktur</li>
+                    <li>"Mit Wumms aus der Krise kommen" (Scholz, Corona-Konjunkturprogramm)</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel: Corona-Maßnahmen 2020-2022</h4>
+                    <p>Während der Corona-Krise wurden in Deutschland zahlreiche staatliche Maßnahmen ergriffen:</p>
+                    <ul>
+                        <li>Mehrwertsteuersenkung von 19% auf 16% (Juli-Dezember 2020)</li>
+                        <li>9-Euro-Ticket für den ÖPNV (Sommer 2022)</li>
+                        <li>Energiepreispauschale (300€ für Erwerbstätige)</li>
+                        <li>Einmalzahlungen für Empfänger von Sozialleistungen</li>
+                    </ul>
+                </div>
+                
+                <p><strong>Wirkungsmechanismus</strong> (expansiver Effekt):</p>
+                <ol>
+                    <li>Staat erhöht Ausgaben/senkt Steuern → Mehr Einkommen bei Haushalten</li>
+                    <li>Mehr Einkommen → Mehr Konsum</li>
+                    <li>Mehr Konsum → Mehr Produktion</li>
+                    <li>Mehr Produktion → Mehr Beschäftigung</li>
+                    <li>Mehr Beschäftigung → Mehr Einkommen</li>
+                </ol>
+                
+                <div class="highlight-box pro-contra">
+                    <h4>Vor- und Nachteile</h4>
+                    <div><span class="tag pro">✓</span> Schnelle Wirkung auf Gesamtwirtschaft</div>
+                    <div><span class="tag pro">✓</span> Hilft bei Bekämpfung von Arbeitslosigkeit</div>
+                    <div><span class="tag contra">✗</span> Kann zu Staatsverschuldung führen</div>
+                    <div><span class="tag contra">✗</span> Crowding-Out-Effekt möglich (Verdrängung privater Investitionen)</div>
+                    <div><span class="tag contra">✗</span> Gefahr der Inflation</div>
+                </div>
+                
+                <h4>1.2 Angebotsorientierte Wirtschaftspolitik</h4>
+                <p><strong>Begründer</strong>: Milton Friedman (1912-2006)</p>
+                <p><strong>Grundidee</strong>: Der Staat soll sich zurückhalten und gute Rahmenbedingungen für Unternehmen schaffen</p>
+                <p><strong>Kernelemente</strong>:</p>
+                <ul>
+                    <li>Say'sches Theorem: "Jedes Angebot schafft sich seine Nachfrage"</li>
+                    <li>Märkte regulieren sich selbst</li>
+                    <li>Entbürokratisierung und Deregulierung</li>
+                    <li>Steuersenkungen für Unternehmen</li>
+                    <li>Mittel- bis langfristige Orientierung</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel: Reaganomics</h4>
+                    <p>In den USA der 1980er Jahre unter Präsident Reagan:</p>
+                    <ul>
+                        <li>Senkung der Unternehmenssteuern</li>
+                        <li>Abbau staatlicher Regulierungen</li>
+                        <li>Privatisierung von Staatsbetrieben</li>
+                    </ul>
+                </div>
+                
+                <p><strong>Maßnahmen</strong>:</p>
+                <ul>
+                    <li>Verbesserte Standortbedingungen für Unternehmen</li>
+                    <li>Flexibilisierung des Arbeitsmarktes</li>
+                    <li>Förderung von Innovationen und Investitionen</li>
+                    <li>Ausbau der Infrastruktur</li>
+                    <li>Entlastung bei Unternehmensteuern</li>
+                </ul>
+                
+                <div class="highlight-box pro-contra">
+                    <h4>Vor- und Nachteile</h4>
+                    <div><span class="tag pro">✓</span> Schafft nachhaltige Wachstumsimpulse</div>
+                    <div><span class="tag pro">✓</span> Stärkt die Wettbewerbsfähigkeit</div>
+                    <div><span class="tag contra">✗</span> Wirkt erst langfristig</div>
+                    <div><span class="tag contra">✗</span> Kann soziale Ungleichheit verstärken</div>
+                    <div><span class="tag contra">✗</span> Regulierungslücken können entstehen</div>
+                </div>
+                
+                <h4>1.3 Stagflation - Der Wendepunkt in den 1970er Jahren</h4>
+                <p><strong>Definition</strong>: Gleichzeitiges Auftreten von Stagnation (geringes/kein Wirtschaftswachstum) und Inflation</p>
+                <p><strong>Auslöser</strong>: Ölkrisen 1973 und 1979</p>
+                <p><strong>Problem</strong>: Keynesianische Wirtschaftspolitik konnte nicht beide Probleme gleichzeitig lösen</p>
+                <p><strong>Folge</strong>: Paradigmenwechsel hin zur angebotsorientierten Wirtschaftspolitik</p>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Ölkrise</h4>
+                    <p>Der Ölpreis stieg von 3 auf 12 US-Dollar pro Barrel → höhere Produktionskosten → steigende Verbraucherpreise → Gewerkschaften forderten höhere Löhne → Lohn-Preis-Spirale → rückläufiges Wirtschaftswachstum</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h3 class="section-title">Staatsverschuldung und Schuldenbremse</h3>
+                </div>
+                
+                <h4>2.1 Grundlagen der Staatsverschuldung</h4>
+                <p><strong>Definition</strong>: Summe aller ausstehenden Verbindlichkeiten des Staates</p>
+                <p><strong>Kennzahlen</strong>:</p>
+                <ul>
+                    <li>Absolute Staatsverschuldung: Gesamtbetrag in Euro</li>
+                    <li>Relative Staatsverschuldung: In Prozent des BIP</li>
+                    <li>Neuverschuldung: Jährliches Haushaltsdefizit</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4>Situation in Deutschland</h4>
+                    <ul>
+                        <li>Staatsschulden 2023: ca. 2,4 Billionen Euro (63,6% des BIP)</li>
+                        <li>Maastricht-Kriterium: Max. 60% des BIP</li>
+                        <li>Jährliches Defizit: Max. 3% des BIP (Maastricht-Kriterium)</li>
+                    </ul>
+                </div>
+                
+                <h4>2.2 Schuldenbremse</h4>
+                <p><strong>Gesetzliche Grundlage</strong>: Art. 109 Abs. 3 GG (seit 2009)</p>
+                <p><strong>Kernelemente</strong>:</p>
+                <ul>
+                    <li>Haushalte von Bund und Ländern grundsätzlich ohne Kredite ausgleichen</li>
+                    <li>Bund: Max. 0,35% des BIP Neuverschuldung erlaubt</li>
+                    <li>Länder: Keine strukturelle Neuverschuldung erlaubt</li>
+                    <li>Ausnahmen: Naturkatastrophen, außergewöhnliche Notsituationen (z.B. Corona-Pandemie)</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Notsituation</h4>
+                    <p>Während der Corona-Pandemie wurde die Schuldenbremse ausgesetzt, um umfangreiche Hilfsprogramme zu finanzieren.</p>
+                </div>
+                
+                <h4>2.3 Pro und Contra Staatsverschuldung</h4>
+                
+                <div class="highlight-box pro-contra">
+                    <h4>Pro-Argumente</h4>
+                    <p><em>"Ein Staat ohne Staatsschuld tut entweder zu wenig für die Zukunft oder fordert zu viel von der Gegenwart."</em> - Lorenz von Stein</p>
+                    <div><span class="tag pro">✓</span> Finanzierung wichtiger Investitionen (Infrastruktur, Bildung)</div>
+                    <div><span class="tag pro">✓</span> Pay-as-you-use-Prinzip: Künftige Generationen profitieren von heutigen Investitionen</div>
+                    <div><span class="tag pro">✓</span> Konjunkturelle Stabilisierung in Krisen</div>
+                    
+                    <h4>Contra-Argumente</h4>
+                    <div><span class="tag contra">✗</span> Belastung zukünftiger Generationen (Lastenverschiebungsthese)</div>
+                    <div><span class="tag contra">✗</span> Steigende Zinslasten im Haushalt</div>
+                    <div><span class="tag contra">✗</span> Einschränkung politischer Handlungsspielräume</div>
+                    <div><span class="tag contra">✗</span> Gefahr der Überschuldung</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <h3 class="section-title">Tarifverträge: Interessen von Arbeitnehmern und Arbeitgebern im Konflikt</h3>
+                </div>
+                
+                <h4>3.1 Grundlagen des Tarifsystems</h4>
+                <p><strong>Tarifautonomie</strong>: Recht der Tarifparteien, ohne staatliche Eingriffe Verträge auszuhandeln (Art. 9 Abs. 3 GG)</p>
+                <p><strong>Tarifparteien</strong>:</p>
+                <ul>
+                    <li>Arbeitnehmerseite: Gewerkschaften</li>
+                    <li>Arbeitgeberseite: Arbeitgeberverbände</li>
+                </ul>
+                
+                <p><strong>Inhalte von Tarifverträgen</strong>:</p>
+                <ul>
+                    <li>Lohnhöhe und Gehaltssteigerungen</li>
+                    <li>Arbeitszeiten</li>
+                    <li>Urlaubsansprüche</li>
+                    <li>Kündigungsfristen</li>
+                    <li>Zusatzleistungen (Weihnachtsgeld, Urlaubsgeld)</li>
+                </ul>
+                
+                <h4>3.2 Positionen der Tarifparteien</h4>
+                
+                <p><strong>Gewerkschaften fordern typischerweise</strong>:</p>
+                <ul>
+                    <li>Inflationsausgleich (Reallohnerhalt)</li>
+                    <li>Anteil am Produktivitätszuwachs</li>
+                    <li>Beteiligung an Unternehmensgewinnen</li>
+                    <li>Arbeitszeitverkürzung bei vollem Lohnausgleich</li>
+                    <li>Tarifbindung und -treue</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Arbeitnehmerperspektive</h4>
+                    <p>Eine Angestellte im Pflegebereich beklagt, dass der Sprit so teuer geworden ist, dass sie Mitte des Monats nicht mehr weiß, wie sie zur Arbeit kommen soll. Das Auto kostet mittlerweile über die Hälfte ihres Einkommens.</p>
+                </div>
+                
+                <p><strong>Arbeitgeberverbände argumentieren mit</strong>:</p>
+                <ul>
+                    <li>Wettbewerbsfähigkeit (nationale und internationale Konkurrenz)</li>
+                    <li>Lohnstückkosten im Vergleich zu anderen Ländern</li>
+                    <li>Produktivitätsentwicklung als Maßstab</li>
+                    <li>Gefahr der Arbeitsplatzverlagerung ins Ausland</li>
+                    <li>Flexible Regelungen durch Öffnungsklauseln</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Arbeitgeberperspektive</h4>
+                    <p>Die Schreinerei Büchele steht im Wettbewerb mit tschechischen Betrieben und kann sich daher keine Lohnerhöhungen über die Inflationsrate hinaus leisten, da Preiserhöhungen kaum durchsetzbar wären.</p>
+                </div>
+                
+                <h4>3.3 Auswirkungen von Tarifabschlüssen auf Wachstum und Beschäftigung</h4>
+                
+                <p><strong>Kaufkraftargument (Gewerkschaften)</strong>:</p>
+                <p>Höhere Löhne → mehr Einkommen → mehr Konsum → mehr Produktion und Beschäftigung</p>
+                
+                <p><strong>Kostenargument (Arbeitgeber)</strong>:</p>
+                <p>Höhere Löhne → höhere Kosten → Preiserhöhungen oder Personalabbau → weniger Wettbewerbsfähigkeit</p>
+                
+                <p><strong>Produktivitätsargument (Kompromiss)</strong>:</p>
+                <p>Lohnerhöhungen im Rahmen des Produktivitätszuwachses erhöhen nicht die Lohnstückkosten</p>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Produktivität</h4>
+                    <p>Wenn die Schreinerei Büchele durch Investitionen ihre Produktivität von 10 auf 12 Schränke pro Tag steigern konnte (20% Steigerung), wäre eine Lohnerhöhung in dieser Höhe ohne Gefährdung der Wettbewerbsfähigkeit möglich.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <h3 class="section-title">Überblick zu den gesetzlichen Sozialversicherungen</h3>
+                </div>
+                
+                <h4>4.1 Das System der gesetzlichen Sozialversicherung</h4>
+                <p><strong>Historischer Ursprung</strong>: Bismarck'sche Sozialreformen (1880er Jahre)</p>
+                <p><strong>Prinzipien</strong>:</p>
+                <ul>
+                    <li>Versicherungsprinzip: Leistungen durch Beiträge finanziert</li>
+                    <li>Solidaritätsprinzip: Umverteilung innerhalb der Versichertengemeinschaft</li>
+                    <li>Pflichtversicherung: Für alle abhängig Beschäftigten</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4>Die fünf Säulen der Sozialversicherung</h4>
+                    
+                    <table>
+                        <tr>
+                            <th>Versicherung</th>
+                            <th>Seit</th>
+                            <th>Beitrag 2023</th>
+                            <th>Leistungen</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Krankenversicherung</strong></td>
+                            <td>1883</td>
+                            <td>14,6% + ca. 1,3% Zusatzbeitrag</td>
+                            <td>Medizinische Versorgung, Krankengeld</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unfallversicherung</strong></td>
+                            <td>1884</td>
+                            <td>Abhängig vom Berufsrisiko, nur AG</td>
+                            <td>Heilbehandlung, Verletztengeld, Rente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rentenversicherung</strong></td>
+                            <td>1889</td>
+                            <td>18,6%</td>
+                            <td>Altersrente, Erwerbsminderungsrente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arbeitslosenversicherung</strong></td>
+                            <td>1927</td>
+                            <td>2,6%</td>
+                            <td>Arbeitslosengeld, Weiterbildung</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pflegeversicherung</strong></td>
+                            <td>1995</td>
+                            <td>3,4% bzw. 4% (Kinderlose)</td>
+                            <td>Pflegegeld, Pflegesachleistungen</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h4>4.2 Finanzierung der Sozialversicherungen</h4>
+                <p><strong>Umlageverfahren</strong>: Heutige Beitragszahler finanzieren heutige Leistungsempfänger</p>
+                <p><strong>Beitragsbemessungsgrenze</strong> (2024):</p>
+                <ul>
+                    <li>Kranken-/Pflegeversicherung: 62.100€ Jahreseinkommen</li>
+                    <li>Renten-/Arbeitslosenversicherung: 90.600€ Jahreseinkommen (West)</li>
+                </ul>
+                <p><strong>Versicherungspflichtgrenze</strong> (2024): 69.300€ Jahreseinkommen</p>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Gehaltsabrechnung</h4>
+                    <p>Eine Auszubildende mit 920€ Bruttogehalt zahlt davon 188,14€ Sozialversicherungsbeiträge (74,98€ KV, 15,64€ PV, 85,56€ RV, 11,96€ AV) und erhält 731,86€ netto.</p>
+                </div>
+                
+                <h4>4.3 Herausforderungen und Reformansätze</h4>
+                
+                <p><strong>Herausforderungen</strong>:</p>
+                <ul>
+                    <li>Demografischer Wandel: Immer weniger Beitragszahler pro Leistungsempfänger</li>
+                    <li>Steigende Lebenserwartung: Längere Rentenbezugsdauer</li>
+                    <li>Medizinischer Fortschritt: Steigende Kosten im Gesundheitswesen</li>
+                    <li>"Moral Hazard": Übernutzung kostenloser Leistungen</li>
+                </ul>
+                
+                <p><strong>Reformansätze Krankenversicherung</strong>:</p>
+                <ul>
+                    <li>Bürgerversicherung: Einbeziehung aller Bürger (auch Beamte, Selbstständige)</li>
+                    <li>Praxisgebühr/Eigenbeteiligung: Kostenbewusstsein stärken</li>
+                    <li>Fallpauschalen: Effizienzsteigerung in Krankenhäusern</li>
+                    <li>Digitalisierung: Kosteneinsparung durch moderne Technologien</li>
+                </ul>
+                
+                <p><strong>Reformansätze Rentenversicherung</strong>:</p>
+                <ul>
+                    <li>Erhöhung des Renteneintrittsalters: Anpassung an steigende Lebenserwartung</li>
+                    <li>Ergänzende kapitalgedeckte Vorsorge (Aktienrente)</li>
+                    <li>Stärkere Einwanderung von Fachkräften</li>
+                    <li>Höhere Erwerbsbeteiligung von Frauen und Älteren</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel demografischer Wandel</h4>
+                    <p>1965 kamen noch 5,5 Beitragszahler auf einen Rentenempfänger, heute sind es nur noch ca. 2,1 Zahler. Die Rentenbezugsdauer ist von 1965 bis 2022 von ca. 10 Jahren auf ca. 20 Jahre gestiegen.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <section id="recht">
+            <h2>TEIL II: RECHTLICHE GRUNDLAGEN (50%)</h2>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <h3 class="section-title">Aufbau und Systematik des BGB</h3>
+                </div>
+                
+                <h4>1.1 Grundstruktur des Bürgerlichen Gesetzbuchs</h4>
+                <p><strong>Entstehung</strong>: 1896 verabschiedet, am 1.1.1900 in Kraft getreten</p>
+                <p><strong>Anwendungsbereich</strong>: Regelt das Privatrecht (Beziehungen zwischen Privatpersonen)</p>
+                
+                <div class="highlight-box">
+                    <h4>Aufbau in fünf Büchern</h4>
+                    
+                    <table>
+                        <tr>
+                            <th>Buch</th>
+                            <th>Paragraphen</th>
+                            <th>Inhalt</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Allgemeiner Teil</strong></td>
+                            <td>§§ 1-240</td>
+                            <td>Natürliche und juristische Personen, Rechtsgeschäfte, Verjährung</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Recht der Schuldverhältnisse</strong></td>
+                            <td>§§ 241-853</td>
+                            <td>Allgemeines und Besonderes Schuldrecht</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Sachenrecht</strong></td>
+                            <td>§§ 854-1296</td>
+                            <td>Besitz und Eigentum, Hypothek, Grundschuld</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Familienrecht</strong></td>
+                            <td>§§ 1297-1921</td>
+                            <td>Ehe, Verwandtschaft, Vormundschaft</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Erbrecht</strong></td>
+                            <td>§§ 1922-2385</td>
+                            <td>Gesetzliche Erbfolge, Testament, Pflichtteil</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h4>1.2 Klammertechnik und Abstraktionsprinzip</h4>
+                
+                <p><strong>Klammertechnik</strong>:</p>
+                <ul>
+                    <li>Der Allgemeine Teil (1. Buch) enthält Regelungen, die für alle anderen Bücher gelten</li>
+                    <li>Vergleichbar mit einer mathematischen Formel: Der Faktor vor der Klammer gilt für alle Elemente in der Klammer</li>
+                    <li>Beispiel: Die Definition der Sache (§ 90 BGB) gilt für alle Bücher</li>
+                </ul>
+                
+                <p><strong>Spezialitätsprinzip</strong>:</p>
+                <ul>
+                    <li>"Lex specialis derogat legi generali" - Das speziellere Gesetz verdrängt das allgemeinere</li>
+                    <li>Beispiel: Die allgemeinen Regelungen zum Schuldrecht werden durch spezielle Vorschriften zum Kaufvertrag ergänzt</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h3 class="section-title">Methode: Normenanalyse, Subsumtion und Gutachtenstil</h3>
+                </div>
+                
+                <h4>2.1 Normenanalyse</h4>
+                <p><strong>Definition</strong>: Zerlegung einer Rechtsnorm in ihre Bestandteile</p>
+                <p><strong>Aufbau von Rechtsnormen</strong>: "Wenn-Dann"-Struktur</p>
+                <ul>
+                    <li>Tatbestand ("Wenn..."): Voraussetzungen</li>
+                    <li>Rechtsfolge ("Dann..."): Rechtliche Konsequenzen</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Normenanalyse § 929 S. 1 BGB</h4>
+                    <p>Tatbestandsmerkmale:</p>
+                    <ol>
+                        <li>Bewegliche Sache</li>
+                        <li>Einigung zwischen Eigentümer und Erwerber</li>
+                        <li>Übergabe</li>
+                    </ol>
+                    <p>Rechtsfolge: Eigentumsübertragung</p>
+                </div>
+                
+                <h4>2.2 Subsumtion</h4>
+                <p><strong>Definition</strong>: Anwendung einer Norm auf einen konkreten Sachverhalt</p>
+                <p><strong>Vorgehensweise</strong>: Prüfung, ob der Sachverhalt alle Tatbestandsmerkmale erfüllt</p>
+                <p><strong>Syllogismus</strong>: Obersatz (Norm) - Untersatz (Sachverhalt) - Schlusssatz (Ergebnis)</p>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Subsumtion</h4>
+                    <p><strong>Norm</strong> (§ 929 BGB): Zur Eigentumsübertragung einer beweglichen Sache ist die Einigung und Übergabe erforderlich</p>
+                    <p><strong>Sachverhalt</strong>: A übergibt B sein Fahrrad und sie einigen sich, dass B Eigentümer werden soll</p>
+                    <p><strong>Subsumtion</strong>: Es handelt sich um eine bewegliche Sache (Fahrrad), A und B haben sich geeinigt, A hat B das Fahrrad übergeben</p>
+                    <p><strong>Ergebnis</strong>: B ist Eigentümer des Fahrrads geworden</p>
+                </div>
+                
+                <h4>2.3 Gutachtenstil</h4>
+                <p><strong>Definition</strong>: Standardisierte juristische Prüfungsweise</p>
+                <p><strong>Zweck</strong>: Nachvollziehbare und strukturierte Darstellung der rechtlichen Prüfung</p>
+                <p><strong>Vier Schritte</strong>:</p>
+                
+                <ol>
+                    <li><strong>Obersatz</strong>: Formulierung der zu prüfenden Rechtsfrage
+                        <ul><li>"A könnte einen Anspruch gegen B auf ... aus § ... haben."</li></ul>
+                    </li>
+                    <li><strong>Definition</strong>: Darstellung der Tatbestandsmerkmale
+                        <ul>
+                            <li>"Dies setzt voraus, dass..."</li>
+                            <li>"Unter ... versteht man..."</li>
+                        </ul>
+                    </li>
+                    <li><strong>Subsumtion</strong>: Anwendung auf den konkreten Sachverhalt
+                        <ul>
+                            <li>"Im vorliegenden Fall..."</li>
+                            <li>"A hat..., indem er..."</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ergebnis</strong>: Beantwortung der Ausgangsfrage
+                        <ul><li>"Somit hat A einen Anspruch gegen B."</li></ul>
+                    </li>
+                </ol>
+                
+                <div class="highlight-box">
+                    <h4>Beispiel Gutachtenstil</h4>
+                    <div class="code-block">
+A könnte gegen B einen Anspruch auf Schadensersatz aus § 823 Abs. 1 BGB haben.
+
+Dies setzt voraus, dass B vorsätzlich oder fahrlässig das Eigentum des A widerrechtlich verletzt hat.
+
+Eigentum ist das umfassende Herrschaftsrecht an einer Sache. A ist Eigentümer seines Fahrrads.
+
+B hat das Fahrrad des A beschädigt, indem er beim Einparken dagegen gefahren ist. Dadurch hat er das Eigentum des A verletzt.
+
+Die Verletzung erfolgte auch widerrechtlich, da keine Rechtfertigungsgründe ersichtlich sind.
+
+B hat fahrlässig gehandelt, da er die im Verkehr erforderliche Sorgfalt außer Acht gelassen hat, indem er nicht sorgfältig genug beim Einparken war.
+
+Durch die Beschädigung ist A ein Schaden in Höhe von 200€ für die Reparatur entstanden.
+
+Somit hat A gegen B einen Anspruch auf Schadensersatz in Höhe von 200€ aus § 823 Abs. 1 BGB.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <h3 class="section-title">Schadensersatzansprüche (insbesondere § 823 BGB)</h3>
+                </div>
+                
+                <h4>3.1 Überblick Schadensersatzrecht</h4>
+                <ul>
+                    <li><strong>Vertraglicher Schadensersatz</strong>: Aus Vertragsverletzung (§§ 280 ff. BGB)</li>
+                    <li><strong>Deliktischer Schadensersatz</strong>: Aus unerlaubter Handlung (§§ 823 ff. BGB)</li>
+                    <li><strong>Unterschied</strong>: Vertraglicher Schadensersatz setzt Vertragsverhältnis voraus, deliktischer nicht</li>
+                </ul>
+                
+                <h4>3.2 § 823 Abs. 1 BGB - Deliktischer Schadensersatz</h4>
+                
+                <div class="highlight-box">
+                    <h4>Gesetzestext</h4>
+                    <p>"Wer vorsätzlich oder fahrlässig das Leben, den Körper, die Gesundheit, die Freiheit, das Eigentum oder ein sonstiges Recht eines anderen widerrechtlich verletzt, ist dem anderen zum Ersatz des daraus entstehenden Schadens verpflichtet."</p>
+                </div>
+                
+                <p><strong>Tatbestandsmerkmale</strong>:</p>
+                
+                <ol>
+                    <li><strong>Verletzungshandlung</strong>:
+                        <ul>
+                            <li>Aktives Tun oder pflichtwidriges Unterlassen</li>
+                            <li>Beispiel: Autofahrer fährt gegen einen geparkten Wagen</li>
+                        </ul>
+                    </li>
+                    <li><strong>Rechts(gut)verletzung</strong>:
+                        <ul>
+                            <li>Leben, Körper, Gesundheit, Freiheit, Eigentum oder sonstiges Recht</li>
+                            <li>Beispiel: Beschädigung eines Autos = Eigentumsverletzung</li>
+                        </ul>
+                    </li>
+                    <li><strong>Haftungsbegründende Kausalität</strong>:
+                        <ul>
+                            <li>Ursächlicher Zusammenhang zwischen Handlung und Rechtsverletzung</li>
+                            <li>"Conditio-sine-qua-non-Formel": Wäre der Schaden ohne die Handlung ausgeblieben?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Widerrechtlichkeit</strong>:
+                        <ul>
+                            <li>Fehlen von Rechtfertigungsgründen (z.B. Notwehr, Einwilligung)</li>
+                            <li>Wird bei Rechtsgutsverletzung vermutet</li>
+                        </ul>
+                    </li>
+                    <li><strong>Verschulden</strong>:
+                        <ul>
+                            <li>Vorsatz: Wissen und Wollen der Tat</li>
+                            <li>Fahrlässigkeit: Außerachtlassen der im Verkehr erforderlichen Sorgfalt (§ 276 II BGB)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Schaden</strong>:
+                        <ul>
+                            <li>Vermögensschaden (Reparaturkosten, Wertminderung)</li>
+                            <li>Ggf. auch immaterieller Schaden (Schmerzensgeld, § 253 BGB)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Haftungsausfüllende Kausalität</strong>:
+                        <ul>
+                            <li>Ursächlicher Zusammenhang zwischen Rechtsverletzung und Schaden</li>
+                            <li>Adäquanztheorie: Schaden liegt nicht außerhalb der Lebenserfahrung</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel: Umweltaktivisten</h4>
+                    <p>Umweltaktivisten kleben sich an den Rahmen eines Gemäldes in einer Galerie. Der Rahmen wird beschädigt, Restaurierungskosten: 4.000€, Einnahmeverlust durch Schließung: 7.000€.</p>
+                    
+                    <h5>Prüfung im Gutachtenstil:</h5>
+                    <div class="code-block">
+Die Galerie könnte gegen die Aktivisten einen Anspruch auf Schadensersatz in Höhe von 11.000€ aus § 823 Abs. 1 BGB haben.
+
+Dies setzt voraus, dass die Aktivisten vorsätzlich oder fahrlässig das Eigentum der Galerie widerrechtlich verletzt haben.
+
+Die Aktivisten haben sich an den Rahmen des Gemäldes geklebt. Dies stellt eine Verletzungshandlung durch aktives Tun dar.
+
+Der Rahmen des Gemäldes ist Eigentum der Galerie. Durch das Festkleben wurde der Rahmen beschädigt, die Patinierung wurde zerstört. Somit liegt eine Eigentumsverletzung vor.
+
+Die Beschädigung des Rahmens wurde direkt durch das Festkleben verursacht. Die haftungsbegründende Kausalität ist gegeben.
+
+Die Handlung war auch widerrechtlich, da keine Rechtfertigungsgründe ersichtlich sind. Insbesondere liegt keine Einwilligung der Galerie vor und auch kein Notstand.
+
+Die Aktivisten handelten vorsätzlich, da sie sich bewusst an den Rahmen klebten und dabei zumindest billigend in Kauf nahmen, dass der Rahmen beschädigt werden könnte.
+
+Der Galerie ist ein Schaden in Höhe von 4.000€ für die Restaurierung entstanden. Zudem besteht ein Einnahmeverlust von 7.000€ durch die notwendige Schließung.
+
+Zwischen der Eigentumsverletzung und dem entstandenen Schaden besteht ein adäquater Kausalzusammenhang. Die Restaurierungskosten und der Einnahmeverlust sind typische Folgen einer solchen Beschädigung.
+
+Somit hat die Galerie gegen die Aktivisten einen Anspruch auf Schadensersatz in Höhe von 11.000€ aus § 823 Abs. 1 BGB.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <h3 class="section-title">Abstraktionsprinzip beim Kaufvertrag</h3>
+                </div>
+                
+                <h4>4.1 Das Trennungsprinzip</h4>
+                <p><strong>Definition</strong>: Rechtliche Trennung zwischen Verpflichtungs- und Verfügungsgeschäft</p>
+                <ul>
+                    <li><strong>Verpflichtungsgeschäft</strong>: Begründet Pflichten (z.B. Kaufvertrag)</li>
+                    <li><strong>Verfügungsgeschäft</strong>: Bewirkt unmittelbare Rechtsänderung (z.B. Eigentumsübertragung)</li>
+                </ul>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel Kaufhandlung</h4>
+                    <p><strong>Verpflichtungsgeschäft</strong>: Kaufvertrag (§ 433 BGB) - Verkäufer verpflichtet sich zur Übergabe und Eigentumsübertragung, Käufer zur Zahlung</p>
+                    <p><strong>Verfügungsgeschäfte</strong>:</p>
+                    <ol>
+                        <li>Eigentumsübertragung an der Sache (§ 929 BGB)</li>
+                        <li>Eigentumsübertragung am Geld</li>
+                    </ol>
+                </div>
+                
+                <h4>4.2 Das Abstraktionsprinzip</h4>
+                <p><strong>Definition</strong>: Rechtliche Unabhängigkeit zwischen Verpflichtungs- und Verfügungsgeschäft</p>
+                <p><strong>Wirkung</strong>: Unwirksamkeit des einen Geschäfts führt nicht automatisch zur Unwirksamkeit des anderen</p>
+                <p><strong>Konsequenz</strong>: Eigentum kann übergehen, auch wenn Kaufvertrag unwirksam ist</p>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel</h4>
+                    <p>A verkauft B sein Fahrrad für 200€. Der Kaufvertrag ist wegen Minderjährigkeit des A ohne Einwilligung der Eltern unwirksam (§ 107 BGB). Trotzdem übergibt A das Fahrrad an B und sie einigen sich über den Eigentumsübergang.</p>
+                    <ul>
+                        <li><strong>Kaufvertrag</strong> (Verpflichtungsgeschäft): Unwirksam wegen § 107 BGB</li>
+                        <li><strong>Eigentumsübertragung</strong> (Verfügungsgeschäft): Wirksam, wenn A und B sich einig sind und das Fahrrad übergeben wurde</li>
+                        <li><strong>Konsequenz</strong>: B wird Eigentümer des Fahrrads, A hat aber einen Bereicherungsanspruch (§ 812 BGB)</li>
+                    </ul>
+                </div>
+                
+                <h4>4.3 Vorteile des Abstraktionsprinzips</h4>
+                <ul>
+                    <li><strong>Rechtssicherheit</strong>: Schützt den gutgläubigen Rechtsverkehr</li>
+                    <li><strong>Effizienz</strong>: Vereinfacht Massenumsätze wie Bargeschäfte</li>
+                    <li><strong>Flexibilität</strong>: Erlaubt verschiedene Kombinationen von Rechtsgeschäften</li>
+                    <li><strong>Rechtsklarheit</strong>: Klare Zuordnung von Rechten und Pflichten</li>
+                </ul>
+                
+                <h4>4.4 Konkrete Anwendung beim Kaufvertrag</h4>
+                
+                <div class="highlight-box">
+                    <h4>Verpflichtungsgeschäft (Kaufvertrag, § 433 BGB)</h4>
+                    <p><strong>Verkäufer schuldet</strong>:</p>
+                    <ul>
+                        <li>Übergabe der Sache</li>
+                        <li>Verschaffung des Eigentums</li>
+                        <li>Mangelfreiheit der Sache</li>
+                    </ul>
+                    <p><strong>Käufer schuldet</strong>:</p>
+                    <ul>
+                        <li>Zahlung des Kaufpreises</li>
+                        <li>Abnahme der Sache</li>
+                    </ul>
+                    
+                    <h4>Verfügungsgeschäft (Eigentumsübertragung, § 929 BGB)</h4>
+                    <p><strong>Erfordert</strong>:</p>
+                    <ul>
+                        <li>Einigung über Eigentumsübergang (zwei Willenserklärungen: Antrag und Annahme)</li>
+                        <li>Übergabe der Sache (Realakt)</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box example">
+                    <h4>Beispiel eines vollständigen Kaufs</h4>
+                    <ol>
+                        <li>A und B schließen Kaufvertrag über ein Buch für 20€ (§ 433 BGB)</li>
+                        <li>A übergibt B das Buch und sie einigen sich über den Eigentumsübergang (§ 929 BGB)</li>
+                        <li>B übergibt A 20€ und sie einigen sich über den Eigentumsübergang am Geld (§ 929 BGB)</li>
+                    </ol>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>Rechtsfolge bei Mängeln</h4>
+                    <ul>
+                        <li><strong>Mangel im Kaufvertrag</strong>: Käufer hat Gewährleistungsrechte (§§ 437 ff. BGB)</li>
+                        <li><strong>Mangel bei der Eigentumsübertragung</strong>: Eigentum ist nicht übergegangen</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <section id="formulierungen">
+            <h2>Wichtige Formulierungen für die Klausur</h2>
+            
+            <div class="section">
+                <h3>Wirtschaft</h3>
+                <ul>
+                    <li>"Die nachfrageorientierte Wirtschaftspolitik nach Keynes setzt auf staatliche Eingriffe, um..."</li>
+                    <li>"Im Gegensatz dazu vertraut die angebotsorientierte Wirtschaftspolitik auf die Selbstregulierungskräfte des Marktes, indem..."</li>
+                    <li>"Die Schuldenbremse im Grundgesetz begrenzt die Neuverschuldung des Bundes auf..."</li>
+                    <li>"Bei Tarifverhandlungen stehen sich die Interessen der Arbeitnehmer und Arbeitgeber gegenüber, wobei..."</li>
+                    <li>"Der demografische Wandel stellt die umlagefinanzierten Sozialversicherungen vor Herausforderungen, weil..."</li>
+                </ul>
+                
+                <h3>Recht</h3>
+                <ul>
+                    <li>"Das BGB ist in fünf Bücher gegliedert, nämlich..."</li>
+                    <li>"Nach dem Trennungsprinzip wird bei einem Kauf zwischen dem Verpflichtungsgeschäft und dem Verfügungsgeschäft unterschieden."</li>
+                    <li>"Die Normenanalyse des § 823 I BGB ergibt folgende Tatbestandsmerkmale: ..."</li>
+                    <li>"Im vorliegenden Fall könnte A gegen B einen Anspruch auf Schadensersatz aus § 823 I BGB haben."</li>
+                    <li>"Dies setzt voraus, dass B vorsätzlich oder fahrlässig das Eigentum des A widerrechtlich verletzt hat."</li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="footer">
+            <p>Viel Erfolg bei der Klausur!</p>
+            <p>© 2025 - Lernübersicht: Wirtschaft & Recht</p>
+        </div>
+    </div>
+    
+    <script>
+        // Sticky Navigation Highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
