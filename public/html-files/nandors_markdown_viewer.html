@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nándor's Markdown Reader</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <style>
+        :root {
+            /* Light theme */
+            --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f8fafc;
+            --bg-accent: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-accent: #2d3748;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-light: 0 4px 6px rgba(0,0,0,0.05);
+            --accent-color: #667eea;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+        }
+
+        [data-theme="sepia"] {
+            --bg-primary: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            --bg-secondary: #f4f1ea;
+            --bg-tertiary: #ede6d3;
+            --bg-accent: #e6dcc6;
+            --text-primary: #3c2e1f;
+            --text-secondary: #5d4e37;
+            --text-accent: #4a3728;
+            --border-color: #d4c4a8;
+            --shadow: 0 10px 25px rgba(60,46,31,0.1);
+            --shadow-light: 0 4px 6px rgba(60,46,31,0.05);
+            --accent-color: #8b4513;
+            --success-color: #6b8e23;
+            --warning-color: #daa520;
+            --error-color: #cd5c5c;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-secondary: #1a202c;
+            --bg-tertiary: #2d3748;
+            --bg-accent: #4a5568;
+            --text-primary: #f7fafc;
+            --text-secondary: #cbd5e0;
+            --text-accent: #e2e8f0;
+            --border-color: #4a5568;
+            --shadow: 0 10px 25px rgba(0,0,0,0.3);
+            --shadow-light: 0 4px 6px rgba(0,0,0,0.2);
+            --accent-color: #9f7aea;
+            --success-color: #68d391;
+            --warning-color: #fbb937;
+            --error-color: #fc8181;
+        }
+
+        [data-theme="midnight"] {
+            --bg-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            --bg-secondary: #000000;
+            --bg-tertiary: #0d0d0d;
+            --bg-accent: #2e2e2e;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-accent: #f0f0f0;
+            --border-color: #333333;
+            --shadow: 0 10px 25px rgba(255,255,255,0.1);
+            --shadow-light: 0 4px 6px rgba(255,255,255,0.05);
+            --accent-color: #ffffff;
+            --success-color: #ffffff;
+            --warning-color: #ffffff;
+            --error-color: #ffffff;
+        }
+
+        /* Midnight theme text fixes */
+        [data-theme="midnight"] .output code {
+            background: var(--accent-color);
+            color: #000000 !important;
+        }
+
+        [data-theme="midnight"] .btn {
+            background: var(--accent-color);
+            color: #000000 !important;
+        }
+
+        [data-theme="midnight"] .theme-option.active {
+            background: var(--accent-color);
+            color: #000000 !important;
+        }
+
+        [data-theme="midnight"] .stat-number {
+            color: var(--accent-color);
+        }
+
+        [data-theme="midnight"] .scroll-up-btn {
+            background: var(--accent-color);
+            color: #000000 !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas: 
+                "header header"
+                "sidebar content";
+            height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .app-container.mobile {
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                "header"
+                "content";
+        }
+
+        .header {
+            grid-area: header;
+            background: var(--bg-primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--bg-tertiary);
+            border-right: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 120px);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+            position: absolute;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        .controls-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .word-count {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .control-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .control-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn.btn-secondary {
+            background: var(--bg-accent);
+            color: var(--text-primary);
+        }
+
+        .btn.btn-success {
+            background: var(--success-color);
+        }
+
+        .btn.btn-warning {
+            background: var(--warning-color);
+        }
+
+        .input-section {
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .markdown-input {
+            width: 100%;
+            flex: 1;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            resize: none;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .markdown-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        .content-area {
+            grid-area: content;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .content-header {
+            padding: 1rem 2rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reading-progress {
+            flex-grow: 1;
+            height: 4px;
+            background: var(--bg-accent);
+            border-radius: 2px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            position: relative;
+            scroll-behavior: smooth;
+            max-height: calc(100vh - 150px);
+        }
+
+        .toc {
+            position: fixed;
+            right: 2rem;
+            top: 47%;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            max-height: 60vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            width: 250px;
+        }
+
+        .toc.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .toc-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .toc-item {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .toc-item:hover,
+        .toc-item.active {
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+            background: var(--bg-tertiary);
+        }
+
+        .toc-item.level-2 { padding-left: 1.5rem; }
+        .toc-item.level-3 { padding-left: 2.25rem; }
+        .toc-item.level-4 { padding-left: 3rem; }
+
+        /* FIXED Scroll Up Button */
+        .scroll-up-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9999;
+            box-shadow: var(--shadow);
+        }
+
+        .scroll-up-btn.visible {
+            opacity: 0.8;
+            visibility: visible;
+        }
+
+        .scroll-up-btn:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Focus Mode */
+        .app-container.focus-mode .sidebar {
+            transform: translateX(-100%);
+        }
+
+        .app-container.focus-mode {
+            grid-template-columns: 1fr;
+        }
+
+        /* Fullscreen Mode */
+        .content:fullscreen {
+            background: var(--bg-secondary);
+            padding: 3rem 4rem;
+            overflow-y: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 280px 1fr;
+            }
+            
+            .content {
+                padding: 1.5rem 2rem;
+            }
+            
+            .toc {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "header"
+                    "content";
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                width: 320px;
+                z-index: 1000;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 1.25rem;
+            }
+
+            .scroll-up-btn {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Theme Selector */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .theme-option {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .theme-option:hover {
+            border-color: var(--accent-color);
+        }
+
+        .theme-option.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* Export Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* Enhanced Markdown Styles */
+        .output h1 {
+            font-size: 3rem;
+            color: var(--text-primary);
+            margin: 3rem 0 2rem 0;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .output h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .output h2 {
+            font-size: 2.25rem;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1.5rem 0;
+            font-weight: 600;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .output h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .output h3 {
+            font-size: 1.875rem;
+            color: var(--text-accent);
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .output h4 {
+            font-size: 1.5rem;
+            color: var(--text-accent);
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .output h5 {
+            font-size: 1.25rem;
+            color: var(--text-accent);
+            margin: 1.25rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        .output h6 {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .output p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .output blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            position: relative;
+        }
+
+        .output blockquote::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent-color);
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            opacity: 0.3;
+        }
+
+        .output code {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .output pre {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .output pre code {
+            background: none;
+            color: var(--text-primary);
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .output ul, .output ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .output li {
+            margin: 0.75rem 0;
+            line-height: 1.7;
+        }
+
+        .output table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .output th, .output td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .output th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .output tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .output hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+            margin: 3rem 0;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="app-container" id="appContainer">
+        <header class="header">
+            <div class="header-content">
+                <button class="mobile-toggle" id="mobileToggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="title">Nándor's Markdown Reader</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn btn-secondary" onclick="toggleFocusMode()" title="Focus Mode">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleFullscreen()" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="toggleTOC()" title="Table of Contents">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="controls-section">
+                <h3 class="section-title">Reading Settings</h3>
+                
+                <div class="control-group">
+                    <label class="control-label">Theme</label>
+                    <div class="theme-grid">
+                        <div class="theme-option active" data-theme="light">Light</div>
+                        <div class="theme-option" data-theme="sepia">Sepia</div>
+                        <div class="theme-option" data-theme="dark">Dark</div>
+                        <div class="theme-option" data-theme="midnight">Midnight</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="fontSize">Font Size</label>
+                    <select class="control-input" id="fontSize" onchange="changeFontSize()">
+                        <option value="0.75">Tiny</option>
+                        <option value="0.875">Small</option>
+                        <option value="1" selected>Medium</option>
+                        <option value="1.25">Large</option>
+                        <option value="1.5">X-Large</option>
+                        <option value="1.75">XX-Large</option>
+                        <option value="2">Huge</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="lineHeight">Line Height</label>
+                    <select class="control-input" id="lineHeight" onchange="changeLineHeight()">
+                        <option value="1.2">Tight</option>
+                        <option value="1.4">Compact</option>
+                        <option value="1.6">Normal</option>
+                        <option value="1.8" selected>Comfortable</option>
+                        <option value="2.2">Spacious</option>
+                        <option value="2.6">Very Spacious</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="fontFamily">Font Family</label>
+                    <select class="control-input" id="fontFamily" onchange="changeFontFamily()">
+                        <option value="Inter">Inter (Sans)</option>
+                        <option value="Georgia">Georgia (Serif)</option>
+                        <option value="Times">Times (Serif)</option>
+                        <option value="Monaco">Monaco (Mono)</option>
+                        <option value="system">System Font</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="exportContent()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearContent()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadSample()">
+                        <i class="fas fa-file-alt"></i> Sample
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title" id="inputSectionTitle">Markdown Input</h3>
+                <textarea 
+                    class="markdown-input" 
+                    id="markdownInput"
+                    placeholder="# Welcome to Enhanced Markdown Reader
+
+Paste your markdown content here and watch it transform into a beautiful reading experience!
+
+## Features ✨
+
+- **Modern Design**: Clean, professional interface
+- **Multiple Themes**: Light, Sepia, Dark, Midnight
+- **Table of Contents**: Auto-generated from headings
+- **Reading Progress**: Visual progress tracking
+- **Focus Mode**: Distraction-free reading
+- **Export Options**: PDF, HTML, and more
+- **Syntax Highlighting**: Beautiful code blocks
+- **Responsive Design**: Works on all devices
+
+## Supported Markdown
+
+### Text Formatting
+- **Bold text** with `**text**`
+- *Italic text* with `*text*`
+- `Inline code` with backticks
+
+### Lists
+1. Numbered lists
+2. Work great
+   - With nested items
+   - Sub-bullets
+
+### Code Blocks
+
+```javascript
+function hello() {
+    console.log('Hello, World!');
+}
+```
+
+### Tables
+
+| Feature | Status |
+|---------|--------|
+| Themes | ✅ |
+| TOC | ✅ |
+| Export | ✅ |
+
+---
+
+> This is a blockquote. Perfect for highlighting important information or quotes from sources.
+
+Start writing your content above to see it rendered beautifully!"
+                ></textarea>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div class="content-header">
+                <span id="readingStatus">Ready to read</span>
+                <div class="reading-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <span id="scrollPercent">0%</span>
+            </div>
+            
+            <div class="content" id="content">
+                <div class="output fade-in" id="output">
+                    <!-- Content will be rendered here -->
+                </div>
+            </div>
+        </main>
+
+        <nav class="toc" id="toc">
+            <div class="toc-title">Table of Contents</div>
+            <div id="tocContent"></div>
+        </nav>
+
+        <!-- FIXED Scroll Up Button - NO onclick attribute -->
+        <button class="scroll-up-btn" id="scrollUpBtn" title="Scroll to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <h3>Export Options</h3>
+            <div class="button-group" style="grid-template-columns: 1fr; margin-top: 1rem;">
+                <button class="btn" onclick="exportHTML()">
+                    <i class="fas fa-code"></i> Export as HTML
+                </button>
+                <button class="btn" onclick="exportMarkdown()">
+                    <i class="fab fa-markdown"></i> Export as Markdown
+                </button>
+                <button class="btn" onclick="exportText()">
+                    <i class="fas fa-file-text"></i> Export as Text
+                </button>
+            </div>
+            <button class="btn btn-secondary" onclick="closeModal()" style="margin-top: 1rem; width: 100%;">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let isFullscreen = false;
+        let isFocusMode = false;
+        let isTOCVisible = false;
+        let isMobileMenuOpen = false;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            setupThemeSelector();
+            loadSavedContent();
+            convertMarkdown();
+            setupScrollTracking();
+            setupKeyboardShortcuts();
+            setupScrollUpButton();
+            setupTOCClickOutside();
+        });
+
+        // FIXED: Setup scroll up button with proper event listener
+        function setupScrollUpButton() {
+            const scrollUpBtn = document.getElementById('scrollUpBtn');
+            if (scrollUpBtn) {
+                // Remove any existing onclick attribute
+                scrollUpBtn.removeAttribute('onclick');
+                
+                // Add proper event listener
+                scrollUpBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Scroll button clicked!'); // Debug
+                    
+                    const content = document.getElementById('content');
+                    if (content) {
+                        console.log('Current scroll position:', content.scrollTop); // Debug
+                        
+                        // Multiple methods for maximum compatibility
+                        content.scrollTop = 0;
+                        
+                        // Also try smooth scroll
+                        content.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        console.error('Content element not found!');
+                    }
+                });
+            }
+            
+            updateScrollUpButton();
+        }
+
+        // Setup TOC click outside to close
+        function setupTOCClickOutside() {
+            document.addEventListener('click', function(e) {
+                const toc = document.getElementById('toc');
+                const tocToggleBtn = document.querySelector('[onclick="toggleTOC()"]');
+                
+                // Check if TOC is visible and click is outside TOC and toggle button
+                if (isTOCVisible && 
+                    !toc.contains(e.target) && 
+                    !tocToggleBtn.contains(e.target)) {
+                    toggleTOC();
+                }
+            });
+        }
+
+        // Theme handling
+        function setupThemeSelector() {
+            const themeOptions = document.querySelectorAll('.theme-option');
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove active class from all options
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    // Add active class to clicked option
+                    option.classList.add('active');
+                    // Apply theme
+                    const theme = option.dataset.theme;
+                    document.body.setAttribute('data-theme', theme);
+                    localStorage.setItem('selectedTheme', theme);
+                });
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('selectedTheme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.querySelector(`[data-theme="${savedTheme}"]`).classList.add('active');
+        }
+
+        // Enhanced markdown conversion with syntax highlighting - optimized for large documents
+        function convertMarkdown() {
+            const input = document.getElementById('markdownInput').value;
+            const output = document.getElementById('output');
+            
+            updateStats(input);
+            
+            if (!input.trim()) {
+                output.innerHTML = `
+                    <h1>📖 Start Writing</h1>
+                    <p>Enter your markdown content in the sidebar to see it rendered here in beautiful typography.</p>
+                `;
+                updateTOC();
+                return;
+            }
+            
+            // Configure marked for optimal performance - no limits
+            marked.setOptions({
+                highlight: function(code, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                        try {
+                            return hljs.highlight(code, { language: lang }).value;
+                        } catch (e) {
+                            return hljs.highlightAuto(code).value;
+                        }
+                    }
+                    return hljs.highlightAuto(code).value;
+                },
+                breaks: true,
+                gfm: true,
+                sanitize: false,
+                smartLists: true,
+                smartypants: false,
+                xhtml: false,
+                pedantic: false,
+                silent: false // Don't suppress warnings
+            });
+            
+            try {
+                // Parse markdown without any size restrictions
+                const html = marked.parse(input);
+                output.innerHTML = html;
+                
+                // Add fade-in animation to new content
+                output.classList.remove('fade-in');
+                setTimeout(() => output.classList.add('fade-in'), 10);
+                
+                updateTOC();
+                saveContent();
+                updateReadingStatus();
+            } catch (error) {
+                console.error('Markdown parsing error:', error);
+                output.innerHTML = `
+                    <h1>⚠️ Parsing Error</h1>
+                    <p>There was an error parsing your markdown document.</p>
+                    <details>
+                        <summary>Error Details</summary>
+                        <pre><code>${error.message}</code></pre>
+                    </details>
+                    <p><strong>Document size:</strong> ${input.length.toLocaleString()} characters</p>
+                `;
+            }
+        }
+
+        // Statistics tracking - now updates the section title
+        function updateStats(text) {
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const titleElement = document.getElementById('inputSectionTitle');
+            
+            if (words === 0) {
+                titleElement.innerHTML = 'Markdown Input';
+            } else {
+                titleElement.innerHTML = `Markdown Input <span class="word-count">- ${words} words</span>`;
+            }
+        }
+
+        // Table of Contents generation
+        function updateTOC() {
+            const output = document.getElementById('output');
+            const tocContent = document.getElementById('tocContent');
+            const headings = output.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            
+            if (headings.length === 0) {
+                tocContent.innerHTML = '<p style="color: var(--text-secondary); font-size: 0.875rem;">No headings found</p>';
+                return;
+            }
+            
+            let tocHTML = '';
+            headings.forEach((heading, index) => {
+                const level = heading.tagName.toLowerCase();
+                const text = heading.textContent;
+                const id = `heading-${index}`;
+                heading.id = id;
+                
+                tocHTML += `<a href="#${id}" class="toc-item level-${level.charAt(1)}" onclick="scrollToHeading('${id}')">${text}</a>`;
+            });
+            
+            tocContent.innerHTML = tocHTML;
+        }
+
+        // Smooth scrolling to headings
+        function scrollToHeading(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Scroll progress tracking
+        function setupScrollTracking() {
+            const content = document.getElementById('content');
+            const progressBar = document.getElementById('progressBar');
+            const scrollPercent = document.getElementById('scrollPercent');
+            
+            content.addEventListener('scroll', () => {
+                const scrollTop = content.scrollTop;
+                const scrollHeight = content.scrollHeight - content.clientHeight;
+                const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                
+                progressBar.style.width = `${Math.min(progress, 100)}%`;
+                scrollPercent.textContent = `${Math.round(progress)}%`;
+                
+                updateActiveHeading(scrollTop);
+                updateScrollUpButton();
+            });
+        }
+
+        // FIXED: Update scroll up button visibility
+        function updateScrollUpButton() {
+            const scrollUpBtn = document.getElementById('scrollUpBtn');
+            const content = document.getElementById('content');
+            
+            if (!scrollUpBtn || !content) return;
+            
+            const scrollTop = content.scrollTop;
+            
+            // Show button when scrolled down more than 100px
+            if (scrollTop > 100) {
+                scrollUpBtn.classList.add('visible');
+            } else {
+                scrollUpBtn.classList.remove('visible');
+            }
+        }
+
+        // Update active heading in TOC
+        function updateActiveHeading(scrollTop) {
+            const headings = document.getElementById('output').querySelectorAll('h1, h2, h3, h4, h5, h6');
+            const tocItems = document.querySelectorAll('.toc-item');
+            
+            let activeIndex = 0;
+            headings.forEach((heading, index) => {
+                if (heading.offsetTop <= scrollTop + 100) {
+                    activeIndex = index;
+                }
+            });
+            
+            tocItems.forEach((item, index) => {
+                item.classList.toggle('active', index === activeIndex);
+            });
+            
+            // If TOC is open, scroll to the newly active item
+            if (isTOCVisible && tocItems[activeIndex]) {
+                const toc = document.getElementById('toc');
+                const activeItem = tocItems[activeIndex];
+                
+                // Check if the active item is visible in the TOC viewport
+                const tocRect = toc.getBoundingClientRect();
+                const itemRect = activeItem.getBoundingClientRect();
+                
+                const isItemVisible = (
+                    itemRect.top >= tocRect.top &&
+                    itemRect.bottom <= tocRect.bottom
+                );
+                
+                // Only scroll if the item is not visible
+                if (!isItemVisible) {
+                    activeItem.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center',
+                        inline: 'nearest'
+                    });
+                }
+            }
+        }
+
+        // Reading status updates
+        function updateReadingStatus() {
+            const content = document.getElementById('markdownInput').value;
+            const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+            const status = document.getElementById('readingStatus');
+            
+            if (words === 0) {
+                status.textContent = 'Ready to read';
+            } else if (words < 100) {
+                status.textContent = 'Quick read';
+            } else if (words < 500) {
+                status.textContent = 'Short article';
+            } else if (words < 1500) {
+                status.textContent = 'Medium article';
+            } else {
+                status.textContent = 'Long article';
+            }
+        }
+
+        // Font and typography controls
+        function changeFontSize() {
+            const size = document.getElementById('fontSize').value;
+            document.getElementById('output').style.fontSize = `${size}rem`;
+            localStorage.setItem('fontSize', size);
+        }
+
+        function changeLineHeight() {
+            const height = document.getElementById('lineHeight').value;
+            document.getElementById('output').style.lineHeight = height;
+            localStorage.setItem('lineHeight', height);
+        }
+
+        function changeFontFamily() {
+            const family = document.getElementById('fontFamily').value;
+            let fontStack;
+            
+            switch(family) {
+                case 'Georgia':
+                    fontStack = 'Georgia, Times, serif';
+                    break;
+                case 'Times':
+                    fontStack = 'Times New Roman, Times, serif';
+                    break;
+                case 'Monaco':
+                    fontStack = 'Monaco, Menlo, monospace';
+                    break;
+                case 'system':
+                    fontStack = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+                    break;
+                default:
+                    fontStack = 'Inter, -apple-system, BlinkMacSystemFont, sans-serif';
+            }
+            
+            document.getElementById('output').style.fontFamily = fontStack;
+            localStorage.setItem('fontFamily', family);
+        }
+
+        // UI Mode toggles
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const container = document.getElementById('appContainer');
+            
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('visible');
+                isMobileMenuOpen = !isMobileMenuOpen;
+            }
+        }
+
+        function toggleFocusMode() {
+            const container = document.getElementById('appContainer');
+            container.classList.toggle('focus-mode');
+            isFocusMode = !isFocusMode;
+            
+            if (isFocusMode && isTOCVisible) {
+                toggleTOC();
+            }
+        }
+
+        function toggleFullscreen() {
+            const content = document.getElementById('content');
+            
+            if (!isFullscreen) {
+                if (content.requestFullscreen) {
+                    content.requestFullscreen();
+                } else if (content.webkitRequestFullscreen) {
+                    content.webkitRequestFullscreen();
+                } else if (content.msRequestFullscreen) {
+                    content.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function toggleTOC() {
+            const toc = document.getElementById('toc');
+            toc.classList.toggle('visible');
+            isTOCVisible = !isTOCVisible;
+            
+            // When opening TOC, scroll to the active item
+            if (isTOCVisible) {
+                setTimeout(() => {
+                    const activeItem = toc.querySelector('.toc-item.active');
+                    if (activeItem) {
+                        activeItem.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }
+                }, 100); // Small delay to ensure TOC is visible
+            }
+        }
+
+        // Content management
+        function clearContent() {
+            if (confirm('Are you sure you want to clear all content?')) {
+                document.getElementById('markdownInput').value = '';
+                convertMarkdown();
+                localStorage.removeItem('markdownContent');
+            }
+        }
+
+        function loadSample() {
+            const sampleContent = document.getElementById('markdownInput').placeholder;
+            document.getElementById('markdownInput').value = sampleContent;
+            convertMarkdown();
+        }
+
+        function saveContent() {
+            const content = document.getElementById('markdownInput').value;
+            try {
+                // Save without size restrictions (localStorage limit is ~5-10MB in most browsers)
+                localStorage.setItem('markdownContent', content);
+                console.log(`Content saved: ${content.length.toLocaleString()} characters`);
+            } catch (error) {
+                console.warn('Failed to save content to localStorage:', error);
+                // Could implement alternative storage here if needed
+            }
+        }
+
+        function loadSavedContent() {
+            const saved = localStorage.getItem('markdownContent');
+            const savedFontSize = localStorage.getItem('fontSize');
+            const savedLineHeight = localStorage.getItem('lineHeight');
+            const savedFontFamily = localStorage.getItem('fontFamily');
+            
+            if (saved) {
+                document.getElementById('markdownInput').value = saved;
+            }
+            
+            if (savedFontSize) {
+                document.getElementById('fontSize').value = savedFontSize;
+                changeFontSize();
+            }
+            
+            if (savedLineHeight) {
+                document.getElementById('lineHeight').value = savedLineHeight;
+                changeLineHeight();
+            }
+            
+            if (savedFontFamily) {
+                document.getElementById('fontFamily').value = savedFontFamily;
+                changeFontFamily();
+            }
+        }
+
+        // Export functionality
+        function exportContent() {
+            document.getElementById('exportModal').classList.add('visible');
+        }
+
+        function closeModal() {
+            document.getElementById('exportModal').classList.remove('visible');
+        }
+
+        function exportHTML() {
+            const content = document.getElementById('output').innerHTML;
+            const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exported Document</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+        h1, h2, h3, h4, h5, h6 { color: #333; }
+        pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #ddd; padding-left: 1rem; margin: 1rem 0; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+        th { background-color: #f5f5f5; }
+    </style>
+</head>
+<body>
+${content}
+</body>
+</html>`;
+            
+            downloadFile(html, 'document.html', 'text/html');
+            closeModal();
+        }
+
+        function exportMarkdown() {
+            const content = document.getElementById('markdownInput').value;
+            downloadFile(content, 'document.md', 'text/markdown');
+            closeModal();
+        }
+
+        function exportText() {
+            const content = document.getElementById('output').textContent;
+            downloadFile(content, 'document.txt', 'text/plain');
+            closeModal();
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'f':
+                            e.preventDefault();
+                            toggleFocusMode();
+                            break;
+                        case 'Enter':
+                            e.preventDefault();
+                            toggleFullscreen();
+                            break;
+                        case 't':
+                            e.preventDefault();
+                            toggleTOC();
+                            break;
+                        case 'e':
+                            e.preventDefault();
+                            exportContent();
+                            break;
+                    }
+                }
+                
+                if (e.key === 'Escape') {
+                    if (isTOCVisible) toggleTOC();
+                    if (document.getElementById('exportModal').classList.contains('visible')) {
+                        closeModal();
+                    }
+                }
+            });
+        }
+
+        // Fullscreen event listeners
+        document.addEventListener('fullscreenchange', () => {
+            isFullscreen = !!document.fullscreenElement;
+        });
+
+        // Auto-save - optimized for large documents
+        let saveTimeout;
+        document.getElementById('markdownInput').addEventListener('input', function() {
+            // Clear previous timeout to avoid excessive saves
+            clearTimeout(saveTimeout);
+            
+            // Debounce the conversion for better performance with large documents
+            saveTimeout = setTimeout(() => {
+                convertMarkdown();
+            }, 150); // Small delay for smoother typing experience
+        });
+
+        // Mobile responsiveness
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && isMobileMenuOpen) {
+                document.getElementById('sidebar').classList.remove('visible');
+                isMobileMenuOpen = false;
+            }
+        });
+
+        // Click outside to close mobile menu
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('mobileToggle');
+            
+            if (isMobileMenuOpen && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+                sidebar.classList.remove('visible');
+                isMobileMenuOpen = false;
+            }
+        });
+    </script>
+</body>
+</html>
