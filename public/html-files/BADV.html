@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franz Kafka: Brief an den Vater - Umfassende Analyse</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --primary-light: #34495e;
+            --primary-dark: #1a252f;
+            --secondary-color: #8b4513;
+            --secondary-light: #a0522d;
+            --secondary-dark: #654321;
+            --accent-color: #d35400;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f8f9fa;
+            --card-color: #fff;
+            --border-color: #ddd;
+            --highlight-bg: #fdf6e3;
+            --quote-bg: #f5f5f0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Hide main page scrollbar completely */
+        html {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+        
+        html::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; /* Webkit browsers */
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 2rem;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            margin-bottom: 2rem;
+            background-image: linear-gradient(to right, var(--primary-dark), var(--primary-color), var(--primary-light));
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        header h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        header .author {
+            font-style: italic;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        nav.toc {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            padding-left: 0;
+        }
+        
+        nav.toc:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        nav.toc h3 {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px 8px 0 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        nav.toc ul {
+            list-style: none;
+            padding: 0.5rem;
+        }
+        
+        nav.toc ul li {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+        }
+        
+        nav.toc ul li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        nav.toc a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+            transition: var(--transition);
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        nav.toc a:hover {
+            color: var(--secondary-color);
+            background-color: var(--highlight-bg);
+            transform: translateX(5px);
+        }
+        
+        nav.toc a.active {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        nav.toc ul li ul {
+            padding: 0.5rem 0 0 1rem;
+        }
+        
+        nav.toc ul li ul li {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        main {
+            flex: 1;
+            min-width: 0;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin: 1.8rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        h4 {
+            margin: 1.5rem 0 0.8rem;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        blockquote {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--quote-bg);
+            border-left: 5px solid var(--secondary-color);
+            font-style: italic;
+            position: relative;
+        }
+        
+        blockquote::before {
+            content: '»';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 3rem;
+            color: rgba(0,0,0,0.1);
+        }
+        
+        blockquote::after {
+            content: '«';
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            font-size: 3rem;
+            color: rgba(0,0,0,0.1);
+        }
+        
+        .theme-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+        
+        .theme-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+        
+        .quote {
+            font-style: italic;
+            color: var(--primary-color);
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .quote::before {
+            content: '»';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .quote::after {
+            content: '«';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .highlight {
+            background-color: rgba(211, 84, 0, 0.1);
+            padding: 0 3px;
+            font-weight: bold;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--highlight-bg);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+        
+        .info-box {
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .info-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .flex-item {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        table th,
+        table td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        table tbody tr:nth-child(even) {
+            background-color: var(--highlight-bg);
+        }
+        
+        .tabs {
+            margin: 2rem 0;
+        }
+        
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .tab-nav li {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            margin-bottom: -2px;
+            transition: var(--transition);
+        }
+        
+        .tab-nav li.active {
+            background-color: var(--card-color);
+            border: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--card-color);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-top: none;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .accordion {
+            margin: 2rem 0;
+        }
+        
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .accordion-title {
+            padding: 1rem;
+            background-color: var(--highlight-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .accordion-title:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        .accordion-title.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .accordion-title::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+        
+        .accordion-title.active::after {
+            content: '-';
+        }
+        
+        .accordion-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .accordion-content.active {
+            padding: 1rem;
+            max-height: 1000px;
+        }
+        
+        .symbols-list {
+            list-style: none;
+        }
+        
+        .symbols-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .symbols-list li::before {
+            content: '⟫';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        footer p {
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            text-align: center;
+        }
+        
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            nav.toc {
+                display: none;
+            }
+            
+            header, footer {
+                background-color: white !important;
+                color: black !important;
+            }
+            
+            main {
+                box-shadow: none !important;
+            }
+            
+            .theme-card:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            nav.toc {
+                position: static;
+                width: 100%;
+                flex: 0 0 100%;
+                margin-bottom: 2rem;
+                max-height: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            main {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .theme-card {
+                padding: 1rem;
+            }
+            
+            .flex-container {
+                flex-direction: column;
+            }
+            
+            .tab-nav li {
+                padding: 0.5rem 1rem;
+            }
+        }
+        
+        nav.toc a.current {
+            background-color: var(--highlight-bg);
+            color: var(--secondary-color);
+            border-left: 3px solid var(--secondary-color);
+            padding-left: calc(0.5rem - 3px);
+            box-shadow: 0 0 3px rgba(139, 69, 19, 0.3);
+        }
+        
+        nav.toc li ul li a.current {
+            background-color: rgba(253, 246, 227, 0.7);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(44, 62, 80, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0.3;
+        }
+        
+        .back-to-top:hover {
+            opacity: 1;
+            background-color: rgba(44, 62, 80, 0.9);
+        }
+        
+        .back-to-top::before {
+            content: '↑';
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Franz Kafkas "Brief an den Vater"</h1>
+        <h2>Nándor Koch // 2025</h2>
+        <div class="author">Ein Geschenk <3</div>
+    </header>
+    
+    <div class="container">
+        <nav class="toc">
+            <h3>Inhaltsverzeichnis</h3>
+            <ul>
+                <li><a href="#einleitung">Autor und Werk</a></li>
+                <li>
+                    <a href="#entstehung">Entstehungskontext</a>
+                    <ul>
+                        <li><a href="#biographischer-hintergrund">Biographischer Hintergrund</a></li>
+                        <li><a href="#historischer-kontext">Historischer Kontext</a></li>
+                        <li><a href="#nie-versendeter-brief">Der nie versendete Brief</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#struktur-inhalt">Struktur und Inhalt</a>
+                    <ul>
+                        <li><a href="#aufbau">Aufbau des Briefes</a></li>
+                        <li><a href="#hauptargumente">Hauptargumente</a></li>
+                        <li><a href="#zentrale-episoden">Zentrale Episoden</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#thematische-analyse">Thematische Analyse</a>
+                    <ul>
+                        <li><a href="#vater-sohn-verhältnis">Vater-Sohn-Verhältnis</a></li>
+                        <li><a href="#macht-und-autorität">Macht und Autorität</a></li>
+                        <li><a href="#angst-und-schuld">Angst und Schuld</a></li>
+                        <li><a href="#kommunikation">Kommunikation und Schweigen</a></li>
+                        <li><a href="#jüdische-identität">Jüdische Identität</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sprache-stil">Sprache und Stil</a>
+                    <ul>
+                        <li><a href="#sprachliche-besonderheiten">Sprachliche Besonderheiten</a></li>
+                        <li><a href="#rhetorische-strategien">Rhetorische Strategien</a></li>
+                        <li><a href="#metaphorik">Metaphorik und Symbolik</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#psychoanalyse">Psychoanalytische Deutung</a>
+                    <ul>
+                        <li><a href="#ödipuskomplex">Ödipuskomplex</a></li>
+                        <li><a href="#trauma-bewältigung">Trauma und Bewältigung</a></li>
+                        <li><a href="#schreiben-als-therapie">Schreiben als Therapie</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#literaturhistorische-einordnung">Literaturhistorische Einordnung</a>
+                    <ul>
+                        <li><a href="#moderne-literatur">Moderne Literatur</a></li>
+                        <li><a href="#expressionismus">Expressionismus</a></li>
+                        <li><a href="#kafka-im-kontext">Kafka im Kontext</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#interpretation">Interpretation und Bedeutung</a>
+                    <ul>
+                        <li><a href="#universelle-themen">Universelle Themen</a></li>
+                        <li><a href="#rezeption">Rezeption und Wirkung</a></li>
+                        <li><a href="#relevanz-heute">Relevanz heute</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section id="einleitung">
+                <h2>Autor und Werk</h2>
+                
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h3>Franz Kafka (1883-1924)</h3>
+                        <p>Franz Kafka wurde am 3. Juli 1883 in Prag als Sohn einer deutschsprachigen jüdischen Kaufmannsfamilie geboren. Sein Vater Hermann Kafka stammte aus ärmlichen Verhältnissen und hatte sich zu einem erfolgreichen Geschäftsmann hochgearbeitet. Die Mutter Julie, geborene Löwy, entstammte einer gebildeteren jüdischen Familie.</p>
+                        
+                        <p>Kafka studierte Jura in Prag und arbeitete von 1908 bis 1922 als Versicherungsbeamter bei der Arbeiter-Unfall-Versicherungs-Anstalt. Parallel dazu entstanden seine literarischen Werke, die zu seinen Lebzeiten nur teilweise und in kleinen Auflagen veröffentlicht wurden.</p>
+                        
+                        <p>Das Verhältnis zu seinem dominanten Vater prägte Kafkas gesamtes Leben und Werk. Die schwierige Beziehung zu Hermann Kafka wird in vielen seiner Erzählungen und Romane thematisiert und findet ihren direktesten Ausdruck in dem "Brief an den Vater".</p>
+                        
+                        <p>Kafka starb am 3. Juni 1924 in einem Sanatorium bei Wien an Tuberkulose. Sein Freund Max Brod rettete gegen Kafkas ausdrücklichen Willen dessen literarischen Nachlass und veröffentlichte die heute weltberühmten Werke.</p>
+                    </div>
+                    
+                    <div class="flex-item">
+                        <div class="info-box">
+                            <h4>Der "Brief an den Vater" im Überblick:</h4>
+                            <ul>
+                                <li><strong>Entstehungszeit:</strong> November 1919</li>
+                                <li><strong>Umfang:</strong> Etwa 100 Druckseiten</li>
+                                <li><strong>Status:</strong> Nie versendeter Brief</li>
+                                <li><strong>Erste Veröffentlichung:</strong> 1952 (posthum)</li>
+                                <li><strong>Genre:</strong> Autobiographischer Brief, Bekenntnisliteratur</li>
+                                <li><strong>Anlass:</strong> Kafkas zweite Verlobung mit Julie Wohryzek</li>
+                                <li><strong>Ziel:</strong> Erklärung und Rechtfertigung gegenüber dem Vater</li>
+            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="entstehung">
+                <h2>Entstehungskontext</h2>
+                
+                <h3 id="biographischer-hintergrund">Biographischer Hintergrund</h3>
+                <p>Der "Brief an den Vater" entstand im November 1919, als Kafka 36 Jahre alt war. Auslöser war seine zweite Verlobung mit Julie Wohryzek, einer 38-jährigen Prager Jüdin aus einfachen Verhältnissen. Hermann Kafka lehnte diese Verbindung kategorisch ab, was zu schweren Auseinandersetzungen zwischen Vater und Sohn führte.</p>
+                
+                <p>Kafka befand sich zu dieser Zeit in einer persönlichen Krise. Seine erste Verlobung mit Felice Bauer war 1917 endgültig gescheitert, seine Tuberkulose-Erkrankung war 1917 ausgebrochen, und er hatte längere Aufenthalte in Sanatorien hinter sich. Die Konfrontation mit dem Vater wegen Julie Wohryzek brachte alle aufgestauten Konflikte zum Ausbruch.</p>
+                
+                <h3 id="historischer-kontext">Historischer Kontext</h3>
+                <p>Der Brief entstand in der unmittelbaren Nachkriegszeit des Ersten Weltkriegs. Das österreichisch-ungarische Reich war zusammengebrochen, die neue Tschechoslowakische Republik war entstanden. Für die deutschsprachigen Juden Prags bedeutete dies eine grundlegende Veränderung ihrer gesellschaftlichen Position.</p>
+                
+                <p>Die Assimilationsproblematik der jüdischen Bevölkerung, die zwischen deutscher Kultur, tschechischer Nationalität und jüdischer Tradition hin- und hergerissen war, spiegelt sich auch in Kafkas Brief wider. Die Generation Hermann Kafkas strebte noch nach vollständiger Assimilation, während die Söhne bereits die Brüche und Widersprüche dieser Strategie erkannten.</p>
+                
+                <h3 id="nie-versendeter-brief">Der nie versendete Brief</h3>
+                <p>Kafka übergab den fertigen Brief seiner Mutter Julie mit der Bitte, ihn an den Vater weiterzuleiten. Die Mutter las den Brief, gab ihn jedoch nicht an Hermann Kafka weiter und gab ihn ungelesen an den Sohn zurück. Sie erkannte instinktiv, dass dieser Brief die Familienverhältnisse noch weiter zerrüttet hätte.</p>
+                
+                <blockquote class="quote">
+                    Der Brief blieb somit ein Monolog - ein einseitiges Gespräch, das die Kommunikationslosigkeit zwischen Vater und Sohn nur noch unterstrich. Paradoxerweise wurde gerade das Scheitern der Übermittlung zu einem zentralen Element der Aussage des Briefes.
+                </blockquote>
+            </section>
+            
+            <section id="struktur-inhalt">
+                <h2>Struktur und Inhalt</h2>
+                
+                <h3 id="aufbau">Aufbau des Briefes</h3>
+                <p>Der Brief folgt einer klaren argumentativen Struktur, die sich in mehrere Hauptteile gliedern lässt:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abschnitt</th>
+                            <th>Inhalt</th>
+                            <th>Funktion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Einleitung</td>
+                            <td>Ausgangsfrage: "Warum ich Furcht vor Dir habe"</td>
+                            <td>Problemstellung</td>
+                        </tr>
+                        <tr>
+                            <td>Kindheitserinnerungen</td>
+                            <td>Prägende Erlebnisse, Erziehungsmethoden</td>
+                            <td>Ursachenanalyse</td>
+                        </tr>
+                        <tr>
+                            <td>Geschäft und Judentum</td>
+                            <td>Väterliche Lebensbereiche als Fremderfahrung</td>
+                            <td>Entfremdungsanalyse</td>
+                        </tr>
+                        <tr>
+                            <td>Heiratsversuche</td>
+                            <td>Scheitern der Ehepläne als Folge der Vaterbeziehung</td>
+                            <td>Gegenwartsbezug</td>
+                        </tr>
+                        <tr>
+                            <td>Gegenangriff</td>
+                            <td>Antizipierte Antwort des Vaters</td>
+                            <td>Perspektivwechsel</td>
+                        </tr>
+                        <tr>
+                            <td>Schluss</td>
+                            <td>Hoffnung auf Verständigung</td>
+                            <td>Versöhnungsangebot</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 id="hauptargumente">Hauptargumente</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-title">These der beiderseitigen Unschuld</div>
+                        <div class="accordion-content">
+                            <p>Kafka betont von Beginn an, dass weder er noch sein Vater Schuld an ihrer problematischen Beziehung tragen. Es handele sich um ein Naturverhältnis, das durch die unterschiedlichen Charaktere und Lebenserfahrungen bedingt sei.</p>
+                            <blockquote>"Könnte ich Dich dazu bringen, daß Du das anerkennst, dann wäre - nicht etwa ein neues Leben möglich, dazu sind wir beide viel zu alt, aber doch eine Art Friede, kein Aufhören, aber doch ein Mildern Deiner unaufhörlichen Vorwürfe."</blockquote>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-title">Die Macht-Ohnmacht-Dynamik</div>
+                        <div class="accordion-content">
+                            <p>Kafka analysiert die Beziehung als ein Verhältnis zwischen einem übermächtigen Vater und einem schwächlichen Sohn. Der Vater erscheint als "riesig", während sich der Sohn als "Nichts" empfindet.</p>
+                            <p>Diese Dynamik durchzieht alle Lebensbereiche und führt zu einer grundsätzlichen Verunsicherung des Sohnes in allen seinen Unternehmungen.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-title">Kommunikationsunfähigkeit</div>
+                        <div class="accordion-content">
+                            <p>Ein zentraler Punkt ist die Unfähigkeit zur direkten Kommunikation. Der Vater verbietet dem Sohn das Widerspruchsrecht ("kein Wort der Widerrede!"), was zu einer grundsätzlichen Sprachlosigkeit führt.</p>
+                            <p>Der Brief selbst wird so zum verzweifelten Versuch einer Kommunikation, die im direkten Gespräch unmöglich geworden ist.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 id="zentrale-episoden">Zentrale Episoden</h3>
+                <div class="theme-card">
+                    <h3>Die Pawlatsche-Episode</h3>
+                    <p>Eine der eindrucksvollsten Kindheitserinnerungen ist die nächtliche Episode, in der der kleine Franz nach Wasser verlangt und der Vater ihn zur Strafe im Hemd vor die geschlossene Tür auf die Pawlatsche (den Balkon) stellt.</p>
+                    <p>Diese Episode wird zum Symbol für die willkürliche Macht des Vaters und das Gefühl der existenziellen Bedrohung, das den Sohn sein Leben lang begleitet.</p>
+                    <blockquote class="quote">
+                        Noch nach Jahren litt ich unter der quälenden Vorstellung, daß der riesige Mann, mein Vater, die letzte Instanz, fast ohne Grund kommen und mich in der Nacht aus dem Bett auf die Pawlatsche tragen konnte und daß ich also ein solches Nichts für ihn war.
+                    </blockquote>
+                </div>
+                
+                <div class="theme-card">
+                    <h3>Das Geschäft als Fremderfahrung</h3>
+                    <p>Kafkas Beschreibung des väterlichen Geschäfts zeigt die Entfremdung zwischen den Generationen. Das Geschäft, das für den Vater Lebensinhalt und Erfolg bedeutet, wird für den Sohn zum Ort der Demütigung und des Unverständnisses.</p>
+                    <p>Besonders die Art, wie der Vater mit den Angestellten umgeht, prägt Kafkas Vorstellung von sozialen Beziehungen und verstärkt sein Schuldbewusstsein.</p>
+                </div>
+            </section>
+            
+            <section id="thematische-analyse">
+                <h2>Thematische Analyse</h2>
+                
+                <h3 id="vater-sohn-verhältnis">Vater-Sohn-Verhältnis</h3>
+                <p>Das Vater-Sohn-Verhältnis steht im Zentrum des Briefes und wird als fundamentaler Konflikt zwischen zwei unvereinbaren Welten dargestellt. Der Vater repräsentiert Stärke, Erfolg, Durchsetzungsvermögen und bürgerliche Werte, während sich der Sohn als schwach, zweiflerisch und lebensuntüchtig empfindet.</p>
+                
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h4>Der Vater als Figur:</h4>
+                        <ul>
+                            <li>Körperlich imposant und stark</li>
+                            <li>Geschäftlich erfolgreich</li>
+                            <li>Autoritär und bestimmend</li>
+                            <li>Selbstsicher und weltgewandt</li>
+                            <li>Praktisch orientiert</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex-item">
+                        <h4>Der Sohn als Gegenfigur:</h4>
+                        <ul>
+                            <li>Körperlich schwächlich</li>
+                            <li>Beruflich unambitioniert</li>
+                            <li>Unterwürfig und zweifelnd</li>
+                            <li>Unsicher und weltfremd</li>
+                            <li>Intellektuell und künstlerisch</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 id="macht-und-autorität">Macht und Autorität</h3>
+                <p>Die Machtbeziehung zwischen Vater und Sohn wird als totale Herrschaft beschrieben. Der Vater verfügt über eine "rätselhafte Unschuld und Unangreifbarkeit", die es ihm erlaubt, willkürlich zu herrschen, ohne sich rechtfertigen zu müssen.</p>
+                
+                <blockquote class="quote">
+                    Du bekamst für mich das Rätselhafte, das alle Tyrannen haben, deren Recht auf ihrer Person, nicht auf dem Denken begründet ist.
+                </blockquote>
+                
+                <p>Diese Autorität erstreckt sich auf alle Lebensbereiche und lässt dem Sohn keinen Raum für eigenständige Entwicklung. Selbst in der Rebellion bleibt er auf den Vater bezogen.</p>
+                
+                <h3 id="angst-und-schuld">Angst und Schuld</h3>
+                <p>Angst und Schuld durchziehen den gesamten Brief als Grundgefühle der Vater-Sohn-Beziehung. Die Angst entsteht aus der Willkür der väterlichen Macht, die Schuld aus der Unfähigkeit, den väterlichen Erwartungen zu entsprechen.</p>
+                
+                <div class="theme-card">
+                    <h3>Paradoxe Schuldstruktur</h3>
+                    <p>Kafka entwickelt eine paradoxe Schuldstruktur: Der Sohn fühlt sich schuldig, weil er den Erwartungen nicht entspricht, aber auch, wenn er versucht, ihnen zu entsprechen. Das Schuldbewusstsein wird zur Existenzgrundlage.</p>
+                    <p>Diese Struktur findet sich in vielen von Kafkas literarischen Werken wieder und wird zu einem Grundmuster seiner Weltanschauung.</p>
+                </div>
+                
+                <h3 id="kommunikation">Kommunikation und Schweigen</h3>
+                <p>Das zentrale Paradox des Briefes liegt in seinem Charakter als Kommunikationsversuch über die Unmöglichkeit der Kommunikation. Kafka zeigt auf, wie die väterliche Autorität jede Form des Dialogs verhindert hat.</p>
+                
+                <p>Das Verbot der Widerrede ("kein Wort der Widerrede!") führt zur grundsätzlichen Verstummung des Sohnes. Der Brief wird zum verzweifelten Versuch, diese Sprachlosigkeit zu durchbrechen.</p>
+                
+                <h3 id="jüdische-identität">Jüdische Identität</h3>
+                <p>Die Auseinandersetzung mit der jüdischen Identität nimmt einen wichtigen Raum im Brief ein. Kafka kritisiert die oberflächliche und rituelle Art, wie der Vater das Judentum praktiziert, während er selbst nach einer authentischen Beziehung zu seiner jüdischen Herkunft sucht.</p>
+                
+                <div class="info-box">
+                    <h4>Judentum als Identitätskonflikt:</h4>
+                    <p>Der Vater verkörpert eine assimilierte Form des Judentums, die sich auf äußerliche Rituale beschränkt. Der Sohn empfindet dies als leer und unehrlich, findet aber selbst keinen Zugang zu einer authentischen jüdischen Identität. Dieser Konflikt spiegelt die allgemeine Problematik der jüdischen Assimilation in der Habsburgermonarchie wider.</p>
+                </div>
+            </section>
+            
+            <section id="sprache-stil">
+                <h2>Sprache und Stil</h2>
+                
+                <h3 id="sprachliche-besonderheiten">Sprachliche Besonderheiten</h3>
+                <p>Der "Brief an den Vater" zeichnet sich durch seine präzise, analytische Sprache aus. Kafka verwendet eine nüchterne, fast juristische Diktion, die dem Ernst und der Gründlichkeit seiner Selbstanalyse entspricht.</p>
+                
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h4>Stilmerkmale:</h4>
+                        <ul>
+                            <li><strong>Hypotaxe:</strong> Komplexe, verschachtelte Satzstrukturen</li>
+                            <li><strong>Präzision:</strong> Exakte Begriffswahl und Differenzierung</li>
+                            <li><strong>Selbstreflexion:</strong> Ständige Hinterfragung der eigenen Aussagen</li>
+                            <li><strong>Ironie:</strong> Subtile ironische Untertöne</li>
+                            <li><strong>Wiederholung:</strong> Obsessive Wiederaufnahme zentraler Motive</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex-item">
+                        <h4>Sprachfunktionen:</h4>
+                        <ul>
+                            <li><strong>Analytisch:</strong> Zerlegung der Beziehungsdynamik</li>
+                            <li><strong>Therapeutisch:</strong> Selbstheilung durch Sprache</li>
+                            <li><strong>Rechtfertigend:</strong> Legitimation der eigenen Position</li>
+                            <li><strong>Appellativ:</strong> Aufruf zur Verständigung</li>
+                            <li><strong>Literarisch:</strong> Ästhetische Gestaltung der Erfahrung</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 id="rhetorische-strategien">Rhetorische Strategien</h3>
+                <p>Kafka verwendet verschiedene rhetorische Mittel, um seine Argumentation zu stützen und den Vater zur Einsicht zu bewegen:</p>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-title">Unschuldsbeteuerung</div>
+                        <div class="accordion-content">
+                            <p>Gleich zu Beginn betont Kafka die "beiderseitige Schuldlosigkeit" und vermeidet damit eine direkte Anklage. Diese Strategie soll den Vater zur Lektüre motivieren und Abwehrreaktionen verhindern.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-title">Perspektivwechsel</div>
+                        <div class="accordion-content">
+                            <p>Im letzten Teil antizipiert Kafka die Antwort des Vaters und führt einen fiktiven Dialog. Dadurch zeigt er seine Fähigkeit zur Selbstdistanz und nimmt möglichen Einwänden den Wind aus den Segeln.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-title">Konkretisierung</div>
+                        <div class="accordion-content">
+                            <p>Abstrakte Vorwürfe werden durch konkrete Episoden illustriert. Die Pawlatsche-Episode etwa macht die grundsätzliche Machtbeziehung sinnlich erfahrbar.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 id="metaphorik">Metaphorik und Symbolik</h3>
+                <p>Der Brief ist reich an Metaphern und Symbolen, die die psychische Realität der Vater-Sohn-Beziehung veranschaulichen:</p>
+                
+                <ul class="symbols-list">
+                    <li>
+                        <strong>Größenverhältnisse:</strong> Der "riesige" Vater steht dem winzigen Sohn gegenüber. Diese Metaphorik durchzieht den gesamten Brief und macht die Machtbeziehung körperlich spürbar.
+                    </li>
+                    <li>
+                        <strong>Geographische Metaphern:</strong> Kafka stellt sich die Welt wie eine Landkarte vor, die der Vater komplett bedeckt. Für den Sohn bleiben nur die unattraktiven Randgebiete.
+                    </li>
+                    <li>
+                        <strong>Kriegsmetaphorik:</strong> Die Beziehung wird als asymmetrischer Krieg beschrieben, in dem der schwächere Teil von vornherein zum Scheitern verurteilt ist.
+                    </li>
+                    <li>
+                        <strong>Tiermetaphern:</strong> Der Sohn wird als Parasit oder Ungeziefer dargestellt, das von der Substanz des Vaters lebt, ohne selbst etwas zu leisten.
+                    </li>
+                </ul>
+            </section>
+            
+            <section id="psychoanalyse">
+                <h2>Psychoanalytische Deutung</h2>
+                
+                <h3 id="ödipuskomplex">Ödipuskomplex</h3>
+                <p>Der "Brief an den Vater" lässt sich als literarische Darstellung des Ödipuskomplexes interpretieren. Kafka zeigt die nie überwundene Rivalität mit dem Vater um die Liebe der Mutter und die daraus resultierenden psychischen Deformationen.</p>
+                
+                <div class="theme-card">
+                    <h3>Psychoanalytische Aspekte</h3>
+                    <p>Die Unfähigkeit zur Heirat kann als Fixierung auf die ödipale Beziehung gedeutet werden. Jede Frau wird unbewusst mit der Mutter identifiziert, was eine normale Partnerschaft unmöglich macht.</p>
+                    <p>Die ständige Angst vor dem Vater entspricht der psychoanalytischen Kastrationsangst - der Furcht vor der Bestrafung durch den rivalisierenden Vater.</p>
+                </div>
+                
+                <h3 id="trauma-bewältigung">Trauma und Bewältigung</h3>
+                <p>Der Brief kann als Versuch der Traumabewältigung verstanden werden. Die minutiöse Rekonstruktion der verletzenden Erfahrungen dient der nachträglichen psychischen Verarbeitung.</p>
+                
+                <p>Besonders die Kindheitsepisoden werden mit einer Präzision geschildert, die auf ihre zentrale Bedeutung für die psychische Entwicklung hinweist. Die Wiederholung und Variation der traumatischen Grunderfahrung folgt den Mechanismen der Traumaverarbeitung.</p>
+                
+                <h3 id="schreiben-als-therapie">Schreiben als Therapie</h3>
+                <p>Das Schreiben selbst wird zur therapeutischen Tätigkeit. Kafka beschreibt das Schreiben an anderen Stellen als seinen einzigen Weg zur "Selbstbefreiung" und zum Verständnis seiner selbst.</p>
+                
+                <blockquote class="quote">
+                    Der Brief an den Vater wird so zum Paradigma für Kafkas gesamtes literarisches Schaffen: Schreiben als Versuch der Selbstverständigung und der Bewältigung existenzieller Konflikte.
+                </blockquote>
+                
+                <div class="info-box">
+                    <h4>Schreiben als Existenzkampf:</h4>
+                    <p>Für Kafka ist das Schreiben nicht nur künstlerische Tätigkeit, sondern existenzieller Überlebenskampf. Im Brief wird deutlich, dass das Schreiben der einzige Bereich ist, in dem er sich vom Vater emanzipieren konnte - wenn auch nur teilweise.</p>
+                </div>
+            </section>
+            
+            <section id="literaturhistorische-einordnung">
+                <h2>Literaturhistorische Einordnung</h2>
+                
+                <h3 id="moderne-literatur">Moderne Literatur</h3>
+                <p>Der "Brief an den Vater" steht exemplarisch für die Literatur der Moderne mit ihrer Hinwendung zur Subjektivität, zur Psychoanalyse und zur Infragestellung traditioneller Autoritäten.</p>
+                
+                <div class="tabs">
+                    <ul class="tab-nav">
+                        <li class="active" data-tab="moderne-merkmale">Merkmale der Moderne</li>
+                        <li data-tab="generationenkonflikt">Generationenkonflikt</li>
+                        <li data-tab="krise-des-subjekts">Krise des Subjekts</li>
+                    </ul>
+                    
+                    <div id="moderne-merkmale" class="tab-content active">
+                        <h4>Charakteristische Merkmale der literarischen Moderne:</h4>
+                        <ul>
+                            <li>Psychologische Durchdringung der Figuren</li>
+                            <li>Reflexion über Sprache und Kommunikation</li>
+                            <li>Infragestellung traditioneller Autoritäten</li>
+                            <li>Fragmentierung der Erzählperspektive</li>
+                            <li>Thematisierung von Entfremdung und Identitätsverlust</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="generationenkonflikt" class="tab-content">
+                        <h4>Der Generationenkonflikt um 1900:</h4>
+                        <p>Kafkas Brief steht im Kontext einer allgemeinen Revolte der jüngeren Generation gegen die Vätergeneration. Dieser Konflikt durchzieht die gesamte Literatur der Zeit und spiegelt den gesellschaftlichen Wandel wider.</p>
+                        <p>Die Väter verkörpern noch die Werte des 19. Jahrhunderts: Fortschrittsglaube, Bürgertugenden, Assimilation. Die Söhne zweifeln an diesen Werten und suchen nach neuen Orientierungen.</p>
+                    </div>
+                    
+                    <div id="krise-des-subjekts" class="tab-content">
+                        <h4>Die Krise des autonomen Subjekts:</h4>
+                        <p>Kafkas Darstellung der Ich-Schwäche und der Abhängigkeit von fremden Mächten antizipiert die moderne Subjektkritik. Das autonome, selbstbestimmte Individuum erweist sich als Illusion.</p>
+                        <p>Diese Erkenntnis wird später von der Psychoanalyse, der Soziologie und der Philosophie des 20. Jahrhunderts theoretisch untermauert.</p>
+                    </div>
+                </div>
+                
+                <h3 id="expressionismus">Expressionismus</h3>
+                <p>Obwohl Kafka nicht direkt dem Expressionismus zugerechnet wird, teilt er mit dieser Bewegung wichtige Grundanliegen: die Rebellion gegen die Vätergeneration, die Suche nach authentischem Ausdruck und die Darstellung extremer psychischer Zustände.</p>
+                
+                <p>Wie die Expressionisten verwendet Kafka eine intensive, oft übersteigerte Sprache, um seelische Realitäten zu vermitteln. Die Metaphorik des Briefes zeigt expressionistische Züge in ihrer Drastik und Eindringlichkeit.</p>
+                
+                <h3 id="kafka-im-kontext">Kafka im Kontext</h3>
+                <p>Kafka gehört zu einer Generation deutschsprachiger jüdischer Autoren, die ähnliche Identitätskonflikte durchlebten. Zu nennen sind etwa Arthur Schnitzler, Hugo von Hofmannsthal oder Joseph Roth.</p>
+                
+                <p>Besonders die Prager deutsche Literatur (neben Kafka etwa Max Brod, Franz Werfel, Egon Erwin Kisch) ist geprägt von der Situation einer Minderheit innerhalb einer Minderheit: deutschsprachige Juden in einer tschechischsprachigen Umgebung.</p>
+            </section>
+            
+            <section id="interpretation">
+                <h2>Interpretation und Bedeutung</h2>
+                
+                <h3 id="universelle-themen">Universelle Themen</h3>
+                <p>Obwohl der "Brief an den Vater" eine höchst persönliche Abrechnung darstellt, behandelt er universelle Themen der menschlichen Existenz:</p>
+                
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <div class="theme-card">
+                            <h3>Eltern-Kind-Beziehungen</h3>
+                            <p>Die grundlegenden Dynamiken zwischen Eltern und Kindern, Macht und Ohnmacht, Liebe und Angst werden in exemplarischer Weise dargestellt. Viele Leser erkennen eigene Erfahrungen in Kafkas Schilderungen wieder.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-item">
+                        <div class="theme-card">
+                            <h3>Kommunikationsprobleme</h3>
+                            <p>Die Unfähigkeit zur Verständigung, das Aneinander-Vorbeireden und die Macht des Schweigens sind zeitlose Themen zwischenmenschlicher Beziehungen.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-item">
+                        <div class="theme-card">
+                            <h3>Identitätssuche</h3>
+                            <p>Die Schwierigkeit, eine eigenständige Identität zu entwickeln angesichts übermächtiger Prägungen und gesellschaftlicher Zwänge, ist ein zentrales Thema der Moderne.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 id="rezeption">Rezeption und Wirkung</h3>
+                <p>Der "Brief an den Vater" wurde erst 1952, fast dreißig Jahre nach Kafkas Tod, erstmals veröffentlicht. Seitdem hat er eine enorme Wirkung entfaltet und gilt als eines der wichtigsten Dokumente der modernen Bekenntnisliteratur.</p>
+                
+                <p>Besonders in der psychoanalytisch orientierten Literaturwissenschaft wurde der Brief intensiv erforscht. Er gilt als Schlüssel zum Verständnis von Kafkas gesamtem Werk und als exemplarische Darstellung moderner Vater-Sohn-Konflikte.</p>
+                
+                <div class="info-box">
+                    <h4>Wirkungsgeschichte:</h4>
+                    <ul>
+                        <li><strong>1952:</strong> Erstveröffentlichung in Max Brods Kafka-Ausgabe</li>
+                        <li><strong>1960er:</strong> Aufmerksamkeit der 68er-Bewegung (Autorität­skritik)</li>
+                        <li><strong>1970er:</strong> Psychoanalytische Interpretationen</li>
+                        <li><strong>1980er:</strong> Feministische Lesarten</li>
+                        <li><strong>Heute:</strong> Teil des Bildungskanons, häufig im Deutsch­unterricht</li>
+                    </ul>
+                </div>
+                
+                <h3 id="relevanz-heute">Relevanz heute</h3>
+                <p>Der "Brief an den Vater" hat auch heute nichts von seiner Relevanz verloren. In einer Zeit, in der traditionelle Familienstrukturen im Wandel sind und Fragen der Erziehung, der Autorität und der Kommunikation in Familien neu verhandelt werden, bietet Kafkas Text wichtige Einsichten.</p>
+                
+                <p>Besonders die Analyse der zerstörerischen Wirkungen autoritärer Erziehung und die Darstellung der langfristigen psychischen Folgen haben nichts von ihrer Aktualität eingebüßt. Der Brief kann als frühes Plädoyer für respektvolle Kommunikation und partnerschaftliche Erziehung gelesen werden.</p>
+                
+                <blockquote class="quote">
+                    Darüber hinaus bleibt Kafkas literarische Bewältigung persönlicher Traumata ein Modell dafür, wie Schreiben zur Selbsterkenntnis und zur Verarbeitung schwieriger Lebenserfahrungen beitragen kann.
+                </blockquote>
+                
+                <div class="theme-card">
+                    <h3>Moderne Bedeutung</h3>
+                    <p>In einer Zeit der Therapiekultur und der Aufarbeitung familiärer Traumata erscheint Kafkas Brief als früher Versuch einer schriftlichen "Familientherapie". Seine Methode der schonungslosen Selbstanalyse und der Rekonstruktion prägender Erfahrungen ist zu einem Modell für autobiographisches Schreiben geworden.</p>
+                    
+                    <p>Gleichzeitig zeigt der Brief die Grenzen solcher Bemühungen auf: Die angestrebte Kommunikation findet nicht statt, die Verständigung bleibt aus. Diese Ambivalenz macht die zeitlose Faszination des Textes aus.</p>
+                </div>
+            </section>
+            
+            <footer>
+                <p>© 2025 - Franz Kafka: Brief an den Vater - Umfassende Analyse</p>
+                <p>Nándor Koch // 2025</p>
+            </footer>
+        </main>
+    </div>
+    
+    <button class="back-to-top" title="Zurück nach oben"></button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabLinks = document.querySelectorAll('.tab-nav li');
+            
+            tabLinks.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    document.querySelectorAll('.tab-nav li').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Accordion functionality
+            const accordionTitles = document.querySelectorAll('.accordion-title');
+            
+            accordionTitles.forEach(title => {
+                title.addEventListener('click', () => {
+                    const content = title.nextElementSibling;
+                    
+                    title.classList.toggle('active');
+                    
+                    if (content.classList.contains('active')) {
+                        content.classList.remove('active');
+                    } else {
+                        content.classList.add('active');
+                    }
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Back to top button functionality
+            const backToTopButton = document.querySelector('.back-to-top');
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Highlight current section in table of contents
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav.toc a[href^="#"]');
+            
+            function highlightCurrentSection() {
+                const scrollPosition = window.scrollY;
+                
+                const allHeadings = document.querySelectorAll('section[id], h3[id]');
+                let currentHeadingId = '';
+                
+                for (let i = 0; i < allHeadings.length; i++) {
+                    const heading = allHeadings[i];
+                    const nextHeading = allHeadings[i + 1];
+                    
+                    const headingTop = heading.offsetTop - 100;
+                    const headingBottom = nextHeading ? nextHeading.offsetTop - 100 : document.body.scrollHeight;
+                    
+                    if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                        currentHeadingId = '#' + heading.getAttribute('id');
+                        break;
+                    }
+                }
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('current');
+                });
+                
+                if (!currentHeadingId) return;
+                
+                const currentLink = document.querySelector(`nav.toc a[href="${currentHeadingId}"]`);
+                if (currentLink) {
+                    currentLink.classList.add('current');
+                    
+                    let parent = currentLink.closest('li').parentElement;
+                    while (parent && parent.tagName === 'UL') {
+                        const parentLi = parent.closest('li');
+                        if (!parentLi) break;
+                        
+                        const parentLink = parentLi.querySelector('a');
+                        if (parentLink) {
+                            parentLink.classList.add('current');
+                        }
+                        
+                        parent = parentLi.parentElement;
+                    }
+                    
+                    const tocContainer = document.querySelector('nav.toc');
+                    const linkRect = currentLink.getBoundingClientRect();
+                    const containerRect = tocContainer.getBoundingClientRect();
+                    
+                    if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
+                        currentLink.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }
+                }
+            }
+            
+            highlightCurrentSection();
+            window.addEventListener('scroll', highlightCurrentSection);
+        });
+    </script>
+</body>
+</html>
