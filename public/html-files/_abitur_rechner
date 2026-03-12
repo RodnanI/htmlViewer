@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abiturnotenrechner — Bayern G9</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f11;
+  --bg2: #16181c;
+  --bg3: #1e2128;
+  --border: #2e3038;
+  --border2: #3d4049;
+  --amber: #f59e0b;
+  --amber-dim: #b45309;
+  --amber-glow: rgba(245,158,11,0.12);
+  --red: #ef4444;
+  --green: #22c55e;
+  --text: #e8e9ec;
+  --text-dim: #7c7f88;
+  --text-muted: #4a4d57;
+  --mono: 'Courier Prime', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Bebas Neue', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(245,158,11,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left h1 {
+  font-family: var(--display);
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.header-left p {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.score-display {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.score-block {
+  text-align: right;
+}
+
+.score-block .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-block .value {
+  font-family: var(--display);
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.score-block .value.grade {
+  color: var(--amber);
+  font-size: 36px;
+}
+
+.score-block .value.fail { color: var(--red); }
+.score-block .value.good { color: var(--green); }
+
+.score-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+}
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--amber-glow);
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  padding: 2px 8px;
+  letter-spacing: 1px;
+}
+
+.section-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* BLOCK I TABLE */
+.block1-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+}
+
+.block1-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  padding: 10px 12px;
+  text-align: left;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.block1-table th.sem-col {
+  text-align: center;
+  min-width: 80px;
+}
+
+.block1-table th.total-col {
+  text-align: center;
+  color: var(--amber-dim);
+  min-width: 70px;
+}
+
+.block1-table th.action-col {
+  width: 40px;
+  text-align: center;
+}
+
+.block1-table td {
+  padding: 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.block1-table tr:hover td {
+  background: rgba(245,158,11,0.02);
+}
+
+.block1-table tr.subject-row td { height: 48px; }
+
+/* Subject name cell */
+.subject-name-cell {
+  padding: 0 12px;
+  min-width: 200px;
+}
+
+.subject-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subject-name-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  width: 140px;
+  cursor: pointer;
+}
+
+.subject-name-input:focus {
+  color: var(--amber);
+  border-bottom: 1px solid var(--amber-dim);
+}
+
+.subject-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.badge.ea { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid var(--amber-dim); }
+.badge.ga { background: rgba(100,100,120,0.2); color: #888; border: 1px solid #444; }
+.badge.pf { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid #166534; }
+.badge.ws { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid #4c1d95; }
+.badge.lf { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid #1e3a5f; }
+
+/* Grade cell */
+.grade-cell {
+  text-align: center;
+  padding: 8px 4px;
+  position: relative;
+}
+
+.grade-input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grade-input {
+  width: 52px;
+  height: 34px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+  -moz-appearance: textfield;
+}
+.grade-input::-webkit-inner-spin-button,
+.grade-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.grade-input:focus {
+  border-color: var(--amber-dim);
+  background: var(--bg2);
+}
+
+.grade-input.has-value {
+  border-color: var(--border2);
+  color: var(--amber);
+}
+
+.grade-input.struck {
+  color: var(--text-muted) !important;
+  text-decoration: line-through;
+  background: var(--bg2);
+  border-color: var(--border) !important;
+  border-style: dashed !important;
+}
+
+.strike-btn {
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 10px;
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.grade-cell:hover .strike-btn { opacity: 1; }
+.strike-btn:hover { color: var(--red); }
+.strike-btn.active { color: var(--red); opacity: 0.7; }
+
+.grade-cell.locked .strike-btn { display: none; }
+.grade-cell.locked .grade-input.has-value {
+  border-color: rgba(245,158,11,0.3);
+}
+
+.cell-lock {
+  font-size: 9px;
+  color: var(--text-muted);
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+/* Row total */
+.row-total-cell {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.row-total {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.row-total.has-data { color: var(--amber); }
+
+/* Delete row */
+.del-row-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 8px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.block1-table tr:hover .del-row-btn { opacity: 1; }
+.del-row-btn:hover { color: var(--red); }
+
+/* W-Seminar special row */
+.wseminar-row td { background: rgba(139,92,246,0.04); }
+
+/* Seminararbeit row */
+.seminararbeit-row td { background: rgba(139,92,246,0.07); }
+
+.seminar-input {
+  width: 70px;
+  height: 34px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.seminar-input::-webkit-inner-spin-button,
+.seminar-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.seminar-input:focus { border-color: #7c3aed; }
+.seminar-input.has-value { color: #a78bfa; border-color: #4c1d95; }
+
+/* Footer row */
+.table-footer td {
+  padding: 10px 12px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+
+.add-row-btn {
+  background: none;
+  border: 1px dashed var(--border2);
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.add-row-btn:hover { border-color: var(--amber-dim); color: var(--amber); }
+
+/* Einbringungen counter */
+.einbring-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.einbring-bar {
+  width: 200px;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.einbring-fill {
+  height: 100%;
+  background: var(--amber);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.einbring-fill.over { background: var(--red); }
+
+.einbring-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  min-width: 60px;
+}
+.einbring-label.over { color: var(--red); }
+
+/* Type selector */
+.type-select {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 4px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 2px;
+}
+.type-select:focus { border-color: var(--amber-dim); }
+
+/* BLOCK II */
+.block2-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.pruefung-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 20px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.pruefung-card:hover { border-color: var(--border2); }
+
+.pruefung-num {
+  font-family: var(--display);
+  font-size: 48px;
+  color: var(--bg3);
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.pruefung-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.pruefung-name-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  outline: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  width: 100%;
+  padding: 2px 0;
+  margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.pruefung-name-input:focus { border-color: var(--amber-dim); color: var(--amber); }
+
+.pruefung-type-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.type-pill {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.type-pill.active.schriftlich { border-color: var(--amber-dim); background: var(--amber-glow); color: var(--amber); }
+.type-pill.active.muendlich { border-color: #166534; background: rgba(34,197,94,0.1); color: #4ade80; }
+
+.pruefung-score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pruefung-score-input {
+  width: 60px;
+  height: 42px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.pruefung-score-input::-webkit-inner-spin-button,
+.pruefung-score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.pruefung-score-input:focus { border-color: var(--amber); }
+
+.pruefung-calc {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.pruefung-result {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--text-dim);
+  line-height: 1;
+}
+.pruefung-result.has-val { color: var(--amber); }
+
+/* RESULTS */
+.results-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.result-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.result-item .num {
+  font-family: var(--display);
+  font-size: 40px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  line-height: 1;
+}
+.result-item .num.active { color: var(--amber); }
+.result-item .num.fail-color { color: var(--red); }
+.result-item .num.pass-color { color: var(--green); }
+
+.result-item .sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.grade-meter {
+  position: relative;
+}
+
+.grade-meter-bar {
+  height: 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.grade-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), #fbbf24);
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grade-meter-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.grade-meter-labels span {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.final-grade {
+  font-family: var(--display);
+  font-size: 72px;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-top: 4px;
+}
+.final-grade.pending { color: var(--text-muted); }
+.final-grade.pass { color: var(--amber); }
+.final-grade.fail { color: var(--red); }
+
+.nicht-bestanden-hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--red);
+  margin-top: 4px;
+}
+
+/* Tooltip / info */
+.info-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.info-item { display: flex; align-items: center; gap: 6px; }
+.info-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+.info-dot.red { background: var(--red); }
+.info-dot.purple { background: #a78bfa; }
+.info-dot.green { background: #4ade80; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  header { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+  main { padding: 20px; }
+  .block2-grid { grid-template-columns: repeat(2, 1fr); }
+  .results-panel { grid-template-columns: 1fr 1fr; }
+  .score-display { flex-wrap: wrap; }
+}
+
+/* Pulsing badge for "aktives Halbjahr" */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.semester-active-header {
+  color: var(--amber) !important;
+  animation: pulse 2s infinite;
+}
+
+/* Action buttons */
+.action-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--text-dim);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.action-btn:hover { color: var(--amber); border-color: var(--amber-dim); background: var(--amber-glow); }
+.action-btn.green:hover { color: #4ade80; border-color: #166534; background: rgba(34,197,94,0.08); }
+.action-btn.red:hover { color: #fca5a5; border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+
+/* Notenberater */
+.notenberater-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.nb-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.nb-card.achieved { border-color: #166534; background: rgba(34,197,94,0.06); }
+.nb-card.possible { border-color: var(--border); }
+.nb-card.impossible { opacity: 0.45; }
+.nb-card.current { border-color: var(--amber); background: var(--amber-glow); }
+
+.nb-note {
+  font-family: var(--display);
+  font-size: 32px;
+  line-height: 1;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.nb-card.achieved .nb-note { color: #4ade80; }
+.nb-card.current .nb-note { color: var(--amber); }
+.nb-card.impossible .nb-note { color: var(--text-muted); }
+
+.nb-needed {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.nb-b2-needed {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+.nb-card.achieved .nb-b2-needed { color: #4ade80; }
+.nb-card.current .nb-b2-needed { color: var(--amber); }
+
+.nb-per-fach {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.nb-status-dot {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+.nb-card.achieved .nb-status-dot { background: #4ade80; }
+.nb-card.current .nb-status-dot { background: var(--amber); animation: pulse 2s infinite; }
+.nb-card.impossible .nb-status-dot { background: var(--red); }
+
+.nb-bar {
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.nb-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--amber);
+  transition: width 0.4s;
+}
+.nb-card.achieved .nb-bar-fill { background: #4ade80; }
+.nb-card.impossible .nb-bar-fill { background: var(--red); }
+
+.nb-b2-note {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* Warning banner */
+.warning-banner {
+  display: none;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #fca5a5;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 10px 16px;
+  letter-spacing: 0.5px;
+}
+.warning-banner.show { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>ABITURNOTENRECHNER</h1>
+    <p>Bayern G9 &bull; Technisches Gymnasium &bull; Q13/2 &bull; Stand 2026</p>
+  </div>
+  <div class="score-display">
+    <div class="score-block">
+      <div class="label">Block I</div>
+      <div class="value" id="header-b1">—</div>
+    </div>
+    <div class="score-sep"></div>
+    <div class="score-block">
+      <div class="label">Block II</div>
+      <div class="value" id="header-b2">—</div>
+    </div>
+    <div class="score-sep"></div>
+    <div class="score-block">
+      <div class="label">Gesamt</div>
+      <div class="value" id="header-total">—</div>
+    </div>
+    <div class="score-sep"></div>
+    <div class="score-block">
+      <div class="label">Note</div>
+      <div class="value grade" id="header-grade">—</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Info bar -->
+  <div class="info-row">
+    <div class="info-item"><span class="info-dot"></span> Note eintippen, dann auf ✕ klicken zum Ausstreichen (Optionsregel)</div>
+    <div class="info-item"><span class="info-dot red"></span> Gesperrte Fächer (Deutsch, Mathe, LF, Abiturprüfungsfächer) können nicht ausgestrichen werden</div>
+    <div class="info-item"><span class="info-dot purple"></span> W-Seminar zählt 4 Einbringungen (2× HJ + Seminararbeit ×2)</div>
+    <div class="info-item"><span class="info-dot green"></span> 13/2 ist dein aktuelles Halbjahr</div>
+  </div>
+
+  <div id="warning-banner" class="warning-banner"></div>
+
+  <!-- BLOCK I -->
+  <section>
+    <div class="section-header">
+      <div class="section-title">
+        BLOCK I — HALBJAHRESLEISTUNGEN
+        <span class="tag">max. 600 Pkt</span>
+      </div>
+      <div class="einbring-counter">
+        <button class="action-btn" onclick="loadDefaults()" title="Meine bisherigen Noten laden">⟳ Standard laden</button>
+        <button class="action-btn green" onclick="autoStrike()" title="Schlechteste streichbare HJL automatisch ausstreichen">✦ Auto-Ausstreichen</button>
+        <button class="action-btn red" onclick="resetStrikes()" title="Alle Ausstreiche zurücksetzen">↺ Strikes zurück</button>
+        <div style="width:1px;height:24px;background:var(--border);margin:0 4px"></div>
+        <span class="einbring-label" id="einbring-label">0 / 40</span>
+        <div class="einbring-bar"><div class="einbring-fill" id="einbring-fill" style="width:0%"></div></div>
+        <span class="section-meta" id="block1-sum" style="min-width:120px;text-align:right">Summe: 0 / 600</span>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto">
+    <table class="block1-table" id="block1-table">
+      <thead>
+        <tr>
+          <th style="min-width:220px">Fach</th>
+          <th style="min-width:80px">Typ</th>
+          <th class="sem-col">12/1</th>
+          <th class="sem-col">12/2</th>
+          <th class="sem-col">13/1</th>
+          <th class="sem-col semester-active-header">13/2 ←</th>
+          <th class="total-col">Σ eingebracht</th>
+          <th class="action-col"></th>
+        </tr>
+      </thead>
+      <tbody id="subjects-tbody">
+        <!-- rows injected by JS -->
+      </tbody>
+      <tfoot>
+        <tr class="table-footer">
+          <td colspan="8">
+            <button class="add-row-btn" onclick="addSubject()">+ Fach hinzufügen</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+  </section>
+
+  <!-- BLOCK II -->
+  <section>
+    <div class="section-header">
+      <div class="section-title">
+        BLOCK II — ABITURPRÜFUNGEN
+        <span class="tag">max. 300 Pkt</span>
+      </div>
+      <div class="section-meta" id="block2-sum">Summe: 0 / 300</div>
+    </div>
+
+    <div class="block2-grid" id="block2-grid">
+      <!-- 5 cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section>
+    <div class="section-header">
+      <div class="section-title">ERGEBNIS</div>
+    </div>
+    <div class="results-panel">
+      <div class="result-item">
+        <div class="label">Block I (Halbjahresl.)</div>
+        <div class="num" id="res-b1">0</div>
+        <div class="sub">von max. 600 Punkten</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Block II (Prüfungen)</div>
+        <div class="num" id="res-b2">0</div>
+        <div class="sub">von max. 300 Punkten</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Gesamtpunktzahl</div>
+        <div class="num" id="res-total">0</div>
+        <div class="sub">von max. 900 Punkten</div>
+        <div class="grade-meter">
+          <div class="grade-meter-bar"><div class="grade-meter-fill" id="meter-fill" style="width:0%"></div></div>
+          <div class="grade-meter-labels"><span>300</span><span>600</span><span>900</span></div>
+        </div>
+      </div>
+      <div class="result-item">
+        <div class="label">Abiturdurchschnittsnote</div>
+        <div class="final-grade pending" id="res-grade">—</div>
+        <div class="nicht-bestanden-hint" id="fail-hint" style="display:none">Nicht bestanden (mind. 300 Pkt. benötigt)</div>
+        <div style="margin-top:8px; font-family:var(--mono); font-size:11px; color:var(--text-muted)" id="res-range"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTENBERATER -->
+  <section>
+    <div class="section-header">
+      <div class="section-title">
+        NOTENBERATER
+        <span class="tag">dynamisch</span>
+      </div>
+      <div class="section-meta" id="nb-meta" style="font-family:var(--mono);font-size:11px;color:var(--text-dim)">Block I: — &nbsp;|&nbsp; Block II noch offen: —</div>
+    </div>
+    <div class="notenberater-grid" id="notenberater-grid">
+      <!-- injected by JS -->
+    </div>
+    <div style="margin-top:12px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--text-muted);display:flex;gap:24px;flex-wrap:wrap" id="nb-legend">
+      <span>⬤ <span style="color:#4ade80">Bereits erreicht</span></span>
+      <span>⬤ <span style="color:var(--amber)">Aktuelle Note</span></span>
+      <span>⬤ <span style="color:var(--text-dim)">Erreichbar</span></span>
+      <span>⬤ <span style="color:var(--red)">Nicht erreichbar</span></span>
+      <span style="margin-left:auto">Ø Prüfung = durchschnittliche Note pro Abiturprüfung (0–15 Pkt.), die du noch brauchst</span>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const SEMS = ['12/1','12/2','13/1','13/2'];
+
+// subject types
+const TYPES = {
+  'ea': { label: 'eA', badge: 'ea', locked: true, desc: 'Erhöhtes Anforderungsniveau' },
+  'ga': { label: 'gA', badge: 'ga', locked: false, desc: 'Grundlegendes Anforderungsniveau' },
+  'pf': { label: 'Abiturfach', badge: 'pf', locked: true, desc: 'Abiturprüfungsfach (gA)' },
+  'fs': { label: 'Fremdsprache', badge: 'ga', locked: false, desc: 'Fremdsprache (mind. 4 HJL)' },
+  'nw': { label: 'NaWi', badge: 'ga', locked: false, desc: 'Naturwissenschaft (mind. 4 HJL)' },
+  'ws': { label: 'W-Seminar', badge: 'ws', locked: false, desc: 'W-Seminar (Sonderregel)' },
+  'sa': { label: 'Seminararbeit', badge: 'ws', locked: true, desc: 'W-Seminararbeit (max. 30 Pkt, zählt 2×)' },
+  'q12': { label: 'Nur Q12', badge: 'ga', locked: false, desc: 'Nur Q12 (12/1 + 12/2), z.B. PuG' },
+  'opt': { label: 'Wahlf.', badge: 'ga', locked: false, desc: 'Wahlfach / freiwillig' }
+};
+
+// Default subjects
+let subjects = [
+  { id: 1,  name: 'Deutsch',               type: 'ea',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 2,  name: 'Mathematik',             type: 'ea',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 3,  name: 'Englisch (Leistungsfach)', type: 'ea',   grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 4,  name: 'Ethik',                  type: 'pf',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 5,  name: 'Physik',                 type: 'pf',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 6,  name: 'Biologie',               type: 'nw',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 7,  name: 'Geschichte',             type: 'ga',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 8,  name: 'Wirtschaft und Recht',   type: 'ga',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 9,  name: 'Politik und Gesellschaft', type: 'q12',  grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 10, name: 'Sport',                  type: 'opt',    grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 11, name: 'Kunst',                  type: 'ga',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 12, name: 'W-Seminar',              type: 'ws',     grades: [null,null,null,null], struck: [false,false,false,false] },
+  { id: 13, name: 'Seminararbeit',          type: 'sa',     grades: [null],                struck: [false] },
+];
+
+// W-Seminar: only 12/1, 12/2 count as HJL + seminararbeit counts as 2
+// Seminararbeit: one grade field, max 30 pts, counts as 2 einbringungen
+
+let pruefungen = [
+  { id: 1, name: 'Deutsch',     type: 'schriftlich', score: null },
+  { id: 2, name: 'Mathematik',  type: 'schriftlich', score: null },
+  { id: 3, name: 'Englisch',    type: 'schriftlich', score: null },
+  { id: 4, name: 'Ethik',       type: 'mündlich',    score: null },
+  { id: 5, name: 'Physik',      type: 'mündlich',    score: null },
+];
+
+let nextId = 20;
+
+// ─── GRADE TABLE ─────────────────────────────────────────────────────────────
+
+const gradeTable = [
+  [900,823,'1,0'],[822,805,'1,1'],[804,787,'1,2'],[786,769,'1,3'],[768,751,'1,4'],
+  [750,733,'1,5'],[732,715,'1,6'],[714,697,'1,7'],[696,679,'1,8'],[678,661,'1,9'],
+  [660,643,'2,0'],[642,625,'2,1'],[624,607,'2,2'],[606,589,'2,3'],[588,571,'2,4'],
+  [570,553,'2,5'],[552,535,'2,6'],[534,517,'2,7'],[516,499,'2,8'],[498,481,'2,9'],
+  [480,463,'3,0'],[462,445,'3,1'],[444,427,'3,2'],[426,409,'3,3'],[408,391,'3,4'],
+  [390,373,'3,5'],[372,355,'3,6'],[354,337,'3,7'],[336,319,'3,8'],[318,301,'3,9'],
+  [300,300,'4,0']
+];
+
+function getGrade(pts) {
+  if (pts < 300) return null;
+  for (const [hi, lo, g] of gradeTable) {
+    if (pts >= lo && pts <= hi) return g;
+  }
+  return null;
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+
+function isLocked(subject, semIdx) {
+  const t = subject.type;
+  if (t === 'ea' || t === 'pf') return true; // all 4 locked
+  if (t === 'sa') return true;
+  if (t === 'ws') return false; // can't strike W-Seminar HJ in UI but they're already limited
+  if (t === 'fs' || t === 'nw') return false; // can't reduce below 4 total — handled in validation
+  return false;
+}
+
+function renderSubjects() {
+  const tbody = document.getElementById('subjects-tbody');
+  tbody.innerHTML = '';
+
+  for (const sub of subjects) {
+    if (sub.type === 'ws') {
+      renderWSeminarRow(tbody, sub);
+    } else if (sub.type === 'sa') {
+      renderSeminararbeitRow(tbody, sub);
+    } else if (sub.type === 'q12') {
+      renderQ12Row(tbody, sub);
+    } else {
+      renderNormalRow(tbody, sub);
+    }
+  }
+}
+
+function renderNormalRow(tbody, sub) {
+  const tr = document.createElement('tr');
+  tr.className = 'subject-row';
+  tr.setAttribute('data-id', sub.id);
+
+  const typeInfo = TYPES[sub.type] || TYPES['ga'];
+  const locked = (sub.type === 'ea' || sub.type === 'pf');
+
+  // Name cell
+  let nameTd = `<td class="subject-name-cell">
+    <div class="subject-name-wrapper">
+      <input class="subject-name-input" value="${sub.name}" onchange="updateSubjectName(${sub.id}, this.value)" title="Klick zum Umbenennen">
+      <span class="badge ${typeInfo.badge}">${typeInfo.label}</span>
+    </div>
+  </td>`;
+
+  // Type select
+  let typeTd = `<td style="padding:0 8px">
+    <select class="type-select" onchange="updateSubjectType(${sub.id}, this.value)" title="Fachtyp">`;
+  for (const [k,v] of Object.entries(TYPES)) {
+    if (k === 'ws' || k === 'sa') continue;
+    typeTd += `<option value="${k}" ${sub.type===k?'selected':''}>${v.desc}</option>`;
+  }
+  typeTd += `</select></td>`;
+
+  // Grade cells
+  let gradeTds = '';
+  for (let i = 0; i < 4; i++) {
+    const val = sub.grades[i];
+    const str = sub.struck[i];
+    const cellLocked = locked;
+    const is132 = i === 3;
+
+    gradeTds += `<td class="grade-cell${cellLocked?' locked':''}" style="${is132?'background:rgba(245,158,11,0.03)':''}">
+      <div class="grade-input-wrap">
+        <input class="grade-input${val!==null?' has-value':''}${str?' struck':''}"
+          type="number" min="0" max="15" step="1"
+          value="${val!==null?val:''}"
+          placeholder="—"
+          onchange="updateGrade(${sub.id},${i},this.value)"
+          title="Note 0–15 Punkte">
+        ${!cellLocked ? `<button class="strike-btn${str?' active':''}" onclick="toggleStrike(${sub.id},${i})" title="Ausstreichen / Wieder einbringen">✕</button>` : `<span class="cell-lock" title="Pflichteinbringung">🔒</span>`}
+      </div>
+    </td>`;
+  }
+
+  // Row total
+  const rowTotal = calcSubjectTotal(sub);
+  const rowTotalTd = `<td class="row-total-cell"><span class="row-total${rowTotal>0?' has-data':''}">${rowTotal > 0 ? rowTotal : '—'}</span></td>`;
+
+  // Delete
+  const delTd = `<td class="action-col"><button class="del-row-btn" onclick="deleteSubject(${sub.id})" title="Fach entfernen">×</button></td>`;
+
+  tr.innerHTML = nameTd + typeTd + gradeTds + rowTotalTd + delTd;
+  tbody.appendChild(tr);
+}
+
+function renderQ12Row(tbody, sub) {
+  const tr = document.createElement('tr');
+  tr.className = 'subject-row';
+  tr.setAttribute('data-id', sub.id);
+
+  let html = `<td class="subject-name-cell">
+    <div class="subject-name-wrapper">
+      <input class="subject-name-input" value="${sub.name}" onchange="updateSubjectName(${sub.id}, this.value)">
+      <span class="badge ga">Nur Q12</span>
+    </div>
+  </td>
+  <td style="padding:0 8px"><span style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">Q12 only</span></td>`;
+
+  for (let i = 0; i < 4; i++) {
+    if (i >= 2) {
+      html += `<td class="grade-cell" style="background:rgba(0,0,0,0.2)">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted)" title="Dieses Fach wird nur in Q12 belegt">—</span>
+      </td>`;
+      continue;
+    }
+    const val = sub.grades[i];
+    const str = sub.struck[i];
+    html += `<td class="grade-cell">
+      <div class="grade-input-wrap">
+        <input class="grade-input${val!==null?' has-value':''}${str?' struck':''}"
+          type="number" min="0" max="15"
+          value="${val!==null?val:''}"
+          placeholder="—"
+          onchange="updateGrade(${sub.id},${i},this.value)">
+        <button class="strike-btn${str?' active':''}" onclick="toggleStrike(${sub.id},${i})" title="Ausstreichen">✕</button>
+      </div>
+    </td>`;
+  }
+
+  const rowTotal = calcSubjectTotal(sub);
+  html += `<td class="row-total-cell"><span class="row-total${rowTotal>0?' has-data':''}">${rowTotal>0?rowTotal:'—'}</span></td>`;
+  html += `<td class="action-col"><button class="del-row-btn" onclick="deleteSubject(${sub.id})">×</button></td>`;
+  tr.innerHTML = html;
+  tbody.appendChild(tr);
+}
+
+function renderWSeminarRow(tbody, sub) {
+  const tr = document.createElement('tr');
+  tr.className = 'subject-row wseminar-row';
+  tr.setAttribute('data-id', sub.id);
+
+  let html = `<td class="subject-name-cell">
+    <div class="subject-name-wrapper">
+      <input class="subject-name-input" value="${sub.name}" onchange="updateSubjectName(${sub.id}, this.value)">
+      <span class="badge ws">W-Seminar</span>
+    </div>
+  </td>
+  <td style="padding:0 8px"><span style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">Sonderregel</span></td>`;
+
+  // Only 12/1 and 12/2 for W-Seminar
+  for (let i = 0; i < 4; i++) {
+    if (i >= 2) {
+      html += `<td class="grade-cell" style="background:rgba(0,0,0,0.2)">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">—</span>
+      </td>`;
+      continue;
+    }
+    const val = sub.grades[i];
+    const str = sub.struck[i];
+    html += `<td class="grade-cell">
+      <div class="grade-input-wrap">
+        <input class="grade-input${val!==null?' has-value':''}${str?' struck':''}"
+          type="number" min="0" max="15"
+          value="${val!==null?val:''}"
+          placeholder="—"
+          onchange="updateGrade(${sub.id},${i},this.value)">
+        <button class="strike-btn${str?' active':''}" onclick="toggleStrike(${sub.id},${i})" title="Ausstreichen">✕</button>
+      </div>
+    </td>`;
+  }
+
+  const rowTotal = calcSubjectTotal(sub);
+  html += `<td class="row-total-cell"><span class="row-total${rowTotal>0?' has-data':''}">${rowTotal>0?rowTotal:'—'}</span></td>`;
+  html += `<td class="action-col"><button class="del-row-btn" onclick="deleteSubject(${sub.id})">×</button></td>`;
+
+  tr.innerHTML = html;
+  tbody.appendChild(tr);
+}
+
+function renderSeminararbeitRow(tbody, sub) {
+  const tr = document.createElement('tr');
+  tr.className = 'subject-row seminararbeit-row';
+  tr.setAttribute('data-id', sub.id);
+
+  const val = sub.grades[0];
+
+  let html = `<td class="subject-name-cell">
+    <div class="subject-name-wrapper">
+      <input class="subject-name-input" value="${sub.name}" onchange="updateSubjectName(${sub.id}, this.value)">
+      <span class="badge ws">Seminararbeit</span>
+    </div>
+  </td>
+  <td style="padding:0 8px"><span style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">max. 30 Pkt, zählt 2×</span></td>
+  <td class="grade-cell" colspan="4" style="text-align:left;padding-left:24px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <input class="seminar-input${val!==null?' has-value':''}"
+        type="number" min="0" max="30"
+        value="${val!==null?val:''}"
+        placeholder="0–30"
+        onchange="updateSeminarGrade(${sub.id},this.value)">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted)">Punkte (Arbeit 3×, Präsentation 1× → Durchschnitt)</span>
+    </div>
+  </td>
+  <td class="row-total-cell"><span class="row-total${val!==null?' has-data':''}" id="sa-total">${val!==null ? '2×'+val : '—'}</span></td>
+  <td class="action-col"></td>`;
+
+  tr.innerHTML = html;
+  tbody.appendChild(tr);
+}
+
+function renderPruefungen() {
+  const grid = document.getElementById('block2-grid');
+  grid.innerHTML = '';
+  pruefungen.forEach((p, idx) => {
+    const card = document.createElement('div');
+    card.className = 'pruefung-card';
+    const pts4 = p.score !== null ? p.score * 4 : null;
+
+    card.innerHTML = `
+      <div class="pruefung-num">${idx+1}</div>
+      <div class="pruefung-label">Prüfung ${idx+1}</div>
+      <input class="pruefung-name-input" value="${p.name}" placeholder="Fachname" onchange="updatePruefungName(${p.id},this.value)">
+      <div class="pruefung-type-row">
+        <span class="type-pill schriftlich${p.type==='schriftlich'?' active':''}" onclick="setPruefungType(${p.id},'schriftlich',this)">schriftlich</span>
+        <span class="type-pill muendlich${p.type==='mündlich'?' active':''}" onclick="setPruefungType(${p.id},'mündlich',this)">mündlich</span>
+      </div>
+      <div class="pruefung-score-row">
+        <input class="pruefung-score-input" type="number" min="0" max="15"
+          value="${p.score!==null?p.score:''}"
+          placeholder="0–15"
+          onchange="updatePruefungScore(${p.id},this.value)"
+          title="Ergebnis in Punkte (0–15)">
+        <div>
+          <div class="pruefung-calc">× 4 =</div>
+          <div class="pruefung-result${pts4!==null?' has-val':''}">${pts4!==null?pts4:'—'}</div>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ─── MUTATIONS ───────────────────────────────────────────────────────────────
+
+function updateSubjectName(id, val) {
+  const s = subjects.find(x=>x.id===id);
+  if (s) s.name = val;
+  recalc();
+}
+
+function updateSubjectType(id, type) {
+  const s = subjects.find(x=>x.id===id);
+  if (!s) return;
+  s.type = type;
+  renderSubjects();
+  recalc();
+}
+
+function updateGrade(id, semIdx, val) {
+  const s = subjects.find(x=>x.id===id);
+  if (!s) return;
+  const n = val === '' ? null : Math.min(15, Math.max(0, parseInt(val)));
+  s.grades[semIdx] = n;
+  if (n === null) s.struck[semIdx] = false;
+  renderSubjects();
+  recalc();
+}
+
+function updateSeminarGrade(id, val) {
+  const s = subjects.find(x=>x.id===id);
+  if (!s) return;
+  s.grades[0] = val === '' ? null : Math.min(30, Math.max(0, parseInt(val)));
+  renderSubjects();
+  recalc();
+}
+
+function toggleStrike(id, semIdx) {
+  const s = subjects.find(x=>x.id===id);
+  if (!s) return;
+  if (s.grades[semIdx] === null) return; // can't strike empty
+  s.struck[semIdx] = !s.struck[semIdx];
+  renderSubjects();
+  recalc();
+}
+
+function updatePruefungName(id, val) {
+  const p = pruefungen.find(x=>x.id===id);
+  if (p) p.name = val;
+  recalc();
+}
+
+function setPruefungType(id, type, el) {
+  const p = pruefungen.find(x=>x.id===id);
+  if (!p) return;
+  p.type = type;
+  const card = el.closest('.pruefung-card');
+  card.querySelectorAll('.type-pill').forEach(pill => {
+    pill.classList.remove('active');
+    if (pill.classList.contains(type)) pill.classList.add('active');
+  });
+  recalc();
+}
+
+function updatePruefungScore(id, val) {
+  const p = pruefungen.find(x=>x.id===id);
+  if (!p) return;
+  p.score = val === '' ? null : Math.min(15, Math.max(0, parseInt(val)));
+  renderPruefungen();
+  recalc();
+}
+
+function addSubject() {
+  subjects.push({
+    id: nextId++,
+    name: 'Neues Fach',
+    type: 'ga',
+    grades: [null,null,null,null],
+    struck: [false,false,false,false]
+  });
+  renderSubjects();
+  recalc();
+}
+
+function deleteSubject(id) {
+  subjects = subjects.filter(x=>x.id!==id);
+  renderSubjects();
+  recalc();
+}
+
+// ─── CALC ─────────────────────────────────────────────────────────────────────
+
+function calcSubjectTotal(sub) {
+  if (sub.type === 'sa') {
+    return sub.grades[0] !== null ? sub.grades[0] : 0;
+  }
+  if (sub.type === 'ws' || sub.type === 'q12') {
+    let t = 0;
+    for (let i = 0; i < 2; i++) {
+      if (sub.grades[i] !== null && !sub.struck[i]) t += sub.grades[i];
+    }
+    return t;
+  }
+  let t = 0;
+  for (let i = 0; i < 4; i++) {
+    if (sub.grades[i] !== null && !sub.struck[i]) t += sub.grades[i];
+  }
+  return t;
+}
+
+function calcEinbringungen() {
+  let count = 0;
+  for (const sub of subjects) {
+    if (sub.type === 'sa') {
+      if (sub.grades[0] !== null) count += 2;
+      continue;
+    }
+    if (sub.type === 'ws' || sub.type === 'q12') {
+      for (let i = 0; i < 2; i++) {
+        if (sub.grades[i] !== null && !sub.struck[i]) count++;
+      }
+      continue;
+    }
+    for (let i = 0; i < 4; i++) {
+      if (sub.grades[i] !== null && !sub.struck[i]) count++;
+    }
+  }
+  return count;
+}
+
+function calcBlock1() {
+  let sum = 0;
+  for (const sub of subjects) {
+    if (sub.type === 'sa') {
+      if (sub.grades[0] !== null) sum += sub.grades[0];
+      continue;
+    }
+    if (sub.type === 'ws' || sub.type === 'q12') {
+      for (let i = 0; i < 2; i++) {
+        if (sub.grades[i] !== null && !sub.struck[i]) sum += sub.grades[i];
+      }
+      continue;
+    }
+    for (let i = 0; i < 4; i++) {
+      if (sub.grades[i] !== null && !sub.struck[i]) sum += sub.grades[i];
+    }
+  }
+  return sum;
+}
+
+function calcBlock2() {
+  let sum = 0;
+  for (const p of pruefungen) {
+    if (p.score !== null) sum += p.score * 4;
+  }
+  return sum;
+}
+
+function recalc() {
+  const b1 = calcBlock1();
+  const b2 = calcBlock2();
+  const total = b1 + b2;
+  const einbring = calcEinbringungen();
+
+  // Update einbringungen counter
+  const elLabel = document.getElementById('einbring-label');
+  const elFill = document.getElementById('einbring-fill');
+  elLabel.textContent = `${einbring} / 40`;
+  elLabel.className = 'einbring-label' + (einbring > 40 ? ' over' : '');
+  const pct = Math.min(100, (einbring / 40) * 100);
+  elFill.style.width = pct + '%';
+  elFill.className = 'einbring-fill' + (einbring > 40 ? ' over' : '');
+
+  // Warnings
+  const warn = document.getElementById('warning-banner');
+  if (einbring > 40) {
+    warn.textContent = `⚠ Du hast ${einbring} Einbringungen — das Maximum sind 40. Bitte streiche noch ${einbring-40} Halbjahresleistung(en) aus.`;
+    warn.className = 'warning-banner show';
+  } else {
+    warn.className = 'warning-banner';
+  }
+
+  // Block I
+  document.getElementById('block1-sum').textContent = `Summe: ${b1} / 600`;
+
+  // Block II
+  document.getElementById('block2-sum').textContent = `Summe: ${b2} / 300`;
+
+  // Results
+  const resB1 = document.getElementById('res-b1');
+  const resB2 = document.getElementById('res-b2');
+  const resTotal = document.getElementById('res-total');
+  const resGrade = document.getElementById('res-grade');
+  const failHint = document.getElementById('fail-hint');
+  const resRange = document.getElementById('res-range');
+  const meterFill = document.getElementById('meter-fill');
+
+  resB1.textContent = b1;
+  resB1.className = 'num' + (b1 > 0 ? ' active' : '');
+  resB2.textContent = b2;
+  resB2.className = 'num' + (b2 > 0 ? ' active' : '');
+  resTotal.textContent = total;
+  resTotal.className = 'num' + (total > 0 ? ' active' : '');
+
+  // Meter: 300 = pass threshold, map 300-900 to 0-100%
+  const meterPct = total < 300 ? (total / 300 * 33) : 33 + ((total - 300) / 600 * 67);
+  meterFill.style.width = Math.min(100, Math.max(0, meterPct)) + '%';
+
+  // Grade
+  if (total === 0) {
+    resGrade.textContent = '—';
+    resGrade.className = 'final-grade pending';
+    failHint.style.display = 'none';
+    resRange.textContent = '';
+  } else if (total < 300) {
+    resGrade.textContent = 'N.B.';
+    resGrade.className = 'final-grade fail';
+    failHint.style.display = 'block';
+    resRange.textContent = `${300 - total} Punkte fehlen zum Bestehen`;
+  } else {
+    const grade = getGrade(total);
+    resGrade.textContent = grade || '—';
+    resGrade.className = 'final-grade pass';
+    failHint.style.display = 'none';
+    resRange.textContent = `${900 - total} Punkte bis zur Note 1,0`;
+  }
+
+  // Notenberater
+  renderNotenberater(b1, b2);
+}
+
+// ─── DEFAULT DATA ─────────────────────────────────────────────────────────────
+
+const DEFAULT_GRADES = {
+  1:  [7,  10, 10, null],
+  2:  [11, 9,  9,  null],
+  3:  [10, 14, 13, null],
+  4:  [9,  15, 10, null],
+  5:  [11, 9,  11, null],
+  6:  [8,  8,  8,  null],
+  7:  [9,  9,  9,  null],
+  8:  [7,  8,  8,  null],
+  9:  [11, 8,  null, null],
+  10: [9,  15, 13, null],
+  11: [9,  12, 12, null],
+  12: [10, 11, null, null],
+};
+
+function loadDefaults() {
+  for (const sub of subjects) {
+    if (sub.type === 'sa') continue;
+    const def = DEFAULT_GRADES[sub.id];
+    if (!def) continue;
+    sub.grades = [...def];
+    sub.struck = sub.grades.map(() => false);
+  }
+  renderSubjects();
+  recalc();
+}
+
+// ─── AUTO-STRIKE ──────────────────────────────────────────────────────────────
+
+function autoStrike() {
+  // First reset all non-locked strikes
+  for (const sub of subjects) {
+    if (sub.type === 'sa' || sub.type === 'ea' || sub.type === 'pf') continue;
+    sub.struck = sub.struck.map(() => false);
+  }
+
+  // Build list of strikeable slots: { subId, semIdx, value }
+  // Rules:
+  // - ea, pf: never strikeable
+  // - sa: never
+  // - nw/fs: need to keep at least 4 entries total across all nw / all fs
+  // - ws, q12: can strike either of their 2 slots
+  // - ga, opt: can strike any slot with a value
+
+  let strikeable = [];
+
+  for (const sub of subjects) {
+    const t = sub.type;
+    if (t === 'ea' || t === 'pf' || t === 'sa') continue;
+    const maxSem = (t === 'ws' || t === 'q12') ? 2 : 4;
+    for (let i = 0; i < maxSem; i++) {
+      if (sub.grades[i] !== null) {
+        strikeable.push({ subId: sub.id, semIdx: i, value: sub.grades[i], type: t });
+      }
+    }
+  }
+
+  // Sort ascending (worst first = lowest points)
+  strikeable.sort((a, b) => a.value - b.value);
+
+  // Strike until einbringungen <= 40, respecting nw/fs min-4 constraint
+  let safety = 0;
+  while (calcEinbringungen() > 40 && safety < 50) {
+    safety++;
+    let struck = false;
+    for (const slot of strikeable) {
+      const sub = subjects.find(x => x.id === slot.subId);
+      if (!sub || sub.struck[slot.semIdx]) continue;
+
+      // Check fs/nw constraint: after striking, still >=4 total for that type?
+      if (slot.type === 'fs' || slot.type === 'nw') {
+        const sametype = subjects.filter(x => x.type === slot.type);
+        let countAfter = 0;
+        for (const s of sametype) {
+          for (let i = 0; i < 4; i++) {
+            if (s.grades[i] !== null) {
+              const wouldBeStruck = (s.id === slot.subId && i === slot.semIdx) ? true : s.struck[i];
+              if (!wouldBeStruck) countAfter++;
+            }
+          }
+        }
+        if (countAfter < 4) continue;
+      }
+
+      sub.struck[slot.semIdx] = true;
+      struck = true;
+      break;
+    }
+    if (!struck) break;
+  }
+
+  renderSubjects();
+  recalc();
+}
+
+function resetStrikes() {
+  for (const sub of subjects) {
+    sub.struck = sub.struck.map(() => false);
+  }
+  renderSubjects();
+  recalc();
+}
+
+// ─── NOTENBERATER ─────────────────────────────────────────────────────────────
+
+function renderNotenberater(b1, b2) {
+  const grid = document.getElementById('notenberater-grid');
+  const meta = document.getElementById('nb-meta');
+  if (!grid) return;
+
+  const b2Current = b2;
+  const b2Max = 300;
+  const totalCurrent = b1 + b2Current;
+  const currentGrade = getGrade(totalCurrent);
+
+  meta.textContent = `Block I: ${b1} Pkt  |  Block II aktuell: ${b2Current} Pkt  |  Gesamt: ${totalCurrent} Pkt`;
+
+  grid.innerHTML = '';
+
+  for (const [hi, lo, note] of gradeTable) {
+    const needed = lo; // minimum total for this grade
+    const b2Needed = needed - b1; // how much Block II still needed
+    const b2Still = b2Needed - b2Current; // still missing from Block II
+    const perExam = b2Needed / 5 / 4; // avg raw score (0-15) per exam to get b2Needed
+
+    let status;
+    if (totalCurrent >= lo) status = 'achieved';
+    else if (b2Needed <= b2Max) status = 'possible';
+    else status = 'impossible';
+
+    if (note === currentGrade && totalCurrent >= 300) status = 'current';
+
+    const card = document.createElement('div');
+    card.className = `nb-card ${status}`;
+
+    const pct = Math.min(100, Math.max(0, (totalCurrent / lo) * 100));
+    const perExamRaw = Math.max(0, b2Still / 5 / 4); // avg still needed per exam (raw 0-15)
+    const perExamTotal = Math.max(0, Math.ceil(b2Needed / 5)); // total pts per exam incl ×4
+
+    let b2Label, perFachLabel;
+    if (status === 'achieved') {
+      b2Label = '✓ erreicht';
+      perFachLabel = '';
+    } else if (status === 'impossible') {
+      b2Label = 'Nicht möglich';
+      perFachLabel = `Block II bräuchte ${b2Needed} Pkt`;
+    } else {
+      const stillNeeded = Math.max(0, b2Needed - b2Current);
+      b2Label = stillNeeded > 0 ? `noch ${stillNeeded} Pkt in B2` : '✓ fast da';
+      const avgPerExam = (b2Needed - b2Current) / 5 / 4;
+      const avgFmt = avgPerExam <= 0 ? '—' : avgPerExam.toFixed(1);
+      perFachLabel = `Ø ${avgFmt} / 15 pro Prüfung`;
+    }
+
+    card.innerHTML = `
+      <div class="nb-status-dot"></div>
+      <div class="nb-note">${note}</div>
+      <div class="nb-needed">Min. ${lo} Punkte gesamt</div>
+      <div class="nb-b2-needed">${b2Label}</div>
+      <div class="nb-per-fach">${perFachLabel}</div>
+      <div class="nb-bar"><div class="nb-bar-fill" style="width:${pct}%"></div></div>
+      <div class="nb-b2-note">${pct >= 100 ? '100%' : pct.toFixed(0) + '% erreicht'}</div>
+    `;
+    grid.appendChild(card);
+  }
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+
+renderSubjects();
+renderPruefungen();
+recalc();
+</script>
+</body>
+</html>
